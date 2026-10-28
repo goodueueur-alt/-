@@ -6,200 +6,77 @@
   <meta name="theme-color" content="#100b2e">
   <title>𝑹𝒊𝒇𝒂𝒕 𝑭𝑭 𝑷𝒂𝒏𝒆𝒍 𝑺𝒆𝒍𝒍𝒆𝚛</title>
   <style>
-    :root { color-scheme: dark; --glass: rgba(255,255,255,.09); --line: rgba(255,255,255,.17); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: system-ui, -apple-system, "Noto Sans Bengali", sans-serif;
-      background: #100b2e;
-      color: #fff;
+      background: #060413;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
-      background-image: radial-gradient(ellipse at 15% 10%, rgba(255,0,153,.36), transparent 34%),
-                        radial-gradient(ellipse at 90% 20%, rgba(0,204,255,.27), transparent 32%),
-                        radial-gradient(ellipse at 50% 100%, rgba(121,40,202,.45), transparent 45%),
-                        linear-gradient(135deg, #100b2e, #171044 55%, #090d25);
+      padding: 0;
     }
-    .container {
+    .poster-container {
+      position: relative;
       width: 100%;
-      max-width: 520px;
-      background: rgba(18, 14, 48, 0.85);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 30px 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      text-align: center;
+      max-width: 500px;
+      line-height: 0;
     }
-    .avatar {
-      width: 90px;
-      height: 90px;
-      margin: 0 auto 15px;
-      border-radius: 26px;
-      background: linear-gradient(135deg, #ff3cac, #784ba0, #2b86c5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      font-weight: bold;
-      border: 2px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 10px 30px rgba(164, 59, 202, 0.4);
+    .poster-img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-    .subtitle {
-      font-size: 14px;
-      color: #d9d4ff;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-    .pill {
-      display: inline-block;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 12px;
-      color: #eeeaff;
-      margin-bottom: 15px;
-    }
-    .section-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: #a78bfa;
-      margin: 20px 0 10px;
-      text-align: left;
-    }
-    .links-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .link-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--glass);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 12px;
-      border-radius: 16px;
+    /* স্বচ্ছ বাটন ওভারলে যা একদম পোস্টারের নির্দিষ্ট বাটনের ওপর নিখুঁতভাবে থাকবে */
+    .clickable-area {
+      position: absolute;
+      display: block;
       text-decoration: none;
-      color: #fff;
-      font-weight: 600;
-      font-size: 13px;
-      transition: all 0.2s ease;
-      text-align: left;
+      background: transparent;
+      border-radius: 16px;
+      transition: background 0.15s ease;
     }
-    .link-box:hover {
-      background: rgba(255, 255, 255, 0.18);
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.4);
+    .clickable-area:hover {
+      background: rgba(255, 255, 255, 0.08);
     }
-    .icon {
-      width: 32px;
-      height: 32px;
-      flex: 0 0 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.15);
-    }
-    .icon img {
-      width: 18px;
-      height: 18px;
-      object-fit: contain;
-    }
-    .arrow {
-      margin-left: auto;
-      font-size: 14px;
-      opacity: 0.7;
-    }
-    footer {
-      margin-top: 25px;
-      font-size: 12px;
-      color: #aaa4d6;
-    }
-    @media (max-width: 480px) {
-      .links-grid { grid-template-columns: 1fr; }
-    }
+
+    /* পজিশনগুলো আপনার পোস্টারের ডিজাইন অনুযায়ী নিখুঁতভাবে সেট করা হলো */
+    /* Social Media Row 1 */
+    #wa-personal { top: 46.8%; left: 9.5%; width: 39.5%; height: 5.8%; }
+    #wa-channel  { top: 46.8%; left: 51%; width: 39.5%; height: 5.8%; }
+
+    /* Social Media Row 2 */
+    #fb-id       { top: 53.6%; left: 9.5%; width: 39.5%; height: 5.8%; }
+    #fb-page     { top: 53.6%; left: 51%; width: 39.5%; height: 5.8%; }
+
+    /* Social Media Row 3 */
+    #tg-personal { top: 60.4%; left: 9.5%; width: 25.5%; height: 5.8%; }
+    #tg-group    { top: 60.4%; left: 37.2%; width: 25.5%; height: 5.8%; }
+    #tg-channel  { top: 60.4%; left: 65%; width: 25.5%; height: 5.8%; }
+
+    /* Contact Me Row */
+    #contact-wa  { top: 79.5%; left: 9.5%; width: 39.5%; height: 6.5%; }
+    #contact-tg  { top: 79.5%; left: 51%; width: 39.5%; height: 6.5%; }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="avatar">RFF</div>
-    <div class="pill">✨ OFFICIAL SOCIAL LINKS ✨</div>
-    <h1>𝑹𝒊𝒇𝒂𝒕 𝑭𝑭 𝑷𝒂𝒏𝒆𝒍 𝑺𝒆𝒍𝒍𝒆🇷</h1>
-    <p class="subtitle">আমার সব সোশ্যাল মিডিয়া ও যোগাযোগের লিংক এক জায়গায়।<br>পছন্দের বাটনে চাপ দিয়ে সরাসরি যুক্ত হও। 💜</p>
+  <div class="poster-container">
+    <!-- আপনার মূল সম্পূর্ণ পোস্টার ইমেজ -->
+    <img src="file_000000001188821182f49ac1b833a6a4.png" alt="Rifat FF Panel Seller" class="poster-img">
 
-    <div class="section-title">🌐 Social Media</div>
+    <!-- সোশাল মিডিয়া এবং কন্টাক্ট লিংকগুলোর ক্লিক করার জন্য স্বচ্ছ বাটন লেয়ার -->
+    <a id="wa-personal" class="clickable-area" href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer"></a>
+    <a id="wa-channel" class="clickable-area" href="https://whatsapp.com/channel/0029Vb97ufkADTO9iwSKzX18" target="_blank" rel="noopener noreferrer"></a>
     
-    <div class="links-grid">
-      <a class="link-box" href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer">
-        <div class="icon"><img src="file_00000000982c8211b5c6a7e6033e4f7d.png" alt="WA"></div>
-        <span>WhatsApp Personal</span>
-        <span class="arrow">↗</span>
-      </a>
-
-      <a class="link-box" href="https://whatsapp.com/channel/0029Vb97ufkADTO9iwSKzX18" target="_blank" rel="noopener noreferrer">
-        <div class="icon"><img src="file_00000000982c8211b5c6a7e6033e4f7d.png" alt="WA"></div>
-        <span>WhatsApp Channel</span>
-        <span class="arrow">↗</span>
-      </a>
-
-      <a class="link-box" href="https://www.facebook.com/share/19tro8znC9/" target="_blank" rel="noopener noreferrer">
-        <div class="icon"><img src="file_000000006be48211961699582a06caf5.png" alt="FB"></div>
-        <span>Facebook ID</span>
-        <span class="arrow">↗</span>
-      </a>
-
-      <a class="link-box" href="https://www.facebook.com/share/19tro8znC9/" target="_blank" rel="noopener noreferrer">
-        <div class="icon"><img src="file_000000006be48211961699582a06caf5.png" alt="FB"></div>
-        <span>Facebook Page</span>
-        <span class="arrow">↗</span>
-      </a>
-
-      <a class="link-box" href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer">
-        <div class="icon"><img src="file_00000000588c82118adb2b305ebc46a0.png" alt="TG"></div>
-        <span>Telegram Personal</span>
-        <span class="arrow">↗</span>
-      </a>
-
-      <a class="link-box" href="https://t.me/rifatffpanelSellerBot1" target="_blank" rel="noopener noreferrer">
-        <div class="icon"><img src="file_00000000588c82118adb2b305ebc46a0.png" alt="TG"></div>
-        <span>Telegram Group</span>
-        <span class="arrow">↗</span>
-      </a>
-    </div>
-
-    <a class="link-box" href="https://t.me/RifatFFPanelSeller" target="_blank" rel="noopener noreferrer" style="margin-top: 10px;">
-      <div class="icon"><img src="file_00000000588c82118adb2b305ebc46a0.png" alt="TG"></div>
-      <span>Telegram Channel</span>
-      <span class="arrow">↗</span>
-    </a>
-
-    <div class="section-title">💬 Contact Me</div>
+    <a id="fb-id" class="clickable-area" href="https://www.facebook.com/share/19tro8znC9/" target="_blank" rel="noopener noreferrer"></a>
+    <a id="fb-page" class="clickable-area" href="https://www.facebook.com/share/19tro8znC9/" target="_blank" rel="noopener noreferrer"></a>
     
-    <div class="links-grid">
-      <a class="link-box" href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer">
-        <div class="icon"><img src="file_00000000982c8211b5c6a7e6033e4f7d.png" alt="WA"></div>
-        <span>WhatsApp যোগাযোগ</span>
-        <span class="arrow">↗</span>
-      </a>
+    <a id="tg-personal" class="clickable-area" href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer"></a>
+    <a id="tg-group" class="clickable-area" href="https://t.me/rifatffpanelSellerBot1" target="_blank" rel="noopener noreferrer"></a>
+    <a id="tg-channel" class="clickable-area" href="https://t.me/RifatFFPanelSeller" target="_blank" rel="noopener noreferrer"></a>
 
-      <a class="link-box" href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer">
-        <div class="icon"><img src="file_00000000588c82118adb2b305ebc46a0.png" alt="TG"></div>
-        <span>Telegram যোগাযোগ</span>
-        <span class="arrow">↗</span>
-      </a>
-    </div>
-
-    <footer>Made with 💜 for <strong>Rifat FF Panel Seller</strong></footer>
+    <a id="contact-wa" class="clickable-area" href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer"></a>
+    <a id="contact-tg" class="clickable-area" href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer"></a>
   </div>
 
 </body>
