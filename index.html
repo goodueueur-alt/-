@@ -16,7 +16,6 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 </script>
- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RIFAT FF PANEL SELLER</title>
@@ -116,33 +115,22 @@ header{display:flex;justify-content:space-between;align-items:center;padding:20p
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-/*
-  SETUP REQUIRED:
-  1) Create a Firebase project at https://console.firebase.google.com/
-  2) Add a Web App, then copy its firebaseConfig values below.
-  3) Authentication > Sign-in method > enable Email/Password.
-  4) Firestore Database > create database.
-  Replace every placeholder value below with your real Firebase web config.
-*/
 const firebaseConfig = {
-  apiKey: "PASTE_YOUR_FIREBASE_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
-  appId: "PASTE_YOUR_FIREBASE_APP_ID"
+  apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
+  authDomain: "rifat-ffpanel-seller.firebaseapp.com",
+  projectId: "rifat-ffpanel-seller",
+  storageBucket: "rifat-ffpanel-seller.firebasestorage.app",
+  messagingSenderId: "270050253341",
+  appId: "1:270050253341:web:ca5db10f52d746751444f4"
 };
 let auth = null;
 let db = null;
 let firebaseReady = false;
 try {
-  if (firebaseConfig.apiKey !== "PASTE_YOUR_FIREBASE_API_KEY" &&
-      firebaseConfig.projectId !== "PASTE_YOUR_PROJECT_ID") {
-    firebase.initializeApp(firebaseConfig);
-    auth = firebase.auth();
-    db = firebase.firestore();
-    firebaseReady = true;
-  }
+  firebase.initializeApp(firebaseConfig);
+  auth = firebase.auth();
+  db = firebase.firestore();
+  firebaseReady = true;
 } catch (error) {
   console.error("Firebase initialization error:", error);
 }
@@ -159,7 +147,6 @@ function clearAuthMessage() {
 function openAuth(mode="login") {
   document.getElementById("authOverlay").classList.add("active");
   if (mode === "signup") showSignup(); else showLogin();
-  if (!firebaseReady) showAuthMessage("Firebase সেটআপ এখনো করা হয়নি। আগে কোডে Firebase config বসাও, তারপর Authentication চালু করো।", true);
 }
 function closeAuth() { document.getElementById("authOverlay").classList.remove("active"); }
 function closeAuthOutside(event) { if (event.target.id === "authOverlay") closeAuth(); }
@@ -170,7 +157,6 @@ function showLogin() {
   document.getElementById("signupForm").style.display = "none";
   document.getElementById("logoutButton").style.display = "none";
   clearAuthMessage();
-  if (!firebaseReady) showAuthMessage("Firebase সেটআপ না করা পর্যন্ত Login কাজ করবে না।", true);
 }
 function showSignup() {
   document.getElementById("authTitle").textContent = "CREATE YOUR ACCOUNT";
@@ -179,11 +165,10 @@ function showSignup() {
   document.getElementById("signupForm").style.display = "block";
   document.getElementById("logoutButton").style.display = "none";
   clearAuthMessage();
-  if (!firebaseReady) showAuthMessage("Firebase সেটআপ না করা পর্যন্ত Sign Up কাজ করবে না।", true);
 }
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
   event.preventDefault();
-  if (!firebaseReady) return showAuthMessage("প্রথমে Firebase config বসিয়ে Email/Password sign-in চালু করো।", true);
+  if (!firebaseReady) return showAuthMessage("Firebase ready না।", true);
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
   try {
@@ -194,7 +179,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 });
 document.getElementById("signupForm").addEventListener("submit", async function(event) {
   event.preventDefault();
-  if (!firebaseReady) return showAuthMessage("প্রথমে Firebase config বসিয়ে Email/Password sign-in চালু করো।", true);
+  if (!firebaseReady) return showAuthMessage("Firebase ready না।", true);
   const name = document.getElementById("signupName").value.trim();
   const username = document.getElementById("signupUsername").value.trim();
   const email = document.getElementById("signupEmail").value.trim();
@@ -215,15 +200,11 @@ document.getElementById("signupForm").addEventListener("submit", async function(
     document.getElementById("signupForm").reset();
     setTimeout(closeAuth, 1200);
   } catch (error) {
-    if (auth && auth.currentUser && error.code !== "auth/email-already-in-use") {
-      // If the auth account was created but Firestore profile write failed,
-      // the user can still sign in; configure Firestore rules before launch.
-    }
     showAuthMessage(authErrorMessage(error.code), true);
   }
 });
 async function resetPassword() {
-  if (!firebaseReady) return showAuthMessage("প্রথমে Firebase config বসাতে হবে।", true);
+  if (!firebaseReady) return;
   const email = document.getElementById("loginEmail").value.trim();
   if (!email) return showAuthMessage("Password reset link পেতে আগে Email Address লিখো।", true);
   try {
@@ -245,8 +226,7 @@ function authErrorMessage(code) {
     "auth/email-already-in-use":"এই ইমেইল দিয়ে আগে থেকেই অ্যাকাউন্ট আছে। Login করো।",
     "auth/weak-password":"পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দাও।",
     "auth/too-many-requests":"অনেকবার চেষ্টা করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করো।",
-    "auth/network-request-failed":"ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করো。",
-    "permission-denied":"Firestore access rules সেটআপ করতে হবে।"
+    "auth/network-request-failed":"ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করো।"
   };
   return messages[code] || "কাজটি সম্পন্ন হয়নি। তথ্য পরীক্ষা করে আবার চেষ্টা করো। (" + (code || "unknown") + ")";
 }
@@ -301,4 +281,4 @@ function closeModalOnOutside(event){if(event.target.classList.contains("modal-ov
 document.addEventListener("keydown",event=>{if(event.key==="Escape"){closeModal();closeAuth()}});
 </script>
 </body>
-</html>
+ </html>
