@@ -1,225 +1,341 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RIFAT FF PANEL SELLER</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<!-- RIFAT FF PANEL SELLER: MEMBER HOME PAGE -->
 
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: #090b18;
-      color: white;
-    }
+<section id="memberHome" style="display:none;">
 
-    .container {
-      max-width: 400px;
-      margin: 30px auto;
-      padding: 24px;
-      background: #15182b;
-      border: 1px solid #6c4cff;
-      border-radius: 16px;
-      box-shadow: 0 0 20px #34216b;
-    }
+  <!-- Header -->
+  <header class="member-header">
+    <div class="brand-logo">R<span>FF</span></div>
 
-    h2, p {
-      text-align: center;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-
-    input {
-      color: white;
-      background: #090b18;
-      border: 1px solid #414765;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-      background: #7548ff;
-      color: white;
-      font-weight: bold;
-    }
-
-    .secondary {
-      background: #252a43;
-      border: 1px solid #7548ff;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .panel {
-      padding: 15px;
-      margin: 15px 0;
-      background: #20243b;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .panel img {
-      width: 100%;
-      max-height: 180px;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .message {
-      color: #80ffd0;
-      text-align: center;
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- LOGIN PAGE -->
-  <section class="container" id="loginPage">
-    <h2>RIFAT FF PANEL SELLER</h2>
-    <p>Member Login</p>
-
-    <form id="loginForm">
-      <input id="loginUsername" placeholder="Username" required>
-      <input id="loginPassword" type="password"
-             placeholder="Password" required>
-      <button type="submit">Submit / Login</button>
-    </form>
-
-    <button class="secondary" onclick="showSignup()">
-      Sign Up
-    </button>
-
-    <button class="secondary" onclick="showOwner()">
-      Owner Option
-    </button>
-
-    <p id="loginMessage" class="message"></p>
-  </section>
-
-  <!-- SIGN UP PAGE -->
-  <section class="container hidden" id="signupPage">
-    <h2>Create Account</h2>
-
-    <form id="signupForm">
-      <input id="fullName" placeholder="Full Name" required>
-      <input id="newUsername" placeholder="Username" required>
-      <input id="gmail" type="email" placeholder="Gmail Address" required>
-      <input id="newPassword" type="password"
-             placeholder="Password (at least 6 characters)"
-             minlength="6" required>
-      <input id="confirmPassword" type="password"
-             placeholder="Confirm Password" minlength="6" required>
-
-      <button type="submit">Create Account</button>
-    </form>
-
-    <button class="secondary" onclick="showLogin()">
-      Back to Login
-    </button>
-
-    <p id="signupMessage" class="message"></p>
-  </section>
-
-  <!-- OWNER PLACEHOLDER -->
-  <section class="container hidden" id="ownerPage">
-    <h2>Owner Option</h2>
-    <p>এই অংশের কাজ তুমি পরে বুঝিয়ে দেবে।</p>
-    <button class="secondary" onclick="showLogin()">
-      Back to Login
-    </button>
-  </section>
-
-  <!-- MEMBER HOME -->
-  <section class="container hidden" id="homePage">
-    <h2>Welcome!</h2>
-    <p id="welcomeMessage"></p>
-
-    <div class="panel">
-      <img src="panel1.jpg" alt="Panel image">
-      <h3>FF Panel</h3>
-      <p>Price: ৳100</p>
-      <button onclick="buyNow()">Buy Now</button>
+    <div class="brand-text">
+      <h2>RIFAT FF</h2>
+      <p>PANEL SELLER</p>
     </div>
 
-    <button class="secondary" onclick="logout()">Logout</button>
-  </section>
+    <button onclick="memberLogout()" class="logout-btn">
+      Logout
+    </button>
+  </header>
 
-  <script>
-    function hideAll() {
-      document.getElementById("loginPage").classList.add("hidden");
-      document.getElementById("signupPage").classList.add("hidden");
-      document.getElementById("ownerPage").classList.add("hidden");
-      document.getElementById("homePage").classList.add("hidden");
+  <!-- Welcome Section -->
+  <div class="member-welcome">
+    <p>WELCOME TO</p>
+    <h1>RIFAT FF PANEL SELLER</h1>
+    <p>আপনার পছন্দের প্যানেল বেছে নিন</p>
+  </div>
+
+  <!-- Panels -->
+  <h3 class="section-heading">🔥 Available Panels</h3>
+
+  <div class="panel-grid">
+
+    <article class="panel-card">
+      <div class="panel-image">🎮</div>
+      <h3>Panel 01</h3>
+      <p>প্যানেলের বিবরণ এখানে</p>
+      <div class="panel-price">৳100</div>
+
+      <button
+        onclick="buyPanel('Panel 01', 100)"
+        class="buy-btn">
+        BUY NOW
+      </button>
+    </article>
+
+    <article class="panel-card">
+      <div class="panel-image">⚡</div>
+      <h3>Panel 02</h3>
+      <p>প্যানেলের বিবরণ এখানে</p>
+      <div class="panel-price">৳150</div>
+
+      <button
+        onclick="buyPanel('Panel 02', 150)"
+        class="buy-btn">
+        BUY NOW
+      </button>
+    </article>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button onclick="showMemberTab('home')">
+      🏠
+      <span>Home</span>
+    </button>
+
+    <button onclick="showMemberTab('orders')">
+      📦
+      <span>Orders</span>
+    </button>
+
+    <button onclick="showMemberTab('support')">
+      💬
+      <span>Support</span>
+    </button>
+
+    <button onclick="showMemberTab('account')">
+      👤
+      <span>My Account</span>
+    </button>
+  </nav>
+
+  <div id="memberMessage" class="member-message"></div>
+
+</section>
+
+<style>
+#memberHome {
+  min-height: 100vh;
+  padding: 18px 15px 100px;
+  box-sizing: border-box;
+  background: #090b14;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.member-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #292d46;
+}
+
+.brand-logo {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.brand-logo span {
+  color: #d8b4fe;
+}
+
+.brand-text h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.brand-text p {
+  margin: 4px 0 0;
+  color: #a78bfa;
+  font-size: 11px;
+}
+
+.logout-btn {
+  margin-left: auto;
+  padding: 9px 12px;
+  background: #25172f;
+  border: 1px solid #7043a7;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.member-welcome {
+  margin: 24px 0;
+  padding: 22px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #21153b, #101c30);
+  border: 1px solid #49346b;
+}
+
+.member-welcome p {
+  color: #b9a4ed;
+  font-size: 13px;
+}
+
+.member-welcome h1 {
+  font-size: 23px;
+  line-height: 1.3;
+}
+
+.section-heading {
+  margin: 25px 0 15px;
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.panel-card {
+  background: #131624;
+  border: 1px solid #30334b;
+  border-radius: 14px;
+  padding: 12px;
+  min-width: 0;
+}
+
+.panel-image {
+  height: 110px;
+  display: grid;
+  place-items: center;
+  font-size: 42px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #24143d, #12303a);
+}
+
+.panel-card h3 {
+  font-size: 16px;
+}
+
+.panel-card p {
+  font-size: 12px;
+  color: #a5a8b8;
+}
+
+.panel-price {
+  color: #c4b5fd;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buy-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px 4px;
+  border: 0;
+  border-radius: 8px;
+  background: #7c3aed;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buy-btn:hover {
+  background: #6d28d9;
+}
+
+.bottom-nav {
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 2px calc(12px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #111321;
+  border-top: 1px solid #34304f;
+}
+
+.bottom-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 0;
+  color: #d6d4e2;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.bottom-nav span {
+  font-size: 10px;
+}
+
+.member-message {
+  margin-top: 20px;
+  color: #d8b4fe;
+  overflow-wrap: anywhere;
+}
+</style>
+
+<script>
+/* লগইন সফল হলে এই ফাংশন কল করতে হবে */
+function showMemberHome(user) {
+  const home = document.getElementById("memberHome");
+
+  if (!home) return;
+
+  home.style.display = "block";
+
+  const authOverlay = document.getElementById("authOverlay");
+  if (authOverlay) {
+    authOverlay.style.display = "none";
+  }
+
+  document.querySelector(".hero")
+    ?.style.setProperty("display", "none");
+
+  document.querySelector(".content-container")
+    ?.style.setProperty("display", "none");
+}
+
+/* Buy Now: WhatsApp অর্ডার */
+function buyPanel(panelName, price) {
+  const whatsappNumber = "8801XXXXXXXXX";
+  // এখানে নিজের WhatsApp নম্বর বসাবে।
+  // 880 দিয়ে শুরু করবে, + বা স্পেস দেবে না।
+
+  if (whatsappNumber.includes("X")) {
+    alert("প্রথমে কোডে নিজের WhatsApp নম্বর বসাও।");
+    return;
+  }
+
+  const message =
+    `আমি ${panelName} কিনতে চাই। দাম: ৳${price}`;
+
+  const url =
+    "https://wa.me/" + whatsappNumber +
+    "?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank");
+}
+
+/* নিচের মেনু */
+function showMemberTab(tab) {
+  const message = document.getElementById("memberMessage");
+
+  const labels = {
+    home: "আপনি হোম পেজে আছেন।",
+    orders: "অর্ডার হিস্ট্রি ফিচার এখনো যুক্ত করা হয়নি।",
+    support: "সাপোর্টের জন্য WhatsApp-এ যোগাযোগ করুন।",
+    account: "অ্যাকাউন্টের বিস্তারিত ফিচার এখনো যুক্ত করা হয়নি।"
+  };
+
+  if (message) {
+    message.textContent = labels[tab] || "";
+  }
+
+  if (tab === "home") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+/* লগআউট */
+async function memberLogout() {
+  if (!window.firebase || !firebase.auth) {
+    alert("Firebase Authentication পাওয়া যাচ্ছে না।");
+    return;
+  }
+
+  try {
+    await firebase.auth().signOut();
+
+    document.getElementById("memberHome").style.display = "none";
+
+    document.querySelector(".hero")
+      ?.style.removeProperty("display");
+
+    document.querySelector(".content-container")
+      ?.style.removeProperty("display");
+
+    const authOverlay = document.getElementById("authOverlay");
+
+    if (authOverlay) {
+      authOverlay.style.display = "flex";
     }
-
-    function showLogin() {
-      hideAll();
-      document.getElementById("loginPage").classList.remove("hidden");
-    }
-
-    function showSignup() {
-      hideAll();
-      document.getElementById("signupPage").classList.remove("hidden");
-    }
-
-    function showOwner() {
-      hideAll();
-      document.getElementById("ownerPage").classList.remove("hidden");
-    }
-
-    function buyNow() {
-      const phone = "8801XXXXXXXXX"; // এখানে তোমার WhatsApp নম্বর বসাবে
-      const message = encodeURIComponent(
-        "আমি FF Panel কিনতে চাই। প্যানেলের দাম ৳100।"
-      );
-
-      window.open(
-        "https://wa.me/" + phone + "?text=" + message,
-        "_blank"
-      );
-    }
-
-    document.getElementById("signupForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const password = document.getElementById("newPassword").value;
-      const confirm = document.getElementById("confirmPassword").value;
-
-      if (password !== confirm) {
-        document.getElementById("signupMessage").textContent =
-          "Password দুটি মিলছে না!";
-        return;
-      }
-
-      document.getElementById("signupMessage").textContent =
-        "ডেমো ফর্ম ঠিক আছে। আসল অ্যাকাউন্ট তৈরির জন্য Firebase যুক্ত করতে হবে।";
-    });
-
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      document.getElementById("loginMessage").textContent =
-        "আসল লগইনের জন্য Firebase Authentication যুক্ত করতে হবে।";
-    });
-
-    function logout() {
-      showLogin();
-    }
-  </script>
-
-</body>
-</html>
+  } catch (error) {
+    console.error("Logout error:", error);
+    alert("লগআউট করা যায়নি। আবার চেষ্টা করো।");
+  }
+}
+</script>
