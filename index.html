@@ -41,6 +41,8 @@
       max-width: 410px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 30px rgba(139, 92, 246, 0.15);
       backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
     }
 
     .header-area {
@@ -237,6 +239,32 @@
       display: none !important;
     }
 
+    /* Custom Professional Toast Notification Styles */
+    #customToast {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #1e103a 0%, #110b27 100%);
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid #eab308;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(234, 179, 8, 0.3);
+      font-family: 'Hind Siliguri', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      z-index: 1000;
+      width: 90%;
+      max-width: 370px;
+      transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #customToast.show {
+      top: 15px;
+    }
+
     /* Dashboard Styles */
     .dashboard-header {
       display: flex;
@@ -308,6 +336,9 @@
 
   <div class="app-card">
     
+    <!-- Custom Professional Notification Toast -->
+    <div id="customToast">নোটিফিকেশন মেসেজ</div>
+
     <!-- AUTHENTICATION SECTION -->
     <div id="authSection" class="view-block">
       <div class="header-area">
@@ -458,7 +489,7 @@
             <h4>FF VIP Aimbot Panel</h4>
             <span>স্ট্যাটাস: সক্রিয় (Safe)</span>
           </div>
-          <button class="buy-btn" onclick="alert('অর্ডার সফল হয়েছে!')">কিনুন</button>
+          <button class="buy-btn" onclick="showToast('অর্ডার সফল হয়েছে!')">কিনুন</button>
         </div>
 
         <div class="panel-card-item">
@@ -466,7 +497,7 @@
             <h4>FF Max Location Tool</h4>
             <span>স্ট্যাটাস: সক্রিয় (Safe)</span>
           </div>
-          <button class="buy-btn" onclick="alert('অর্ডার সফল হয়েছে!')">কিনুন</button>
+          <button class="buy-btn" onclick="showToast('অর্ডার সফল হয়েছে!')">কিনুন</button>
         </div>
       </div>
     </div>
@@ -480,6 +511,16 @@
     })();
 
     let generatedOTP = "";
+
+    // Professional Custom Toast Notification Function
+    function showToast(message) {
+      const toast = document.getElementById('customToast');
+      toast.innerText = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
 
     function showForm(formType) {
       const signinBox = document.getElementById('signinBox');
@@ -520,22 +561,27 @@
 
     function onLoginSubmit(e) {
       e.preventDefault();
-      document.getElementById('authSection').className = 'view-hidden';
-      document.getElementById('dashboardSection').className = 'view-block';
+      showToast('সফলভাবে লগইন হয়েছে!');
+      setTimeout(() => {
+        document.getElementById('authSection').className = 'view-hidden';
+        document.getElementById('dashboardSection').className = 'view-block';
+      }, 1000);
     }
 
     function onRegisterSubmit(e) {
       e.preventDefault();
-      alert('সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!');
-      document.getElementById('authSection').className = 'view-hidden';
-      document.getElementById('dashboardSection').className = 'view-block';
+      showToast('সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!');
+      setTimeout(() => {
+        document.getElementById('authSection').className = 'view-hidden';
+        document.getElementById('dashboardSection').className = 'view-block';
+      }, 1000);
     }
 
-    // Send OTP via EmailJS (Updated with broader parameter mapping)
+    // Send OTP via EmailJS with Custom Toast
     function sendOTPCode() {
       const emailField = document.getElementById('reset-email-input').value;
       if (!emailField) {
-        alert('দয়া করে প্রথমে আপনার জিমেইল বা ইমেল লিখুন!');
+        showToast('দয়া করে প্রথমে আপনার জিমেইল লিখুন!');
         return;
       }
 
@@ -549,14 +595,14 @@
         otp: generatedOTP
       };
 
-      alert('ওটিপি পাঠানো হচ্ছে, অনুগ্রহ করে একটু অপেক্ষা করুন...');
+      showToast('ওটিপি পাঠানো হচ্ছে, একটু অপেক্ষা করুন...');
 
       emailjs.send("service_u36uj8r", "template_aimy5cj", templateParams)
         .then(function(response) {
-            alert('ওটিপি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
+            showToast('ওটিপি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
         }, function(error) {
             console.error('FAILED...', error);
-            alert('ব্যর্থ হয়েছে: ' + JSON.stringify(error));
+            showToast('ব্যর্থ হয়েছে: ' + (error.text || 'সার্ভার এরর'));
         });
     }
 
@@ -568,23 +614,26 @@
       const confirmPass = document.getElementById('confirm-pass-input').value;
 
       if (enteredOTP !== generatedOTP) {
-        alert('ভুল ওটিপি কোড! সঠিক ওটিপি দিন।');
+        showToast('ভুল ওটিপি কোড! সঠিক ওটিপি দিন।');
         return;
       }
 
       if (newPass !== confirmPass) {
-        alert('নতুন পাসওয়ার্ড এবং কনফার্ম পাসওয়ার্ড মিলছে না!');
+        showToast('নতুন পাসওয়ার্ড এবং কনফার্ম পাসওয়ার্ড মিলছে না!');
         return;
       }
 
-      alert(resetEmail + ' জিমেইলের ওটিপি যাচাই সফল হয়েছে এবং পাসওয়ার্ড সফলভাবে রিসেট করা হয়েছে!');
-      showForm('signin');
+      showToast('পাসওয়ার্ড সফলভাবে রিসেট করা হয়েছে!');
+      setTimeout(() => {
+        showForm('signin');
+      }, 1500);
     }
 
     function logoutUser() {
       document.getElementById('dashboardSection').className = 'view-hidden';
       document.getElementById('authSection').className = 'view-block';
       showForm('signin');
+      showToast('লগআউট সফল হয়েছে');
     }
   </script>
 
