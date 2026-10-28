@@ -254,11 +254,11 @@
     appId: "1:270050253341:web:ca5db10f52d746751444f4"
   };
 
-  // তোমার নতুন Owner UID
-  const OWNER_UID = "hyN7VETHMcY76mt9ULkOQ20HNas1";
+  // নতুন Owner UID
+  const OWNER_UID = "ivPdz5ZPNjaaxoqOcwRVQZ7NAR63";
 
-  // এখানে নিজের আসল Owner Gmail বসাও
-  const OWNER_EMAIL = "YOUR_OWNER_GMAIL@gmail.com";
+  // নতুন Owner Gmail
+  const OWNER_EMAIL = "rifat018459073211@gmail.com";
 
   const $ = id => document.getElementById(id);
 
@@ -294,13 +294,6 @@
 
     currentUser = user;
 
-    if (OWNER_EMAIL === "YOUR_OWNER_GMAIL@gmail.com") {
-      showLogin();
-      notice("কোডে OWNER_EMAIL-এর জায়গায় নিজের Gmail বসাও।");
-      return;
-    }
-
-    // UID যাচাই
     if (user.uid !== OWNER_UID) {
       await auth.signOut();
       showLogin();
@@ -308,7 +301,6 @@
       return;
     }
 
-    // Gmail যাচাই
     if (
       (user.email || "").toLowerCase() !==
       OWNER_EMAIL.toLowerCase()
@@ -319,7 +311,6 @@
       return;
     }
 
-    // Gmail verification যাচাই
     if (!user.emailVerified) {
       showLogin();
       notice(
@@ -329,7 +320,6 @@
     }
 
     try {
-      // Firestore-এ Owner role যাচাই
       const roleSnap = await db
         .collection("roles")
         .doc(OWNER_UID)
@@ -362,7 +352,6 @@
     }
   }
 
-  // Panel লোড
   async function loadPanels() {
     const snap = await db.collection("panels").get();
     const list = $("panelsList");
@@ -376,7 +365,6 @@
 
     snap.forEach(doc => {
       const panel = doc.data();
-
       const item = document.createElement("div");
       item.className = "item";
 
@@ -419,10 +407,8 @@
 
         try {
           await db.collection("panels").doc(doc.id).delete();
-
           notice("Panel মুছে ফেলা হয়েছে।");
           await loadPanels();
-
         } catch (error) {
           notice("Panel মুছতে সমস্যা: " + error.message);
         }
@@ -434,7 +420,6 @@
     });
   }
 
-  // Order লোড
   async function loadOrders() {
     const snap = await db.collection("orders").get();
     const list = $("ordersList");
@@ -448,7 +433,6 @@
 
     snap.forEach(doc => {
       const order = doc.data();
-
       const item = document.createElement("div");
       item.className = "item";
 
@@ -471,26 +455,21 @@
 
       const select = document.createElement("select");
 
-      [
-        "pending",
-        "approved",
-        "completed",
-        "cancelled"
-      ].forEach(status => {
-        const option = document.createElement("option");
+      ["pending", "approved", "completed", "cancelled"]
+        .forEach(status => {
+          const option = document.createElement("option");
+          option.value = status;
+          option.textContent = status;
 
-        option.value = status;
-        option.textContent = status;
+          if (
+            String(order.status || "pending").toLowerCase()
+            === status
+          ) {
+            option.selected = true;
+          }
 
-        if (
-          String(order.status || "pending").toLowerCase()
-          === status
-        ) {
-          option.selected = true;
-        }
-
-        select.appendChild(option);
-      });
+          select.appendChild(option);
+        });
 
       const update = document.createElement("button");
       update.textContent = "Order Status আপডেট";
@@ -503,7 +482,6 @@
 
           notice("Order status আপডেট হয়েছে।");
           await loadOrders();
-
         } catch (error) {
           notice("Order আপডেট ব্যর্থ: " + error.message);
         }
@@ -514,7 +492,6 @@
     });
   }
 
-  // Admin লোড
   async function loadAdmins() {
     const snap = await db.collection("roles").get();
     const list = $("adminsList");
@@ -536,7 +513,6 @@
 
       const info = document.createElement("div");
       info.textContent = "Admin UID: " + doc.id;
-
       item.appendChild(info);
 
       const revoke = document.createElement("button");
@@ -550,10 +526,8 @@
 
         try {
           await db.collection("roles").doc(doc.id).delete();
-
           notice("Admin অনুমতি বাতিল হয়েছে।");
           await loadAdmins();
-
         } catch (error) {
           notice("Admin বাতিল করা যায়নি: " + error.message);
         }
@@ -579,7 +553,6 @@
     }
   }
 
-  // Login
   $("loginForm").addEventListener("submit", async event => {
     event.preventDefault();
 
@@ -591,13 +564,11 @@
 
       await auth.currentUser.reload();
       await checkAccess(auth.currentUser);
-
     } catch (error) {
       notice("Login ব্যর্থ: " + error.message);
     }
   });
 
-  // Verification Email
   $("verifyBtn").addEventListener("click", async () => {
     try {
       if (!auth.currentUser) {
@@ -612,13 +583,11 @@
       notice(
         "Verification Email পাঠানো হয়েছে। Gmail Inbox ও Spam পরীক্ষা করো।"
       );
-
     } catch (error) {
       notice("Verification Email পাঠানো যায়নি: " + error.message);
     }
   });
 
-  // Password Reset
   $("resetBtn").addEventListener("click", async () => {
     try {
       const email = $("email").value.trim();
@@ -629,21 +598,17 @@
       }
 
       await auth.sendPasswordResetEmail(email);
-
       notice("Password Reset Email পাঠানো হয়েছে।");
-
     } catch (error) {
       notice("Password Reset ব্যর্থ: " + error.message);
     }
   });
 
-  // Logout
   async function logout() {
     try {
       await auth.signOut();
       showLogin();
-      notice("Logout সফল হয়েছে।");
-
+      notice("Logout সফল হয়েছে.");
     } catch (error) {
       notice("Logout ব্যর্থ: " + error.message);
     }
@@ -653,7 +618,6 @@
   $("logoutLoginBtn").addEventListener("click", logout);
   $("refreshBtn").addEventListener("click", loadAll);
 
-  // Panel যোগ বা আপডেট
   $("panelForm").addEventListener("submit", async event => {
     event.preventDefault();
 
@@ -685,15 +649,12 @@
 
       notice("Panel যোগ/আপডেট হয়েছে।");
       $("panelForm").reset();
-
       await loadPanels();
-
     } catch (error) {
       notice("Panel সংরক্ষণ ব্যর্থ: " + error.message);
     }
   });
 
-  // Admin অনুমোদন
   $("adminForm").addEventListener("submit", async event => {
     event.preventDefault();
 
@@ -718,15 +679,12 @@
 
       notice("Admin অনুমোদিত হয়েছে।");
       $("adminForm").reset();
-
       await loadAdmins();
-
     } catch (error) {
       notice("Admin যোগ করা যায়নি: " + error.message);
     }
   });
 
-  // Firebase চালু
   try {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
@@ -742,7 +700,6 @@
         notice("যাচাই ব্যর্থ: " + error.message);
       });
     });
-
   } catch (error) {
     notice("Firebase চালু হয়নি: " + error.message);
     showLogin();
