@@ -1,826 +1,288 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIFAT FF PANEL SELLER</title>
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700;800;900&family=Tiro+Bangla&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', 'Tiro Bangla', sans-serif;
-        }
-
-        body {
-            background-color: #050212;
-            color: #ffffff;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 50% 15%, rgba(120, 0, 255, 0.25), transparent 45%),
-                radial-gradient(circle at 10% 40%, rgba(0, 242, 254, 0.15), transparent 35%),
-                radial-gradient(circle at 90% 70%, rgba(255, 0, 127, 0.15), transparent 35%);
-            background-attachment: fixed;
-            padding-bottom: 30px;
-        }
-
-        /* Top Bar */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 6%;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .top-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .crown-icon {
-            font-size: 28px;
-            color: #bd00ff;
-            filter: drop-shadow(0 0 10px #bd00ff);
-        }
-
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-
-        .brand-title {
-            font-weight: 900;
-            font-size: 20px;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #ffffff, #d8b4fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .brand-sub {
-            font-size: 10px;
-            letter-spacing: 3px;
-            color: #9d4edd;
-            font-weight: 700;
-        }
-
-        .menu-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-
-        .menu-btn:hover {
-            border-color: #00f2fe;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 20px 5% 30px;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* Neon Logo Badge */
-        .hero-badge-container {
-            position: relative;
-            width: 170px;
-            height: 170px;
-            margin: 0 auto 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-badge-glow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #00f2fe, #bd00ff, #ff007f);
-            padding: 3px;
-            box-shadow: 0 0 30px rgba(189, 0, 255, 0.6), inset 0 0 20px rgba(0, 242, 254, 0.5);
-            animation: pulse 3s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 25px rgba(189, 0, 255, 0.5); }
-            100% { box-shadow: 0 0 45px rgba(0, 242, 254, 0.8), 0 0 25px rgba(255, 0, 127, 0.6); }
-        }
-
-        .hero-badge-inner {
-            width: 100%;
-            height: 100%;
-            background: #08031a;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 2;
-        }
-
-        .rff-text {
-            font-size: 46px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            background: linear-gradient(180deg, #ffffff 30%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-        }
-
-        .rff-sub {
-            font-size: 10px;
-            font-weight: 700;
-            color: #d8b4fe;
-            margin-top: 2px;
-            letter-spacing: 1px;
-        }
-
-        .rff-crown {
-            position: absolute;
-            top: 15px;
-            font-size: 22px;
-            color: #00f2fe;
-            filter: drop-shadow(0 0 8px #00f2fe);
-        }
-
-        /* Typography */
-        .main-title {
-            font-size: 48px;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 10px;
-        }
-
-        .title-script {
-            font-family: 'Great Vibes', cursive, sans-serif;
-            color: #ffffff;
-            font-weight: 400;
-            font-size: 58px;
-            display: block;
-            margin-bottom: -15px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-        }
-
-        .title-neon {
-            background: linear-gradient(90deg, #c084fc, #00f2fe, #ff007f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(192, 132, 252, 0.3);
-            letter-spacing: 2px;
-        }
-
-        .subtitle {
-            color: #e2e8f0;
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .subtitle-desc {
-            color: #a78bfa;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        /* Card Section Styling */
-        .content-container {
-            max-width: 650px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .glass-card {
-            background: rgba(15, 10, 40, 0.65);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 24px;
-            padding: 22px;
-            margin-bottom: 22px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(139, 92, 246, 0.1);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 18px;
-        }
-
-        .card-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(120, 0, 255, 0.2);
-            border: 1px solid rgba(0, 242, 254, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00f2fe;
-            font-size: 18px;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
-        }
-
-        .card-title h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .card-title p {
-            font-size: 10px;
-            letter-spacing: 1px;
-            color: #94a3b8;
-            font-weight: 600;
-        }
-
-        /* Buttons Grid */
-        .btn-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .btn-grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-        }
-
-        .link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: #fff;
-            background: rgba(10, 25, 45, 0.7);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            transition: 0.3s;
-        }
-
-        .link-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.3);
-            border-color: #00f2fe;
-        }
-
-        .link-btn-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .link-btn-icon {
-            font-size: 24px;
-        }
-
-        .btn-wa .link-btn-icon { color: #25d366; }
-        .btn-fb .link-btn-icon { color: #1877f2; }
-        .btn-tg .link-btn-icon { color: #0088cc; }
-
-        .link-btn-text {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-
-        .link-btn-text .title {
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .link-btn-text .subtitle {
-            font-size: 10px;
-            color: #94a3b8;
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .link-arrow {
-            font-size: 14px;
-            color: #cbd5e1;
-        }
-
-        /* Panel Trigger Button (Buy Panel) */
-        .panel-trigger-btn {
-            background: linear-gradient(90deg, #7928ca, #00f2fe);
-            border: none;
-            padding: 14px 28px;
-            border-radius: 30px;
-            color: #fff;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 25px;
-            transition: 0.3s;
-        }
-
-        .panel-trigger-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 35px rgba(189, 0, 255, 0.8);
-        }
-
-        /* Bottom Badges */
-        .badges-row {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 25px;
-            margin-bottom: 25px;
-        }
-
-        .mini-badge {
-            background: rgba(20, 15, 45, 0.8);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #cbd5e1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .mini-badge i {
-            color: #c084fc;
-        }
-
-        footer {
-            text-align: center;
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 15px;
-        }
-
-        footer span {
-            color: #bd00ff;
-        }
-
-        /* MODAL POP-UP FOR PANELS */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #0b0722;
-            border: 2px solid #00f2fe;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 800px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 25px 20px;
-            position: relative;
-            box-shadow: 0 0 40px rgba(0, 242, 254, 0.4);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 28px;
-            color: #ff007f;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover {
-            transform: scale(1.2);
-            color: #fff;
-        }
-
-        .panels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .panel-card {
-            background: rgba(20, 15, 45, 0.9);
-            border: 1px solid rgba(255, 0, 127, 0.4);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .panel-card:hover {
-            border-color: #00f2fe;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
-        }
-
-        .panel-card img, .panel-card video {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(0, 242, 254, 0.3);
-        }
-
-        .panel-card h3 {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        .price {
-            font-size: 20px;
-            font-weight: 800;
-            color: #00f2fe;
-            margin-bottom: 10px;
-        }
-
-        .buy-btn {
-            background: linear-gradient(45deg, #ff007f, #7928ca);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            width: 100%;
-            font-size: 14px;
-            transition: 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .buy-btn:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
-        }
-
-        @media (max-width: 600px) {
-            .btn-grid-2, .btn-grid-3 {
-                grid-template-columns: 1fr;
-            }
-            .main-title { font-size: 36px; }
-            .title-script { font-size: 46px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIFAT FF PANEL SELLER</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700;800;900&family=Tiro+Bangla&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins','Tiro Bangla',sans-serif}
+body{background:#050212;color:#fff;min-height:100vh;background-image:radial-gradient(circle at 50% 15%,rgba(120,0,255,.25),transparent 45%),radial-gradient(circle at 10% 40%,rgba(0,242,254,.15),transparent 35%),radial-gradient(circle at 90% 70%,rgba(255,0,127,.15),transparent 35%);background-attachment:fixed;padding-bottom:30px}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 6%;max-width:1000px;margin:0 auto;gap:12px}
+.top-logo{display:flex;align-items:center;gap:12px}.crown-icon{font-size:28px;color:#bd00ff;filter:drop-shadow(0 0 10px #bd00ff)}
+.brand-text{display:flex;flex-direction:column;line-height:1.1}.brand-title{font-weight:900;font-size:20px;letter-spacing:1px;background:linear-gradient(90deg,#fff,#d8b4fe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.brand-sub{font-size:10px;letter-spacing:3px;color:#9d4edd;font-weight:700}
+.header-actions{display:flex;gap:9px;align-items:center}.menu-btn,.login-open-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;backdrop-filter:blur(5px);transition:.3s}.menu-btn{width:44px;font-size:20px}.login-open-btn{padding:0 15px;gap:8px;font-weight:700}.menu-btn:hover,.login-open-btn:hover{border-color:#00f2fe;box-shadow:0 0 15px rgba(0,242,254,.4)}
+.hero{text-align:center;padding:20px 5% 30px;max-width:800px;margin:0 auto;position:relative}.hero-badge-container{position:relative;width:170px;height:170px;margin:0 auto 25px;display:flex;align-items:center;justify-content:center}
+.hero-badge-glow{position:absolute;width:100%;height:100%;border-radius:50%;background:linear-gradient(45deg,#00f2fe,#bd00ff,#ff007f);padding:3px;box-shadow:0 0 30px rgba(189,0,255,.6),inset 0 0 20px rgba(0,242,254,.5);animation:pulse 3s infinite alternate}
+@keyframes pulse{0%{box-shadow:0 0 25px rgba(189,0,255,.5)}100%{box-shadow:0 0 45px rgba(0,242,254,.8),0 0 25px rgba(255,0,127,.6)}}
+.hero-badge-inner{width:100%;height:100%;background:#08031a;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.1);position:relative;z-index:2}
+.rff-text{font-size:46px;font-weight:900;letter-spacing:-1px;background:linear-gradient(180deg,#fff 30%,#00f2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}.rff-sub{font-size:10px;font-weight:700;color:#d8b4fe;margin-top:2px;letter-spacing:1px}.rff-crown{position:absolute;top:15px;font-size:22px;color:#00f2fe;filter:drop-shadow(0 0 8px #00f2fe)}
+.main-title{font-size:48px;font-weight:900;line-height:1.1;margin-bottom:10px}.title-script{font-family:'Great Vibes',cursive,sans-serif;color:#fff;font-weight:400;font-size:58px;display:block;margin-bottom:-15px;text-shadow:0 0 15px rgba(255,255,255,.6)}.title-neon{background:linear-gradient(90deg,#c084fc,#00f2fe,#ff007f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(192,132,252,.3);letter-spacing:2px}
+.subtitle{color:#e2e8f0;font-size:15px;font-weight:600;margin-bottom:5px}.subtitle-desc{color:#a78bfa;font-size:14px;margin-bottom:30px}
+.content-container{max-width:650px;margin:0 auto;padding:0 15px}.glass-card{background:rgba(15,10,40,.65);border:1px solid rgba(139,92,246,.3);border-radius:24px;padding:22px;margin-bottom:22px;backdrop-filter:blur(16px);box-shadow:0 10px 30px rgba(0,0,0,.5),inset 0 0 15px rgba(139,92,246,.1)}
+.card-header{display:flex;align-items:center;gap:15px;margin-bottom:18px}.card-icon{width:44px;height:44px;border-radius:50%;background:rgba(120,0,255,.2);border:1px solid rgba(0,242,254,.4);display:flex;align-items:center;justify-content:center;color:#00f2fe;font-size:18px;box-shadow:0 0 15px rgba(0,242,254,.2)}.card-title h3{font-size:18px;font-weight:700;color:#fff}.card-title p{font-size:10px;letter-spacing:1px;color:#94a3b8;font-weight:600}
+.btn-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.btn-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.link-btn{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:16px;text-decoration:none;color:#fff;background:rgba(10,25,45,.7);border:1px solid rgba(0,242,254,.3);transition:.3s}.link-btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(0,242,254,.3);border-color:#00f2fe}.link-btn-left{display:flex;align-items:center;gap:12px}.link-btn-icon{font-size:24px}.btn-wa .link-btn-icon{color:#25d366}.btn-fb .link-btn-icon{color:#1877f2}.btn-tg .link-btn-icon{color:#0088cc}.link-btn-text{display:flex;flex-direction:column;text-align:left}.link-btn-text .title{font-size:13px;font-weight:700;line-height:1.2}.link-btn-text .subtitle{font-size:10px;color:#94a3b8;margin:0;font-weight:500}.link-arrow{font-size:14px;color:#cbd5e1}
+.panel-trigger-btn{background:linear-gradient(90deg,#7928ca,#00f2fe);border:none;padding:14px 28px;border-radius:30px;color:#fff;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 0 25px rgba(0,242,254,.5);display:inline-flex;align-items:center;gap:10px;margin-bottom:25px;transition:.3s}.panel-trigger-btn:hover{transform:scale(1.05);box-shadow:0 0 35px rgba(189,0,255,.8)}
+.badges-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:25px;margin-bottom:25px}.mini-badge{background:rgba(20,15,45,.8);border:1px solid rgba(139,92,246,.3);padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;color:#cbd5e1;display:flex;align-items:center;gap:8px}.mini-badge i{color:#c084fc}footer{text-align:center;font-size:12px;color:#64748b;margin-top:15px}footer span{color:#bd00ff}
+.modal-overlay{position:fixed;inset:0;width:100%;height:100%;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:none;justify-content:center;align-items:center;z-index:2000;padding:20px}.modal-overlay.active{display:flex}.modal-content{background:#0b0722;border:2px solid #00f2fe;border-radius:24px;width:100%;max-width:800px;max-height:85vh;overflow-y:auto;padding:25px 20px;position:relative;box-shadow:0 0 40px rgba(0,242,254,.4)}.close-btn{position:absolute;top:10px;right:18px;font-size:30px;color:#ff007f;cursor:pointer;line-height:1}.panels-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}.panel-card{background:rgba(20,15,45,.9);border:1px solid rgba(255,0,127,.4);border-radius:16px;padding:15px;text-align:center;transition:.3s}.panel-card:hover{border-color:#00f2fe;box-shadow:0 0 20px rgba(0,242,254,.3)}.panel-card img,.panel-card video{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px;border:1px solid rgba(0,242,254,.3)}.panel-card h3{font-size:16px;margin-bottom:4px}.price{font-size:20px;font-weight:800;color:#00f2fe;margin-bottom:10px}.buy-btn{background:linear-gradient(45deg,#ff007f,#7928ca);color:#fff;padding:8px 12px;border-radius:20px;text-decoration:none;font-weight:600;display:inline-block;width:100%;font-size:14px;transition:.3s;cursor:pointer;border:none}
+.auth-overlay{position:fixed;inset:0;z-index:3000;background:rgba(2,0,12,.92);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:18px;overflow-y:auto}.auth-overlay.active{display:flex}.auth-card{position:relative;width:100%;max-width:410px;padding:30px 24px 25px;background:linear-gradient(145deg,rgba(18,8,43,.98),rgba(5,12,31,.98));border:1px solid rgba(0,242,254,.65);border-radius:24px;box-shadow:0 0 35px rgba(0,242,254,.18),0 0 45px rgba(189,0,255,.2);margin:auto}.auth-close{position:absolute;right:17px;top:12px;background:none;border:0;color:#ff4da6;font-size:27px;cursor:pointer}.auth-logo{width:64px;height:64px;border-radius:18px;margin:0 auto 15px;display:flex;align-items:center;justify-content:center;font-size:27px;color:#00f2fe;background:rgba(0,242,254,.08);border:1px solid rgba(0,242,254,.5);box-shadow:0 0 20px rgba(0,242,254,.15)}.auth-title{text-align:center;font-size:25px;font-weight:900;margin-bottom:5px;background:linear-gradient(90deg,#fff,#00f2fe,#d8b4fe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.auth-desc{text-align:center;color:#aab4ce;font-size:12px;margin-bottom:22px}.auth-field{display:block;margin-bottom:14px}.auth-field span{display:block;color:#dbeafe;font-size:12px;font-weight:600;margin-bottom:7px}.auth-field input{width:100%;padding:13px 14px;background:rgba(255,255,255,.045);border:1px solid rgba(167,139,250,.3);border-radius:12px;color:#fff;outline:none;font-size:14px}.auth-field input:focus{border-color:#00f2fe;box-shadow:0 0 12px rgba(0,242,254,.12)}.auth-submit{width:100%;border:0;border-radius:12px;padding:13px 15px;background:linear-gradient(90deg,#7928ca,#00cfe8);color:#fff;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 0 18px rgba(0,242,254,.18);margin-top:5px}.auth-switch{text-align:center;color:#b8c0d8;font-size:13px;margin-top:18px}.auth-switch button,.forgot-btn{background:none;border:0;color:#00f2fe;font-weight:800;cursor:pointer;font-size:13px}.forgot-row{text-align:right;margin:-4px 0 13px}.auth-message{display:none;margin:0 0 13px;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.5;background:rgba(0,242,254,.08);border:1px solid rgba(0,242,254,.3);color:#dffcff}.auth-message.show{display:block}.auth-message.error{color:#ffc1d5;background:rgba(255,0,127,.08);border-color:rgba(255,0,127,.4)}.user-status{display:none;color:#b9f9ff;font-size:11px;max-width:145px;overflow-wrap:anywhere}.user-status.show{display:block}
+@media(max-width:600px){.btn-grid-2,.btn-grid-3{grid-template-columns:1fr}.main-title{font-size:36px}.title-script{font-size:46px}.brand-title{font-size:17px}.login-open-btn{padding:0 11px;font-size:12px}.auth-card{padding:27px 19px 22px}}
+</style>
 </head>
 <body>
-
-    <!-- Header Navigation -->
-    <header>
-        <div class="top-logo">
-            <i class="fa-solid fa-crown crown-icon"></i>
-            <div class="brand-text">
-                <span class="brand-title">RIFAT FF</span>
-                <span class="brand-sub">PANEL SELLER</span>
-            </div>
-        </div>
-        <div class="menu-btn" onclick="openModal()">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-    </header>
-
-    <!-- Hero Header -->
-    <section class="hero">
-        <!-- RFF Neon Circle Badge -->
-        <div class="hero-badge-container">
-            <div class="hero-badge-glow"></div>
-            <div class="hero-badge-inner">
-                <i class="fa-solid fa-crown rff-crown"></i>
-                <div class="rff-text">RFF</div>
-                <div class="rff-sub">RIFAT FF</div>
-            </div>
-        </div>
-
-        <h1 class="main-title">
-            <span class="title-script">Rifat FF</span>
-            <span class="title-neon">PANEL SELLER</span>
-        </h1>
-
-        <p class="subtitle">সব সোশ্যাল মিডিয়া ও যোগাযোগের লিংক এক জায়গায়।</p>
-        <p class="subtitle-desc">পছন্দের বাটনে চাপ দিয়ে সরাসরি যুক্ত হও। 💜</p>
-
-        <!-- Buy Panel Action Button -->
-        <button class="panel-trigger-btn" onclick="openModal()">
-            <i class="fa-solid fa-cart-shopping"></i> Buy Panel / প্যানেল কিনুন
-        </button>
-    </section>
-
-    <!-- Content Cards -->
-    <div class="content-container">
-        
-        <!-- Social Media Card -->
-        <div class="glass-card">
-            <div class="card-header">
-                <div class="card-icon"><i class="fa-solid fa-globe"></i></div>
-                <div class="card-title">
-                    <h3>Social Media</h3>
-                    <p>FOLLOW • JOIN • STAY CONNECTED</p>
-                </div>
-            </div>
-
-            <!-- WhatsApp Links -->
-            <div class="btn-grid-2">
-                <a href="https://wa.me/8801845907321" target="_blank" class="link-btn btn-wa">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-whatsapp link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">WhatsApp</span>
-                            <span class="subtitle">Personal</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-
-                <a href="https://whatsapp.com/channel/0029Vb97ufkADTO9iwSKzX18" target="_blank" class="link-btn btn-wa">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-whatsapp link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">WhatsApp</span>
-                            <span class="subtitle">Channel</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-            </div>
-
-            <!-- Facebook Links -->
-            <div class="btn-grid-2">
-                <a href="https://www.facebook.com/share/19Vr3iP7mB/" target="_blank" class="link-btn btn-fb">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-facebook link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Facebook</span>
-                            <span class="subtitle">Profile 1</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-
-                <a href="https://www.facebook.com/share/1ZEEJMyX2x/" target="_blank" class="link-btn btn-fb">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-facebook link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Facebook</span>
-                            <span class="subtitle">Profile 2</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-            </div>
-
-            <!-- Telegram Links -->
-            <div class="btn-grid-3">
-                <a href="https://t.me/rifatffpanelseller6" target="_blank" class="link-btn btn-tg">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-telegram link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Telegram</span>
-                            <span class="subtitle">Personal</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-
-                <a href="https://t.me/RifatFFPanelSeller" target="_blank" class="link-btn btn-tg">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-telegram link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Telegram</span>
-                            <span class="subtitle">Group</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-
-                <a href="https://t.me/rifatffpanelSellerBot1" target="_blank" class="link-btn btn-tg">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-telegram link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Telegram</span>
-                            <span class="subtitle">Channel</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- Contact Me Card -->
-        <div class="glass-card">
-            <div class="card-header">
-                <div class="card-icon"><i class="fa-solid fa-user-gear"></i></div>
-                <div class="card-title">
-                    <h3>Contact Me</h3>
-                    <p>GET IN TOUCH DIRECTLY</p>
-                </div>
-            </div>
-
-            <div class="btn-grid-2">
-                <a href="https://wa.me/8801845907321" target="_blank" class="link-btn btn-wa">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-whatsapp link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">WhatsApp</span>
-                            <span class="subtitle">যোগাযোগ</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-
-                <a href="https://t.me/rifatffpanelseller6" target="_blank" class="link-btn btn-tg">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-telegram link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Telegram</span>
-                            <span class="subtitle">যোগাযোগ</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- Badges Row -->
-        <div class="badges-row">
-            <div class="mini-badge"><i class="fa-solid fa-bolt"></i> Fast Service</div>
-            <div class="mini-badge"><i class="fa-solid fa-shield-halved"></i> 100% Safe</div>
-            <div class="mini-badge"><i class="fa-solid fa-star"></i> Trusted Seller</div>
-            <div class="mini-badge"><i class="fa-solid fa-headset"></i> 24/7 Support</div>
-        </div>
-
-        <footer>
-            Made with <span>💜</span> for Rifat FF Panel Seller
-        </footer>
+<header>
+  <div class="top-logo"><i class="fa-solid fa-crown crown-icon"></i><div class="brand-text"><span class="brand-title">RIFAT FF</span><span class="brand-sub">PANEL SELLER</span></div></div>
+  <div class="header-actions"><span class="user-status" id="userStatus"></span><button class="login-open-btn" onclick="openAuth('login')"><i class="fa-solid fa-user"></i><span id="headerAuthText">Login / Sign Up</span></button><button class="menu-btn" onclick="openModal()" aria-label="Open panels"><i class="fa-solid fa-bars"></i></button></div>
+</header>
+<section class="hero">
+  <div class="hero-badge-container"><div class="hero-badge-glow"></div><div class="hero-badge-inner"><i class="fa-solid fa-crown rff-crown"></i><div class="rff-text">RFF</div><div class="rff-sub">RIFAT FF</div></div></div>
+  <h1 class="main-title"><span class="title-script">Rifat FF</span><span class="title-neon">PANEL SELLER</span></h1>
+  <p class="subtitle">সব সোশ্যাল মিডিয়া ও যোগাযোগের লিংক এক জায়গায়।</p><p class="subtitle-desc">পছন্দের বাটনে চাপ দিয়ে সরাসরি যুক্ত হও। 💜</p>
+  <button class="panel-trigger-btn" onclick="openModal()"><i class="fa-solid fa-cart-shopping"></i> Buy Panel / প্যানেল কিনুন</button>
+</section>
+<div class="content-container">
+  <div class="glass-card"><div class="card-header"><div class="card-icon"><i class="fa-solid fa-globe"></i></div><div class="card-title"><h3>Social Media</h3><p>FOLLOW • JOIN • STAY CONNECTED</p></div></div>
+    <div class="btn-grid-2">
+      <a href="https://wa.me/8801845907321" target="_blank" rel="noopener" class="link-btn btn-wa"><div class="link-btn-left"><i class="fa-brands fa-whatsapp link-btn-icon"></i><div class="link-btn-text"><span class="title">WhatsApp</span><span class="subtitle">Personal</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
+      <a href="https://whatsapp.com/channel/0029Vb97ufkADTO9iwSKzX18" target="_blank" rel="noopener" class="link-btn btn-wa"><div class="link-btn-left"><i class="fa-brands fa-whatsapp link-btn-icon"></i><div class="link-btn-text"><span class="title">WhatsApp</span><span class="subtitle">Channel</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
     </div>
-
-    <!-- POP-UP MODAL (Panel Selection Window) -->
-    <div class="modal-overlay" id="panelModal" onclick="closeModalOnOutside(event)">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 style="text-align: center; color: #00f2fe; margin-bottom: 5px;">প্যানেল নির্বাচন করুন</h2>
-            <p style="text-align: center; color: #aaa; font-size: 14px; margin-bottom: 20px;">আপনার পছন্দের প্যানেলটি অর্ডার করতে Buy Now-এ চাপ দিন</p>
-
-            <div class="panels-grid" id="panelsContainer">
-                <!-- Panels rendered via JS -->
-            </div>
-        </div>
+    <div class="btn-grid-2">
+      <a href="https://www.facebook.com/share/19Vr3iP7mB/" target="_blank" rel="noopener" class="link-btn btn-fb"><div class="link-btn-left"><i class="fa-brands fa-facebook link-btn-icon"></i><div class="link-btn-text"><span class="title">Facebook</span><span class="subtitle">Profile 1</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
+      <a href="https://www.facebook.com/share/1ZEEJMyX2x/" target="_blank" rel="noopener" class="link-btn btn-fb"><div class="link-btn-left"><i class="fa-brands fa-facebook link-btn-icon"></i><div class="link-btn-text"><span class="title">Facebook</span><span class="subtitle">Profile 2</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
     </div>
+    <div class="btn-grid-3">
+      <a href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener" class="link-btn btn-tg"><div class="link-btn-left"><i class="fa-brands fa-telegram link-btn-icon"></i><div class="link-btn-text"><span class="title">Telegram</span><span class="subtitle">Personal</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
+      <a href="https://t.me/RifatFFPanelSeller" target="_blank" rel="noopener" class="link-btn btn-tg"><div class="link-btn-left"><i class="fa-brands fa-telegram link-btn-icon"></i><div class="link-btn-text"><span class="title">Telegram</span><span class="subtitle">Group</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
+      <a href="https://t.me/rifatffpanelSellerBot1" target="_blank" rel="noopener" class="link-btn btn-tg"><div class="link-btn-left"><i class="fa-brands fa-telegram link-btn-icon"></i><div class="link-btn-text"><span class="title">Telegram</span><span class="subtitle">Channel</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
+    </div>
+  </div>
+  <div class="glass-card"><div class="card-header"><div class="card-icon"><i class="fa-solid fa-user-gear"></i></div><div class="card-title"><h3>Contact Me</h3><p>GET IN TOUCH DIRECTLY</p></div></div>
+    <div class="btn-grid-2">
+      <a href="https://wa.me/8801845907321" target="_blank" rel="noopener" class="link-btn btn-wa"><div class="link-btn-left"><i class="fa-brands fa-whatsapp link-btn-icon"></i><div class="link-btn-text"><span class="title">WhatsApp</span><span class="subtitle">যোগাযোগ</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
+      <a href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener" class="link-btn btn-tg"><div class="link-btn-left"><i class="fa-brands fa-telegram link-btn-icon"></i><div class="link-btn-text"><span class="title">Telegram</span><span class="subtitle">যোগাযোগ</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
+    </div>
+  </div>
+  <div class="badges-row"><div class="mini-badge"><i class="fa-solid fa-bolt"></i> Fast Service</div><div class="mini-badge"><i class="fa-solid fa-shield-halved"></i> 100% Safe</div><div class="mini-badge"><i class="fa-solid fa-star"></i> Trusted Seller</div><div class="mini-badge"><i class="fa-solid fa-headset"></i> 24/7 Support</div></div>
+  <footer>Made with <span>💜</span> for Rifat FF Panel Seller</footer>
+</div>
 
-    <!-- JS -->
-    <script>
-        const panelsData = [
-            {
-                name: "Panel 1",
-                price: 100,
-                priceDisplay: "৳ ১০০",
-                image: "Screenshot_2026-10-28-11-15-48-035_com.dts.freefiremax.jpg",
-                type: "img"
-            },
-            {
-                name: "Panel 2",
-                price: 200,
-                priceDisplay: "৳ ২০০",
-                image: "Screenshot_2026-10-28-11-15-40-894_com.dts.freefiremax.jpg",
-                type: "img"
-            },
-            {
-                name: "Panel 3",
-                price: 300,
-                priceDisplay: "৳ ৩০০",
-                image: "Screenshot_2026-10-28-11-16-07-064_com.dts.freefiremax.jpg",
-                type: "img"
-            },
-            {
-                name: "Panel 4",
-                price: 400,
-                priceDisplay: "৳ ৪০০",
-                image: "Screenshot_2026-10-28-11-15-22-983_com.dts.freefiremax.jpg",
-                type: "img"
-            },
-            {
-                name: "Tournament Panel",
-                price: 450,
-                priceDisplay: "৳ ৪৫০",
-                image: "VID_20261028_112023_896.mp4",
-                type: "video"
-            }
-        ];
+<div class="modal-overlay" id="panelModal" onclick="closeModalOnOutside(event)"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 style="text-align:center;color:#00f2fe;margin-bottom:5px">প্যানেল নির্বাচন করুন</h2><p style="text-align:center;color:#aaa;font-size:14px;margin-bottom:20px">আপনার পছন্দের প্যানেলটি অর্ডার করতে Buy Now-এ চাপ দিন</p><div class="panels-grid" id="panelsContainer"></div></div></div>
 
-        // buyPanel function
-        function buyPanel(event, panelName, price) {
-            event.preventDefault();
+<div class="auth-overlay" id="authOverlay" onclick="closeAuthOutside(event)">
+ <div class="auth-card" role="dialog" aria-modal="true" aria-label="Account login and sign up">
+  <button class="auth-close" onclick="closeAuth()" aria-label="Close">&times;</button>
+  <div class="auth-logo"><i class="fa-solid fa-crown"></i></div>
+  <h2 class="auth-title" id="authTitle">LOGIN YOUR ACCOUNT</h2><p class="auth-desc" id="authDesc">Welcome back to RIFAT FF PANEL SELLER</p>
+  <div class="auth-message" id="authMessage" role="status"></div>
+  <form id="loginForm">
+   <label class="auth-field"><span>Email Address</span><input id="loginEmail" type="email" placeholder="Enter your email" autocomplete="email" required></label>
+   <label class="auth-field"><span>Password</span><input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" minlength="6" required></label>
+   <div class="forgot-row"><button class="forgot-btn" type="button" onclick="resetPassword()">Forgot Password?</button></div>
+   <button class="auth-submit" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+   <p class="auth-switch">Don't have an account? <button type="button" onclick="showSignup()">Sign Up</button></p>
+  </form>
+  <form id="signupForm" style="display:none">
+   <label class="auth-field"><span>Full Name</span><input id="signupName" type="text" placeholder="Enter your full name" autocomplete="name" maxlength="80" required></label>
+   <label class="auth-field"><span>Username</span><input id="signupUsername" type="text" placeholder="Choose a username" autocomplete="username" minlength="3" maxlength="24" required></label>
+   <label class="auth-field"><span>Email Address</span><input id="signupEmail" type="email" placeholder="Enter your email" autocomplete="email" required></label>
+   <label class="auth-field"><span>Password</span><input id="signupPassword" type="password" placeholder="At least 6 characters" autocomplete="new-password" minlength="6" required></label>
+   <label class="auth-field"><span>Confirm Password</span><input id="signupConfirm" type="password" placeholder="Re-enter your password" autocomplete="new-password" minlength="6" required></label>
+   <button class="auth-submit" type="submit"><i class="fa-solid fa-user-plus"></i> Create Account</button>
+   <p class="auth-switch">Already have an account? <button type="button" onclick="showLogin()">Login</button></p>
+  </form>
+  <button id="logoutButton" class="auth-submit" style="display:none;background:linear-gradient(90deg,#ff007f,#7928ca)" onclick="logoutUser()">Logout</button>
+ </div>
+</div>
 
-            const message = 
-`🛒 নতুন প্যানেল কেনার অর্ডার!
-
-আসসালামু আলাইকুম। আমি আপনার Rifat FF Panel Seller ওয়েবসাইট থেকে একটি প্যানেল কিনতে আগ্রহী।
-
-📦 প্যানেলের নাম: ${panelName}
-💰 প্যানেলের মূল্য: ${price} টাকা
-🌐 ওয়েবসাইট: Rifat FF Panel Seller
-
-দয়া করে প্যানেলটির বিস্তারিত তথ্য জানিয়ে আমার অর্ডারটি সম্পন্ন করতে সাহায্য করুন।
-
-ধন্যবাদ। ❤️`;
-
-            const whatsappURL =
-                "https://wa.me/8801845907321?text=" +
-                encodeURIComponent(message);
-
-            window.open(whatsappURL, "_blank");
-        }
-
-        // Render panels dynamically using buyPanel function
-        function renderPanels() {
-            const container = document.getElementById('panelsContainer');
-            let html = '';
-
-            panelsData.forEach((panel) => {
-                let mediaHtml = '';
-                if (panel.type === 'video') {
-                    mediaHtml = `<video autoplay muted loop controls><source src="${panel.image}" type="video/mp4"></video>`;
-                } else {
-                    mediaHtml = `<img src="${panel.image}" alt="${panel.name}">`;
-                }
-
-                const cardStyle = (panel.name === "Tournament Panel") ? 'style="border-color: #00f2fe;"' : '';
-                const btnStyle = (panel.name === "Tournament Panel") ? 'style="background: linear-gradient(45deg, #00f2fe, #4facfe); color: #05050f;"' : '';
-
-                html += `
-                    <div class="panel-card" ${cardStyle}>
-                        ${mediaHtml}
-                        <h3>${panel.name}</h3>
-                        <div class="price">${panel.priceDisplay}</div>
-                        <button class="buy-btn" ${btnStyle} onclick="buyPanel(event, '${panel.name}', ${panel.price})">Buy Now</button>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        window.onload = renderPanels;
-
-        function openModal() {
-            document.getElementById('panelModal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('panelModal').classList.remove('active');
-        }
-
-        function closeModalOnOutside(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                closeModal();
-            }
-        }
-    </script>
+<!-- Firebase Authentication SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/*
+  SETUP REQUIRED:
+  1) Create a Firebase project at https://console.firebase.google.com/
+  2) Add a Web App, then copy its firebaseConfig values below.
+  3) Authentication > Sign-in method > enable Email/Password.
+  4) Firestore Database > create database.
+  Replace every placeholder value below with your real Firebase web config.
+*/
+const firebaseConfig = {
+  apiKey: "PASTE_YOUR_FIREBASE_API_KEY",
+  authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "PASTE_YOUR_PROJECT_ID",
+  storageBucket: "PASTE_YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
+  appId: "PASTE_YOUR_FIREBASE_APP_ID"
+};
+let auth = null;
+let db = null;
+let firebaseReady = false;
+try {
+  if (firebaseConfig.apiKey !== "PASTE_YOUR_FIREBASE_API_KEY" &&
+      firebaseConfig.projectId !== "PASTE_YOUR_PROJECT_ID") {
+    firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    db = firebase.firestore();
+    firebaseReady = true;
+  }
+} catch (error) {
+  console.error("Firebase initialization error:", error);
+}
+function showAuthMessage(message, isError=false) {
+  const el = document.getElementById("authMessage");
+  el.textContent = message;
+  el.className = "auth-message show" + (isError ? " error" : "");
+}
+function clearAuthMessage() {
+  const el = document.getElementById("authMessage");
+  el.textContent = "";
+  el.className = "auth-message";
+}
+function openAuth(mode="login") {
+  document.getElementById("authOverlay").classList.add("active");
+  if (mode === "signup") showSignup(); else showLogin();
+  if (!firebaseReady) showAuthMessage("Firebase সেটআপ এখনো করা হয়নি। আগে কোডে Firebase config বসাও, তারপর Authentication চালু করো।", true);
+}
+function closeAuth() { document.getElementById("authOverlay").classList.remove("active"); }
+function closeAuthOutside(event) { if (event.target.id === "authOverlay") closeAuth(); }
+function showLogin() {
+  document.getElementById("authTitle").textContent = "LOGIN YOUR ACCOUNT";
+  document.getElementById("authDesc").textContent = "Welcome back to RIFAT FF PANEL SELLER";
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("logoutButton").style.display = "none";
+  clearAuthMessage();
+  if (!firebaseReady) showAuthMessage("Firebase সেটআপ না করা পর্যন্ত Login কাজ করবে না।", true);
+}
+function showSignup() {
+  document.getElementById("authTitle").textContent = "CREATE YOUR ACCOUNT";
+  document.getElementById("authDesc").textContent = "Join RIFAT FF PANEL SELLER";
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "block";
+  document.getElementById("logoutButton").style.display = "none";
+  clearAuthMessage();
+  if (!firebaseReady) showAuthMessage("Firebase সেটআপ না করা পর্যন্ত Sign Up কাজ করবে না।", true);
+}
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+  if (!firebaseReady) return showAuthMessage("প্রথমে Firebase config বসিয়ে Email/Password sign-in চালু করো।", true);
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+    showAuthMessage("Login সফল হয়েছে!");
+    setTimeout(closeAuth, 900);
+  } catch (error) { showAuthMessage(authErrorMessage(error.code), true); }
+});
+document.getElementById("signupForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+  if (!firebaseReady) return showAuthMessage("প্রথমে Firebase config বসিয়ে Email/Password sign-in চালু করো।", true);
+  const name = document.getElementById("signupName").value.trim();
+  const username = document.getElementById("signupUsername").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value;
+  const confirm = document.getElementById("signupConfirm").value;
+  if (username.length < 3) return showAuthMessage("Username কমপক্ষে ৩ অক্ষরের হতে হবে।", true);
+  if (password !== confirm) return showAuthMessage("দুটি Password মেলেনি। আবার পরীক্ষা করো।", true);
+  try {
+    const credential = await auth.createUserWithEmailAndPassword(email, password);
+    await credential.user.updateProfile({ displayName: name });
+    await db.collection("users").doc(credential.user.uid).set({
+      fullName: name,
+      username: username,
+      email: email,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    showAuthMessage("অ্যাকাউন্ট তৈরি হয়েছে! তুমি এখন লগইন করা আছো।");
+    document.getElementById("signupForm").reset();
+    setTimeout(closeAuth, 1200);
+  } catch (error) {
+    if (auth && auth.currentUser && error.code !== "auth/email-already-in-use") {
+      // If the auth account was created but Firestore profile write failed,
+      // the user can still sign in; configure Firestore rules before launch.
+    }
+    showAuthMessage(authErrorMessage(error.code), true);
+  }
+});
+async function resetPassword() {
+  if (!firebaseReady) return showAuthMessage("প্রথমে Firebase config বসাতে হবে।", true);
+  const email = document.getElementById("loginEmail").value.trim();
+  if (!email) return showAuthMessage("Password reset link পেতে আগে Email Address লিখো।", true);
+  try {
+    await auth.sendPasswordResetEmail(email);
+    showAuthMessage("Password reset link তোমার ইমেইলে পাঠানো হয়েছে।");
+  } catch (error) { showAuthMessage(authErrorMessage(error.code), true); }
+}
+async function logoutUser() {
+  if (!firebaseReady) return;
+  try { await auth.signOut(); showAuthMessage("Logout সফল হয়েছে।"); showLogin(); }
+  catch (error) { showAuthMessage(authErrorMessage(error.code), true); }
+}
+function authErrorMessage(code) {
+  const messages = {
+    "auth/invalid-email":"ইমেইল ঠিকানাটি সঠিক নয়।",
+    "auth/user-not-found":"এই ইমেইলে কোনো অ্যাকাউন্ট পাওয়া যায়নি।",
+    "auth/wrong-password":"পাসওয়ার্ড সঠিক নয়।",
+    "auth/invalid-credential":"ইমেইল বা পাসওয়ার্ড সঠিক নয়।",
+    "auth/email-already-in-use":"এই ইমেইল দিয়ে আগে থেকেই অ্যাকাউন্ট আছে। Login করো।",
+    "auth/weak-password":"পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দাও।",
+    "auth/too-many-requests":"অনেকবার চেষ্টা করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করো।",
+    "auth/network-request-failed":"ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করো。",
+    "permission-denied":"Firestore access rules সেটআপ করতে হবে।"
+  };
+  return messages[code] || "কাজটি সম্পন্ন হয়নি। তথ্য পরীক্ষা করে আবার চেষ্টা করো। (" + (code || "unknown") + ")";
+}
+if (firebaseReady) {
+  auth.onAuthStateChanged(user => {
+    const status = document.getElementById("userStatus");
+    const authText = document.getElementById("headerAuthText");
+    if (user) {
+      status.textContent = "Hi, " + (user.displayName || user.email);
+      status.classList.add("show");
+      authText.textContent = "My Account";
+      document.getElementById("authTitle").textContent = "YOUR ACCOUNT";
+      document.getElementById("authDesc").textContent = user.email || "";
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("signupForm").style.display = "none";
+      document.getElementById("logoutButton").style.display = "block";
+    } else {
+      status.textContent = "";
+      status.classList.remove("show");
+      authText.textContent = "Login / Sign Up";
+    }
+  });
+}
+const panelsData = [
+ {name:"Panel 1",price:100,priceDisplay:"৳ ১০০",image:"Screenshot_2026-10-28-11-15-48-035_com.dts.freefiremax.jpg",type:"img"},
+ {name:"Panel 2",price:200,priceDisplay:"৳ ২০০",image:"Screenshot_2026-10-28-11-15-40-894_com.dts.freefiremax.jpg",type:"img"},
+ {name:"Panel 3",price:300,priceDisplay:"৳ ৩০০",image:"Screenshot_2026-10-28-11-16-07-064_com.dts.freefiremax.jpg",type:"img"},
+ {name:"Panel 4",price:400,priceDisplay:"৳ ৪০০",image:"Screenshot_2026-10-28-11-15-22-983_com.dts.freefiremax.jpg",type:"img"},
+ {name:"Tournament Panel",price:450,priceDisplay:"৳ ৪৫০",image:"VID_20261028_112023_896.mp4",type:"video"}
+];
+function buyPanel(event,panelName,price) {
+ event.preventDefault();
+ const message = `🛒 নতুন প্যানেল কেনার অর্ডার!\n\nআসসালামু আলাইকুম। আমি আপনার Rifat FF Panel Seller ওয়েবসাইট থেকে একটি প্যানেল কিনতে আগ্রহী।\n\n📦 প্যানেলের নাম: ${panelName}\n💰 প্যানেলের মূল্য: ${price} টাকা\n🌐 ওয়েবসাইট: Rifat FF Panel Seller\n\nদয়া করে প্যানেলটির বিস্তারিত তথ্য জানিয়ে আমার অর্ডারটি সম্পন্ন করতে সাহায্য করুন।\n\nধন্যবাদ। ❤️`;
+ window.open("https://wa.me/8801845907321?text="+encodeURIComponent(message),"_blank","noopener");
+}
+function renderPanels() {
+ const container=document.getElementById("panelsContainer"); let html="";
+ panelsData.forEach(panel=>{
+  const media=panel.type==="video"
+   ? `<video autoplay muted loop controls playsinline><source src="${panel.image}" type="video/mp4"></video>`
+   : `<img src="${panel.image}" alt="${panel.name}">`;
+  const cardStyle=panel.name==="Tournament Panel"?'style="border-color:#00f2fe;"':"";
+  const btnStyle=panel.name==="Tournament Panel"?'style="background:linear-gradient(45deg,#00f2fe,#4facfe);color:#05050f;"':"";
+  html+=`<div class="panel-card" ${cardStyle}>${media}<h3>${panel.name}</h3><div class="price">${panel.priceDisplay}</div><button class="buy-btn" ${btnStyle} onclick="buyPanel(event,'${panel.name}',${panel.price})">Buy Now</button></div>`;
+ });
+ container.innerHTML=html;
+}
+window.addEventListener("DOMContentLoaded",renderPanels);
+function openModal(){document.getElementById("panelModal").classList.add("active")}
+function closeModal(){document.getElementById("panelModal").classList.remove("active")}
+function closeModalOnOutside(event){if(event.target.classList.contains("modal-overlay"))closeModal()}
+document.addEventListener("keydown",event=>{if(event.key==="Escape"){closeModal();closeAuth()}});
+</script>
 </body>
 </html>
