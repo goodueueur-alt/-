@@ -11,6 +11,19 @@
 *{box-sizing:border-box}
 body{margin:0;background:#100d24;color:#fff;font-family:Arial,sans-serif}
 header{text-align:center;padding:24px 12px}
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100d24">
+<title>RIFAT FF PANEL SELLER</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#100d24;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:24px 12px}
 header h1{color:#a78bfa;font-size:24px}
 header p,.muted{color:#b7b1cf;font-size:13px;line-height:1.6}
 .container{max-width:950px;margin:auto;padding:14px}
@@ -20,6 +33,7 @@ h2{font-size:20px;margin-top:0}
 label{display:block;margin:12px 0 6px;font-size:13px}
 input{width:100%;padding:13px;background:#100d24;color:white;border:1px solid #493b69;border-radius:9px}
 button{padding:12px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
 .primary{background:#8b5cf6;color:white}
 .secondary{background:#302547;color:white;border:1px solid #493b69}
 .danger{background:#dc3545;color:white}
@@ -38,6 +52,7 @@ button{padding:12px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
 .tabs{display:flex;position:sticky;bottom:0;gap:4px;padding:8px;background:#17132b;border-top:1px solid #34294f}
 .tabs button{flex:1;background:#302547;color:white;padding:11px 3px;font-size:12px}
 .tabs button.active{background:#8b5cf6}
+.panel-image{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin-bottom:12px;background:#100d24}
 @media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:360px){header h1{font-size:20px}.card{padding:13px}.tabs button{font-size:10px}}
 </style>
@@ -52,7 +67,6 @@ button{padding:12px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
 <main class="container">
 <div id="message" class="notice hidden" role="status"></div>
 
-<!-- LOGIN -->
 <section id="loginPage" class="card auth">
 <h2>🔐 Login</h2>
 <p class="muted">ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করো।</p>
@@ -63,12 +77,11 @@ button{padding:12px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
 <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="তোমার পাসওয়ার্ড">
 <button class="primary full" type="submit">Login</button>
 </form>
-<button id="forgotBtn" class="secondary full">Forgot Password?</button>
-<button id="googleBtn" class="secondary full">🔵 Owner Login with Google</button>
+<button id="forgotBtn" class="secondary full" type="button">Forgot Password?</button>
+<button id="googleBtn" class="secondary full" type="button">🔵 Owner Login with Google</button>
 <p class="muted">নতুন অ্যাকাউন্ট? <span class="link" id="goSignup">Sign Up</span></p>
 </section>
 
-<!-- SIGNUP -->
 <section id="signupPage" class="card auth hidden">
 <h2>📝 Create Account</h2>
 <form id="signupForm">
@@ -86,20 +99,18 @@ button{padding:12px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
 <p class="muted">আগে থেকেই অ্যাকাউন্ট আছে? <span class="link" id="goLogin">Login</span></p>
 </section>
 
-<!-- VERIFY -->
 <section id="verifyPage" class="card auth hidden">
 <h2>📩 Verify Email</h2>
 <p class="muted">ইমেইলে পাঠানো verification link-এ চাপ দিয়ে এখানে ফিরে আসো।</p>
-<button id="resendBtn" class="secondary full">Resend Verification Email</button>
-<button id="checkVerifyBtn" class="primary full">I've Verified My Email</button>
-<button id="verifyLogout" class="secondary full">Logout</button>
+<button id="resendBtn" class="secondary full" type="button">Resend Verification Email</button>
+<button id="checkVerifyBtn" class="primary full" type="button">I've Verified My Email</button>
+<button id="verifyLogout" class="secondary full" type="button">Logout</button>
 </section>
 
-<!-- APP -->
 <section id="appPage" class="hidden">
 <div class="topbar">
 <div><strong>🔥 RIFAT FF PANEL SELLER</strong><div id="welcome" class="muted"></div></div>
-<button id="logoutBtn" class="secondary">Logout</button>
+<button id="logoutBtn" class="secondary" type="button">Logout</button>
 </div>
 
 <section id="homeTab">
@@ -108,14 +119,17 @@ button{padding:12px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
 <p class="muted">প্যানেল নির্বাচন করো। অর্ডার দেওয়ার আগে পণ্যের বিবরণ ও দাম যাচাই করো।</p>
 </div>
 <h2>🔥 Available Panels</h2>
-<div id="panelGrid" class="grid"></div>
+<div id="panelGrid" class="grid">
+<div class="empty">Panel লোড হচ্ছে...</div>
+</div>
+<button id="refreshPanels" class="secondary full" type="button">Refresh Panels</button>
 </section>
 
 <section id="ordersTab" class="hidden">
 <div class="card">
 <h2>📦 My Orders</h2>
-<div id="ordersList" class="empty">অর্ডার দেখতে Refresh চাপ দাও।</div>
-<button id="refreshOrders" class="secondary full">Refresh Orders</button>
+<div id="ordersList" class="empty">অর্ডার লোড হচ্ছে...</div>
+<button id="refreshOrders" class="secondary full" type="button">Refresh Orders</button>
 </div>
 </section>
 
@@ -123,7 +137,7 @@ button{padding:12px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
 <div class="card">
 <h2>💬 Customer Support</h2>
 <p class="muted">সাহায্যের জন্য WhatsApp-এ যোগাযোগ করো।</p>
-<button id="whatsappBtn" class="primary full">Contact on WhatsApp</button>
+<button id="whatsappBtn" class="primary full" type="button">Contact on WhatsApp</button>
 </div>
 </section>
 
@@ -133,37 +147,38 @@ button{padding:12px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
 <p class="muted">Name</p><div id="accountName"></div>
 <p class="muted">Email</p><div id="accountEmail"></div>
 <p class="muted">Verification</p><div id="accountVerified"></div>
-<button id="accountLogout" class="danger full">Logout</button>
+<button id="accountLogout" class="danger full" type="button">Logout</button>
 </div>
 </section>
 
 <section id="ownerTab" class="hidden">
 <div class="card">
 <h2>👑 Owner Dashboard</h2>
-<p class="muted">Google Owner Login সফল হয়েছে। এটি প্রাথমিক ড্যাশবোর্ড; নিরাপদ অ্যাডমিন ও অর্ডার-ম্যানেজমেন্টের জন্য সার্ভার-সাইড অনুমতি দরকার।</p>
+<p class="muted">প্যানেল, ছবি, দাম ও অর্ডার পরিচালনার জন্য পূর্ণ Owner Dashboard খুলুন।</p>
 <div id="ownerEmail"></div>
-<button id="ownerLogout" class="danger full">Logout</button>
+<a href="owner.html" style="text-decoration:none">
+<button class="primary full" type="button">Open Full Owner Panel</button>
+</a>
+<button id="ownerLogout" class="danger full" type="button">Logout</button>
 </div>
 </section>
 
 <nav class="tabs" id="tabs">
-<button data-tab="home" class="active">🏠 Home</button>
-<button data-tab="orders">📦 Orders</button>
-<button data-tab="support">💬 Support</button>
-<button data-tab="account">👤 Account</button>
+<button data-tab="home" class="active" type="button">🏠 Home</button>
+<button data-tab="orders" type="button">📦 Orders</button>
+<button data-tab="support" type="button">💬 Support</button>
+<button data-tab="account" type="button">👤 Account</button>
 </nav>
 </section>
 </main>
 
-<!-- Firebase SDK: একই HTML-এ সম্পূর্ণ -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
 <script>
 "use strict";
 
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
   authDomain: "rifat-ffpanel-seller.firebaseapp.com",
@@ -173,38 +188,36 @@ const firebaseConfig = {
   appId: "1:270050253341:web:ca5db10f52d746751444f4"
 };
 
-// নিজের Owner Gmail এবং WhatsApp নম্বর বসাবে
-const OWNER_EMAIL = "YOUR_OWNER_GMAIL@gmail.com";
+const OWNER_EMAIL = "rifat018459073211@gmail.com";
+const OWNER_UID = "ivPdz5ZPNjaaxoqOcwRVQZ7NAR63";
 const WHATSAPP_NUMBER = "8801XXXXXXXXX";
 
-// নমুনা পণ্য: নিজের পণ্য ও দাম অনুযায়ী পরিবর্তন করবে
-const PANELS = [
-  {id:"panel1",name:"Basic Panel",price:100,description:"Basic package"},
-  {id:"panel2",name:"Standard Panel",price:200,description:"Standard package"},
-  {id:"panel3",name:"Premium Panel",price:350,description:"Premium package"}
-];
-
+let PANELS = [];
 const $ = id => document.getElementById(id);
 let auth, db, currentUser = null, busy = false;
 
-function message(text,type=""){
-  const box=$("message");
-  box.textContent=text;
-  box.className="notice"+(type?" "+type:"");
+function message(text,type="") {
+  const box = $("message");
+  box.textContent = text;
+  box.className = "notice" + (type ? " " + type : "");
   box.classList.remove("hidden");
   window.scrollTo({top:0,behavior:"smooth"});
 }
-function clearMessage(){
-  $("message").textContent="";
-  $("message").className="notice hidden";
+
+function clearMessage() {
+  $("message").textContent = "";
+  $("message").className = "notice hidden";
 }
-function showPage(id){
-  ["loginPage","signupPage","verifyPage","appPage"].forEach(x=>$(x).classList.add("hidden"));
+
+function showPage(id) {
+  ["loginPage","signupPage","verifyPage","appPage"]
+    .forEach(x => $(x).classList.add("hidden"));
   $(id).classList.remove("hidden");
   clearMessage();
 }
-function err(error){
-  const known={
+
+function err(error) {
+  const known = {
     "auth/invalid-email":"ইমেইল ঠিক নয়।",
     "auth/user-not-found":"এই ইমেইলে অ্যাকাউন্ট নেই।",
     "auth/wrong-password":"পাসওয়ার্ড ভুল।",
@@ -218,254 +231,455 @@ function err(error){
     "permission-denied":"Firestore Rules অনুমতি দেয়নি।",
     "unavailable":"ইন্টারনেট অথবা Firebase সার্ভারে সমস্যা।"
   };
-  return known[error.code] || ("Error: "+(error.message||error.code||"Unknown error"));
+  return known[error.code] || ("Error: " + (error.message || error.code || "Unknown error"));
 }
-function setBusy(button,value){
-  button.disabled=value;
-  button.textContent=value?"অপেক্ষা করো...":button.dataset.label;
-}
-document.querySelectorAll("button").forEach(b=>b.dataset.label=b.textContent);
 
-$("goSignup").onclick=()=>showPage("signupPage");
-$("goLogin").onclick=()=>showPage("loginPage");
+function setBusy(button,value) {
+  if (!button) return;
+  if (value) {
+    button.dataset.oldText = button.textContent;
+    button.disabled = true;
+    button.textContent = "অপেক্ষা করো...";
+  } else {
+    button.disabled = false;
+    button.textContent = button.dataset.oldText || button.textContent;
+  }
+}
+
+$("goSignup").onclick = () => showPage("signupPage");
+$("goLogin").onclick = () => showPage("loginPage");
 
 // Sign up
-$("signupForm").addEventListener("submit",async e=>{
+$("signupForm").addEventListener("submit", async e => {
   e.preventDefault();
   clearMessage();
-  const button=e.submitter;
-  const name=$("fullName").value.trim();
-  const email=$("signupEmail").value.trim().toLowerCase();
-  const password=$("signupPassword").value;
-  const confirm=$("confirmPassword").value;
 
-  if(password!==confirm){message("দুটি পাসওয়ার্ড মিলছে না।","error");return;}
-  if(password.length<6){message("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।","error");return;}
+  const button = e.submitter;
+  const name = $("fullName").value.trim();
+  const email = $("signupEmail").value.trim().toLowerCase();
+  const password = $("signupPassword").value;
+  const confirm = $("confirmPassword").value;
+
+  if (password !== confirm) {
+    message("দুটি পাসওয়ার্ড মিলছে না।","error");
+    return;
+  }
+
+  if (password.length < 6) {
+    message("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।","error");
+    return;
+  }
 
   setBusy(button,true);
-  try{
-    const result=await auth.createUserWithEmailAndPassword(email,password);
+  try {
+    const result = await auth.createUserWithEmailAndPassword(email,password);
     await result.user.updateProfile({displayName:name});
+
     await db.collection("users").doc(result.user.uid).set({
-      name,email,role:"member",
+      name,
+      email,
+      role:"member",
       createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
+
     await result.user.sendEmailVerification();
     showPage("verifyPage");
     message("অ্যাকাউন্ট তৈরি হয়েছে। ইমেইল যাচাই করো।","success");
-  }catch(error){
+  } catch(error) {
     message(err(error),"error");
-  }finally{setBusy(button,false);}
+  } finally {
+    setBusy(button,false);
+  }
 });
 
 // Login
-$("loginForm").addEventListener("submit",async e=>{
+$("loginForm").addEventListener("submit", async e => {
   e.preventDefault();
   clearMessage();
-  const button=e.submitter;
+
+  const button = e.submitter;
   setBusy(button,true);
-  try{
-    const email=$("loginEmail").value.trim().toLowerCase();
-    const password=$("loginPassword").value;
-    const result=await auth.signInWithEmailAndPassword(email,password);
+
+  try {
+    const email = $("loginEmail").value.trim().toLowerCase();
+    const password = $("loginPassword").value;
+    const result = await auth.signInWithEmailAndPassword(email,password);
+
     await result.user.reload();
-    if(!auth.currentUser.emailVerified){
+
+    if (!auth.currentUser.emailVerified) {
       showPage("verifyPage");
       message("লগইনের আগে ইমেইল যাচাই করো।","error");
       return;
     }
+
     await routeUser(auth.currentUser);
-  }catch(error){
+  } catch(error) {
     message(err(error),"error");
-  }finally{setBusy(button,false);}
+  } finally {
+    setBusy(button,false);
+  }
 });
 
 // Password reset
-$("forgotBtn").onclick=async()=>{
-  const email=$("loginEmail").value.trim().toLowerCase();
-  if(!email){message("আগে Login ফর্মে ইমেইল লেখো।","error");return;}
-  try{
+$("forgotBtn").onclick = async () => {
+  const email = $("loginEmail").value.trim().toLowerCase();
+
+  if (!email) {
+    message("আগে Login ফর্মে ইমেইল লেখো।","error");
+    return;
+  }
+
+  try {
     await auth.sendPasswordResetEmail(email);
     message("Password reset link ইমেইলে পাঠানো হয়েছে।","success");
-  }catch(error){message(err(error),"error");}
+  } catch(error) {
+    message(err(error),"error");
+  }
 };
 
-// Google owner login
-$("googleBtn").onclick=async()=>{
-  if(OWNER_EMAIL==="YOUR_OWNER_GMAIL@gmail.com"){
-    message("কোডে OWNER_EMAIL-এর জায়গায় নিজের Gmail বসাও।","error");return;
-  }
-  try{
-    const provider=new firebase.auth.GoogleAuthProvider();
-    const result=await auth.signInWithPopup(provider);
-    if((result.user.email||"").toLowerCase()!==OWNER_EMAIL.toLowerCase()){
+// Google Owner Login
+$("googleBtn").onclick = async () => {
+  try {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const result = await auth.signInWithPopup(provider);
+
+    const email = (result.user.email || "").toLowerCase();
+
+    if (email !== OWNER_EMAIL.toLowerCase() ||
+        result.user.uid !== OWNER_UID) {
       await auth.signOut();
-      message("এই Google অ্যাকাউন্টটি Owner নয়।","error");return;
+      message("এই Google অ্যাকাউন্টটি অনুমোদিত Owner নয়।","error");
+      return;
     }
+
     await routeUser(result.user);
-  }catch(error){message(err(error),"error");}
+  } catch(error) {
+    message(err(error),"error");
+  }
 };
 
 // Email verification
-$("resendBtn").onclick=async()=>{
-  try{
-    if(!auth.currentUser)throw new Error("আগে লগইন করো।");
+$("resendBtn").onclick = async () => {
+  try {
+    if (!auth.currentUser) throw new Error("আগে লগইন করো।");
     await auth.currentUser.sendEmailVerification();
     message("Verification email আবার পাঠানো হয়েছে।","success");
-  }catch(error){message(err(error),"error");}
-};
-$("checkVerifyBtn").onclick=async()=>{
-  try{
-    if(!auth.currentUser){showPage("loginPage");return;}
-    await auth.currentUser.reload();
-    if(!auth.currentUser.emailVerified){
-      message("ইমেইলের verification link-এ আগে চাপ দাও।","error");return;
-    }
-    await routeUser(auth.currentUser);
-  }catch(error){message(err(error),"error");}
+  } catch(error) {
+    message(err(error),"error");
+  }
 };
 
-// Render products safely
-function renderPanels(){
-  const grid=$("panelGrid");
+$("checkVerifyBtn").onclick = async () => {
+  try {
+    if (!auth.currentUser) {
+      showPage("loginPage");
+      return;
+    }
+
+    await auth.currentUser.reload();
+
+    if (!auth.currentUser.emailVerified) {
+      message("ইমেইলের verification link-এ আগে চাপ দাও।","error");
+      return;
+    }
+
+    await routeUser(auth.currentUser);
+  } catch(error) {
+    message(err(error),"error");
+  }
+};
+
+// Firebase panel loading
+async function loadPanels() {
+  const grid = $("panelGrid");
+  grid.textContent = "Panel লোড হচ্ছে...";
+
+  try {
+    const snap = await db.collection("panels").get();
+
+    PANELS = snap.docs.map(doc => {
+      const data = doc.data();
+
+      return {
+        id:doc.id,
+        name:data.name || doc.id,
+        price:Number(data.price) || 0,
+        description:data.description || "Panel package",
+        imageUrl:data.imageUrl || "",
+        enabled:data.enabled !== false
+      };
+    });
+
+    renderPanels();
+  } catch(error) {
+    grid.replaceChildren();
+    grid.textContent = "Panel লোড করা যায়নি: " + err(error);
+  }
+}
+
+// Render products
+function renderPanels() {
+  const grid = $("panelGrid");
   grid.replaceChildren();
-  PANELS.forEach(p=>{
-    const card=document.createElement("article");
-    card.className="card";
-    const title=document.createElement("h3");title.textContent=p.name;
-    const desc=document.createElement("p");desc.className="muted";desc.textContent=p.description;
-    const price=document.createElement("div");price.className="price";price.textContent="৳"+p.price;
-    const btn=document.createElement("button");btn.className="primary full";btn.textContent="Order Now";
-    btn.onclick=()=>placeOrder(p);
-    card.append(title,desc,price,btn);grid.appendChild(card);
+
+  const available = PANELS.filter(panel => panel.enabled === true);
+
+  if (!available.length) {
+    grid.textContent = "এখন কোনো Panel উপলভ্য নেই।";
+    grid.className = "grid";
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Owner Panel থেকে Panel চালু করা হলে এখানে দেখা যাবে।";
+    grid.appendChild(empty);
+    return;
+  }
+
+  available.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    if (p.imageUrl) {
+      const image = document.createElement("img");
+      image.className = "panel-image";
+      image.src = p.imageUrl;
+      image.alt = p.name;
+      image.loading = "lazy";
+      image.referrerPolicy = "no-referrer";
+      image.onerror = () => image.remove();
+      card.appendChild(image);
+    }
+
+    const title = document.createElement("h3");
+    title.textContent = p.name;
+
+    const desc = document.createElement("p");
+    desc.className = "muted";
+    desc.textContent = p.description;
+
+    const price = document.createElement("div");
+    price.className = "price";
+    price.textContent = "৳" + p.price;
+
+    const btn = document.createElement("button");
+    btn.className = "primary full";
+    btn.textContent = "Order Now";
+    btn.onclick = () => placeOrder(p);
+
+    card.append(title,desc,price,btn);
+    grid.appendChild(card);
   });
 }
 
+$("refreshPanels").onclick = loadPanels;
+
 // Place order
-async function placeOrder(p){
-  if(!currentUser||busy)return;
-  if(!confirm(p.name+" অর্ডার করবে? দাম: ৳"+p.price))return;
-  busy=true;
-  try{
-    const ref=await db.collection("orders").add({
-      userId:currentUser.uid,productId:p.id,productName:p.name,
-      price:p.price,status:"Pending",
+async function placeOrder(p) {
+  if (!currentUser || busy) return;
+
+  if (!confirm(p.name + " অর্ডার করবে? দাম: ৳" + p.price)) return;
+
+  busy = true;
+
+  try {
+    const ref = await db.collection("orders").add({
+      userId:currentUser.uid,
+      productId:p.id,
+      productName:p.name,
+      price:p.price,
+      status:"pending",
       createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
-    message("অর্ডার জমা হয়েছে। ID: "+ref.id,"success");
-    await loadOrders();switchTab("orders");
-  }catch(error){message(err(error),"error");}
-  finally{busy=false;}
+
+    message("অর্ডার জমা হয়েছে। ID: " + ref.id,"success");
+    await loadOrders();
+    switchTab("orders");
+  } catch(error) {
+    message(err(error),"error");
+  } finally {
+    busy = false;
+  }
 }
 
 // Read own orders
-async function loadOrders(){
-  if(!currentUser)return;
-  const list=$("ordersList");list.textContent="অর্ডার লোড হচ্ছে...";
-  try{
-    const snap=await db.collection("orders").where("userId","==",currentUser.uid).get();
+async function loadOrders() {
+  if (!currentUser) return;
+
+  const list = $("ordersList");
+  list.textContent = "অর্ডার লোড হচ্ছে...";
+
+  try {
+    const snap = await db.collection("orders")
+      .where("userId","==",currentUser.uid)
+      .get();
+
     list.replaceChildren();
-    if(snap.empty){list.className="empty";list.textContent="এখনো কোনো অর্ডার নেই।";return;}
-    list.className="";
-    snap.docs.forEach(doc=>{
-      const d=doc.data();
-      const item=document.createElement("div");item.className="order";
-      const title=document.createElement("strong");title.textContent=d.productName||"Panel";
-      const status=document.createElement("span");status.className="badge";status.textContent=d.status||"Pending";
-      const price=document.createElement("p");price.className="muted";price.textContent="দাম: ৳"+d.price;
-      const id=document.createElement("p");id.className="muted";id.textContent="Order ID: "+doc.id;
-      item.append(title,document.createTextNode(" "),status,price,id);list.appendChild(item);
+
+    if (snap.empty) {
+      list.className = "empty";
+      list.textContent = "এখনো কোনো অর্ডার নেই।";
+      return;
+    }
+
+    list.className = "";
+
+    snap.docs.forEach(doc => {
+      const d = doc.data();
+      const item = document.createElement("div");
+      item.className = "order";
+
+      const title = document.createElement("strong");
+      title.textContent = d.productName || "Panel";
+
+      const status = document.createElement("span");
+      status.className = "badge";
+      status.textContent = d.status || "pending";
+
+      const price = document.createElement("p");
+      price.className = "muted";
+      price.textContent = "দাম: ৳" + d.price;
+
+      const id = document.createElement("p");
+      id.className = "muted";
+      id.textContent = "Order ID: " + doc.id;
+
+      item.append(title,document.createTextNode(" "),status,price,id);
+      list.appendChild(item);
     });
-  }catch(error){list.textContent=err(error);}
+  } catch(error) {
+    list.textContent = err(error);
+  }
 }
-$("refreshOrders").onclick=loadOrders;
+
+$("refreshOrders").onclick = loadOrders;
 
 // Tabs
-function switchTab(name){
-  ["home","orders","support","account","owner"].forEach(t=>{
-    $(t+"Tab").classList.toggle("hidden",t!==name);
+function switchTab(name) {
+  ["home","orders","support","account"].forEach(tab => {
+    $(tab + "Tab").classList.toggle("hidden",tab !== name);
   });
-  document.querySelectorAll(".tabs button").forEach(b=>{
-    b.classList.toggle("active",b.dataset.tab===name);
+
+  document.querySelectorAll(".tabs button").forEach(button => {
+    button.classList.toggle("active",button.dataset.tab === name);
   });
-  if(name==="orders")loadOrders();
-  if(name==="account")renderAccount();
+
+  if (name === "orders") loadOrders();
+  if (name === "account") renderAccount();
+  if (name === "home") loadPanels();
 }
-document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+
+document.querySelectorAll(".tabs button").forEach(button => {
+  button.onclick = () => switchTab(button.dataset.tab);
+});
 
 // Account
-function renderAccount(){
-  if(!currentUser)return;
-  $("accountName").textContent=currentUser.displayName||"Member";
-  $("accountEmail").textContent=currentUser.email||"";
-  $("accountVerified").textContent=currentUser.emailVerified?"Verified ✓":"Not verified";
+function renderAccount() {
+  if (!currentUser) return;
+
+  $("accountName").textContent = currentUser.displayName || "Member";
+  $("accountEmail").textContent = currentUser.email || "";
+  $("accountVerified").textContent =
+    currentUser.emailVerified ? "Verified ✓" : "Not verified";
 }
 
-// WhatsApp
-$("whatsappBtn").onclick=()=>{
-  if(WHATSAPP_NUMBER==="8801XXXXXXXXX"){
-    message("কোডে WHATSAPP_NUMBER-এর জায়গায় আসল নম্বর বসাও।","error");return;
+// WhatsApp support
+$("whatsappBtn").onclick = () => {
+  if (WHATSAPP_NUMBER === "8801XXXXXXXXX") {
+    message("কোডে WHATSAPP_NUMBER-এর জায়গায় নিজের WhatsApp নম্বর বসাও।","error");
+    return;
   }
-  const text=encodeURIComponent("Hello RIFAT FF PANEL SELLER, I need support.");
-  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+text,"_blank","noopener,noreferrer");
+
+  const text = encodeURIComponent(
+    "Hello RIFAT FF PANEL SELLER, I need support."
+  );
+
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + text,
+    "_blank",
+    "noopener,noreferrer"
+  );
 };
 
 // Logout
-async function logout(){
-  try{await auth.signOut();currentUser=null;showPage("loginPage");}
-  catch(error){message(err(error),"error");}
+async function logout() {
+  try {
+    await auth.signOut();
+    currentUser = null;
+    PANELS = [];
+    showPage("loginPage");
+  } catch(error) {
+    message(err(error),"error");
+  }
 }
-$("logoutBtn").onclick=logout;
-$("accountLogout").onclick=logout;
-$("ownerLogout").onclick=logout;
-$("verifyLogout").onclick=logout;
+
+$("logoutBtn").onclick = logout;
+$("accountLogout").onclick = logout;
+$("ownerLogout").onclick = logout;
+$("verifyLogout").onclick = logout;
 
 // Route authenticated user
-async function routeUser(user){
+async function routeUser(user) {
   await user.reload();
-  currentUser=auth.currentUser;
+  currentUser = auth.currentUser;
 
-  if(!currentUser.emailVerified){
-    showPage("verifyPage");return;
+  if (!currentUser) return;
+
+  if (!currentUser.emailVerified) {
+    showPage("verifyPage");
+    return;
   }
 
-  const isOwner=OWNER_EMAIL!=="YOUR_OWNER_GMAIL@gmail.com" &&
-    (currentUser.email||"").toLowerCase()===OWNER_EMAIL.toLowerCase();
+  const email = (currentUser.email || "").toLowerCase();
+  const isOwner = email === OWNER_EMAIL.toLowerCase()
+    && currentUser.uid === OWNER_UID;
 
   showPage("appPage");
-  $("welcome").textContent=currentUser.displayName||currentUser.email;
+  $("welcome").textContent = currentUser.displayName || currentUser.email;
 
-  if(isOwner){
-    ["homeTab","ordersTab","supportTab","accountTab"].forEach(id=>$(id).classList.add("hidden"));
+  if (isOwner) {
+    ["homeTab","ordersTab","supportTab","accountTab"]
+      .forEach(id => $(id).classList.add("hidden"));
+
     $("ownerTab").classList.remove("hidden");
     $("tabs").classList.add("hidden");
-    $("ownerEmail").textContent=currentUser.email;
-  }else{
+    $("ownerEmail").textContent = currentUser.email;
+  } else {
+    $("ownerTab").classList.add("hidden");
     $("tabs").classList.remove("hidden");
-    renderPanels();renderAccount();switchTab("home");
+    renderAccount();
+    switchTab("home");
+    await loadPanels();
   }
 }
 
-// Firebase initialization and error handling
-try{
-  if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
-  auth=firebase.auth();
-  db=firebase.firestore();
+// Firebase initialization
+try {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
 
-  auth.onAuthStateChanged(async user=>{
-    try{
-      if(user)await routeUser(user);
-      else{
-        currentUser=null;
+  auth = firebase.auth();
+  db = firebase.firestore();
+
+  auth.onAuthStateChanged(async user => {
+    try {
+      if (user) {
+        await routeUser(user);
+      } else {
+        currentUser = null;
         $("tabs").classList.remove("hidden");
         showPage("loginPage");
       }
-    }catch(error){
-      showPage("loginPage");message(err(error),"error");
+    } catch(error) {
+      showPage("loginPage");
+      message(err(error),"error");
     }
   });
-}catch(error){
-  message("Firebase চালু করা যায়নি। পেজ রিফ্রেশ করো এবং SDK/Config পরীক্ষা করো। "+error.message,"error");
+} catch(error) {
+  message(
+    "Firebase চালু করা যায়নি। পেজ রিফ্রেশ করো এবং SDK/Config পরীক্ষা করো। " + error.message,
+    "error"
+  );
 }
 </script>
 </body>
