@@ -85,7 +85,7 @@
         }
 
         .hero h1 {
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 800;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -213,7 +213,6 @@
 
         .social-btn i { font-size: 22px; }
 
-        /* Discord Banner */
         .discord-box {
             margin: 30px auto 0;
             max-width: 600px;
@@ -239,7 +238,7 @@
             font-size: 13px;
         }
 
-        /* Modal Overlay (Pop-up Window) */
+        /* POP-UP MODAL WINDOW */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -264,8 +263,8 @@
             border: 2px solid #00f2fe;
             border-radius: 20px;
             width: 100%;
-            max-width: 1000px;
-            max-height: 90vh;
+            max-width: 900px;
+            max-height: 85vh;
             overflow-y: auto;
             padding: 30px 20px;
             position: relative;
@@ -287,10 +286,9 @@
             color: #fff;
         }
 
-        /* Panel Grid inside Modal */
         .panels-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
@@ -442,7 +440,7 @@
         <p>© 2025 Rifat FF Panel Seller. All rights reserved.</p>
     </footer>
 
-    <!-- POP-UP MODAL WINDOW (Buy Panel-এ চাপ দেওয়ার পর খুলবে) -->
+    <!-- POP-UP MODAL WINDOW -->
     <div class="modal-overlay" id="panelModal" onclick="closeModalOnOutside(event)">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -495,7 +493,7 @@
         </div>
     </div>
 
-    <!-- JavaScript for Pop-up Modal Functionality -->
+    <!-- JavaScript -->
     <script>
         function openModal() {
             document.getElementById('panelModal').classList.add('active');
@@ -512,4 +510,4 @@
         }
     </script>
 </body>
-</html>
+    </html>
