@@ -179,6 +179,7 @@
       font-size: 12px;
       text-decoration: none;
       font-weight: 600;
+      cursor: pointer;
     }
 
     .link:hover {
@@ -206,7 +207,7 @@
       box-shadow: 0 6px 20px rgba(234, 179, 8, 0.6);
     }
 
-    /* Views visibility logic */
+    /* Views visibility */
     .view-block {
       display: block;
     }
@@ -296,7 +297,7 @@
       </div>
 
       <!-- Tab Buttons -->
-      <div class="auth-tabs">
+      <div class="auth-tabs" id="tabsBar">
         <button class="tab-btn active" id="btnTabSignin" onclick="showForm('signin')">সাইন ইন</button>
         <button class="tab-btn" id="btnTabSignup" onclick="showForm('signup')">সাইন আপ</button>
       </div>
@@ -322,7 +323,7 @@
           </div>
 
           <div class="forgot-pass">
-            <a href="#" class="link">পাসওয়ার্ড ভুলে গেছেন?</a>
+            <a href="#" class="link" onclick="showForm('forgot')">পাসওয়ার্ড ভুলে গেছেন?</a>
           </div>
 
           <button type="submit" class="submit-btn">সাইন ইন</button>
@@ -373,6 +374,41 @@
           <button type="submit" class="submit-btn">সাইন আপ</button>
         </form>
       </div>
+
+      <!-- Forgot Password / OTP Reset Form -->
+      <div id="forgotBox" class="view-hidden">
+        <form onsubmit="onResetPasswordSubmit(event)">
+          <p style="font-size: 13px; color: #94a3b8; margin-bottom: 14px; text-align: center;">আপনার জিমেইলে পাঠানো ওটিপি এবং নতুন পাসওয়ার্ড দিন</p>
+          
+          <div class="form-group">
+            <label>ওটিপি (OTP কোড)</label>
+            <div class="input-wrapper">
+              <input type="text" id="otp-input" placeholder="৪ বা ৬ ডিজিটের ওটিপি লিখুন" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>নতুন পাসওয়ার্ড</label>
+            <div class="input-wrapper">
+              <input type="password" id="new-pass-input" placeholder="নতুন পাসওয়ার্ড দিন" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>পাসওয়ার্ড নিশ্চিত করুন</label>
+            <div class="input-wrapper">
+              <input type="password" id="confirm-pass-input" placeholder="পুনরায় নতুন পাসওয়ার্ড দিন" required />
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">পাসওয়ার্ড রিসেট করুন</button>
+          
+          <div style="text-align: center; margin-top: 15px;">
+            <a href="#" class="link" onclick="showForm('signin')">← আবার লগইন পেজে ফিরে যান</a>
+          </div>
+        </form>
+      </div>
+
     </div>
 
 
@@ -410,23 +446,34 @@
   </div>
 
   <script>
-    // Tab switching function
+    // Tab and Form switching function
     function showForm(formType) {
       const signinBox = document.getElementById('signinBox');
       const signupBox = document.getElementById('signupBox');
+      const forgotBox = document.getElementById('forgotBox');
       const btnTabSignin = document.getElementById('btnTabSignin');
       const btnTabSignup = document.getElementById('btnTabSignup');
+      const tabsBar = document.getElementById('tabsBar');
 
       if (formType === 'signin') {
         signinBox.className = 'view-block';
         signupBox.className = 'view-hidden';
+        forgotBox.className = 'view-hidden';
+        tabsBar.style.display = 'flex';
         btnTabSignin.classList.add('active');
         btnTabSignup.classList.remove('active');
-      } else {
+      } else if (formType === 'signup') {
         signinBox.className = 'view-hidden';
         signupBox.className = 'view-block';
+        forgotBox.className = 'view-hidden';
+        tabsBar.style.display = 'flex';
         btnTabSignup.classList.add('active');
         btnTabSignin.classList.remove('active');
+      } else if (formType === 'forgot') {
+        signinBox.className = 'view-hidden';
+        signupBox.className = 'view-hidden';
+        forgotBox.className = 'view-block';
+        tabsBar.style.display = 'none'; // Hide tabs on forgot password view
       }
     }
 
@@ -453,10 +500,26 @@
       document.getElementById('dashboardSection').className = 'view-block';
     }
 
+    // On Submit Password Reset via OTP
+    function onResetPasswordSubmit(e) {
+      e.preventDefault();
+      const newPass = document.getElementById('new-pass-input').value;
+      const confirmPass = document.getElementById('confirm-pass-input').value;
+
+      if (newPass !== confirmPass) {
+        alert('নতুন পাসওয়ার্ড এবং কনফার্ম পাসওয়ার্ড মিলছে না!');
+        return;
+      }
+
+      alert('ওটিপি যাচাই সফল হয়েছে এবং পাসওয়ার্ড সফলভাবে রিসেট করা হয়েছে!');
+      showForm('signin');
+    }
+
     // On Logout
     function logoutUser() {
       document.getElementById('dashboardSection').className = 'view-hidden';
       document.getElementById('authSection').className = 'view-block';
+      showForm('signin');
     }
   </script>
 
