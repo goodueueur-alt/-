@@ -13,6 +13,30 @@
   <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
+  <!-- Firebase App & Auth SDK (Modular v10) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // আপনার প্রদত্ত Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
+      authDomain: "rifat-ffpanel-seller.firebaseapp.com",
+      projectId: "rifat-ffpanel-seller",
+      storageBucket: "rifat-ffpanel-seller.firebasestorage.app",
+      messagingSenderId: "270050253341",
+      appId: "1:270050253341:web:ca5db10f52d746751444f4"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Make Firebase Auth tools globally accessible
+    window.firebaseAuth = auth;
+    window.fetchSignInMethodsForEmail = fetchSignInMethodsForEmail;
+  </script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -635,33 +659,54 @@
       });
     }
 
-    // Send OTP via EmailJS
-    function sendOTPCode() {
+    // Send OTP via EmailJS after verifying Firebase Database
+    async function sendOTPCode() {
       const emailField = document.getElementById('reset-email-input').value;
       if (!emailField) {
         showModal('সতর্কতা', 'দয়া করে প্রথমে আপনার জিমেইল লিখুন!');
         return;
       }
 
-      // Generate a random 6-digit OTP
-      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+      showModal('যাচাই করা হচ্ছে', 'অনুগ্রহ করে অপেক্ষা করুন...');
 
-      const templateParams = {
-        to_email: emailField,
-        email: emailField,
-        passcode: generatedOTP,
-        otp: generatedOTP
-      };
+      try {
+        // ফায়ারবেস চেক করবে ইমেলটি রেজিস্টার্ড করা আছে কি না
+        if (!window.fetchSignInMethodsForEmail || !window.firebaseAuth) {
+          showModal('ত্রুটি', 'ফায়ারবেস সার্ভিস লোড হতে সময় নিচ্ছে, আবার চেষ্টা করুন।');
+          return;
+        }
 
-      showModal('ওটিপি পাঠানো হচ্ছে', 'অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন...');
+        const signInMethods = await window.fetchSignInMethodsForEmail(window.firebaseAuth, emailField);
+        
+        if (signInMethods.length === 0) {
+          showModal('ভুল জিমেইল', 'এই জিমেইল দিয়ে কোনো অ্যাকাউন্ট খুঁজে পাওয়া যায়নি!');
+          return;
+        }
 
-      emailjs.send("service_u36uj8r", "template_aimy5cj", templateParams)
-        .then(function(response) {
-            showModal('সফলতা', 'ওটিপি কোডটি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
-        }, function(error) {
-            console.error('FAILED...', error);
-            showModal('ব্যর্থ হয়েছে', 'ইমেল পাঠানো সম্ভব হয়নি: ' + (error.text || 'সার্ভার এরর'));
-        });
+        // যদি ইমেলটি ডাটাবেসে পাওয়া যায়, তবেই OTP জেনারেট করে পাঠানো হবে
+        generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+        const templateParams = {
+          to_email: emailField,
+          email: emailField,
+          passcode: generatedOTP,
+          otp: generatedOTP
+        };
+
+        showModal('ওটিপি পাঠানো হচ্ছে', 'অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন...');
+
+        emailjs.send("service_u36uj8r", "template_aimy5cj", templateParams)
+          .then(function(response) {
+              showModal('সফলতা', 'ওটিপি কোডটি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
+          }, function(error) {
+              console.error('FAILED...', error);
+              showModal('ব্যর্থ হয়েছে', 'ইমেল পাঠানো সম্ভব হয়নি: ' + (error.text || 'সার্ভার এরর'));
+          });
+
+      } catch (error) {
+        console.error(error);
+        showModal('ত্রুটি', 'ইমেল যাচাই করতে সমস্যা হয়েছে: ' + error.message);
+      }
     }
 
     function onResetPasswordSubmit(e) {
