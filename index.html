@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&family=Hind+Siliguri:wght@500;600&display=swap" rel="stylesheet">
   
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -207,6 +210,25 @@
       box-shadow: 0 6px 20px rgba(234, 179, 8, 0.6);
     }
 
+    .otp-btn {
+      background: #332554;
+      color: #facc15;
+      border: 1px solid #facc15;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      width: 100%;
+      transition: 0.2s;
+    }
+
+    .otp-btn:hover {
+      background: #facc15;
+      color: #000;
+    }
+
     .view-block {
       display: block;
     }
@@ -374,22 +396,23 @@
         </form>
       </div>
 
-      <!-- Forgot Password / OTP Reset Form (Updated with Gmail Input) -->
+      <!-- Forgot Password / OTP Reset Form -->
       <div id="forgotBox" class="view-hidden">
         <form onsubmit="onResetPasswordSubmit(event)">
-          <p style="font-size: 13px; color: #94a3b8; margin-bottom: 14px; text-align: center;">আপনার জিমেইল দিন এবং ওটিপি দিয়ে পাসওয়ার্ড রিসেট করুন</p>
+          <p style="font-size: 13px; color: #94a3b8; margin-bottom: 14px; text-align: center;">আপনার জিমেইল দিন, ওটিপি পাঠান এবং রিসেট করুন</p>
           
           <div class="form-group">
             <label>জিমেইল বা ইমেল অ্যাড্রেস</label>
             <div class="input-wrapper">
               <input type="email" id="reset-email-input" placeholder="আপনার জিমেইল লিখুন" required />
             </div>
+            <button type="button" class="otp-btn" onclick="sendOTPCode()">ওটিপি কোড পাঠান</button>
           </div>
 
           <div class="form-group">
             <label>ওটিপি (OTP কোড)</label>
             <div class="input-wrapper">
-              <input type="text" id="otp-input" placeholder="জিমেইলে আসা ওটিপি লিখুন" required />
+              <input type="text" id="otp-input" placeholder="জিমেইলে আসা ৬ ডিজিটের ওটিপি লিখুন" required />
             </div>
           </div>
 
@@ -417,8 +440,7 @@
 
     </div>
 
-
-    <!-- DASHBOARD SECTION (Opens after Sign In) -->
+    <!-- DASHBOARD SECTION -->
     <div id="dashboardSection" class="view-hidden">
       <div class="dashboard-header">
         <div class="user-welcome">
@@ -452,6 +474,13 @@
   </div>
 
   <script>
+    // EmailJS Initialisation with Public Key
+    (function(){
+       emailjs.init("YKCEjv8TUbgGmlnEX");
+    })();
+
+    let generatedOTP = "";
+
     function showForm(formType) {
       const signinBox = document.getElementById('signinBox');
       const signupBox = document.getElementById('signupBox');
@@ -502,18 +531,51 @@
       document.getElementById('dashboardSection').className = 'view-block';
     }
 
+    // Send OTP via EmailJS
+    function sendOTPCode() {
+      const emailField = document.getElementById('reset-email-input').value;
+      if (!emailField) {
+        alert('দয়া করে প্রথমে আপনার জিমেইল বা ইমেল লিখুন!');
+        return;
+      }
+
+      // Generate a random 6-digit OTP
+      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+      const templateParams = {
+        to_email: emailField,
+        passcode: generatedOTP
+      };
+
+      alert('ওটিপি পাঠানো হচ্ছে, অনুগ্রহ করে একটু অপেক্ষা করুন...');
+
+      emailjs.send("service_u36uj8r", "template_aimy5cj", templateParams)
+        .then(function(response) {
+            alert('ওটিপি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
+        }, function(error) {
+            console.error('FAILED...', error);
+            alert('ওটিপি পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+        });
+    }
+
     function onResetPasswordSubmit(e) {
       e.preventDefault();
       const resetEmail = document.getElementById('reset-email-input').value;
+      const enteredOTP = document.getElementById('otp-input').value;
       const newPass = document.getElementById('new-pass-input').value;
       const confirmPass = document.getElementById('confirm-pass-input').value;
+
+      if (enteredOTP !== generatedOTP) {
+        alert('ভুল ওটিপি কোড! সঠিক ওটিপি দিন।');
+        return;
+      }
 
       if (newPass !== confirmPass) {
         alert('নতুন পাসওয়ার্ড এবং কনফার্ম পাসওয়ার্ড মিলছে না!');
         return;
       }
 
-      alert(resetEmail + ' জিমেইলের জন্য ওটিপি যাচাই সফল হয়েছে এবং পাসওয়ার্ড রিসেট করা হয়েছে!');
+      alert(resetEmail + ' জিমেইলের ওটিপি যাচাই সফল হয়েছে এবং পাসওয়ার্ড সফলভাবে রিসেট করা হয়েছে!');
       showForm('signin');
     }
 
