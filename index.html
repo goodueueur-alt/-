@@ -1,21 +1,6 @@
 <!DOCTYPE html>
 <html lang="bn">
  <head>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script>
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
-    authDomain: "rifat-ffpanel-seller.firebaseapp.com",
-    projectId: "rifat-ffpanel-seller",
-    storageBucket: "rifat-ffpanel-seller.firebasestorage.app",
-    messagingSenderId: "270050253341",
-    appId: "1:270050253341:web:ca5db10f52d746751444f4"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RIFAT FF PANEL SELLER</title>
@@ -110,7 +95,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:20p
  </div>
 </div>
 
-<!-- Firebase Authentication SDK -->
+<!-- Firebase SDKs (v10.12.2) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -123,9 +108,11 @@ const firebaseConfig = {
   messagingSenderId: "270050253341",
   appId: "1:270050253341:web:ca5db10f52d746751444f4"
 };
+
 let auth = null;
 let db = null;
 let firebaseReady = false;
+
 try {
   firebase.initializeApp(firebaseConfig);
   auth = firebase.auth();
@@ -134,6 +121,7 @@ try {
 } catch (error) {
   console.error("Firebase initialization error:", error);
 }
+
 function showAuthMessage(message, isError=false) {
   const el = document.getElementById("authMessage");
   el.textContent = message;
@@ -166,6 +154,7 @@ function showSignup() {
   document.getElementById("logoutButton").style.display = "none";
   clearAuthMessage();
 }
+
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
   event.preventDefault();
   if (!firebaseReady) return showAuthMessage("Firebase ready না।", true);
@@ -177,6 +166,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     setTimeout(closeAuth, 900);
   } catch (error) { showAuthMessage(authErrorMessage(error.code), true); }
 });
+
 document.getElementById("signupForm").addEventListener("submit", async function(event) {
   event.preventDefault();
   if (!firebaseReady) return showAuthMessage("Firebase ready না।", true);
@@ -203,6 +193,7 @@ document.getElementById("signupForm").addEventListener("submit", async function(
     showAuthMessage(authErrorMessage(error.code), true);
   }
 });
+
 async function resetPassword() {
   if (!firebaseReady) return;
   const email = document.getElementById("loginEmail").value.trim();
@@ -212,11 +203,13 @@ async function resetPassword() {
     showAuthMessage("Password reset link তোমার ইমেইলে পাঠানো হয়েছে।");
   } catch (error) { showAuthMessage(authErrorMessage(error.code), true); }
 }
+
 async function logoutUser() {
   if (!firebaseReady) return;
   try { await auth.signOut(); showAuthMessage("Logout সফল হয়েছে।"); showLogin(); }
   catch (error) { showAuthMessage(authErrorMessage(error.code), true); }
 }
+
 function authErrorMessage(code) {
   const messages = {
     "auth/invalid-email":"ইমেইল ঠিকানাটি সঠিক নয়।",
@@ -230,6 +223,7 @@ function authErrorMessage(code) {
   };
   return messages[code] || "কাজটি সম্পন্ন হয়নি। তথ্য পরীক্ষা করে আবার চেষ্টা করো। (" + (code || "unknown") + ")";
 }
+
 if (firebaseReady) {
   auth.onAuthStateChanged(user => {
     const status = document.getElementById("userStatus");
@@ -250,6 +244,7 @@ if (firebaseReady) {
     }
   });
 }
+
 const panelsData = [
  {name:"Panel 1",price:100,priceDisplay:"৳ ১০০",image:"Screenshot_2026-10-28-11-15-48-035_com.dts.freefiremax.jpg",type:"img"},
  {name:"Panel 2",price:200,priceDisplay:"৳ ২০০",image:"Screenshot_2026-10-28-11-15-40-894_com.dts.freefiremax.jpg",type:"img"},
@@ -257,11 +252,13 @@ const panelsData = [
  {name:"Panel 4",price:400,priceDisplay:"৳ ৪০০",image:"Screenshot_2026-10-28-11-15-22-983_com.dts.freefiremax.jpg",type:"img"},
  {name:"Tournament Panel",price:450,priceDisplay:"৳ ৪৫০",image:"VID_20261028_112023_896.mp4",type:"video"}
 ];
+
 function buyPanel(event,panelName,price) {
  event.preventDefault();
  const message = `🛒 নতুন প্যানেল কেনার অর্ডার!\n\nআসসালামু আলাইকুম। আমি আপনার Rifat FF Panel Seller ওয়েবসাইট থেকে একটি প্যানেল কিনতে আগ্রহী।\n\n📦 প্যানেলের নাম: ${panelName}\n💰 প্যানেলের মূল্য: ${price} টাকা\n🌐 ওয়েবসাইট: Rifat FF Panel Seller\n\nদয়া করে প্যানেলটির বিস্তারিত তথ্য জানিয়ে আমার অর্ডারটি সম্পন্ন করতে সাহায্য করুন।\n\nধন্যবাদ। ❤️`;
  window.open("https://wa.me/8801845907321?text="+encodeURIComponent(message),"_blank","noopener");
 }
+
 function renderPanels() {
  const container=document.getElementById("panelsContainer"); let html="";
  panelsData.forEach(panel=>{
@@ -274,6 +271,7 @@ function renderPanels() {
  });
  container.innerHTML=html;
 }
+
 window.addEventListener("DOMContentLoaded",renderPanels);
 function openModal(){document.getElementById("panelModal").classList.add("active")}
 function closeModal(){document.getElementById("panelModal").classList.remove("active")}
@@ -281,4 +279,4 @@ function closeModalOnOutside(event){if(event.target.classList.contains("modal-ov
 document.addEventListener("keydown",event=>{if(event.key==="Escape"){closeModal();closeAuth()}});
 </script>
 </body>
- </html>
+</html>
