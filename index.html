@@ -531,7 +531,7 @@
       document.getElementById('dashboardSection').className = 'view-block';
     }
 
-    // Send OTP via EmailJS
+    // Send OTP via EmailJS (Updated with broader parameter mapping)
     function sendOTPCode() {
       const emailField = document.getElementById('reset-email-input').value;
       if (!emailField) {
@@ -544,7 +544,9 @@
 
       const templateParams = {
         to_email: emailField,
-        passcode: generatedOTP
+        email: emailField,
+        passcode: generatedOTP,
+        otp: generatedOTP
       };
 
       alert('ওটিপি পাঠানো হচ্ছে, অনুগ্রহ করে একটু অপেক্ষা করুন...');
@@ -554,7 +556,7 @@
             alert('ওটিপি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
         }, function(error) {
             console.error('FAILED...', error);
-            alert('ওটিপি পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+            alert('ব্যর্থ হয়েছে: ' + JSON.stringify(error));
         });
     }
 
