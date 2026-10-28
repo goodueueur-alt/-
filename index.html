@@ -3,87 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rifat Panel Seller - User Login</title>
+  <title>Rifat FF Panel Seller - Login</title>
+  
+  <!-- eSports & Professional Font Imports -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&family=Hind+Siliguri:wght@500;600&display=swap" rel="stylesheet">
+  
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      background: #0b081a;
-      background-image: radial-gradient(circle at top, #1c113b 0%, #0b081a 70%);
+      background: #090614;
+      background-image: radial-gradient(circle at top, #1e103a 0%, #090614 75%);
       color: #ffffff;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      font-family: 'Rajdhani', 'Hind Siliguri', sans-serif;
     }
 
     .login-card {
-      background: rgba(21, 16, 42, 0.9);
-      border: 1px solid #34294f;
-      border-radius: 20px;
-      padding: 35px 28px;
+      background: rgba(18, 12, 36, 0.92);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 24px;
+      padding: 40px 30px;
       width: 100%;
-      max-width: 400px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(139, 92, 246, 0.2);
-      backdrop-filter: blur(12px);
+      max-width: 410px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 30px rgba(139, 92, 246, 0.15);
+      backdrop-filter: blur(16px);
     }
 
     .header-area {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
-    /* Custom Stylish Gaming Logo Badge */
-    .brand-logo {
-      width: 65px;
-      height: 65px;
-      background: linear-gradient(135deg, #8b5cf6, #4c1d95);
-      border-radius: 16px;
+    /* Professional Gaming Shield Badge Logo */
+    .brand-logo-container {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 12px;
-      box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
-    .brand-logo span {
-      font-size: 26px;
+    .brand-logo-container svg {
+      width: 38px;
+      height: 38px;
+      fill: #ffffff;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    }
+
+    /* Custom eSports Brand Font Title */
+    .brand-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 21px;
       font-weight: 900;
-      color: #ffffff;
-      letter-spacing: 1px;
-    }
-
-    .title {
-      color: #a78bfa;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 30%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
+      margin-bottom: 6px;
+      line-height: 1.3;
     }
 
     .subtitle {
-      color: #a39bbe;
-      font-size: 13px;
-      margin-top: 4px;
+      font-family: 'Hind Siliguri', sans-serif;
+      color: #94a3b8;
+      font-size: 14px;
+      font-weight: 500;
     }
 
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
-      font-size: 13px;
-      color: #c4b5fd;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-size: 14px;
+      color: #cbd5e1;
       margin-bottom: 8px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .input-wrapper {
@@ -94,28 +109,45 @@
 
     input {
       width: 100%;
-      padding: 13px 40px 13px 14px;
-      background: #150f2e;
+      padding: 14px 42px 14px 16px;
+      background: #110b27;
       color: #ffffff;
-      border: 1px solid #493b69;
-      border-radius: 12px;
-      font-size: 14px;
+      border: 1.5px solid #332554;
+      border-radius: 14px;
+      font-size: 15px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
       outline: none;
       transition: all 0.3s ease;
     }
 
+    input::placeholder {
+      color: #64748b;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-weight: 500;
+    }
+
     input:focus {
-      border-color: #8b5cf6;
-      box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+      border-color: #a855f7;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.35);
+      background: #160e33;
     }
 
     .toggle-password {
       position: absolute;
       right: 14px;
       cursor: pointer;
-      font-size: 16px;
-      user-select: none;
-      opacity: 0.7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.6;
+      transition: 0.2s;
+    }
+
+    .toggle-password svg {
+      width: 20px;
+      height: 20px;
+      fill: #cbd5e1;
     }
 
     .toggle-password:hover {
@@ -124,37 +156,43 @@
 
     .forgot-pass {
       text-align: right;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .link {
-      color: #a78bfa;
-      font-size: 12px;
+      font-family: 'Hind Siliguri', sans-serif;
+      color: #c084fc;
+      font-size: 13px;
       text-decoration: none;
-      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
     }
 
     .link:hover {
-      text-decoration: underline;
+      color: #e9d5ff;
+      text-shadow: 0 0 8px rgba(192, 132, 252, 0.5);
     }
 
     .submit-btn {
       width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+      padding: 15px;
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       color: #ffffff;
-      font-size: 15px;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-      transition: all 0.2s ease;
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+      transition: all 0.25s ease;
+      letter-spacing: 0.5px;
     }
 
     .submit-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
+      background: linear-gradient(135deg, #b566f8 0%, #8b46ff 100%);
     }
 
     .submit-btn:active {
@@ -163,14 +201,18 @@
 
     .footer-text {
       text-align: center;
-      margin-top: 22px;
-      font-size: 13px;
-      color: #a39bbe;
+      margin-top: 25px;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-size: 14px;
+      color: #94a3b8;
     }
 
     @media (max-width: 480px) {
       .login-card {
-        padding: 28px 20px;
+        padding: 32px 22px;
+      }
+      .brand-title {
+        font-size: 19px;
       }
     }
   </style>
@@ -179,15 +221,19 @@
 
   <div class="login-card">
     <div class="header-area">
-      <!-- Gamer Monogram Logo Badge -->
-      <div class="brand-logo">
-        <span>RPS</span>
+      <!-- High Quality Gaming Shield Logo SVG -->
+      <div class="brand-logo-container">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8subscriptionZ"/>
+        </svg>
       </div>
-      <h1 class="title">Rifat Panel Seller</h1>
-      <p class="subtitle">সদস্য লগইন</p>
+
+      <!-- Professional Custom eSports Font Header -->
+      <h1 class="brand-title">RIFAT FF PANEL SELLER</h1>
+      <p class="subtitle">মেম্বার লগইন পোর্টাল</p>
     </div>
 
-    <form id="loginForm" onsubmit="event.preventDefault(); alert('লগইন প্রসেস হচ্ছে...');">
+    <form id="loginForm" onsubmit="event.preventDefault(); alert('লগইন হচ্ছে...');">
       <div class="form-group">
         <label for="email">ইমেল বা জিমেইল</label>
         <div class="input-wrapper">
@@ -199,7 +245,11 @@
         <label for="password">পাসওয়ার্ড</label>
         <div class="input-wrapper">
           <input type="password" id="password" placeholder="পাসওয়ার্ড দিন" required />
-          <span class="toggle-password" onclick="togglePass()">👁️</span>
+          <span class="toggle-password" onclick="togglePass()">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+            </svg>
+          </span>
         </div>
       </div>
 
