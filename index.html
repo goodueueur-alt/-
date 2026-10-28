@@ -1,83 +1,515 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#100b2e">
-  <title>𝑹𝒊𝒇𝒂𝒕 𝑭𝑭 𝑷𝒂𝒏𝒆𝒍 𝑺𝒆𝒍𝒍𝒆𝚛</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #060413;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 0;
-    }
-    .poster-container {
-      position: relative;
-      width: 100%;
-      max-width: 500px;
-      line-height: 0;
-    }
-    .poster-img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    /* স্বচ্ছ বাটন ওভারলে যা একদম পোস্টারের নির্দিষ্ট বাটনের ওপর নিখুঁতভাবে থাকবে */
-    .clickable-area {
-      position: absolute;
-      display: block;
-      text-decoration: none;
-      background: transparent;
-      border-radius: 16px;
-      transition: background 0.15s ease;
-    }
-    .clickable-area:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIFAT FF PANEL SELLER</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Tiro Bangla', sans-serif;
+        }
 
-    /* পজিশনগুলো আপনার পোস্টারের ডিজাইন অনুযায়ী নিখুঁতভাবে সেট করা হলো */
-    /* Social Media Row 1 */
-    #wa-personal { top: 46.8%; left: 9.5%; width: 39.5%; height: 5.8%; }
-    #wa-channel  { top: 46.8%; left: 51%; width: 39.5%; height: 5.8%; }
+        body {
+            background-color: #05050f;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 10%, #160f30 0%, #05050f 70%);
+        }
 
-    /* Social Media Row 2 */
-    #fb-id       { top: 53.6%; left: 9.5%; width: 39.5%; height: 5.8%; }
-    #fb-page     { top: 53.6%; left: 51%; width: 39.5%; height: 5.8%; }
+        /* Top Banner Header */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(10, 10, 25, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+        }
 
-    /* Social Media Row 3 */
-    #tg-personal { top: 60.4%; left: 9.5%; width: 25.5%; height: 5.8%; }
-    #tg-group    { top: 60.4%; left: 37.2%; width: 25.5%; height: 5.8%; }
-    #tg-channel  { top: 60.4%; left: 65%; width: 25.5%; height: 5.8%; }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 20px;
+            background: linear-gradient(45deg, #00f2fe, #4facfe, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    /* Contact Me Row */
-    #contact-wa  { top: 79.5%; left: 9.5%; width: 39.5%; height: 6.5%; }
-    #contact-tg  { top: 79.5%; left: 51%; width: 39.5%; height: 6.5%; }
-  </style>
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00f2fe;
+        }
+
+        /* Hero Section (Main Home Screen) */
+        .hero {
+            padding: 140px 5% 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            background: linear-gradient(90deg, #ff007f, #7928ca);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #00f2fe, #ffffff, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: #b8b8d0;
+            font-size: 15px;
+            max-width: 600px;
+            margin: 0 auto 25px;
+            line-height: 1.6;
+        }
+
+        .btn-main {
+            background: linear-gradient(45deg, #00f2fe, #ff007f);
+            color: #ffffff;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+            transition: 0.3s;
+        }
+
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(255, 0, 127, 0.8);
+        }
+
+        /* Why Choose Us Section */
+        .features {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .section-desc {
+            color: #a0a0c0;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: rgba(20, 20, 45, 0.6);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            padding: 25px 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: #00f2fe;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 32px;
+            color: #00f2fe;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: #a0a0c0;
+        }
+
+        /* Social Media Links Section */
+        .social-section {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: rgba(20, 30, 50, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .social-btn.whatsapp { border-color: #25d366; }
+        .social-btn.whatsapp:hover { background: rgba(37, 211, 102, 0.2); box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
+
+        .social-btn.telegram { border-color: #0088cc; }
+        .social-btn.telegram:hover { background: rgba(0, 136, 204, 0.2); box-shadow: 0 0 15px rgba(0, 136, 204, 0.4); }
+
+        .social-btn i { font-size: 22px; }
+
+        /* Discord Banner */
+        .discord-box {
+            margin: 30px auto 0;
+            max-width: 600px;
+            padding: 15px 25px;
+            background: linear-gradient(90deg, #5865F2, #7928ca);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #030308;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* Modal Overlay (Pop-up Window) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #0c0c1e;
+            border: 2px solid #00f2fe;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px 20px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.4);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            color: #ff007f;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.2);
+            color: #fff;
+        }
+
+        /* Panel Grid inside Modal */
+        .panels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .panel-card {
+            background: rgba(20, 20, 45, 0.9);
+            border: 1px solid rgba(255, 0, 127, 0.4);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .panel-card:hover {
+            border-color: #00f2fe;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+
+        .panel-card img, .panel-card video {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
+        .panel-card h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: 800;
+            color: #00f2fe;
+            margin-bottom: 12px;
+        }
+
+        .buy-btn {
+            background: linear-gradient(45deg, #ff007f, #7928ca);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+        }
+    </style>
 </head>
 <body>
 
-  <div class="poster-container">
-    <!-- আপনার মূল সম্পূর্ণ পোস্টার ইমেজ -->
-    <img src="file_000000001188821182f49ac1b833a6a4.png" alt="Rifat FF Panel Seller" class="poster-img">
+    <!-- Main Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-crown"></i> RIFAT FF
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#" onclick="openModal(); return false;">Panel</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <!-- সোশাল মিডিয়া এবং কন্টাক্ট লিংকগুলোর ক্লিক করার জন্য স্বচ্ছ বাটন লেয়ার -->
-    <a id="wa-personal" class="clickable-area" href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer"></a>
-    <a id="wa-channel" class="clickable-area" href="https://whatsapp.com/channel/0029Vb97ufkADTO9iwSKzX18" target="_blank" rel="noopener noreferrer"></a>
-    
-    <a id="fb-id" class="clickable-area" href="https://www.facebook.com/share/19tro8znC9/" target="_blank" rel="noopener noreferrer"></a>
-    <a id="fb-page" class="clickable-area" href="https://www.facebook.com/share/19tro8znC9/" target="_blank" rel="noopener noreferrer"></a>
-    
-    <a id="tg-personal" class="clickable-area" href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer"></a>
-    <a id="tg-group" class="clickable-area" href="https://t.me/rifatffpanelSellerBot1" target="_blank" rel="noopener noreferrer"></a>
-    <a id="tg-channel" class="clickable-area" href="https://t.me/RifatFFPanelSeller" target="_blank" rel="noopener noreferrer"></a>
+    <!-- Home Hero Screen -->
+    <section id="home" class="hero">
+        <div class="badge">🔥 Trusted Panel Seller Since 2025</div>
+        <h1>RIFAT FF PANEL SELLER</h1>
+        <p>আপনার Free Fire গেমিং অভিজ্ঞতাকে আরও সহজ ও স্মার্ট করতে আমরা নিয়ে এসেছি পাওয়ারফুল ও নির্ভরযোগ্য প্যানেল সার্ভিস!</p>
+        
+        <!-- MAIN BUY PANEL BUTTON -->
+        <button class="btn-main" onclick="openModal()">
+            <i class="fa-solid fa-cart-shopping"></i> Buy Panel
+        </button>
+    </section>
 
-    <a id="contact-wa" class="clickable-area" href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer"></a>
-    <a id="contact-tg" class="clickable-area" href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer"></a>
-  </div>
+    <!-- Why Choose Us -->
+    <section id="features" class="features">
+        <h2 class="section-title">আমাদের কেন বেছে নেবেন?</h2>
+        <p class="section-desc">আমরা দিচ্ছি সেরা সার্ভিস, সর্বোচ্চ নিরাপত্তা এবং নির্ভরযোগ্য সাপোর্ট।</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-bolt"></i>
+                <h3>দ্রুত সার্ভিস</h3>
+                <p>অর্ডার করার সাথে সাথে দ্রুত সার্ভিস পাবেন।</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>নিরাপদ লেনদেন</h3>
+                <p>আপনার একাউন্ট সম্পূর্ণ নিরাপদ থাকবে।</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-headset"></i>
+                <h3>২৪/৭ সাপোর্ট</h3>
+                <p>যেকোনো সমস্যায় সাথে সাথে সাহায্য পাবেন।</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-tags"></i>
+                <h3>সাশ্রয়ী মূল্য</h3>
+                <p>সেরা দামে সেরা সার্ভিসের নিশ্চয়তা।</p>
+            </div>
+        </div>
+    </section>
 
+    <!-- Social Media Links -->
+    <section id="contact" class="social-section">
+        <h2 class="section-title">আমাদের সাথে যুক্ত থাকুন</h2>
+        <p class="section-desc">সকল আপডেট পেতে আমাদের সোশ্যাল মিডিয়া ফলো করুন</p>
+        
+        <div class="social-grid">
+            <a href="https://wa.me/8801845907321" target="_blank" class="social-btn whatsapp">
+                <span>WhatsApp Personal</span>
+                <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+            </a>
+            <a href="https://whatsapp.com" target="_blank" class="social-btn whatsapp">
+                <span>WhatsApp Channel</span>
+                <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+            </a>
+            <a href="https://t.me/rifatffpanelseller6" target="_blank" class="social-btn telegram">
+                <span>Telegram Personal</span>
+                <i class="fa-brands fa-telegram" style="color: #0088cc;"></i>
+            </a>
+            <a href="https://t.me" target="_blank" class="social-btn telegram">
+                <span>Telegram Group</span>
+                <i class="fa-brands fa-telegram" style="color: #0088cc;"></i>
+            </a>
+            <a href="https://t.me" target="_blank" class="social-btn telegram">
+                <span>Telegram Channel</span>
+                <i class="fa-brands fa-telegram" style="color: #0088cc;"></i>
+            </a>
+        </div>
+
+        <a href="https://discord.com" target="_blank" class="discord-box">
+            <span><i class="fa-brands fa-discord"></i> Join Our Discord Community</span>
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Rifat FF Panel Seller. All rights reserved.</p>
+    </footer>
+
+    <!-- POP-UP MODAL WINDOW (Buy Panel-এ চাপ দেওয়ার পর খুলবে) -->
+    <div class="modal-overlay" id="panelModal" onclick="closeModalOnOutside(event)">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="text-align: center; color: #00f2fe; margin-bottom: 5px;">প্যানেল নির্বাচন করুন</h2>
+            <p style="text-align: center; color: #aaa; font-size: 14px; margin-bottom: 20px;">আপনার পছন্দের প্যানেলটি অর্ডার করতে Buy Now-এ চাপ দিন</p>
+
+            <div class="panels-grid">
+                <!-- Panel 1 -->
+                <div class="panel-card">
+                    <img src="89063.jpg" alt="Panel 1">
+                    <h3>Panel 1</h3>
+                    <div class="price">৳ ১০০</div>
+                    <a href="https://wa.me/8801845907321?text=I%20want%20to%20buy%20Panel%201%20(100%20BDT)" target="_blank" class="buy-btn">Buy Now</a>
+                </div>
+
+                <!-- Panel 2 -->
+                <div class="panel-card">
+                    <img src="89062.jpg" alt="Panel 2">
+                    <h3>Panel 2</h3>
+                    <div class="price">৳ ২০০</div>
+                    <a href="https://wa.me/8801845907321?text=I%20want%20to%20buy%20Panel%202%20(200%20BDT)" target="_blank" class="buy-btn">Buy Now</a>
+                </div>
+
+                <!-- Panel 3 -->
+                <div class="panel-card">
+                    <img src="89060.jpg" alt="Panel 3">
+                    <h3>Panel 3</h3>
+                    <div class="price">৳ ৩০০</div>
+                    <a href="https://wa.me/8801845907321?text=I%20want%20to%20buy%20Panel%203%20(300%20BDT)" target="_blank" class="buy-btn">Buy Now</a>
+                </div>
+
+                <!-- Panel 4 -->
+                <div class="panel-card">
+                    <img src="89064.jpg" alt="Panel 4">
+                    <h3>Panel 4</h3>
+                    <div class="price">৳ ৪০০</div>
+                    <a href="https://wa.me/8801845907321?text=I%20want%20to%20buy%20Panel%204%20(400%20BDT)" target="_blank" class="buy-btn">Buy Now</a>
+                </div>
+
+                <!-- Tournament Panel with Video -->
+                <div class="panel-card" style="border-color: #00f2fe;">
+                    <video autoplay muted loop controls>
+                        <source src="VID_20261028_112023_896.mp4" type="video/mp4">
+                    </video>
+                    <h3>Tournament Panel</h3>
+                    <div class="price">৳ ৪৫০</div>
+                    <a href="https://wa.me/8801845907321?text=I%20want%20to%20buy%20Tournament%20Panel%20(450%20BDT)" target="_blank" class="buy-btn" style="background: linear-gradient(45deg, #00f2fe, #4facfe); color: #05050f;">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Pop-up Modal Functionality -->
+    <script>
+        function openModal() {
+            document.getElementById('panelModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('panelModal').classList.remove('active');
+        }
+
+        function closeModalOnOutside(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
