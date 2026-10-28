@@ -3,769 +3,391 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIFAT FF PANEL SELLER</title>
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700;800;900&family=Tiro+Bangla&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Rifat FF Panel Seller</title>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', 'Tiro Bangla', sans-serif;
         }
 
         body {
-            background-color: #050212;
+            font-family: Arial, sans-serif;
+            background: #080b16;
             color: #ffffff;
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 50% 15%, rgba(120, 0, 255, 0.25), transparent 45%),
-                radial-gradient(circle at 10% 40%, rgba(0, 242, 254, 0.15), transparent 35%),
-                radial-gradient(circle at 90% 70%, rgba(255, 0, 127, 0.15), transparent 35%);
-            background-attachment: fixed;
-            padding-bottom: 30px;
         }
 
-        /* Top Bar */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 6%;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .top-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .crown-icon {
-            font-size: 28px;
-            color: #bd00ff;
-            filter: drop-shadow(0 0 10px #bd00ff);
-        }
-
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-
-        .brand-title {
-            font-weight: 900;
-            font-size: 20px;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #ffffff, #d8b4fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .brand-sub {
-            font-size: 10px;
-            letter-spacing: 3px;
-            color: #9d4edd;
-            font-weight: 700;
-        }
-
-        .menu-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-
-        .menu-btn:hover {
-            border-color: #00f2fe;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-        }
-
-        /* Hero Section */
-        .hero {
             text-align: center;
-            padding: 20px 5% 30px;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
+            padding: 30px 15px;
+            background: linear-gradient(135deg, #111b38, #170c2c);
+            border-bottom: 2px solid #00eaff;
         }
 
-        /* Neon Logo Badge */
-        .hero-badge-container {
-            position: relative;
-            width: 170px;
-            height: 170px;
-            margin: 0 auto 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        header h1 {
+            color: #00eaff;
+            font-size: 27px;
+            text-shadow: 0 0 12px #00eaff;
         }
 
-        .hero-badge-glow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #00f2fe, #bd00ff, #ff007f);
-            padding: 3px;
-            box-shadow: 0 0 30px rgba(189, 0, 255, 0.6), inset 0 0 20px rgba(0, 242, 254, 0.5);
-            animation: pulse 3s infinite alternate;
+        header p {
+            color: #d1d5e5;
+            margin-top: 10px;
+            font-size: 14px;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 25px rgba(189, 0, 255, 0.5); }
-            100% { box-shadow: 0 0 45px rgba(0, 242, 254, 0.8), 0 0 25px rgba(255, 0, 127, 0.6); }
+        .welcome {
+            text-align: center;
+            padding: 24px 15px 10px;
         }
 
-        .hero-badge-inner {
-            width: 100%;
-            height: 100%;
-            background: #08031a;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 2;
-        }
-
-        .rff-text {
-            font-size: 46px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            background: linear-gradient(180deg, #ffffff 30%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-        }
-
-        .rff-sub {
-            font-size: 10px;
-            font-weight: 700;
-            color: #d8b4fe;
-            margin-top: 2px;
-            letter-spacing: 1px;
-        }
-
-        .rff-crown {
-            position: absolute;
-            top: 15px;
-            font-size: 22px;
-            color: #00f2fe;
-            filter: drop-shadow(0 0 8px #00f2fe);
-        }
-
-        /* Typography */
-        .main-title {
-            font-size: 48px;
-            font-weight: 900;
-            line-height: 1.1;
+        .welcome h2 {
+            color: #ffca28;
             margin-bottom: 10px;
         }
 
-        .title-script {
-            font-family: 'Great Vibes', cursive, sans-serif;
-            color: #ffffff;
-            font-weight: 400;
-            font-size: 58px;
-            display: block;
-            margin-bottom: -15px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-        }
-
-        .title-neon {
-            background: linear-gradient(90deg, #c084fc, #00f2fe, #ff007f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(192, 132, 252, 0.3);
-            letter-spacing: 2px;
-        }
-
-        .subtitle {
-            color: #e2e8f0;
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .subtitle-desc {
-            color: #a78bfa;
+        .welcome p {
+            color: #c7cbe0;
             font-size: 14px;
-            margin-bottom: 30px;
+            line-height: 1.7;
         }
 
-        /* Card Section Styling */
-        .content-container {
-            max-width: 650px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .glass-card {
-            background: rgba(15, 10, 40, 0.65);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 24px;
-            padding: 22px;
-            margin-bottom: 22px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(139, 92, 246, 0.1);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
+        .panel-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 15px;
+            max-width: 900px;
+            margin: 25px auto;
+            padding: 0 14px;
+        }
+
+        .panel-card {
+            background: #11182b;
+            border: 1px solid #26385e;
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 0 12px rgba(0, 234, 255, 0.08);
+            overflow: hidden;
+        }
+
+        .panel-card h3 {
+            color: #00eaff;
+            font-size: 17px;
+            margin: 8px 0 12px;
+        }
+
+        .panel-image {
+            width: 100%;
+            height: 145px;
+            object-fit: cover;
+            border-radius: 9px;
+            background: #080b16;
+        }
+
+        .panel-video {
+            width: 100%;
+            border-radius: 9px;
+            background: #000;
+            display: block;
+        }
+
+        .price {
+            color: #ffca28;
+            font-size: 21px;
+            font-weight: bold;
+            margin: 13px 0;
+        }
+
+        .buy-btn {
+            display: block;
+            text-decoration: none;
+            background: linear-gradient(90deg, #00c853, #00a844);
+            color: #ffffff;
+            padding: 11px 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 12px rgba(0, 255, 100, 0.35);
+        }
+
+        .social-section {
+            text-align: center;
+            padding: 20px 15px 30px;
+        }
+
+        .social-section h2 {
+            color: #00eaff;
             margin-bottom: 18px;
         }
 
-        .card-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(120, 0, 255, 0.2);
-            border: 1px solid rgba(0, 242, 254, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00f2fe;
-            font-size: 18px;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
-        }
-
-        .card-title h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .card-title p {
-            font-size: 10px;
-            letter-spacing: 1px;
-            color: #94a3b8;
-            font-weight: 600;
-        }
-
-        /* Buttons Grid */
-        .btn-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .btn-grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-        }
-
-        .link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: #fff;
-            background: rgba(10, 25, 45, 0.7);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            transition: 0.3s;
-        }
-
-        .link-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.3);
-            border-color: #00f2fe;
-        }
-
-        .link-btn-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .link-btn-icon {
-            font-size: 24px;
-        }
-
-        .btn-wa .link-btn-icon { color: #25d366; }
-        .btn-fb .link-btn-icon { color: #1877f2; }
-        .btn-tg .link-btn-icon { color: #0088cc; }
-
-        .link-btn-text {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-
-        .link-btn-text .title {
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .link-btn-text .subtitle {
-            font-size: 10px;
-            color: #94a3b8;
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .link-arrow {
-            font-size: 14px;
-            color: #cbd5e1;
-        }
-
-        /* Panel Trigger Button (Buy Panel) */
-        .panel-trigger-btn {
-            background: linear-gradient(90deg, #7928ca, #00f2fe);
-            border: none;
-            padding: 14px 28px;
-            border-radius: 30px;
-            color: #fff;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 25px;
-            transition: 0.3s;
-        }
-
-        .panel-trigger-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 35px rgba(189, 0, 255, 0.8);
-        }
-
-        /* Bottom Badges */
-        .badges-row {
+        .social-links {
             display: flex;
             justify-content: center;
-            gap: 10px;
             flex-wrap: wrap;
-            margin-top: 25px;
-            margin-bottom: 25px;
+            gap: 12px;
         }
 
-        .mini-badge {
-            background: rgba(20, 15, 45, 0.8);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #cbd5e1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 9px;
+            font-weight: bold;
+            font-size: 14px;
         }
 
-        .mini-badge i {
-            color: #c084fc;
+        .whatsapp {
+            background: #128c4a;
+        }
+
+        .telegram {
+            background: #168acb;
+        }
+
+        .facebook {
+            background: #1877f2;
         }
 
         footer {
             text-align: center;
+            padding: 20px 12px;
+            color: #9ba6c7;
             font-size: 12px;
-            color: #64748b;
-            margin-top: 15px;
+            background: #0c1120;
+            border-top: 1px solid #26385e;
+            line-height: 1.8;
         }
 
-        footer span {
-            color: #bd00ff;
-        }
-
-        /* MODAL POP-UP FOR PANELS */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #0b0722;
-            border: 2px solid #00f2fe;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 800px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 25px 20px;
-            position: relative;
-            box-shadow: 0 0 40px rgba(0, 242, 254, 0.4);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 28px;
-            color: #ff007f;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover {
-            transform: scale(1.2);
-            color: #fff;
-        }
-
-        .panels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .panel-card {
-            background: rgba(20, 15, 45, 0.9);
-            border: 1px solid rgba(255, 0, 127, 0.4);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .panel-card:hover {
-            border-color: #00f2fe;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
-        }
-
-        .panel-card img, .panel-card video {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(0, 242, 254, 0.3);
-        }
-
-        .panel-card h3 {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        .price {
-            font-size: 20px;
-            font-weight: 800;
-            color: #00f2fe;
-            margin-bottom: 10px;
-        }
-
-        .buy-btn {
-            background: linear-gradient(45deg, #ff007f, #7928ca);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            width: 100%;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .buy-btn:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
-        }
-
-        @media (max-width: 600px) {
-            .btn-grid-2, .btn-grid-3 {
-                grid-template-columns: 1fr;
+        @media (max-width: 360px) {
+            .panel-container {
+                gap: 9px;
+                padding: 0 9px;
             }
-            .main-title { font-size: 36px; }
-            .title-script { font-size: 46px; }
+
+            .panel-card {
+                padding: 8px;
+            }
+
+            .panel-card h3 {
+                font-size: 14px;
+            }
+
+            .panel-image {
+                height: 115px;
+            }
+
+            .price {
+                font-size: 18px;
+            }
+
+            .buy-btn {
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 650px) {
+            .panel-container {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .panel-image {
+                height: 190px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <!-- Header Navigation -->
     <header>
-        <div class="top-logo">
-            <i class="fa-solid fa-crown crown-icon"></i>
-            <div class="brand-text">
-                <span class="brand-title">RIFAT FF</span>
-                <span class="brand-sub">PANEL SELLER</span>
-            </div>
-        </div>
-        <div class="menu-btn" onclick="openModal()">
-            <i class="fa-solid fa-bars"></i>
-        </div>
+        <h1>🔥 RIFAT FF PANEL SELLER 🔥</h1>
+        <p>Your Free Fire Panel Shop</p>
     </header>
 
-    <!-- Hero Header -->
-    <section class="hero">
-        <!-- RFF Neon Circle Badge -->
-        <div class="hero-badge-container">
-            <div class="hero-badge-glow"></div>
-            <div class="hero-badge-inner">
-                <i class="fa-solid fa-crown rff-crown"></i>
-                <div class="rff-text">RFF</div>
-                <div class="rff-sub">RIFAT FF</div>
-            </div>
-        </div>
-
-        <h1 class="main-title">
-            <span class="title-script">Rifat FF</span>
-            <span class="title-neon">PANEL SELLER</span>
-        </h1>
-
-        <p class="subtitle">সব সোশ্যাল মিডিয়া ও যোগাযোগের লিংক এক জায়গায়।</p>
-        <p class="subtitle-desc">পছন্দের বাটনে চাপ দিয়ে সরাসরি যুক্ত হও। 💜</p>
-
-        <!-- Buy Panel Action Button -->
-        <button class="panel-trigger-btn" onclick="openModal()">
-            <i class="fa-solid fa-cart-shopping"></i> Buy Panel / প্যানেল কিনুন
-        </button>
+    <section class="welcome">
+        <h2>Welcome to Rifat FF Panel Seller</h2>
+        <p>
+            আপনার পছন্দের প্যানেল বেছে নিন।<br>
+            Buy Now বাটনে চাপ দিয়ে WhatsApp-এ অর্ডার পাঠান।
+        </p>
     </section>
 
-    <!-- Content Cards -->
-    <div class="content-container">
-        
-        <!-- Social Media Card -->
-        <div class="glass-card">
-            <div class="card-header">
-                <div class="card-icon"><i class="fa-solid fa-globe"></i></div>
-                <div class="card-title">
-                    <h3>Social Media</h3>
-                    <p>FOLLOW • JOIN • STAY CONNECTED</p>
-                </div>
-            </div>
+    <main class="panel-container">
 
-            <!-- WhatsApp Links -->
-            <div class="btn-grid-2">
-                <a href="https://wa.me/8801845907321" target="_blank" class="link-btn btn-wa">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-whatsapp link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">WhatsApp</span>
-                            <span class="subtitle">Personal</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
+        <!-- Panel 1 -->
+        <div class="panel-card">
+            <h3>Panel 1</h3>
 
-                <a href="https://whatsapp.com/channel/0029Vb97ufkADTO9iwSKzX18" target="_blank" class="link-btn btn-wa">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-whatsapp link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">WhatsApp</span>
-                            <span class="subtitle">Channel</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-            </div>
+            <img
+                class="panel-image"
+                src="Screenshot_2026-10-28-11-15-48-035_com.dts.freefiremax.jpg"
+                alt="Panel 1"
+                onerror="this.style.display='none'"
+            >
 
-            <!-- Facebook Links -->
-            <div class="btn-grid-2">
-                <a href="https://www.facebook.com/share/19Vr3iP7mB/" target="_blank" class="link-btn btn-fb">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-facebook link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Facebook</span>
-                            <span class="subtitle">Profile 1</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
+            <div class="price">৳100</div>
 
-                <a href="https://www.facebook.com/share/1ZEEJMyX2x/" target="_blank" class="link-btn btn-fb">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-facebook link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Facebook</span>
-                            <span class="subtitle">Profile 2</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-            </div>
-
-            <!-- Telegram Links -->
-            <div class="btn-grid-3">
-                <a href="https://t.me/rifatffpanelseller6" target="_blank" class="link-btn btn-tg">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-telegram link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Telegram</span>
-                            <span class="subtitle">Personal</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-
-                <a href="https://t.me/RifatFFPanelSeller" target="_blank" class="link-btn btn-tg">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-telegram link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Telegram</span>
-                            <span class="subtitle">Group</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-
-                <a href="https://t.me/rifatffpanelSellerBot1" target="_blank" class="link-btn btn-tg">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-telegram link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Telegram</span>
-                            <span class="subtitle">Channel</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-            </div>
+            <a href="#"
+               onclick="buyPanel(event, 'Panel 1', 100)"
+               class="buy-btn">
+                Buy Now
+            </a>
         </div>
 
-        <!-- Contact Me Card -->
-        <div class="glass-card">
-            <div class="card-header">
-                <div class="card-icon"><i class="fa-solid fa-user-gear"></i></div>
-                <div class="card-title">
-                    <h3>Contact Me</h3>
-                    <p>GET IN TOUCH DIRECTLY</p>
-                </div>
-            </div>
+        <!-- Panel 2 -->
+        <div class="panel-card">
+            <h3>Panel Number 2</h3>
 
-            <div class="btn-grid-2">
-                <a href="https://wa.me/8801845907321" target="_blank" class="link-btn btn-wa">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-whatsapp link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">WhatsApp</span>
-                            <span class="subtitle">যোগাযোগ</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
+            <img
+                class="panel-image"
+                src="Screenshot_2026-10-28-11-15-40-894_com.dts.freefiremax.jpg"
+                alt="Panel Number 2"
+                onerror="this.style.display='none'"
+            >
 
-                <a href="https://t.me/rifatffpanelseller6" target="_blank" class="link-btn btn-tg">
-                    <div class="link-btn-left">
-                        <i class="fa-brands fa-telegram link-btn-icon"></i>
-                        <div class="link-btn-text">
-                            <span class="title">Telegram</span>
-                            <span class="subtitle">যোগাযোগ</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right link-arrow"></i>
-                </a>
-            </div>
+            <div class="price">৳200</div>
+
+            <a href="#"
+               onclick="buyPanel(event, 'Panel Number 2', 200)"
+               class="buy-btn">
+                Buy Now
+            </a>
         </div>
 
-        <!-- Badges Row -->
-        <div class="badges-row">
-            <div class="mini-badge"><i class="fa-solid fa-bolt"></i> Fast Service</div>
-            <div class="mini-badge"><i class="fa-solid fa-shield-halved"></i> 100% Safe</div>
-            <div class="mini-badge"><i class="fa-solid fa-star"></i> Trusted Seller</div>
-            <div class="mini-badge"><i class="fa-solid fa-headset"></i> 24/7 Support</div>
+        <!-- Panel 3 -->
+        <div class="panel-card">
+            <h3>Panel Number 3</h3>
+
+            <img
+                class="panel-image"
+                src="Screenshot_2026-10-28-11-16-07-064_com.dts.freefiremax.jpg"
+                alt="Panel Number 3"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="price">৳300</div>
+
+            <a href="#"
+               onclick="buyPanel(event, 'Panel Number 3', 300)"
+               class="buy-btn">
+                Buy Now
+            </a>
         </div>
 
-        <footer>
-            Made with <span>💜</span> for Rifat FF Panel Seller
-        </footer>
-    </div>
+        <!-- Panel 4 -->
+        <div class="panel-card">
+            <h3>Panel Number 4</h3>
 
-    <!-- POP-UP MODAL (Panel Selection Window) -->
-    <div class="modal-overlay" id="panelModal" onclick="closeModalOnOutside(event)">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 style="text-align: center; color: #00f2fe; margin-bottom: 5px;">প্যানেল নির্বাচন করুন</h2>
-            <p style="text-align: center; color: #aaa; font-size: 14px; margin-bottom: 20px;">আপনার পছন্দের প্যানেলটি অর্ডার করতে Buy Now-এ চাপ দিন</p>
+            <img
+                class="panel-image"
+                src="Screenshot_2026-10-28-11-15-22-983_com.dts.freefiremax.jpg"
+                alt="Panel Number 4"
+                onerror="this.style.display='none'"
+            >
 
-            <div class="panels-grid">
-                <!-- Panel 1 -->
-                <div class="panel-card">
-                    <img src="Screenshot_2026-10-28-11-15-48-035_com.dts.freefiremax.jpg" alt="Panel 1">
-                    <h3>Panel 1</h3>
-                    <div class="price">৳ ১০০</div>
-                    <a href="https://wa.me/8801845907321?text=%F0%9F%9B%92%20%E0%A6%A8%E0%A6%A4%E0%A7%81%E0%A6%AE%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A7%87%E0%A6%A8%E0%A6%BE%E0%A6%B0%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0!%0A%0A%E0%A6%86%E0%A6%B8%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%E0%A5%A4%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%86%E0%A6%AA%E0%A6%A8%E0%A6%BE%E0%A6%B0%20%E0%A6%93%E0%A7%9F%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%8ൊരു%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A6%BF%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A7%87%20%E0%A6%96%E0%A7%81%E0%A6%AC%20%E0%A6%86%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%B9%E0%A7%80%E0%A5%A4%0A%0A%F0%9F%93%A6%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%A8%E0%A6%BE%E0%A6%AE%3A%20Panel%201%0A%F0%9F%92%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%AE%E0%A7%82%E0%A6%B2%E0%A7%8D%E0%A6%AF%3A%20100%20%E0%A6%9F%E0%A6%BE%E0%A6%95%E0%A6%BE%0A%F0%9F%8C%90%20%E0%A6%93%E0%A6%AF%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%3A%20Rifat%20FF%20Panel%20Seller%0A%0A%E0%A6%A6%E0%A6%AF%E0%A6%BE%20%E0%A6%95%E0%A6%B0%E0%A7%87%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%E0%A6%9F%E0%A6%BF%20%E0%A6%95%E0%A6%A8%E0%A6%AB%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AE%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A7%9F%E0%A7%8B%E0%A6%9C%E0%A6%A8%E0%A7%80%E0%A6%AF%E0%A6%BC%20%E0%A6%A4%E0%A6%A5%E0%A7%8D%E0%A6%AF%20%E0%A6%A6%E0%A7%80%E0%A6%A8%E0%A5%A4%0A%0A%E0%A6%A7%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%AC%E0%A6%BE%E0%A6%A6%E0%A5%A4%20%E2%9D%A4%EF%B8%8F" target="_blank" class="buy-btn">Buy Now</a>
-                </div>
+            <div class="price">৳400</div>
 
-                <!-- Panel 2 -->
-                <div class="panel-card">
-                    <img src="Screenshot_2026-10-28-11-15-40-894_com.dts.freefiremax.jpg" alt="Panel 2">
-                    <h3>Panel 2</h3>
-                    <div class="price">৳ ২০০</div>
-                    <a href="https://wa.me/8801845907321?text=%F0%9F%9B%92%20%E0%A6%A8%E0%A6%A4%E0%A7%81%E0%A6%AE%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A7%87%E0%A6%A8%E0%A6%BE%E0%A6%B0%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0!%0A%0A%E0%A6%86%E0%A6%B8%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%E0%A5%A4%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%86%E0%A6%AA%E0%A6%A8%E0%A6%BE%E0%A6%B0%20%E0%A6%93%E0%A7%9F%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%8ൊരു%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A6%BF%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A7%87%20%E0%A6%86%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%B9%E0%A7%80%E0%A5%A4%0A%0A%F0%9F%93%A6%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%A8%E0%A6%BE%E0%A6%AE%3A%20Panel%202%0A%F0%9F%92%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%AE%E0%A7%82%E0%A6%B2%E0%A7%8D%E0%A6%AF%3A%20200%20%E0%A6%9F%E0%A6%BE%E0%A6%95%E0%A6%BE%0A%F0%9F%8C%90%20%E0%A6%93%E0%A6%AF%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%3A%20Rifat%20FF%20Panel%20Seller%0A%0A%E0%A6%A6%E0%A6%AF%E0%A6%BE%20%E0%A6%95%E0%A6%B0%E0%A7%87%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A6%A2%E0%A6%B2%E0%A6%9F%E0%A6%BF%E0%A6%B0%20%E0%A6%AC%E0%A6%BF%E0%A6%B6%E0%A6%A6%E0%A7%8D%E0%A6%A7%E0%A6%BF%20%E0%A6%9C%E0%A6%BE%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%AE%E0%A7%8D%E0%A6%AA%E0%A7%8D%E0%A6%A8%E0%A7%8D%E0%A6%A8%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BE%E0%A6%AF%E0%A7%8D%E0%A6%AF%20%E0%A6%95%E0%A6%B0%E0%A7%81%E0%A6%A8%E0%A5%A4%0A%0A%E0%A6%A7%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%AC%E0%A6%BE%E0%A6%A6%E0%A5%A4%20%E2%9D%A4%EF%B8%8F" target="_blank" class="buy-btn">Buy Now</a>
-                </div>
-
-                <!-- Panel 3 -->
-                <div class="panel-card">
-                    <img src="Screenshot_2026-10-28-11-16-07-064_com.dts.freefiremax.jpg" alt="Panel 3">
-                    <h3>Panel 3</h3>
-                    <div class="price">৳ ৩০০</div>
-                    <a href="https://wa.me/8801845907321?text=%F0%9F%9B%92%20%E0%A6%A8%E0%A6%A4%E0%A7%81%E0%A6%AE%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A7%87%E0%A6%A8%E0%A6%BE%E0%A6%B0%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0!%0A%0A%E0%A6%86%E0%A6%B8%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%E0%A5%A4%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%86%E0%A6%AA%E0%A6%A8%E0%A6%BE%E0%A6%B0%20%E0%A6%93%E0%A7%9F%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%8ൊരു%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A6%BF%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A7%87%20%E0%A6%86%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%B9%E0%A7%80%E0%A5%A4%0A%0A%F0%9F%93%A6%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%A8%E0%A6%BE%E0%A6%AE%3A%20Panel%20Number%203%0A%F0%9F%92%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%AE%E0%A7%82%E0%A6%B2%E0%A7%8D%E0%A6%AF%3A%20300%E0%A6%9F%E0%A6%BE%E0%A6%95%E0%A6%BE%0A%F0%9F%8C%90%20%E0%A6%93%E0%A6%AF%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%3A%20Rifat%20FF%20Panel%20Seller%0A%0A%E0%A6%A6%E0%A6%AF%E0%A6%BE%20%E0%A6%95%E0%A6%B0%E0%A7%87%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A6%A2%E0%A6%B2%E0%A6%9F%E0%A6%BF%E0%A6%B0%20%E0%A6%AC%E0%A6%BF%E0%A6%B6%E0%A6%A6%E0%A7%8D%E0%A6%A7%E0%A6%BF%20%E0%A6%ക്കാരി%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%AE%E0%A7%8D%E0%A6%AA%E0%A7%8D%E0%A6%A8%E0%A7%8D%E0%A6%A8%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BE%E0%A6%AF%E0%A7%8D%E0%A6%AF%20%E0%A6%95%E0%A6%B0%E0%A7%81%E0%A6%A8%E0%A5%A4%0A%0A%E0%A6%A7%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%AC%E0%A6%BE%E0%A6%A6%E0%A5%A4%20%E2%9D%A4%EF%B8%8F" target="_blank" class="buy-btn">Buy Now</a>
-                </div>
-
-                <!-- Panel 4 -->
-                <div class="panel-card">
-                    <img src="Screenshot_2026-10-28-11-15-22-983_com.dts.freefiremax.jpg" alt="Panel 4">
-                    <h3>Panel 4</h3>
-                    <div class="price">৳ ৪০০</div>
-                    <a href="https://wa.me/8801845907321?text=%F0%9F%9B%92%20%E0%A6%A8%E0%A6%A4%E0%A7%81%E0%A6%AE%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A7%87%E0%A6%A8%E0%A6%BE%E0%A6%B0%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0!%0A%0A%E0%A6%86%E0%A6%B8%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%E0%A5%A4%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%86%E0%A6%AA%E0%A6%A8%E0%A6%BE%E0%A6%B0%20%E0%A6%93%E0%A7%9F%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%8ൊരു%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A6%BF%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A7%87%20%E0%A6%86%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%B9%E0%A7%80%E0%A5%A4%0A%0A%F0%9F%93%A6%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%A8%E0%A6%BE%E0%A6%AE%3A%20Panel%20Number%204%0A%F0%9F%92%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%AE%E0%A7%82%E0%A6%B2%E0%A7%8D%E0%A6%AF%3A%20400%20%E0%A6%9F%E0%A6%BE%E0%A6%95%E0%A6%BE%0A%F0%9F%8C%90%20%E0%A6%93%E0%A6%AF%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%3A%20Rifat%20FF%20Panel%20Seller%0A%0A%E0%A6%A6%E0%A6%BE%E0%A6%BE%20%E0%A6%95%E0%A6%B0%E0%A7%87%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A6%A2%E0%A6%B2%E0%A6%9F%E0%A6%BF%E0%A6%B0%20%E0%A6%AC%E0%A6%BF%E0%A6%B6%E0%A6%A6%E0%A7%8D%E0%A6%A7%E0%A6%BF%20%E0%A6%ക്കാരി%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%AE%E0%A7%8D%E0%A6%AA%E0%A7%8D%E0%A6%A8%E0%A7%8D%E0%A6%A8%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BE%E0%A6%AF%E0%A7%8D%E0%A6%AF%20%E0%A6%95%E0%A6%B0%E0%A7%81%E0%A6%A8%E0%A5%A4%0A%0A%E0%A6%A7%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%AC%E0%A6%BE%E0%A6%A6%E0%A5%A4%20%E2%9D%A4%EF%B8%8F" target="_blank" class="buy-btn">Buy Now</a>
-                </div>
-
-                <!-- Tournament Panel -->
-                <div class="panel-card" style="border-color: #00f2fe;">
-                    <video autoplay muted loop controls>
-                        <source src="VID_20261028_112023_896.mp4" type="video/mp4">
-                    </video>
-                    <h3>Tournament Panel</h3>
-                    <div class="price">৳ ৪৫০</div>
-                    <a href="https://wa.me/8801845907321?text=%F0%9F%8E%86%20%E0%A6%A8%E0%A6%A4%E0%A7%81%E0%A6%AE%20%E0%A6%9F%E0%A7%8D%E0%A6%AF%E0%A7%81%E0%A6%B0%E0%A6%A8%E0%A7%8D%E0%A6%AE%E0%A6%BE%E0%A6%AE%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%9F%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A6%B2%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0!%0A%0A%E0%A6%86%E0%A6%B8%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%E0%A5%A4%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%86%E0%A6%AA%E0%A6%A8%E0%A6%BE%E0%A6%B0%20Rifat%20FF%20Panel%20Seller%20%E0%A6%93%E0%A7%9F%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%9F%E0%A7%8D%E0%A6%AF%E0%A7%8F%E0%A6%B0%E0%A6%A8%E0%A7%8D%E0%A6%AE%E0%A6%BE%E0%A6%AE%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%9F%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%20%E0%A6%95%E0%A6%BF%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A7%87%20%E0%A6%86%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%B9%E0%A7%80%E0%A5%A4%0A%0A%F0%9F%93%A6%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A6%B0%20%E0%A6%A8%E0%A6%BE%E0%A6%AE%3A%20Tournament%20Panel%0A%F0%9F%92%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%AE%E0%A7%82%E0%A6%B2%E0%A7%8D%E0%A6%AF%3A%20450%20%E0%A6%9F%E0%A6%BE%E0%A6%95%E0%A6%BE%0A%F0%9F%8C%90%20%E0%A6%93%E0%A6%AF%E0%A7%87%E0%A6%AC%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F%3A%20Rifat%20FF%20Panel%20Seller%0A%0A%E0%A6%85%E0%A6%A8%E0%A7%81%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%B9%20%E0%A6%95%E0%A6%B0%E0%A7%87%20%E0%A6%AA%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A6%A2%E0%A6%B2%E0%A6%9F%E0%A6%BF%E0%A6%B0%20%E0%A6%AC%E0%A6%BF%E0%A6%B6%E0%A6%A6%E0%A7%8D%E0%A6%A7%E0%A6%BF%20%E0%A6%ക്കാരി%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%E0%A6%9F%E0%A6%BF%20%E0%A6%95%E0%A6%A8%E0%A6%AB%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AE%20%E0%A6%95%E0%A6%B0%E0%A7%8D%E0%A6%A4%E0%A7%87%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BE%E0%A6%AF%E0%A7%8D%E0%A6%AF%20%E0%A6%95%E0%A6%B0%E0%A7%81%E0%A6%A8%E0%A5%A4%0A%0A%E0%A6%A7%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%AC%E0%A6%BE%E0%A6%A6%E0%A5%A4%20%E2%9D%A4%EF%B8%8F" target="_blank" class="buy-btn" style="background: linear-gradient(45deg, #00f2fe, #4facfe); color: #05050f;">Buy Now</a>
-                </div>
-            </div>
+            <a href="#"
+               onclick="buyPanel(event, 'Panel Number 4', 400)"
+               class="buy-btn">
+                Buy Now
+            </a>
         </div>
-    </div>
 
-    <!-- JS -->
+        <!-- Tournament Panel -->
+        <div class="panel-card">
+            <h3>🏆 Tournament Panel</h3>
+
+            <video class="panel-video" controls playsinline preload="metadata">
+                <source
+                    src="VID_20261028_112023_896.mp4"
+                    type="video/mp4"
+                >
+                আপনার ব্রাউজার ভিডিও চালাতে পারছে না।
+            </video>
+
+            <div class="price">৳450</div>
+
+            <a href="#"
+               onclick="buyPanel(event, 'Tournament Panel', 450)"
+               class="buy-btn">
+                Buy Now
+            </a>
+        </div>
+
+    </main>
+
+    <section class="social-section">
+        <h2>📱 Contact Us</h2>
+
+        <div class="social-links">
+            <a
+                class="whatsapp"
+                href="https://wa.me/8801845907321"
+                target="_blank"
+                rel="noopener"
+            >
+                WhatsApp
+            </a>
+
+            <a
+                class="telegram"
+                href="https://t.me/rifatffpanelseller6"
+                target="_blank"
+                rel="noopener"
+            >
+                Telegram
+            </a>
+
+            <a
+                class="facebook"
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener"
+            >
+                Facebook
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Rifat FF Panel Seller</p>
+        <p>All Rights Reserved.</p>
+    </footer>
+
     <script>
-        function openModal() {
-            document.getElementById('panelModal').classList.add('active');
-        }
+        function buyPanel(event, panelName, price) {
+            event.preventDefault();
 
-        function closeModal() {
-            document.getElementById('panelModal').classList.remove('active');
-        }
+            const message =
+`🛒 নতুন প্যানেল কেনার অর্ডার!
 
-        function closeModalOnOutside(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                closeModal();
-            }
+আসসালামু আলাইকুম। আমি আপনার Rifat FF Panel Seller ওয়েবসাইট থেকে একটি প্যানেল কিনতে আগ্রহী।
+
+📦 প্যানেলের নাম: ${panelName}
+💰 প্যানেলের মূল্য: ${price} টাকা
+🌐 ওয়েবসাইট: Rifat FF Panel Seller
+
+দয়া করে প্যানেলটির বিস্তারিত তথ্য জানিয়ে আমার অর্ডারটি সম্পন্ন করতে সাহায্য করুন।
+
+ধন্যবাদ। ❤️`;
+
+            const whatsappURL =
+                "https://wa.me/8801845907321?text=" +
+                encodeURIComponent(message);
+
+            window.open(whatsappURL, "_blank");
         }
     </script>
+
 </body>
-                        </html>
+</html>
