@@ -1,19 +1,9 @@
-
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#100d24">
-<title>RIFAT FF PANEL SELLER</title>
-
-<style>
 <!DOCTYPE html>
 <html lang="bn">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Login - FF Panel Store</title>
+  <title>Rifat Panel Seller - User Login</title>
   <style>
     * {
       box-sizing: border-box;
@@ -24,7 +14,7 @@
 
     body {
       background: #0b081a;
-      background-image: radial-gradient(circle at top, #1e1340 0%, #0b081a 70%);
+      background-image: radial-gradient(circle at top, #1c113b 0%, #0b081a 70%);
       color: #ffffff;
       min-height: 100vh;
       display: flex;
@@ -34,14 +24,14 @@
     }
 
     .login-card {
-      background: rgba(21, 16, 42, 0.85);
+      background: rgba(21, 16, 42, 0.9);
       border: 1px solid #34294f;
       border-radius: 20px;
-      padding: 30px 24px;
+      padding: 35px 28px;
       width: 100%;
       max-width: 400px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 92, 246, 0.15);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(139, 92, 246, 0.2);
+      backdrop-filter: blur(12px);
     }
 
     .header-area {
@@ -49,17 +39,33 @@
       margin-bottom: 25px;
     }
 
-    .logo-icon {
-      font-size: 36px;
-      margin-bottom: 8px;
-      display: inline-block;
+    /* Custom Stylish Gaming Logo Badge */
+    .brand-logo {
+      width: 65px;
+      height: 65px;
+      background: linear-gradient(135deg, #8b5cf6, #4c1d95);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .brand-logo span {
+      font-size: 26px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 1px;
     }
 
     .title {
       color: #a78bfa;
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .subtitle {
@@ -100,12 +106,12 @@
 
     input:focus {
       border-color: #8b5cf6;
-      box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+      box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
     }
 
     .toggle-password {
       position: absolute;
-      right: 12px;
+      right: 14px;
       cursor: pointer;
       font-size: 16px;
       user-select: none;
@@ -118,7 +124,7 @@
 
     .forgot-pass {
       text-align: right;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .link {
@@ -164,7 +170,7 @@
 
     @media (max-width: 480px) {
       .login-card {
-        padding: 24px 18px;
+        padding: 28px 20px;
       }
     }
   </style>
@@ -173,16 +179,19 @@
 
   <div class="login-card">
     <div class="header-area">
-      <span class="logo-icon">🔥</span>
-      <h1 class="title">FF PANEL STORE</h1>
+      <!-- Gamer Monogram Logo Badge -->
+      <div class="brand-logo">
+        <span>RPS</span>
+      </div>
+      <h1 class="title">Rifat Panel Seller</h1>
       <p class="subtitle">সদস্য লগইন</p>
     </div>
 
-    <form id="loginForm" onsubmit="event.preventDefault(); alert('সাইন ইন সম্পন্ন হচ্ছে...');">
+    <form id="loginForm" onsubmit="event.preventDefault(); alert('লগইন প্রসেস হচ্ছে...');">
       <div class="form-group">
         <label for="email">ইমেল বা জিমেইল</label>
         <div class="input-wrapper">
-          <input type="email" id="email" placeholder="আপনার ইমেল লিখুন" required />
+          <input type="email" id="email" placeholder="আপনার ইমেল টাইপ করুন" required />
         </div>
       </div>
 
