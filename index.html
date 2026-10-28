@@ -16,9 +16,14 @@
   <!-- Firebase App & Auth SDK (Modular v10) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { 
+      getAuth, 
+      fetchSignInMethodsForEmail, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // আপনার প্রদত্ত Firebase Config
+    // আপনার Firebase কনফিগারেশন
     const firebaseConfig = {
       apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
       authDomain: "rifat-ffpanel-seller.firebaseapp.com",
@@ -32,9 +37,11 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Make Firebase Auth tools globally accessible
+    // গ্লোবাল উইন্ডোতে মেথডগুলো যুক্ত করা
     window.firebaseAuth = auth;
     window.fetchSignInMethodsForEmail = fetchSignInMethodsForEmail;
+    window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+    window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
   </script>
 
   <style>
@@ -437,7 +444,7 @@
           <div class="form-group">
             <label>ইমেল বা জিমেইল</label>
             <div class="input-wrapper">
-              <input type="email" placeholder="আপনার ইমেল টাইপ করুন" required />
+              <input type="email" id="signin-email-input" placeholder="আপনার ইমেল টাইপ করুন" required />
             </div>
           </div>
 
@@ -479,7 +486,7 @@
           <div class="form-group">
             <label>ইমেল বা জিমেইল</label>
             <div class="input-wrapper">
-              <input type="email" placeholder="আপনার ইমেল টাইপ করুন" required />
+              <input type="email" id="signup-email-input" placeholder="আপনার ইমেল টাইপ করুন" required />
             </div>
           </div>
 
@@ -643,23 +650,53 @@
       }
     }
 
-    function onLoginSubmit(e) {
+    // ১. রিয়েল ফায়ারবেস লগইন লজিক
+    async function onLoginSubmit(e) {
       e.preventDefault();
-      showModal('লগইন সফল', 'আপনাকে ড্যাশবোর্ডে স্বাগতম!', function() {
-        document.getElementById('authSection').className = 'view-hidden';
-        document.getElementById('dashboardSection').className = 'view-block';
-      });
+      const email = document.getElementById('signin-email-input').value;
+      const password = document.getElementById('signin-pass-input').value;
+
+      showModal('লগইন হচ্ছে', 'অনুগ্রহ করে অপেক্ষা করুন...');
+
+      try {
+        await window.signInWithEmailAndPassword(window.firebaseAuth, email, password);
+        showModal('লগইন সফল', 'আপনাকে ড্যাশবোর্ডে স্বাগতম!', function() {
+          document.getElementById('authSection').className = 'view-hidden';
+          document.getElementById('dashboardSection').className = 'view-block';
+        });
+      } catch (error) {
+        console.error(error);
+        showModal('লগইন ব্যর্থ', 'ভুল ইমেল বা পাসওয়ার্ড! আবার চেষ্টা করুন।');
+      }
     }
 
-    function onRegisterSubmit(e) {
+    // ২. রিয়েল ফায়ারবেস সাইন-আপ লজিক
+    async function onRegisterSubmit(e) {
       e.preventDefault();
-      showModal('সাইন আপ সফল', 'আপনার অ্যাকাউন্টটি সফলভাবে তৈরি হয়েছে!', function() {
-        document.getElementById('authSection').className = 'view-hidden';
-        document.getElementById('dashboardSection').className = 'view-block';
-      });
+      const email = document.getElementById('signup-email-input').value;
+      const password = document.getElementById('signup-pass-input').value;
+
+      showModal('অ্যাকাউন্ট তৈরি হচ্ছে', 'অনুগ্রহ করে অপেক্ষা করুন...');
+
+      try {
+        await window.createUserWithEmailAndPassword(window.firebaseAuth, email, password);
+        showModal('সাইন আপ সফল', 'আপনার অ্যাকাউন্টটি সফলভাবে তৈরি হয়েছে!', function() {
+          document.getElementById('authSection').className = 'view-hidden';
+          document.getElementById('dashboardSection').className = 'view-block';
+        });
+      } catch (error) {
+        console.error(error);
+        if (error.code === 'auth/email-already-in-use') {
+          showModal('ব্যর্থ হয়েছে', 'এই ইমেলটি ইতিমধ্যে ব্যবহার করা হয়েছে!');
+        } else if (error.code === 'auth/weak-password') {
+          showModal('ব্যর্থ হয়েছে', 'পাসওয়ার্ড অন্তত ৬ অক্ষরের হতে হবে!');
+        } else {
+          showModal('ত্রুটি', error.message);
+        }
+      }
     }
 
-    // Send OTP via EmailJS after verifying Firebase Database
+    // ৩. ফায়ারবেস চেক করে ওটিপি পাঠানোর লজিক
     async function sendOTPCode() {
       const emailField = document.getElementById('reset-email-input').value;
       if (!emailField) {
@@ -670,20 +707,14 @@
       showModal('যাচাই করা হচ্ছে', 'অনুগ্রহ করে অপেক্ষা করুন...');
 
       try {
-        // ফায়ারবেস চেক করবে ইমেলটি রেজিস্টার্ড করা আছে কি না
-        if (!window.fetchSignInMethodsForEmail || !window.firebaseAuth) {
-          showModal('ত্রুটি', 'ফায়ারবেস সার্ভিস লোড হতে সময় নিচ্ছে, আবার চেষ্টা করুন।');
-          return;
-        }
-
         const signInMethods = await window.fetchSignInMethodsForEmail(window.firebaseAuth, emailField);
         
-        if (signInMethods.length === 0) {
-          showModal('ভুল জিমেইল', 'এই জিমেইল দিয়ে কোনো অ্যাকাউন্ট খুঁজে পাওয়া যায়নি!');
+        if (!signInMethods || signInMethods.length === 0) {
+          showModal('অ্যাকাউন্ট পাওয়া যায়নি', 'এই জিমেইল দিয়ে কোনো অ্যাকাউন্ট রেজিস্টার্ড করা নেই!');
           return;
         }
 
-        // যদি ইমেলটি ডাটাবেসে পাওয়া যায়, তবেই OTP জেনারেট করে পাঠানো হবে
+        // জিমেইল ডাটাবেসে থাকলে ওটিপি পাঠানো হবে
         generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
         const templateParams = {
@@ -705,7 +736,7 @@
 
       } catch (error) {
         console.error(error);
-        showModal('ত্রুটি', 'ইমেল যাচাই করতে সমস্যা হয়েছে: ' + error.message);
+        showModal('ত্রুটি', 'ইমেল যাচাই করতে সমস্যা হয়েছে। ফায়ারবেস কনসোলে Email Enumeration সুরক্ষা বন্ধ আছে কি না নিশ্চিত করুন।');
       }
     }
 
