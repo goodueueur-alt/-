@@ -1,102 +1,225 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RIFAT FF PANEL SELLER</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700;800;900&family=Tiro+Bangla&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,'Tiro Bangla',sans-serif}body{min-height:100vh;padding-bottom:30px;background:#050212;color:#fff;background-image:radial-gradient(circle at 50% 15%,#7800ff40,transparent 45%),radial-gradient(circle at 10% 40%,#00f2fe26,transparent 35%),radial-gradient(circle at 90% 70%,#ff007f26,transparent 35%);background-attachment:fixed}
-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 6%;max-width:1000px;margin:auto}.top-logo{display:flex;align-items:center;gap:12px}.crown-icon{font-size:28px;color:#bd00ff;filter:drop-shadow(0 0 10px #bd00ff)}.brand-text{display:flex;flex-direction:column;line-height:1.1}.brand-title{font-weight:900;font-size:20px;letter-spacing:1px;background:linear-gradient(90deg,#fff,#d8b4fe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.brand-sub{font-size:10px;letter-spacing:3px;color:#9d4edd;font-weight:700}.header-actions{display:flex;gap:9px;align-items:center}.menu-btn,.login-open-btn{background:#ffffff0d;border:1px solid #ffffff26;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer}.menu-btn{width:44px;font-size:20px}.login-open-btn{padding:0 15px;gap:8px;font-weight:700}.user-status{display:none;color:#b9f9ff;font-size:11px;max-width:145px;overflow-wrap:anywhere}.user-status.show{display:block}
-.hero{text-align:center;padding:20px 5% 30px;max-width:800px;margin:auto}.hero-badge-container{position:relative;width:170px;height:170px;margin:0 auto 25px;display:flex;align-items:center;justify-content:center}.hero-badge-glow{position:absolute;inset:0;border-radius:50%;background:linear-gradient(45deg,#00f2fe,#bd00ff,#ff007f);padding:3px;box-shadow:0 0 35px #bd00ff80;animation:pulse 3s infinite alternate}@keyframes pulse{to{box-shadow:0 0 45px #00f2fecc,0 0 25px #ff007f99}}.hero-badge-inner{width:100%;height:100%;background:#08031a;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #ffffff1a;position:relative;z-index:2}.rff-text{font-size:46px;font-weight:900;background:linear-gradient(#fff,#00f2fe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}.rff-sub{font-size:10px;font-weight:700;color:#d8b4fe;margin-top:2px}.rff-crown{position:absolute;top:15px;font-size:22px;color:#00f2fe}.main-title{font-size:48px;font-weight:900;line-height:1.1;margin-bottom:10px}.title-script{font-family:'Great Vibes',cursive;color:#fff;font-weight:400;font-size:58px;display:block;margin-bottom:-15px}.title-neon{background:linear-gradient(90deg,#c084fc,#00f2fe,#ff007f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px}.subtitle{color:#e2e8f0;font-size:15px;font-weight:600;margin-bottom:5px}.subtitle-desc{color:#a78bfa;font-size:14px;margin-bottom:30px}.panel-trigger-btn{background:linear-gradient(90deg,#7928ca,#00f2fe);border:0;padding:14px 28px;border-radius:30px;color:#fff;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 0 25px #00f2fe80;margin-bottom:25px}
-.content-container{max-width:650px;margin:auto;padding:0 15px}.glass-card{background:#0f0a40a6;border:1px solid #8b5cf64d;border-radius:24px;padding:22px;margin-bottom:22px;backdrop-filter:blur(16px);box-shadow:0 10px 30px #0008}.card-header{display:flex;align-items:center;gap:15px;margin-bottom:18px}.card-icon{width:44px;height:44px;border-radius:50%;background:#7800ff33;border:1px solid #00f2fe66;display:flex;align-items:center;justify-content:center;color:#00f2fe;font-size:18px}.card-title h3{font-size:18px}.card-title p{font-size:10px;letter-spacing:1px;color:#94a3b8;font-weight:600}.btn-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.btn-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.link-btn{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:16px;text-decoration:none;color:#fff;background:#0a192db3;border:1px solid #00f2fe4d;transition:.3s}.link-btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px #00f2fe4d}.link-btn-left{display:flex;align-items:center;gap:12px}.link-btn-icon{font-size:24px}.btn-wa .link-btn-icon{color:#25d366}.btn-fb .link-btn-icon{color:#1877f2}.btn-tg .link-btn-icon{color:#0088cc}.link-btn-text{display:flex;flex-direction:column;text-align:left}.link-btn-text .title{font-size:13px;font-weight:700;line-height:1.2}.link-btn-text .subtitle{font-size:10px;color:#94a3b8;margin:0;font-weight:500}.link-arrow{font-size:14px;color:#cbd5e1}.badges-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0}.mini-badge{background:#140f2dcc;border:1px solid #8b5cf64d;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;color:#cbd5e1;display:flex;align-items:center;gap:8px}.mini-badge i,footer span{color:#bd00ff}footer{text-align:center;font-size:12px;color:#64748b;margin-top:15px}
-.modal-overlay{position:fixed;inset:0;background:#000d;backdrop-filter:blur(8px);display:none;justify-content:center;align-items:center;z-index:2000;padding:20px}.modal-overlay.active{display:flex}.modal-content{background:#0b0722;border:2px solid #00f2fe;border-radius:24px;width:100%;max-width:800px;max-height:85vh;overflow-y:auto;padding:25px 20px;position:relative}.close-btn{position:absolute;top:10px;right:18px;font-size:30px;color:#ff007f;cursor:pointer}.panels-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}.panel-card{background:#140f2de6;border:1px solid #ff007f66;border-radius:16px;padding:15px;text-align:center}.panel-card img,.panel-card video{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px;border:1px solid #00f2fe4d}.panel-card h3{font-size:16px;margin-bottom:4px}.price{font-size:20px;font-weight:800;color:#00f2fe;margin-bottom:10px}.buy-btn{background:linear-gradient(45deg,#ff007f,#7928ca);color:#fff;padding:8px 12px;border-radius:20px;font-weight:600;width:100%;font-size:14px;cursor:pointer;border:0}
-.auth-overlay{position:fixed;inset:0;z-index:3000;background:#02000cf0;backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:18px;overflow-y:auto}.auth-overlay.active{display:flex}.auth-card{position:relative;width:100%;max-width:410px;padding:30px 24px 25px;background:linear-gradient(145deg,#12082bfa,#050c1ffa);border:1px solid #00f2fea6;border-radius:24px;box-shadow:0 0 35px #00f2fe2e,0 0 45px #bd00ff33;margin:auto}.auth-close{position:absolute;right:17px;top:12px;background:none;border:0;color:#ff4da6;font-size:27px;cursor:pointer}.auth-logo{width:64px;height:64px;border-radius:18px;margin:0 auto 15px;display:flex;align-items:center;justify-content:center;font-size:27px;color:#00f2fe;background:#00f2fe14;border:1px solid #00f2fe80}.auth-title{text-align:center;font-size:25px;font-weight:900;margin-bottom:5px;background:linear-gradient(90deg,#fff,#00f2fe,#d8b4fe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.auth-desc{text-align:center;color:#aab4ce;font-size:12px;margin-bottom:22px}.auth-field{display:block;margin-bottom:14px}.auth-field span{display:block;color:#dbeafe;font-size:12px;font-weight:600;margin-bottom:7px}.auth-field input{width:100%;padding:13px 14px;background:#ffffff0b;border:1px solid #a78bfa4d;border-radius:12px;color:#fff;outline:none;font-size:14px}.auth-submit{width:100%;border:0;border-radius:12px;padding:13px 15px;background:linear-gradient(90deg,#7928ca,#00cfe8);color:#fff;font-weight:800;font-size:15px;cursor:pointer;margin-top:5px}.auth-switch{text-align:center;color:#b8c0d8;font-size:13px;margin-top:18px}.auth-switch button,.forgot-btn{background:none;border:0;color:#00f2fe;font-weight:800;cursor:pointer;font-size:13px}.forgot-row{text-align:right;margin:-4px 0 13px}.auth-message{display:none;margin:0 0 13px;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.5;background:#00f2fe14;border:1px solid #00f2fe4d;color:#dffcff}.auth-message.show{display:block}.auth-message.error{color:#ffc1d5;background:#ff007f14;border-color:#ff007f66}.role-login-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.role-login-btn{min-height:48px;padding:12px 8px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-size:12px;font-weight:800;cursor:pointer}.admin-login-btn{background:linear-gradient(135deg,#173d85,#7928ca);border:1px solid #818cf8}.owner-login-btn{background:linear-gradient(135deg,#78350f,#bd00ff);border:1px solid #fbbf24}.role-login-options[hidden]{display:none!important}.google-login-btn{width:100%;margin-top:12px;border:1px solid #ffffff33;border-radius:12px;padding:12px;background:#fff;color:#202124;font-weight:700;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:10px}.user-status{font-size:11px}
-@media(max-width:600px){.btn-grid-2,.btn-grid-3{grid-template-columns:1fr}.main-title{font-size:36px}.title-script{font-size:46px}.brand-title{font-size:17px}.login-open-btn{padding:0 11px;font-size:12px}.auth-card{padding:27px 19px 22px}}@media(max-width:360px){.role-login-options{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RIFAT FF PANEL SELLER</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #090b18;
+      color: white;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 30px auto;
+      padding: 24px;
+      background: #15182b;
+      border: 1px solid #6c4cff;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #34216b;
+    }
+
+    h2, p {
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input {
+      color: white;
+      background: #090b18;
+      border: 1px solid #414765;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: #7548ff;
+      color: white;
+      font-weight: bold;
+    }
+
+    .secondary {
+      background: #252a43;
+      border: 1px solid #7548ff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .panel {
+      padding: 15px;
+      margin: 15px 0;
+      background: #20243b;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .panel img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .message {
+      color: #80ffd0;
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body>
-<header>
-<div class="top-logo"><i class="fa-solid fa-crown crown-icon"></i><div class="brand-text"><span class="brand-title">RIFAT FF</span><span class="brand-sub">PANEL SELLER</span></div></div>
-<div class="header-actions"><span class="user-status" id="userStatus"></span><button class="login-open-btn" onclick="openAuth('login')" type="button"><i class="fa-solid fa-user"></i><span id="headerAuthText">Login / Sign Up</span></button><button class="menu-btn" onclick="openModal()" aria-label="Open panels" type="button"><i class="fa-solid fa-bars"></i></button></div>
-</header>
-<section class="hero">
-<div class="hero-badge-container"><div class="hero-badge-glow"></div><div class="hero-badge-inner"><i class="fa-solid fa-crown rff-crown"></i><div class="rff-text">RFF</div><div class="rff-sub">RIFAT FF</div></div></div>
-<h1 class="main-title"><span class="title-script">Rifat FF</span><span class="title-neon">PANEL SELLER</span></h1>
-<p class="subtitle">সব সোশ্যাল মিডিয়া ও যোগাযোগের লিংক এক জায়গায়।</p><p class="subtitle-desc">পছন্দের বাটনে চাপ দিয়ে সরাসরি যুক্ত হও। 💜</p>
-<button class="panel-trigger-btn" onclick="openModal()" type="button"><i class="fa-solid fa-cart-shopping"></i> Buy Panel / প্যানেল কিনুন</button>
-</section>
-<div class="content-container">
-<div class="glass-card"><div class="card-header"><div class="card-icon"><i class="fa-solid fa-globe"></i></div><div class="card-title"><h3>Social Media</h3><p>FOLLOW • JOIN • STAY CONNECTED</p></div></div>
-<div class="btn-grid-2">
-<a href="https://wa.me/8801845907321" target="_blank" rel="noopener" class="link-btn btn-wa"><div class="link-btn-left"><i class="fa-brands fa-whatsapp link-btn-icon"></i><div class="link-btn-text"><span class="title">WhatsApp</span><span class="subtitle">Personal</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
-<a href="https://whatsapp.com/channel/0029Vb97ufkADTO9iwSKzX18" target="_blank" rel="noopener" class="link-btn btn-wa"><div class="link-btn-left"><i class="fa-brands fa-whatsapp link-btn-icon"></i><div class="link-btn-text"><span class="title">WhatsApp</span><span class="subtitle">Channel</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a></div>
-<div class="btn-grid-2">
-<a href="https://www.facebook.com/share/19Vr3iP7mB/" target="_blank" rel="noopener" class="link-btn btn-fb"><div class="link-btn-left"><i class="fa-brands fa-facebook link-btn-icon"></i><div class="link-btn-text"><span class="title">Facebook</span><span class="subtitle">Profile 1</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
-<a href="https://www.facebook.com/share/1ZEEJMyX2x/" target="_blank" rel="noopener" class="link-btn btn-fb"><div class="link-btn-left"><i class="fa-brands fa-facebook link-btn-icon"></i><div class="link-btn-text"><span class="title">Facebook</span><span class="subtitle">Profile 2</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a></div>
-<div class="btn-grid-3">
-<a href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener" class="link-btn btn-tg"><div class="link-btn-left"><i class="fa-brands fa-telegram link-btn-icon"></i><div class="link-btn-text"><span class="title">Telegram</span><span class="subtitle">Personal</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
-<a href="https://t.me/RifatFFPanelSeller" target="_blank" rel="noopener" class="link-btn btn-tg"><div class="link-btn-left"><i class="fa-brands fa-telegram link-btn-icon"></i><div class="link-btn-text"><span class="title">Telegram</span><span class="subtitle">Group</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
-<a href="https://t.me/rifatffpanelSellerBot1" target="_blank" rel="noopener" class="link-btn btn-tg"><div class="link-btn-left"><i class="fa-brands fa-telegram link-btn-icon"></i><div class="link-btn-text"><span class="title">Telegram</span><span class="subtitle">Channel</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a></div></div>
-<div class="glass-card"><div class="card-header"><div class="card-icon"><i class="fa-solid fa-user-gear"></i></div><div class="card-title"><h3>Contact Me</h3><p>GET IN TOUCH DIRECTLY</p></div></div><div class="btn-grid-2">
-<a href="https://wa.me/8801845907321" target="_blank" rel="noopener" class="link-btn btn-wa"><div class="link-btn-left"><i class="fa-brands fa-whatsapp link-btn-icon"></i><div class="link-btn-text"><span class="title">WhatsApp</span><span class="subtitle">যোগাযোগ</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a>
-<a href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener" class="link-btn btn-tg"><div class="link-btn-left"><i class="fa-brands fa-telegram link-btn-icon"></i><div class="link-btn-text"><span class="title">Telegram</span><span class="subtitle">যোগাযোগ</span></div></div><i class="fa-solid fa-arrow-right link-arrow"></i></a></div></div>
-<div class="badges-row"><div class="mini-badge"><i class="fa-solid fa-bolt"></i> Fast Service</div><div class="mini-badge"><i class="fa-solid fa-shield-halved"></i> 100% Safe</div><div class="mini-badge"><i class="fa-solid fa-star"></i> Trusted Seller</div><div class="mini-badge"><i class="fa-solid fa-headset"></i> 24/7 Support</div></div>
-<footer>Made with <span>💜</span> for Rifat FF Panel Seller</footer></div>
-<div class="modal-overlay" id="panelModal" onclick="closeModalOnOutside(event)"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 style="text-align:center;color:#00f2fe;margin-bottom:5px">প্যানেল নির্বাচন করুন</h2><p style="text-align:center;color:#aaa;font-size:14px;margin-bottom:20px">আপনার পছন্দের প্যানেলটি অর্ডার করতে Buy Now-এ চাপ দিন</p><div class="panels-grid" id="panelsContainer"></div></div></div>
-<div class="auth-overlay" id="authOverlay" onclick="closeAuthOutside(event)"><div class="auth-card" role="dialog" aria-modal="true">
-<button class="auth-close" onclick="closeAuth()" aria-label="Close" type="button">&times;</button><div class="auth-logo"><i class="fa-solid fa-crown"></i></div>
-<h2 class="auth-title" id="authTitle">LOGIN YOUR ACCOUNT</h2><p class="auth-desc" id="authDesc">Welcome back to RIFAT FF PANEL SELLER</p><div class="auth-message" id="authMessage" role="status"></div>
-<form id="loginForm">
-<label class="auth-field"><span>Email Address</span><input id="loginEmail" type="email" placeholder="Enter your email" autocomplete="email" required></label>
-<label class="auth-field"><span>Password</span><input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" minlength="6" required></label>
-<div class="forgot-row"><button class="forgot-btn" type="button" onclick="resetPassword()">Forgot Password?</button></div>
-<button class="auth-submit" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
-<p class="auth-switch" id="signupSwitch">Don't have an account? <button type="button" onclick="showSignup()">Sign Up</button></p>
-</form>
-<div class="role-login-options" id="roleLoginOptions"><button type="button" class="role-login-btn admin-login-btn" onclick="openRoleLogin('admin')"><i class="fa-solid fa-shield-halved"></i><span>Admin Login</span></button><button type="button" class="role-login-btn owner-login-btn" onclick="openRoleLogin('owner')"><i class="fa-solid fa-crown"></i><span>Owner Login</span></button></div>
-<button type="button" id="googleOwnerButton" class="google-login-btn" style="display:none" onclick="ownerGoogleLogin()"><i class="fa-brands fa-google"></i> Continue with Google</button>
-<form id="signupForm" style="display:none">
-<label class="auth-field"><span>Full Name</span><input id="signupName" type="text" placeholder="Enter your full name" autocomplete="name" maxlength="80" required></label>
-<label class="auth-field"><span>Username</span><input id="signupUsername" type="text" placeholder="Choose a username" autocomplete="username" minlength="3" maxlength="24" required></label>
-<label class="auth-field"><span>Email Address</span><input id="signupEmail" type="email" placeholder="Enter your email" autocomplete="email" required></label>
-<label class="auth-field"><span>Password</span><input id="signupPassword" type="password" placeholder="At least 6 characters" autocomplete="new-password" minlength="6" required></label>
-<label class="auth-field"><span>Confirm Password</span><input id="signupConfirm" type="password" placeholder="Re-enter your password" autocomplete="new-password" minlength="6" required></label>
-<button class="auth-submit" type="submit"><i class="fa-solid fa-user-plus"></i> Create Account</button><p class="auth-switch">Already have an account? <button type="button" onclick="showLogin()">Login</button></p></form>
-<button id="logoutButton" class="auth-submit" style="display:none;background:linear-gradient(90deg,#ff007f,#7928ca)" onclick="logoutUser()">Logout</button>
-</div></div>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script>
-const firebaseConfig={apiKey:"AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",authDomain:"rifat-ffpanel-seller.firebaseapp.com",projectId:"rifat-ffpanel-seller",storageBucket:"rifat-ffpanel-seller.firebasestorage.app",messagingSenderId:"270050253341",appId:"1:270050253341:web:ca5db10f52d746751444f4"};
-const OWNER_EMAIL="rifat018459073211@gmail.com";
-let auth=null,db=null,firebaseReady=false,selectedLoginRole="member";
-try{firebase.initializeApp(firebaseConfig);auth=firebase.auth();db=firebase.firestore();firebaseReady=true}catch(e){console.error("Firebase initialization error:",e)}
-function showAuthMessage(message,isError=false){const el=document.getElementById("authMessage");el.textContent=message;el.className="auth-message show"+(isError?" error":"")}
-function clearAuthMessage(){const el=document.getElementById("authMessage");el.textContent="";el.className="auth-message"}
-function openAuth(mode="login"){document.getElementById("authOverlay").classList.add("active");mode==="signup"?showSignup():showLogin()}
-function closeAuth(){document.getElementById("authOverlay").classList.remove("active")}
-function closeAuthOutside(e){if(e.target.id==="authOverlay")closeAuth()}
-function setAuthRoleUI(role){selectedLoginRole=role;document.getElementById("authTitle").textContent=role==="owner"?"OWNER LOGIN":role==="admin"?"ADMIN LOGIN":"LOGIN YOUR ACCOUNT";document.getElementById("authDesc").textContent=role==="owner"?"Choose your Google account to verify Owner access":role==="admin"?"Admin access for RIFAT FF PANEL SELLER":"Welcome back to RIFAT FF PANEL SELLER";document.getElementById("googleOwnerButton").style.display=role==="owner"?"flex":"none";document.getElementById("loginForm").style.display=role==="owner"?"none":"block";document.getElementById("roleLoginOptions").hidden=role!=="member";document.getElementById("signupSwitch").style.display=role==="member"?"block":"none";document.getElementById("loginEmail").readOnly=false;document.getElementById("loginEmail").value="";document.getElementById("loginPassword").value=""}
-function openRoleLogin(role){document.getElementById("authOverlay").classList.add("active");document.getElementById("loginForm").style.display="block";document.getElementById("signupForm").style.display="none";document.getElementById("logoutButton").style.display="none";setAuthRoleUI(role);clearAuthMessage()}
-function showLogin(){document.getElementById("loginForm").style.display="block";document.getElementById("signupForm").style.display="none";document.getElementById("logoutButton").style.display="none";setAuthRoleUI("member");clearAuthMessage()}
-function showSignup(){selectedLoginRole="member";document.getElementById("authTitle").textContent="CREATE YOUR ACCOUNT";document.getElementById("authDesc").textContent="Join RIFAT FF PANEL SELLER";document.getElementById("loginForm").style.display="none";document.getElementById("signupForm").style.display="block";document.getElementById("roleLoginOptions").hidden=true;document.getElementById("googleOwnerButton").style.display="none";document.getElementById("logoutButton").style.display="none";clearAuthMessage()}
-async function verifyRole(credential,role){const user=credential.user,email=(user.email||"").toLowerCase();if(role==="owner"){if(email!==OWNER_EMAIL){await auth.signOut();throw new Error("এই Google অ্যাকাউন্ট Owner-এর নির্ধারিত Gmail নয়।")}showAuthMessage("Owner Google Login সফল হয়েছে! Dashboard খুলছে...");return}if(role==="admin"){let doc;try{doc=await db.collection("users").doc(user.uid).get()}catch(e){await auth.signOut();throw new Error("Admin role যাচাই করা যায়নি। Firestore Security Rules পরীক্ষা করো।")}if(!doc.exists||doc.data().role!=="admin"){await auth.signOut();throw new Error("এই অ্যাকাউন্টে Admin অনুমতি নেই। Owner-কে নিরাপদভাবে Admin role সেট করতে হবে।")}showAuthMessage("Admin Login সফল হয়েছে। পোস্ট জমা দেওয়ার ফিচার এখনো আলাদাভাবে যোগ করতে হবে।");return}showAuthMessage("Login সফল হয়েছে!")}
-document.getElementById("loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!firebaseReady)return showAuthMessage("Firebase প্রস্তুত নয়।",true);if(selectedLoginRole==="owner")return showAuthMessage("Owner-এর জন্য Continue with Google বাটন ব্যবহার করো।",true);try{const c=await auth.signInWithEmailAndPassword(document.getElementById("loginEmail").value.trim(),document.getElementById("loginPassword").value);await verifyRole(c,selectedLoginRole);setTimeout(closeAuth,1000)}catch(err){showAuthMessage(err.message||authErrorMessage(err.code),true)}});
-async function ownerGoogleLogin(){if(!firebaseReady)return showAuthMessage("Firebase প্রস্তুত নয়।",true);try{const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:"select_account",login_hint:OWNER_EMAIL});const c=await auth.signInWithPopup(p);await verifyRole(c,"owner");setTimeout(()=>{window.location.href="owner.html"},700)}catch(e){showAuthMessage(e.message||authErrorMessage(e.code),true)}}
-document.getElementById("signupForm").addEventListener("submit",async e=>{e.preventDefault();if(!firebaseReady)return showAuthMessage("Firebase প্রস্তুত নয়।",true);const name=document.getElementById("signupName").value.trim(),username=document.getElementById("signupUsername").value.trim(),email=document.getElementById("signupEmail").value.trim(),password=document.getElementById("signupPassword").value,confirm=document.getElementById("signupConfirm").value;if(username.length<3)return showAuthMessage("Username কমপক্ষে ৩ অক্ষরের হতে হবে।",true);if(password!==confirm)return showAuthMessage("দুটি Password মেলেনি। আবার পরীক্ষা করো।",true);try{const c=await auth.createUserWithEmailAndPassword(email,password);await c.user.updateProfile({displayName:name});await db.collection("users").doc(c.user.uid).set({fullName:name,username,email,role:"member",createdAt:firebase.firestore.FieldValue.serverTimestamp()});showAuthMessage("অ্যাকাউন্ট তৈরি হয়েছে! তুমি এখন লগইন করা আছো।");e.target.reset();setTimeout(closeAuth,1200)}catch(err){showAuthMessage(authErrorMessage(err.code),true)}});
-async function resetPassword(){if(!firebaseReady)return showAuthMessage("Firebase প্রস্তুত নয়।",true);if(selectedLoginRole==="owner")return showAuthMessage("Owner-এর জন্য Google Login ব্যবহার করো।",true);const email=document.getElementById("loginEmail").value.trim();if(!email)return showAuthMessage("Password reset link পেতে আগে Email Address লিখো।",true);try{await auth.sendPasswordResetEmail(email);showAuthMessage("Password reset link তোমার ইমেইলে পাঠানো হয়েছে।")}catch(e){showAuthMessage(authErrorMessage(e.code),true)}}
-async function logoutUser(){if(!firebaseReady)return;try{await auth.signOut();showAuthMessage("Logout সফল হয়েছে।");showLogin()}catch(e){showAuthMessage(authErrorMessage(e.code),true)}}
-function authErrorMessage(code){const m={"auth/invalid-email":"ইমেইল ঠিকানাটি সঠিক নয়।","auth/user-not-found":"এই ইমেইলে কোনো অ্যাকাউন্ট পাওয়া যায়নি।","auth/wrong-password":"পাসওয়ার্ড সঠিক নয়।","auth/invalid-credential":"ইমেইল বা পাসওয়ার্ড সঠিক নয়।","auth/email-already-in-use":"এই ইমেইল দিয়ে আগে থেকেই অ্যাকাউন্ট আছে। Login করো।","auth/weak-password":"পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দাও।","auth/too-many-requests":"অনেকবার চেষ্টা করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করো।","auth/network-request-failed":"ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করো।","auth/unauthorized-domain":"Firebase Authentication-এর Authorized domains-এ এই সাইট যোগ করো।","auth/popup-blocked":"ব্রাউজার Google Login popup বন্ধ করেছে। আবার চেষ্টা করো।"};return m[code]||"কাজটি সম্পন্ন হয়নি। তথ্য পরীক্ষা করে আবার চেষ্টা করো। ("+(code||"unknown")+")"}
-if(firebaseReady){auth.onAuthStateChanged(user=>{const s=document.getElementById("userStatus"),t=document.getElementById("headerAuthText");if(user){s.textContent="Hi, "+(user.displayName||user.email);s.classList.add("show");t.textContent="My Account";document.getElementById("authTitle").textContent="YOUR ACCOUNT";document.getElementById("authDesc").textContent=user.email||"";document.getElementById("loginForm").style.display="none";document.getElementById("signupForm").style.display="none";document.getElementById("roleLoginOptions").hidden=true;document.getElementById("googleOwnerButton").style.display="none";document.getElementById("logoutButton").style.display="block"}else{s.textContent="";s.classList.remove("show");t.textContent="Login / Sign Up"}})}
-const panelsData=[
-{name:"Panel 1",price:100,priceDisplay:"৳ ১০০",image:"Screenshot_2026-10-28-11-15-48-035_com.dts.freefiremax.jpg",type:"img"},
-{name:"Panel 2",price:200,priceDisplay:"৳ ২০০",image:"Screenshot_2026-10-28-11-15-40-894_com.dts.freefiremax.jpg",type:"img"},
-{name:"Panel 3",price:300,priceDisplay:"৳ ৩০০",image:"Screenshot_2026-10-28-11-16-07-064_com.dts.freefiremax.jpg",type:"img"},
-{name:"Panel 4",price:400,priceDisplay:"৳ ৪০০",image:"Screenshot_2026-10-28-11-15-22-983_com.dts.freefiremax.jpg",type:"img"},
-{name:"Tournament Panel",price:450,priceDisplay:"৳ ৪৫০",image:"VID_20261028_112023_896.mp4",type:"video"}];
-function buyPanel(event,name,price){event.preventDefault();const msg=`🛒 নতুন প্যানেল কেনার অর্ডার!\n\nআসসালামু আলাইকুম। আমি আপনার Rifat FF Panel Seller ওয়েবসাইট থেকে একটি প্যানেল কিনতে আগ্রহী।\n\n📦 প্যানেলের নাম: ${name}\n💰 প্যানেলের মূল্য: ${price} টাকা\n🌐 ওয়েবসাইট: Rifat FF Panel Seller\n\nদয়া করে প্যানেলটির বিস্তারিত তথ্য জানিয়ে আমার অর্ডারটি সম্পন্ন করতে সাহায্য করুন।\n\nধন্যবাদ। ❤️`;window.open("https://wa.me/8801845907321?text="+encodeURIComponent(msg),"_blank","noopener")}
-function renderPanels(){const c=document.getElementById("panelsContainer");let html="";panelsData.forEach(p=>{const media=p.type==="video"?`<video autoplay muted loop controls playsinline><source src="${p.image}" type="video/mp4"></video>`:`<img src="${p.image}" alt="${p.name}">`;const cs=p.name==="Tournament Panel"?'style="border-color:#00f2fe"':"",bs=p.name==="Tournament Panel"?'style="background:linear-gradient(45deg,#00f2fe,#4facfe);color:#05050f"':"";html+=`<div class="panel-card" ${cs}>${media}<h3>${p.name}</h3><div class="price">${p.priceDisplay}</div><button class="buy-btn" ${bs} onclick="buyPanel(event,'${p.name}',${p.price})">Buy Now</button></div>`});c.innerHTML=html}
-window.addEventListener("DOMContentLoaded",renderPanels);function openModal(){document.getElementById("panelModal").classList.add("active")}function closeModal(){document.getElementById("panelModal").classList.remove("active")}function closeModalOnOutside(e){if(e.target.classList.contains("modal-overlay"))closeModal()}document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeAuth()}});
-</script>
+
+  <!-- LOGIN PAGE -->
+  <section class="container" id="loginPage">
+    <h2>RIFAT FF PANEL SELLER</h2>
+    <p>Member Login</p>
+
+    <form id="loginForm">
+      <input id="loginUsername" placeholder="Username" required>
+      <input id="loginPassword" type="password"
+             placeholder="Password" required>
+      <button type="submit">Submit / Login</button>
+    </form>
+
+    <button class="secondary" onclick="showSignup()">
+      Sign Up
+    </button>
+
+    <button class="secondary" onclick="showOwner()">
+      Owner Option
+    </button>
+
+    <p id="loginMessage" class="message"></p>
+  </section>
+
+  <!-- SIGN UP PAGE -->
+  <section class="container hidden" id="signupPage">
+    <h2>Create Account</h2>
+
+    <form id="signupForm">
+      <input id="fullName" placeholder="Full Name" required>
+      <input id="newUsername" placeholder="Username" required>
+      <input id="gmail" type="email" placeholder="Gmail Address" required>
+      <input id="newPassword" type="password"
+             placeholder="Password (at least 6 characters)"
+             minlength="6" required>
+      <input id="confirmPassword" type="password"
+             placeholder="Confirm Password" minlength="6" required>
+
+      <button type="submit">Create Account</button>
+    </form>
+
+    <button class="secondary" onclick="showLogin()">
+      Back to Login
+    </button>
+
+    <p id="signupMessage" class="message"></p>
+  </section>
+
+  <!-- OWNER PLACEHOLDER -->
+  <section class="container hidden" id="ownerPage">
+    <h2>Owner Option</h2>
+    <p>এই অংশের কাজ তুমি পরে বুঝিয়ে দেবে।</p>
+    <button class="secondary" onclick="showLogin()">
+      Back to Login
+    </button>
+  </section>
+
+  <!-- MEMBER HOME -->
+  <section class="container hidden" id="homePage">
+    <h2>Welcome!</h2>
+    <p id="welcomeMessage"></p>
+
+    <div class="panel">
+      <img src="panel1.jpg" alt="Panel image">
+      <h3>FF Panel</h3>
+      <p>Price: ৳100</p>
+      <button onclick="buyNow()">Buy Now</button>
+    </div>
+
+    <button class="secondary" onclick="logout()">Logout</button>
+  </section>
+
+  <script>
+    function hideAll() {
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("signupPage").classList.add("hidden");
+      document.getElementById("ownerPage").classList.add("hidden");
+      document.getElementById("homePage").classList.add("hidden");
+    }
+
+    function showLogin() {
+      hideAll();
+      document.getElementById("loginPage").classList.remove("hidden");
+    }
+
+    function showSignup() {
+      hideAll();
+      document.getElementById("signupPage").classList.remove("hidden");
+    }
+
+    function showOwner() {
+      hideAll();
+      document.getElementById("ownerPage").classList.remove("hidden");
+    }
+
+    function buyNow() {
+      const phone = "8801XXXXXXXXX"; // এখানে তোমার WhatsApp নম্বর বসাবে
+      const message = encodeURIComponent(
+        "আমি FF Panel কিনতে চাই। প্যানেলের দাম ৳100।"
+      );
+
+      window.open(
+        "https://wa.me/" + phone + "?text=" + message,
+        "_blank"
+      );
+    }
+
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const password = document.getElementById("newPassword").value;
+      const confirm = document.getElementById("confirmPassword").value;
+
+      if (password !== confirm) {
+        document.getElementById("signupMessage").textContent =
+          "Password দুটি মিলছে না!";
+        return;
+      }
+
+      document.getElementById("signupMessage").textContent =
+        "ডেমো ফর্ম ঠিক আছে। আসল অ্যাকাউন্ট তৈরির জন্য Firebase যুক্ত করতে হবে।";
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      document.getElementById("loginMessage").textContent =
+        "আসল লগইনের জন্য Firebase Authentication যুক্ত করতে হবে।";
+    });
+
+    function logout() {
+      showLogin();
+    }
+  </script>
+
 </body>
 </html>
