@@ -1,250 +1,88 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Owner Panel | RIFAT FF PANEL SELLER</title>
-
   <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: #f4f2ff;
-      background: #0c0b18;
-    }
-
-    header {
-      padding: 20px 16px;
-      text-align: center;
-      background: #171329;
-      border-bottom: 1px solid #383052;
-    }
-
-    header h1 {
-      margin: 0 0 8px;
-      font-size: 23px;
-      color: #c9a7ff;
-    }
-
-    main {
-      max-width: 850px;
-      margin: auto;
-      padding: 16px;
-    }
-
-    .card {
-      background: #171529;
-      border: 1px solid #393250;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-
-    h2 {
-      font-size: 19px;
-      color: #c9a7ff;
-      margin-top: 0;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 12px;
-      margin: 6px 0;
-      border-radius: 9px;
-      border: 1px solid #49405f;
-      font-size: 15px;
-    }
-
-    input, select {
-      background: #0f0e1b;
-      color: white;
-    }
-
-    button {
-      background: #8055e8;
-      color: white;
-      border: 0;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button.secondary { background: #353047; }
-    button.danger { background: #a82e50; }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .item {
-      padding: 12px 0;
-      border-top: 1px solid #393250;
-      overflow-wrap: anywhere;
-    }
-
-    .muted {
-      color: #b9b4ca;
-      font-size: 13px;
-    }
-
-    #notice {
-      padding: 10px 0;
-      overflow-wrap: anywhere;
-    }
-
-    .hidden { display: none !important; }
-
-    @media (max-width: 480px) {
-      .row { grid-template-columns: 1fr; }
-    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#fff;padding:16px}
+    .container{max-width:900px;margin:auto}
+    h1{color:#38bdf8;text-align:center}
+    .card{background:#151d32;border:1px solid #293550;border-radius:14px;padding:16px;margin:14px 0}
+    input,textarea,button{width:100%;padding:12px;margin:7px 0;border-radius:8px;border:1px solid #35435f;font-size:15px}
+    input,textarea{background:#0b1224;color:#fff}
+    button{background:#0284c7;color:white;border:0;font-weight:bold;cursor:pointer}
+    button.danger{background:#dc2626}
+    button.secondary{background:#334155}
+    .muted{color:#aab7d0;font-size:13px;overflow-wrap:anywhere}
+    .item{border:1px solid #35435f;border-radius:10px;padding:12px;margin:10px 0}
+    .item img{width:100%;max-width:220px;max-height:180px;object-fit:contain;border-radius:8px;display:block}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .status{color:#86efac}
+    #app{display:none}
+    @media(max-width:600px){.row{grid-template-columns:1fr}}
   </style>
 </head>
-
 <body>
+<div class="container">
+  <h1>🔥 RIFAT FF PANEL SELLER</h1>
+  <p style="text-align:center">Owner Dashboard</p>
 
-<header>
-  <h1>RIFAT FF PANEL SELLER</h1>
-  <div>Secure Owner Dashboard</div>
-</header>
-
-<main>
-  <div id="notice" role="status">Firebase সংযোগ হচ্ছে...</div>
-
-  <section id="loginCard" class="card hidden">
+  <section id="login" class="card">
     <h2>Owner Login</h2>
-    <p class="muted">
-      অনুমোদিত Owner Gmail ও Password দিয়ে লগইন করো।
-    </p>
-
-    <form id="loginForm">
-      <input
-        id="email"
-        type="email"
-        placeholder="Owner Gmail"
-        autocomplete="username"
-        required
-      >
-
-      <input
-        id="password"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-        required
-      >
-
-      <button type="submit">Login</button>
-    </form>
-
-    <button id="verifyBtn" class="secondary" type="button">
-      Verification Email পাঠাও
-    </button>
-
-    <button id="resetBtn" class="secondary" type="button">
-      Password Reset
-    </button>
-
-    <button id="logoutLoginBtn" class="secondary" type="button">
-      Logout
-    </button>
+    <p class="muted">শুধু নির্ধারিত Owner Gmail দিয়ে লগইন করতে হবে।</p>
+    <button id="googleLogin">Login with Google</button>
+    <p id="loginMessage" class="muted"></p>
   </section>
 
-  <section id="dashboard" class="hidden">
+  <main id="app">
+    <section class="card">
+      <h2>Owner Verification</h2>
+      <p>Owner Gmail: <strong id="ownerEmail"></strong></p>
+      <p class="muted">Owner UID: <span id="ownerUid"></span></p>
+      <p class="muted">এই Gmail ও UID এই পেজে স্থির রাখা হয়েছে।</p>
+      <button id="logout" class="danger">Logout</button>
+    </section>
 
-    <div class="card">
-      <h2>Owner Dashboard</h2>
-      <div id="who" class="muted"></div>
+    <section class="card">
+      <h2>➕ নতুন প্যানেল যোগ করো</h2>
+      <input id="panelName" placeholder="Panel-এর নাম">
+      <input id="panelPrice" type="number" min="0" placeholder="দাম">
+      <textarea id="panelDescription" placeholder="প্যানেলের বিবরণ (ঐচ্ছিক)"></textarea>
+      <input id="panelImageUrl" type="url" placeholder="ছবির Direct HTTPS URL (ঐচ্ছিক)">
+      <img id="imagePreview" alt="ছবির Preview" style="display:none;width:100%;max-width:220px;max-height:180px;object-fit:contain">
+      <button id="addPanel">প্যানেল যোগ করো</button>
+      <p class="muted">ছবি অন্য কোনো image hosting সাইটে আপলোড করে তার Direct HTTPS URL এখানে দাও।</p>
+      <p id="panelMessage" class="muted"></p>
+    </section>
 
-      <button id="refreshBtn" type="button">
-        সব তথ্য Refresh
-      </button>
+    <section class="card">
+      <h2>📦 প্যানেল ম্যানেজমেন্ট</h2>
+      <button id="refreshPanels" class="secondary">প্যানেল রিফ্রেশ</button>
+      <div id="panelList">লোড হচ্ছে...</div>
+    </section>
 
-      <button id="logoutBtn" class="danger" type="button">
-        Logout
-      </button>
-    </div>
+    <section class="card">
+      <h2>🧾 কাস্টমার অর্ডার</h2>
+      <button id="refreshOrders" class="secondary">অর্ডার রিফ্রেশ</button>
+      <div id="orderList">লোড হচ্ছে...</div>
+    </section>
+  </main>
+</div>
 
-    <div class="card">
-      <h2>Panel ও দাম পরিচালনা</h2>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth, GoogleAuthProvider, signInWithPopup,
+    onAuthStateChanged, signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, collection, addDoc,
+    getDocs, updateDoc, deleteDoc, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-      <form id="panelForm">
-        <input
-          id="panelId"
-          type="text"
-          placeholder="Panel ID (যেমন basic)"
-          required
-        >
-
-        <input
-          id="panelName"
-          type="text"
-          placeholder="Panel-এর নাম"
-          required
-        >
-
-        <input
-          id="panelPrice"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="দাম"
-          required
-        >
-
-        <select id="panelEnabled">
-          <option value="true">চালু (Enabled)</option>
-          <option value="false">বন্ধ (Disabled)</option>
-        </select>
-
-        <button type="submit">Panel যোগ / আপডেট</button>
-      </form>
-
-      <div class="muted">
-        একই Panel ID দিলে সেই Panel আপডেট হবে।
-      </div>
-
-      <div id="panelsList"></div>
-    </div>
-
-    <div class="card">
-      <h2>Order Management</h2>
-      <div id="ordersList">অর্ডার লোড হচ্ছে...</div>
-    </div>
-
-    <div class="card">
-      <h2>Admin Management</h2>
-
-      <p class="muted">
-        Admin-এর Firebase Authentication UID দিতে হবে।
-        Admin-এর অ্যাকাউন্ট আগে তৈরি থাকতে হবে।
-      </p>
-
-      <form id="adminForm">
-        <input
-          id="adminUid"
-          type="text"
-          placeholder="Admin-এর Firebase UID"
-          required
-        >
-
-        <button type="submit">Admin অনুমোদন করো</button>
-      </form>
-
-      <div id="adminsList"></div>
-    </div>
-
-  </section>
-</main>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-
-<script>
-(() => {
   const firebaseConfig = {
     apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
     authDomain: "rifat-ffpanel-seller.firebaseapp.com",
@@ -254,459 +92,270 @@
     appId: "1:270050253341:web:ca5db10f52d746751444f4"
   };
 
-  // নতুন Owner UID
+  // এগুলো পরিবর্তন করবে না।
+  const OWNER_EMAIL = "rifat018459073211@gmail.com";
   const OWNER_UID = "ivPdz5ZPNjaaxoqOcwRVQZ7NAR63";
 
-  // নতুন Owner Gmail
-  const OWNER_EMAIL = "rifat018459073211@gmail.com";
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const provider = new GoogleAuthProvider();
 
   const $ = id => document.getElementById(id);
+  let ownerVerified = false;
 
-  const notice = message => {
-    $("notice").textContent = message;
-  };
+  $("ownerEmail").textContent = OWNER_EMAIL;
+  $("ownerUid").textContent = OWNER_UID;
 
-  let auth;
-  let db;
-  let currentUser = null;
-
-  function showLogin() {
-    $("loginCard").classList.remove("hidden");
-    $("dashboard").classList.add("hidden");
+  function showMessage(id, message) {
+    $(id).textContent = message;
   }
 
-  function showDashboard() {
-    $("loginCard").classList.add("hidden");
-    $("dashboard").classList.remove("hidden");
+  async function verifyOwner(user) {
+    if (!user || user.uid !== OWNER_UID ||
+        user.email !== OWNER_EMAIL || !user.emailVerified) {
+      ownerVerified = false;
+      $("app").style.display = "none";
+      $("login").style.display = "block";
+      showMessage("loginMessage", "Owner Gmail/UID মিলেনি অথবা ইমেইল ভেরিফাই করা নেই।");
+      return false;
+    }
+
+    // Firestore roles/{OWNER_UID} ডকুমেন্টেও role: "owner" থাকতে হবে।
+    const roleSnap = await getDoc(doc(db, "roles", OWNER_UID));
+    if (!roleSnap.exists() || roleSnap.data().role !== "owner") {
+      ownerVerified = false;
+      $("app").style.display = "none";
+      $("login").style.display = "block";
+      showMessage("loginMessage", "Owner role যাচাই করা যায়নি। Firebase roles ডকুমেন্ট পরীক্ষা করো।");
+      return false;
+    }
+
+    ownerVerified = true;
+    $("login").style.display = "none";
+    $("app").style.display = "block";
+    showMessage("loginMessage", "");
+    await loadPanels();
+    await loadOrders();
+    return true;
   }
 
-  function cleanText(value) {
-    return String(value ?? "");
-  }
+  $("googleLogin").addEventListener("click", async () => {
+    showMessage("loginMessage", "লগইন হচ্ছে...");
+    try {
+      const result = await signInWithPopup(auth, provider);
+      await verifyOwner(result.user);
+      if (!ownerVerified) await signOut(auth);
+    } catch (error) {
+      showMessage("loginMessage", "লগইন ব্যর্থ: " + error.message);
+    }
+  });
 
-  async function checkAccess(user) {
+  onAuthStateChanged(auth, async user => {
     if (!user) {
-      currentUser = null;
-      showLogin();
-      notice("Owner Gmail ও Password দিয়ে লগইন করো।");
+      ownerVerified = false;
+      $("app").style.display = "none";
+      $("login").style.display = "block";
       return;
     }
+    try {
+      const ok = await verifyOwner(user);
+      if (!ok) await signOut(auth);
+    } catch (error) {
+      ownerVerified = false;
+      $("app").style.display = "none";
+      $("login").style.display = "block";
+      showMessage("loginMessage", "যাচাই ব্যর্থ। Firebase Rules ও roles ডকুমেন্ট পরীক্ষা করো।");
+    }
+  });
 
-    currentUser = user;
+  $("logout").addEventListener("click", () => signOut(auth));
 
-    if (user.uid !== OWNER_UID) {
-      await auth.signOut();
-      showLogin();
-      notice("এই Firebase UID Owner হিসেবে অনুমোদিত নয়।");
+  $("panelImageUrl").addEventListener("input", () => {
+    const url = $("panelImageUrl").value.trim();
+    const preview = $("imagePreview");
+    if (url.startsWith("https://")) {
+      preview.src = url;
+      preview.style.display = "block";
+      preview.onerror = () => { preview.style.display = "none"; };
+    } else {
+      preview.removeAttribute("src");
+      preview.style.display = "none";
+    }
+  });
+
+  $("addPanel").addEventListener("click", async () => {
+    if (!ownerVerified) return;
+    const name = $("panelName").value.trim();
+    const price = Number($("panelPrice").value);
+    const description = $("panelDescription").value.trim();
+    const imageUrl = $("panelImageUrl").value.trim();
+
+    if (!name || $("panelPrice").value === "" ||
+        !Number.isFinite(price) || price < 0) {
+      showMessage("panelMessage", "প্যানেলের নাম ও সঠিক দাম দাও।");
       return;
     }
-
-    if (
-      (user.email || "").toLowerCase() !==
-      OWNER_EMAIL.toLowerCase()
-    ) {
-      await auth.signOut();
-      showLogin();
-      notice("এই Gmail Owner হিসেবে অনুমোদিত নয়।");
-      return;
-    }
-
-    if (!user.emailVerified) {
-      showLogin();
-      notice(
-        "তোমার Gmail Verify করা নেই। Verification Email পাঠিয়ে লিংক খোলো, তারপর আবার লগইন করো।"
-      );
+    if (imageUrl && !/^https:\/\/\S+$/i.test(imageUrl)) {
+      showMessage("panelMessage", "ছবির URL অবশ্যই HTTPS হতে হবে।");
       return;
     }
 
     try {
-      const roleSnap = await db
-        .collection("roles")
-        .doc(OWNER_UID)
-        .get();
+      await addDoc(collection(db, "panels"), {
+        name, price, description, imageUrl,
+        enabled: true,
+        createdAt: serverTimestamp()
+      });
+      $("panelName").value = "";
+      $("panelPrice").value = "";
+      $("panelDescription").value = "";
+      $("panelImageUrl").value = "";
+      $("imagePreview").style.display = "none";
+      showMessage("panelMessage", "প্যানেল যোগ হয়েছে।");
+      await loadPanels();
+    } catch (error) {
+      showMessage("panelMessage", "যোগ করা যায়নি: " + error.message);
+    }
+  });
 
-      if (
-        !roleSnap.exists ||
-        roleSnap.data().role !== "owner"
-      ) {
-        await auth.signOut();
-        showLogin();
-        notice(
-          "Firestore-এ এই UID-এর role অবশ্যই owner হতে হবে।"
-        );
+  async function loadPanels() {
+    if (!ownerVerified) return;
+    $("panelList").textContent = "লোড হচ্ছে...";
+    try {
+      const snapshot = await getDocs(collection(db, "panels"));
+      $("panelList").replaceChildren();
+
+      if (snapshot.empty) {
+        $("panelList").textContent = "এখনো কোনো প্যানেল নেই।";
         return;
       }
 
-      showDashboard();
+      snapshot.forEach(item => {
+        const panel = item.data();
+        const box = document.createElement("div");
+        box.className = "item";
 
-      $("who").textContent =
-        "Owner: " + user.email + " | UID: " + user.uid;
+        const title = document.createElement("h3");
+        title.textContent = panel.name || "নামহীন প্যানেল";
+        box.append(title);
 
-      notice("Owner যাচাই সফল হয়েছে।");
+        const price = document.createElement("p");
+        price.textContent = "দাম: ৳" + (panel.price ?? 0);
+        box.append(price);
 
-      await loadAll();
-
-    } catch (error) {
-      showLogin();
-      notice("Owner যাচাই ব্যর্থ: " + error.message);
-    }
-  }
-
-  async function loadPanels() {
-    const snap = await db.collection("panels").get();
-    const list = $("panelsList");
-
-    list.replaceChildren();
-
-    if (snap.empty) {
-      list.textContent = "এখনো কোনো Panel যোগ করা হয়নি।";
-      return;
-    }
-
-    snap.forEach(doc => {
-      const panel = doc.data();
-      const item = document.createElement("div");
-      item.className = "item";
-
-      const info = document.createElement("div");
-
-      info.textContent =
-        cleanText(panel.name) +
-        " | দাম: " + cleanText(panel.price) +
-        " | " + (panel.enabled ? "চালু" : "বন্ধ") +
-        " | ID: " + doc.id;
-
-      item.appendChild(info);
-
-      const row = document.createElement("div");
-      row.className = "row";
-
-      const edit = document.createElement("button");
-      edit.textContent = "Edit";
-      edit.className = "secondary";
-
-      edit.onclick = () => {
-        $("panelId").value = doc.id;
-        $("panelName").value = panel.name || "";
-        $("panelPrice").value = panel.price ?? 0;
-        $("panelEnabled").value =
-          String(panel.enabled !== false);
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      };
-
-      const del = document.createElement("button");
-      del.textContent = "Delete";
-      del.className = "danger";
-
-      del.onclick = async () => {
-        if (!confirm("এই Panel মুছে ফেলতে চাও?")) return;
-
-        try {
-          await db.collection("panels").doc(doc.id).delete();
-          notice("Panel মুছে ফেলা হয়েছে।");
-          await loadPanels();
-        } catch (error) {
-          notice("Panel মুছতে সমস্যা: " + error.message);
+        if (panel.description) {
+          const desc = document.createElement("p");
+          desc.textContent = panel.description;
+          box.append(desc);
         }
-      };
 
-      row.append(edit, del);
-      item.appendChild(row);
-      list.appendChild(item);
-    });
+        if (panel.imageUrl && /^https:\/\//i.test(panel.imageUrl)) {
+          const img = document.createElement("img");
+          img.src = panel.imageUrl;
+          img.alt = panel.name || "Panel image";
+          img.onerror = () => img.remove();
+          box.append(img);
+        }
+
+        const state = document.createElement("p");
+        state.className = "status";
+        state.textContent = panel.enabled === true ? "চালু" : "বন্ধ";
+        box.append(state);
+
+        const toggle = document.createElement("button");
+        toggle.className = "secondary";
+        toggle.textContent = panel.enabled === true ? "প্যানেল বন্ধ করো" : "প্যানেল চালু করো";
+        toggle.addEventListener("click", async () => {
+          if (!ownerVerified) return;
+          try {
+            await updateDoc(doc(db, "panels", item.id), {
+              enabled: panel.enabled !== true
+            });
+            await loadPanels();
+          } catch (error) {
+            alert("পরিবর্তন করা যায়নি: " + error.message);
+          }
+        });
+        box.append(toggle);
+
+        const remove = document.createElement("button");
+        remove.className = "danger";
+        remove.textContent = "প্যানেল মুছে ফেলো";
+        remove.addEventListener("click", async () => {
+          if (!ownerVerified || !confirm("এই প্যানেল মুছে ফেলবে?")) return;
+          try {
+            await deleteDoc(doc(db, "panels", item.id));
+            await loadPanels();
+          } catch (error) {
+            alert("মুছতে পারিনি: " + error.message);
+          }
+        });
+        box.append(remove);
+        $("panelList").append(box);
+      });
+    } catch (error) {
+      $("panelList").textContent = "প্যানেল লোড হয়নি। Firebase Rules পরীক্ষা করো।";
+    }
   }
 
   async function loadOrders() {
-    const snap = await db.collection("orders").get();
-    const list = $("ordersList");
+    if (!ownerVerified) return;
+    $("orderList").textContent = "লোড হচ্ছে...";
+    try {
+      const snapshot = await getDocs(collection(db, "orders"));
+      $("orderList").replaceChildren();
 
-    list.replaceChildren();
+      if (snapshot.empty) {
+        $("orderList").textContent = "এখনো কোনো অর্ডার নেই।";
+        return;
+      }
 
-    if (snap.empty) {
-      list.textContent = "এখনো কোনো অর্ডার নেই।";
-      return;
-    }
+      snapshot.forEach(item => {
+        const order = item.data();
+        const box = document.createElement("div");
+        box.className = "item";
 
-    snap.forEach(doc => {
-      const order = doc.data();
-      const item = document.createElement("div");
-      item.className = "item";
+        const details = document.createElement("p");
+        details.textContent =
+          "পণ্য: " + (order.productName || "অজানা") +
+          " | দাম: ৳" + (order.price ?? 0) +
+          " | স্ট্যাটাস: " + (order.status || "pending") +
+          " | Customer UID: " + (order.userId || "নেই");
+        box.append(details);
 
-      const details = document.createElement("div");
+        const statusInput = document.createElement("input");
+        statusInput.value = order.status || "pending";
+        statusInput.placeholder = "pending / approved / rejected";
+        box.append(statusInput);
 
-      details.textContent =
-        "Order ID: " + doc.id +
-        " | User UID: " +
-        cleanText(order.uid || order.userId) +
-        " | Panel: " +
-        cleanText(
-          order.panelName ||
-          order.panelId ||
-          order.product
-        ) +
-        " | দাম: " + cleanText(order.price) +
-        " | Status: " + cleanText(order.status);
-
-      item.appendChild(details);
-
-      const select = document.createElement("select");
-
-      ["pending", "approved", "completed", "cancelled"]
-        .forEach(status => {
-          const option = document.createElement("option");
-          option.value = status;
-          option.textContent = status;
-
-          if (
-            String(order.status || "pending").toLowerCase()
-            === status
-          ) {
-            option.selected = true;
+        const save = document.createElement("button");
+        save.textContent = "অর্ডারের স্ট্যাটাস সেভ";
+        save.addEventListener("click", async () => {
+          if (!ownerVerified) return;
+          const status = statusInput.value.trim();
+          if (!["pending", "approved", "rejected"].includes(status)) {
+            alert("pending, approved অথবা rejected লিখো।");
+            return;
           }
-
-          select.appendChild(option);
+          try {
+            await updateDoc(doc(db, "orders", item.id), { status });
+            alert("অর্ডারের স্ট্যাটাস আপডেট হয়েছে।");
+            await loadOrders();
+          } catch (error) {
+            alert("আপডেট হয়নি: " + error.message);
+          }
         });
-
-      const update = document.createElement("button");
-      update.textContent = "Order Status আপডেট";
-
-      update.onclick = async () => {
-        try {
-          await db.collection("orders").doc(doc.id).update({
-            status: select.value
-          });
-
-          notice("Order status আপডেট হয়েছে।");
-          await loadOrders();
-        } catch (error) {
-          notice("Order আপডেট ব্যর্থ: " + error.message);
-        }
-      };
-
-      item.append(select, update);
-      list.appendChild(item);
-    });
-  }
-
-  async function loadAdmins() {
-    const snap = await db.collection("roles").get();
-    const list = $("adminsList");
-
-    list.replaceChildren();
-
-    const admins = snap.docs.filter(
-      doc => doc.data().role === "admin"
-    );
-
-    if (!admins.length) {
-      list.textContent = "এখনো কোনো Admin অনুমোদিত নয়।";
-      return;
-    }
-
-    admins.forEach(doc => {
-      const item = document.createElement("div");
-      item.className = "item";
-
-      const info = document.createElement("div");
-      info.textContent = "Admin UID: " + doc.id;
-      item.appendChild(info);
-
-      const revoke = document.createElement("button");
-      revoke.textContent = "Admin অনুমতি বাতিল";
-      revoke.className = "danger";
-
-      revoke.onclick = async () => {
-        if (!confirm("এই Admin-এর অনুমতি বাতিল করবে?")) {
-          return;
-        }
-
-        try {
-          await db.collection("roles").doc(doc.id).delete();
-          notice("Admin অনুমতি বাতিল হয়েছে।");
-          await loadAdmins();
-        } catch (error) {
-          notice("Admin বাতিল করা যায়নি: " + error.message);
-        }
-      };
-
-      item.appendChild(revoke);
-      list.appendChild(item);
-    });
-  }
-
-  async function loadAll() {
-    try {
-      await Promise.all([
-        loadPanels(),
-        loadOrders(),
-        loadAdmins()
-      ]);
-    } catch (error) {
-      notice(
-        "তথ্য লোড হয়নি। Firestore Rules পরীক্ষা করো: " +
-        error.message
-      );
-    }
-  }
-
-  $("loginForm").addEventListener("submit", async event => {
-    event.preventDefault();
-
-    try {
-      await auth.signInWithEmailAndPassword(
-        $("email").value.trim(),
-        $("password").value
-      );
-
-      await auth.currentUser.reload();
-      await checkAccess(auth.currentUser);
-    } catch (error) {
-      notice("Login ব্যর্থ: " + error.message);
-    }
-  });
-
-  $("verifyBtn").addEventListener("click", async () => {
-    try {
-      if (!auth.currentUser) {
-        notice(
-          "আগে লগইন করো, তারপর Verification Email পাঠাও।"
-        );
-        return;
-      }
-
-      await auth.currentUser.sendEmailVerification();
-
-      notice(
-        "Verification Email পাঠানো হয়েছে। Gmail Inbox ও Spam পরীক্ষা করো।"
-      );
-    } catch (error) {
-      notice("Verification Email পাঠানো যায়নি: " + error.message);
-    }
-  });
-
-  $("resetBtn").addEventListener("click", async () => {
-    try {
-      const email = $("email").value.trim();
-
-      if (!email) {
-        notice("আগে Gmail লিখো।");
-        return;
-      }
-
-      await auth.sendPasswordResetEmail(email);
-      notice("Password Reset Email পাঠানো হয়েছে।");
-    } catch (error) {
-      notice("Password Reset ব্যর্থ: " + error.message);
-    }
-  });
-
-  async function logout() {
-    try {
-      await auth.signOut();
-      showLogin();
-      notice("Logout সফল হয়েছে.");
-    } catch (error) {
-      notice("Logout ব্যর্থ: " + error.message);
-    }
-  }
-
-  $("logoutBtn").addEventListener("click", logout);
-  $("logoutLoginBtn").addEventListener("click", logout);
-  $("refreshBtn").addEventListener("click", loadAll);
-
-  $("panelForm").addEventListener("submit", async event => {
-    event.preventDefault();
-
-    const id = $("panelId").value.trim();
-    const name = $("panelName").value.trim();
-    const price = Number($("panelPrice").value);
-    const enabled = $("panelEnabled").value === "true";
-
-    if (!/^[a-zA-Z0-9_-]{1,60}$/.test(id)) {
-      notice(
-        "Panel ID-তে ইংরেজি অক্ষর, সংখ্যা, _ অথবা - ব্যবহার করো।"
-      );
-      return;
-    }
-
-    if (!name || !Number.isFinite(price) || price < 0) {
-      notice("Panel-এর নাম ও সঠিক দাম দাও।");
-      return;
-    }
-
-    try {
-      await db.collection("panels").doc(id).set({
-        name: name,
-        price: price,
-        enabled: enabled,
-        updatedAt:
-          firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
-
-      notice("Panel যোগ/আপডেট হয়েছে।");
-      $("panelForm").reset();
-      await loadPanels();
-    } catch (error) {
-      notice("Panel সংরক্ষণ ব্যর্থ: " + error.message);
-    }
-  });
-
-  $("adminForm").addEventListener("submit", async event => {
-    event.preventDefault();
-
-    const uid = $("adminUid").value.trim();
-
-    if (!currentUser || !uid || uid === OWNER_UID) {
-      notice("সঠিক Admin UID দাও। Owner-কে Admin করা যাবে না।");
-      return;
-    }
-
-    if (!confirm("এই UID-কে Admin অনুমতি দিতে চাও?")) {
-      return;
-    }
-
-    try {
-      await db.collection("roles").doc(uid).set({
-        role: "admin",
-        createdAt:
-          firebase.firestore.FieldValue.serverTimestamp(),
-        createdBy: OWNER_UID
+        box.append(save);
+        $("orderList").append(box);
       });
-
-      notice("Admin অনুমোদিত হয়েছে।");
-      $("adminForm").reset();
-      await loadAdmins();
     } catch (error) {
-      notice("Admin যোগ করা যায়নি: " + error.message);
+      $("orderList").textContent = "অর্ডার লোড হয়নি। Firebase Rules পরীক্ষা করো।";
     }
-  });
-
-  try {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-
-    auth = firebase.auth();
-    db = firebase.firestore();
-
-    $("loginCard").classList.remove("hidden");
-
-    auth.onAuthStateChanged(user => {
-      checkAccess(user).catch(error => {
-        notice("যাচাই ব্যর্থ: " + error.message);
-      });
-    });
-  } catch (error) {
-    notice("Firebase চালু হয়নি: " + error.message);
-    showLogin();
   }
 
-})();
+  $("refreshPanels").addEventListener("click", loadPanels);
+  $("refreshOrders").addEventListener("click", loadOrders);
 </script>
-
 </body>
 </html>
