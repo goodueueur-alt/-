@@ -40,7 +40,6 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // সেশন পার্সিস্টেন্স সেট করা (যাতে রিফ্রেশ করলেও লগআউট না হয়)
     setPersistence(auth, browserLocalPersistence).catch((error) => {
       console.error("Persistence Error:", error);
     });
@@ -55,13 +54,16 @@
     onAuthStateChanged(auth, (user) => {
       const authContainer = document.getElementById('authContainer');
       const dashboardSection = document.getElementById('dashboardSection');
+      const bottomNav = document.getElementById('bottomNav');
 
       if (user) {
         if (authContainer) authContainer.className = 'view-hidden';
         if (dashboardSection) dashboardSection.className = 'view-block';
+        if (bottomNav) bottomNav.className = 'bottom-nav view-block';
       } else {
         if (authContainer) authContainer.className = 'view-block app-card';
         if (dashboardSection) dashboardSection.className = 'view-hidden';
+        if (bottomNav) bottomNav.className = 'bottom-nav view-hidden';
       }
     });
   </script>
@@ -81,11 +83,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px 20px 80px 20px; /* নিচের নেভবারের জন্য একটু প্যাডিং বাড়ানো হয়েছে */
+      padding: 20px 20px 80px 20px;
       font-family: 'Rajdhani', 'Hind Siliguri', sans-serif;
     }
 
-    /* AUTH CARD STYLES */
     .app-card {
       background: rgba(18, 12, 36, 0.92);
       border: 1px solid rgba(139, 92, 246, 0.3);
@@ -290,7 +291,7 @@
       display: none !important;
     }
 
-    /* CUSTOM MODAL POPUP WITH TOP-RIGHT CROSS (❌) BUTTON */
+    /* CUSTOM MODAL POPUP */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -405,6 +406,55 @@
       width: 100%;
       text-align: center;
       transition: 0.2s;
+    }
+
+    /* CUSTOM SUPPORT MODAL LIST STYLES */
+    .support-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .support-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(18, 12, 36, 0.9);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      padding: 10px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #ffffff;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .support-item:hover {
+      border-color: #eab308;
+      background: rgba(234, 179, 8, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .support-icon-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #110b27;
+      border: 1.5px solid #eab308;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .support-icon-circle img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
     }
 
     /* DASHBOARD STYLES */
@@ -586,11 +636,21 @@
       fill: currentColor;
       margin-bottom: 3px;
     }
+
+    /* Support custom circular icon in nav */
+    .support-nav-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid #eab308;
+      object-fit: cover;
+      margin-bottom: 3px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- CUSTOM MODAL POPUP WITH TOP-RIGHT CROSS (❌) BUTTON -->
+  <!-- CUSTOM MODAL POPUP -->
   <div class="modal-overlay" id="customModal">
     <div class="modal-box">
       <button class="modal-close-cross" onclick="closeModal()" title="বন্ধ করুন">✕</button>
@@ -853,16 +913,16 @@
     </div>
   </div>
 
-  <!-- BOTTOM 4-ICONS NAVIGATION BAR -->
-  <div class="bottom-nav" id="bottomNav">
+  <!-- BOTTOM 4-ICONS NAVIGATION BAR (লগইন ছাড়া হাইড থাকবে) -->
+  <div class="bottom-nav view-hidden" id="bottomNav">
     <!-- ১. হোম স্ক্রিন -->
     <button class="nav-item active" onclick="showTab('home')">
       <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
       Home
     </button>
-    <!-- ২. ২৪/৭ কাস্টমার সাপোর্ট -->
-    <button class="nav-item" onclick="showModal('কাস্টমার সাপোর্ট', '24/7 সাপোর্ট পেতে আমাদের WhatsApp এ মেসেজ করুন!')">
-      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <!-- ২. ২৪/৭ কাস্টমার সাপোর্ট (গোল লোগোসহ) -->
+    <button class="nav-item" onclick="openSupportModal()">
+      <img src="file_000000007dac82118992c526a33fae9b.png" alt="Support" class="support-nav-icon">
       Support
     </button>
     <!-- ৩. মাই অ্যাকাউন্ট / অর্ডারস -->
@@ -871,7 +931,7 @@
       Orders
     </button>
     <!-- ৪. একাউন্ট (লগআউট অপশনসহ) -->
-    <button class="nav-item" onclick="logoutUser()">
+    <button class="nav-item" onclick="confirmLogoutModal()">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
       Account
     </button>
@@ -905,6 +965,62 @@
       if (modalCallback) {
         modalCallback();
         modalCallback = null;
+      }
+    }
+
+    // কাস্টমার কেয়ার সাপোর্ট অপশনে ক্লিক করলে ৫টি অপশন সহ আলাদা পেজ/পপআপ ওপেন হবে
+    function openSupportModal() {
+      document.getElementById('modalTitle').innerText = '24/7 CUSTOMER SUPPORT';
+      document.getElementById('modalMessage').innerText = 'আমাদের সাথে যোগাযোগের মাধ্যমসমূহ:';
+      
+      const actionContainer = document.getElementById('modalActionContainer');
+      actionContainer.innerHTML = `
+        <div class="support-list">
+          <a href="https://wa.me/your-number" target="_blank" class="support-item">
+            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="WA"></div>
+            <span>WhatsApp পার্সোনাল</span>
+          </a>
+          <a href="https://wa.me/channel/your-channel" target="_blank" class="support-item">
+            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="WAC"></div>
+            <span>WhatsApp পেজ / চ্যানেল</span>
+          </a>
+          <a href="https://t.me/your-username" target="_blank" class="support-item">
+            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TG"></div>
+            <span>Telegram পার্সোনাল</span>
+          </a>
+          <a href="https://t.me/your-group" target="_blank" class="support-item">
+            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TGG"></div>
+            <span>Telegram গ্রুপ</span>
+          </a>
+          <a href="https://t.me/your-channel" target="_blank" class="support-item">
+            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TGC"></div>
+            <span>Telegram চ্যানেল</span>
+          </a>
+        </div>
+      `;
+
+      document.getElementById('customModal').classList.add('active');
+      modalCallback = null;
+    }
+
+    // অ্যাকাউন্ট ট্যাবে চাপ দিলে লগআউট পপআপ আসবে (ক্রস দিলে শুধু পপআপ সরবে, আর 'ঠিক আছে' দিলে লগআউট হবে)
+    function confirmLogoutModal() {
+      document.getElementById('modalTitle').innerText = 'লগআউট';
+      document.getElementById('modalMessage').innerText = 'আপনি কি নিশ্চিত যে আপনি লগআউট করতে চান?';
+      
+      const actionContainer = document.getElementById('modalActionContainer');
+      actionContainer.innerHTML = `<button class="modal-btn" id="modalActionBtn" onclick="executeLogout()">ঠিক আছে</button>`;
+
+      document.getElementById('customModal').classList.add('active');
+      modalCallback = null;
+    }
+
+    async function executeLogout() {
+      closeModal();
+      try {
+        await window.signOutUser(window.firebaseAuth);
+      } catch (e) {
+        console.error(e);
       }
     }
 
@@ -957,6 +1073,7 @@
         showModal('লগইন সফল', 'আপনাকে ড্যাশবোর্ডে স্বাগতম!', function() {
           document.getElementById('authContainer').className = 'view-hidden';
           document.getElementById('dashboardSection').className = 'view-block';
+          document.getElementById('bottomNav').className = 'bottom-nav view-block';
         });
       } catch (error) {
         console.error(error);
@@ -976,6 +1093,7 @@
         showModal('সাইন আপ সফল', 'আপনার অ্যাকাউন্টটি সফলভাবে তৈরি হয়েছে!', function() {
           document.getElementById('authContainer').className = 'view-hidden';
           document.getElementById('dashboardSection').className = 'view-block';
+          document.getElementById('bottomNav').className = 'bottom-nav view-block';
         });
       } catch (error) {
         console.error(error);
@@ -1056,19 +1174,8 @@
       }
     }
 
-    // একাউন্ট ট্যাব থেকে লগআউট করার লজিক
-    async function logoutUser() {
-      showModal('লগআউট', 'আপনি কি নিশ্চিত যে আপনি লগআউট করতে চান?', async function() {
-        try {
-          await window.signOutUser(window.firebaseAuth);
-        } catch (e) {
-          console.error(e);
-        }
-      });
-    }
-
     function showTab(tabName) {
-      // ভবিষ্যতে ট্যাব ভিত্তিক পেজ পরিবর্তন করতে চাইলে এখানে কোড যোগ করা যাবে
+      // ভবিষ্যতের ট্যাব ন্যাভিগেশনের জন্য
     }
   </script>
 
