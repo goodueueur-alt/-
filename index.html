@@ -347,15 +347,17 @@
     }
 
     .gmail-direct-btn {
-      display: inline-block;
-      margin-top: 10px;
-      background: rgba(234, 179, 8, 0.15);
-      border: 1px solid #eab308;
-      color: #facc15;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
+      display: block;
+      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+      color: #000;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
       text-decoration: none;
       width: 100%;
       text-align: center;
@@ -363,8 +365,7 @@
     }
 
     .gmail-direct-btn:hover {
-      background: #eab308;
-      color: #000;
+      transform: scale(1.02);
     }
 
     /* Dashboard Styles */
@@ -441,8 +442,9 @@
     <div class="modal-box">
       <div class="modal-title" id="modalTitle">RIFAT PANEL SELLER</div>
       <div class="modal-message" id="modalMessage">এখানে বার্তার তথ্য থাকবে</div>
-      <div id="modalExtraContent"></div>
-      <button class="modal-btn" id="modalActionBtn" onclick="closeModal()">ঠিক আছে</button>
+      <div id="modalActionContainer">
+        <button class="modal-btn" id="modalActionBtn" onclick="closeModal()">ঠিক আছে</button>
+      </div>
     </div>
   </div>
 
@@ -608,11 +610,18 @@
     let generatedOTP = "";
     let modalCallback = null;
 
-    // CUSTOM MODAL FUNCTIONS (সাপোর্ট অপশনসহ)
-    function showModal(title, message, callback = null, extraHTML = "") {
+    // CUSTOM MODAL FUNCTIONS
+    function showModal(title, message, callback = null, customHTML = null) {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalMessage').innerText = message;
-      document.getElementById('modalExtraContent').innerHTML = extraHTML;
+      
+      const actionContainer = document.getElementById('modalActionContainer');
+      if (customHTML) {
+        actionContainer.innerHTML = customHTML;
+      } else {
+        actionContainer.innerHTML = `<button class="modal-btn" id="modalActionBtn" onclick="closeModal()">ঠিক আছে</button>`;
+      }
+
       document.getElementById('customModal').classList.add('active');
       modalCallback = callback;
     }
@@ -751,7 +760,7 @@
       }
     }
 
-    // ৪. ওটিপি ভেরিফাই করে ফায়ারবেসের পাসওয়ার্ড রিসেট লিংক পাঠানো এবং মডালে জিমেইল ওপেন করার বাটন যুক্ত করা
+    // ৪. ওটিপি ভেরিফাই করে ফায়ারবেসের পাসওয়ার্ড রিসেট লিংক পাঠানো এবং শুধু জিমেইল ওপেন করার বাটন রাখা
     async function onResetPasswordSubmit(e) {
       e.preventDefault();
       const resetEmail = document.getElementById('reset-email-input').value;
@@ -768,12 +777,10 @@
         // ফায়ারবেসের মাধ্যমে জিমেইলে পাসওয়ার্ড রিসেট করার অফিশিয়াল লিংক পাঠানো
         await window.sendPasswordResetEmail(window.firebaseAuth, resetEmail);
 
-        // সফলতার বার্তার সাথে জিমেইল ওপেন করার ডিরেক্ট বাটন যুক্ত করা হলো
-        const gmailButtonHTML = `<a href="https://mail.google.com" target="_blank" class="gmail-direct-btn">📥 সরাসরি জিমেইল ওপেন করুন</a>`;
+        // সফলতার বার্তার সাথে শুধুমাত্র 'সরাসরি জিমেইল ওপেন করুন' বাটনটি সেট করা হলো
+        const gmailBtnHTML = `<a href="https://mail.google.com" target="_blank" class="gmail-direct-btn" onclick="closeModal(); showForm('signin');">✉️ সরাসরি জিমেইল ওপেন করুন</a>`;
         
-        showModal('সফলতা', 'আপনার ওটিপি সঠিক হয়েছে! ' + resetEmail + ' জিমেইলে ফায়ারবেস পাসওয়ার্ড রিসেটের লিংক পাঠানো হয়েছে।', function() {
-          showForm('signin');
-        }, gmailButtonHTML);
+        showModal('সফলতা', 'আপনার ওটিপি সঠিক হয়েছে! ' + resetEmail + ' জিমেইলে ফায়ারবেস পাসওয়ার্ড রিসেটের লিংক পাঠানো হয়েছে।', null, gmailBtnHTML);
 
       } catch (error) {
         console.error(error);
