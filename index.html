@@ -1,27 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#7c3aed" />
   <title>Rifat FF Panel Seller - Official Portal</title>
-  
-  <!-- Fonts -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@600;700;800&family=Hind+Siliguri:wght@500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Firebase SDK Setup -->
+  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { 
-      getAuth, 
+    import {
+      getAuth,
       setPersistence,
       browserLocalPersistence,
       onAuthStateChanged,
-      signInWithEmailAndPassword, 
+      signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
       signOut
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -39,9 +37,7 @@
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
 
-      setPersistence(auth, browserLocalPersistence).catch((error) => {
-        console.error("Persistence Error:", error);
-      });
+      setPersistence(auth, browserLocalPersistence).catch(console.error);
 
       window.firebaseAuth = auth;
       window.signInWithEmailAndPassword = signInWithEmailAndPassword;
@@ -49,56 +45,52 @@
       window.signOutUser = signOut;
 
       onAuthStateChanged(auth, (user) => {
-        const authContainer = document.getElementById('authContainer');
-        const mainAppContainer = document.getElementById('mainAppContainer');
-        const bottomNav = document.getElementById('bottomNav');
-        const topHeaderUserArea = document.getElementById('topHeaderUserArea');
-        const floatingSupport = document.getElementById('floatingSupportContainer');
+        const authContainer = document.getElementById("authContainer");
+        const mainContainer = document.getElementById("mainAppContainer");
+        const bottomNav = document.getElementById("bottomNav");
+        const topHeader = document.getElementById("topHeaderUserArea");
+        const floatingSupport = document.getElementById("floatingSupportContainer");
 
         if (user) {
-          if (authContainer) authContainer.style.display = 'none';
-          if (mainAppContainer) mainAppContainer.style.display = 'block';
-          if (bottomNav) bottomNav.style.display = 'flex';
-          if (topHeaderUserArea) topHeaderUserArea.style.display = 'flex';
-          if (floatingSupport) floatingSupport.style.display = 'block';
-          
-          const email = user.email || 'user@gmail.com';
+          if (authContainer) authContainer.style.display = "none";
+          if (mainContainer) mainContainer.style.display = "block";
+          if (bottomNav) bottomNav.style.display = "flex";
+          if (topHeader) topHeader.style.display = "flex";
+          if (floatingSupport) floatingSupport.style.display = "block";
+
+          const email = user.email || "user@gmail.com";
+          const username = email.split("@")[0];
           const firstLetter = email.charAt(0).toUpperCase();
-          const username = email.split('@')[0];
-          
-          const userAvatarEl = document.getElementById('userAvatarLetter');
-          if(userAvatarEl) userAvatarEl.innerText = firstLetter;
 
-          const menuAvatarEl = document.getElementById('menuAvatarLetter');
-          if(menuAvatarEl) menuAvatarEl.innerText = firstLetter;
+          const avatar = document.getElementById("userAvatarLetter");
+          const menuAvatar = document.getElementById("menuAvatarLetter");
+          const menuName = document.getElementById("menuUserName");
+          const menuEmail = document.getElementById("menuUserEmail");
+          const accountEmail = document.getElementById("accEmailDisplay");
+          const accountStatus = document.getElementById("accStatusDisplay");
 
-          const menuNameEl = document.getElementById('menuUserName');
-          if(menuNameEl) menuNameEl.innerText = "Hi, " + username;
+          if (avatar) avatar.textContent = firstLetter;
+          if (menuAvatar) menuAvatar.textContent = firstLetter;
+          if (menuName) menuName.textContent = "Hi, " + username;
+          if (menuEmail) menuEmail.textContent = email;
+          if (accountEmail) accountEmail.textContent = email;
 
-          const menuEmailEl = document.getElementById('menuUserEmail');
-          if(menuEmailEl) menuEmailEl.innerText = email;
-
-          const accEmailEl = document.getElementById('accEmailDisplay');
-          if(accEmailEl) accEmailEl.innerText = email;
-
-          const accStatusEl = document.getElementById('accStatusDisplay');
-          if(accStatusEl) {
-            if(user.emailVerified) {
-              accStatusEl.innerHTML = '<span style="color: #16a34a;">✅ ভেরিফাইড (Verified)</span>';
-            } else {
-              accStatusEl.innerHTML = '<span style="color: #d97706;">⚠️ ভেরিফাই করা হয়নি</span>';
-            }
+          if (accountStatus) {
+            accountStatus.innerHTML = user.emailVerified
+              ? '<span style="color:#16a34a">✓ ভেরিফাইড (Verified)</span>'
+              : '<span style="color:#d97706">⚠ ভেরিফাই করা হয়নি</span>';
           }
         } else {
-          if (authContainer) authContainer.style.display = 'block';
-          if (mainAppContainer) mainAppContainer.style.display = 'none';
-          if (bottomNav) bottomNav.style.display = 'none';
-          if (topHeaderUserArea) topHeaderUserArea.style.display = 'none';
-          if (floatingSupport) floatingSupport.style.display = 'none';
+          if (authContainer) authContainer.style.display = "block";
+          if (mainContainer) mainContainer.style.display = "none";
+          if (bottomNav) bottomNav.style.display = "none";
+          if (topHeader) topHeader.style.display = "none";
+          if (floatingSupport) floatingSupport.style.display = "none";
+          closeSidebar();
         }
       });
-    } catch(err) {
-      console.error("Firebase Init Error:", err);
+    } catch (error) {
+      console.error("Firebase Init Error:", error);
     }
   </script>
 
@@ -109,28 +101,45 @@
       padding: 0;
     }
 
-    body {
-      background: #f8fafc;
-      color: #1e293b;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 0 0 90px 0;
-      font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+    :root {
+      --primary: #7c3aed;
+      --primary-dark: #6d28d9;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --page-bg: #f8fafc;
     }
 
-    /* AUTH CARD */
+    body {
+      background: var(--page-bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 90px;
+      font-family: "Poppins", "Hind Siliguri", sans-serif;
+    }
+
+    body.sidebar-open {
+      overflow: hidden;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* AUTH */
     .app-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: #fff;
+      border: 1px solid var(--border);
       border-radius: 24px;
       padding: 30px 24px;
       width: 90%;
       max-width: 420px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
       margin: 40px auto;
-      display: block;
     }
 
     .brand-logo-container {
@@ -139,7 +148,7 @@
       margin: 0 auto 10px;
       border-radius: 20px;
       overflow: hidden;
-      border: 2px solid #7c3aed;
+      border: 2px solid var(--primary);
       background: #fff;
     }
 
@@ -150,10 +159,10 @@
     }
 
     .brand-title {
-      font-family: 'Orbitron', sans-serif;
+      font-family: "Orbitron", sans-serif;
       font-size: 18px;
       font-weight: 900;
-      color: #6d28d9;
+      color: var(--primary-dark);
       text-align: center;
       margin-bottom: 15px;
     }
@@ -171,24 +180,33 @@
       padding: 10px;
       border: none;
       background: transparent;
-      color: #64748b;
+      color: var(--muted);
       font-weight: 700;
       cursor: pointer;
       border-radius: 8px;
     }
 
     .tab-btn.active {
-      background: #7c3aed;
-      color: #ffffff;
+      background: var(--primary);
+      color: #fff;
     }
 
-    .form-group { margin-bottom: 15px; }
-    label { display: block; font-size: 13px; color: #475569; margin-bottom: 5px; font-weight: 600; }
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
 
     input {
       width: 100%;
       padding: 12px 14px;
-      background: #ffffff;
+      background: #fff;
       color: #0f172a;
       border: 1.5px solid #cbd5e1;
       border-radius: 12px;
@@ -196,38 +214,44 @@
       outline: none;
     }
 
+    input:focus {
+      border-color: var(--primary);
+    }
+
     .submit-btn {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
       border: none;
       border-radius: 12px;
-      color: #ffffff;
+      color: #fff;
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
     }
 
-    /* MAIN CONTAINER */
+    /* MAIN */
     .main-container {
       width: 100%;
       max-width: 480px;
       margin: 0 auto;
       padding-bottom: 80px;
+      background: var(--page-bg);
+      min-height: 100vh;
     }
 
-    /* STYLISH TOP HEADER */
+    /* HEADER */
     .top-user-area {
       display: none;
       justify-content: space-between;
       align-items: center;
-      background: #ffffff;
-      padding: 12px 16px;
+      gap: 8px;
+      background: #fff;
+      padding: 12px 14px;
       border-bottom: 1px solid #f1f5f9;
       position: sticky;
       top: 0;
-      z-index: 999;
+      z-index: 1000;
     }
 
     .brand-logo-text {
@@ -235,18 +259,20 @@
       align-items: center;
       gap: 8px;
       text-decoration: none;
+      min-width: 0;
     }
 
     .brand-icon-box {
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-family: 'Orbitron', sans-serif;
+      font-family: "Orbitron", sans-serif;
       font-weight: 900;
       font-size: 18px;
     }
@@ -254,175 +280,245 @@
     .brand-text-wrapper {
       display: flex;
       flex-direction: column;
-      line-height: 1;
+      line-height: 1.2;
     }
 
     .brand-text-main {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 15px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 13px;
       font-weight: 900;
       color: #0f172a;
-      letter-spacing: -0.5px;
+      letter-spacing: -.5px;
     }
 
     .brand-text-sub {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 9px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 8px;
       font-weight: 800;
-      color: #7c3aed;
-      background: rgba(124, 58, 237, 0.1);
+      color: var(--primary);
+      background: #f3e8ff;
       padding: 2px 4px;
       border-radius: 4px;
       margin-top: 2px;
-      display: inline-block;
-      text-transform: uppercase;
     }
 
     .wallet-avatar-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
 
     .wallet-pill {
-      background: #7c3aed;
+      background: var(--primary);
       border-radius: 20px;
-      padding: 6px 14px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 13px;
+      padding: 7px 10px;
+      font-size: 12px;
       font-weight: 700;
-      color: #ffffff;
+      color: #fff;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .user-avatar-circle {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
       border-radius: 50%;
       background: #a855f7;
-      color: #ffffff;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 16px;
+      color: #fff;
+      font-size: 17px;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      border: none;
     }
 
-    /* DROPDOWN MENU */
+    /* SIDEBAR OVERLAY */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .48);
+      z-index: 10001;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .28s ease, visibility .28s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* SLIDE-OUT SIDEBAR */
     .profile-dropdown-menu {
-      position: absolute;
-      top: 60px;
-      right: 10px;
-      width: 270px;
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      display: none;
-      z-index: 99999;
-      overflow: hidden;
-      border: 1px solid #f1f5f9;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(360px, 86vw);
+      height: 100vh;
+      height: 100dvh;
+      background: #fff;
+      box-shadow: -8px 0 30px rgba(0,0,0,.12);
+      display: flex;
+      flex-direction: column;
+      z-index: 10002;
+      overflow-y: auto;
+      border: none;
+      border-radius: 0;
+      transform: translateX(105%);
+      visibility: hidden;
+      transition: transform .28s ease, visibility .28s ease;
+      overscroll-behavior: contain;
     }
 
-    .profile-dropdown-menu.active { display: block; }
+    .profile-dropdown-menu.active {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .sidebar-close-row {
+      display: flex;
+      justify-content: flex-end;
+      padding: 8px 12px 0;
+    }
+
+    .sidebar-close-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 22px;
+      cursor: pointer;
+    }
 
     .dropdown-user-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 16px;
-      background: #a855f7;
-      color: #ffffff;
+      gap: 14px;
+      padding: 12px 20px 22px;
+      min-height: 115px;
+      background: #fff;
+      color: #1e293b;
+      border-bottom: 1px solid #e5e7eb;
     }
 
     .dropdown-user-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      border-radius: 0;
+      background: #a946bd;
       color: #fff;
-      font-size: 20px;
-      font-weight: 900;
+      font-size: 30px;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
+    .dropdown-user-info {
+      min-width: 0;
+    }
+
     .dropdown-user-info h5 {
-      font-size: 14px;
-      font-weight: 700;
-      color: #ffffff;
+      font-size: 16px;
+      font-weight: 800;
+      color: #374151;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .dropdown-user-info p {
-      font-size: 11px;
-      color: rgba(255,255,255,0.8);
-      word-break: break-all;
+      margin-top: 5px;
+      font-size: 13px;
+      color: #64748b;
+      overflow-wrap: anywhere;
     }
 
     .dropdown-menu-list {
       display: flex;
       flex-direction: column;
-      padding: 6px 0;
+      padding: 8px 0;
     }
 
     .dropdown-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 18px;
-      color: #334155;
-      font-size: 13px;
-      font-weight: 600;
-      background: transparent;
+      gap: 15px;
+      padding: 17px 22px;
+      color: #202938;
+      font-size: 15px;
+      font-weight: 700;
+      background: #fff;
       border: none;
       width: 100%;
       text-align: left;
       cursor: pointer;
+      transition: background .2s, color .2s;
     }
 
-    .dropdown-item:hover { background: #f8fafc; color: #7c3aed; }
+    .dropdown-item:hover,
+    .dropdown-item:active {
+      background: #f5f0ff;
+      color: var(--primary-dark);
+    }
+
+    .menu-icon {
+      width: 29px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #374151;
+      font-size: 22px;
+    }
 
     .dropdown-support-box {
-      padding: 12px 16px;
-      border-top: 1px solid #f1f5f9;
+      padding: 22px 20px;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 0;
     }
 
     .dropdown-support-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      width: 100%;
-      background: #7c3aed;
+      gap: 10px;
+      max-width: 230px;
+      margin: 0 auto;
+      background: #673ab7;
       color: #fff;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 12px;
       font-weight: 700;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 16px;
     }
 
-    /* NOTICE BAR */
+    /* NOTICE */
     .notice-bar-container {
       margin: 12px;
-      background: #ffffff;
-      border: 1.5px solid #7c3aed;
+      background: #fff;
+      border: 1.5px solid var(--primary);
       border-radius: 12px;
       display: flex;
       align-items: center;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.1);
+      box-shadow: 0 2px 8px rgba(124,58,237,.1);
     }
 
     .notice-tag {
-      background: #7c3aed;
-      color: #ffffff;
-      padding: 8px 12px;
+      background: var(--primary);
+      color: #fff;
+      padding: 9px 12px;
       font-size: 12px;
       font-weight: 800;
       display: flex;
@@ -434,48 +530,68 @@
     .notice-tag-dot {
       width: 8px;
       height: 8px;
-      background: #ffffff;
+      background: #fff;
       border-radius: 50%;
     }
 
     .notice-marquee {
       flex: 1;
-      padding: 0 10px;
+      padding: 8px 10px;
       font-size: 12px;
       color: #334155;
       font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
+      line-height: 1.6;
     }
 
     .notice-close-btn {
-      padding: 8px 12px;
-      color: #7c3aed;
-      font-size: 14px;
+      padding: 8px 10px;
+      color: var(--primary);
       cursor: pointer;
       font-weight: 800;
     }
 
-    /* PANELS GRID */
+    /* PANELS */
     .panels-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       padding: 0 12px;
     }
 
     .video-box-full {
       grid-column: 1 / -1;
-      background: #ffffff;
-      border: 1.5px solid #7c3aed;
+      background: #fff;
+      border: 1.5px solid var(--primary);
       border-radius: 18px;
-      padding: 16px;
+      padding: 14px;
+      min-width: 0;
+    }
+
+    .panel-info h4 {
+      font-size: 14px;
+      color: #0f172a;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+
+    .panel-info .price {
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 800;
+      margin: 4px 0;
+    }
+
+    .panel-info p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.7;
     }
 
     .video-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 45%;
+      padding-top: 56.25%;
       background: #000;
       border-radius: 12px;
       overflow: hidden;
@@ -484,60 +600,88 @@
 
     .video-wrapper video {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
-
-    .panel-info h4 { font-size: 14px; color: #0f172a; font-weight: 700; }
-    .panel-info .price { font-size: 14px; color: #7c3aed; font-weight: 800; margin: 4px 0; }
-    .panel-info p { font-size: 11px; color: #64748b; margin-bottom: 10px; }
 
     .buy-btn {
       width: 100%;
-      background: #7c3aed;
-      color: #ffffff;
+      background: var(--primary);
+      color: #fff;
       border: none;
-      padding: 9px;
+      padding: 11px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    /* FLOATING SUPPORT */
+    /* PAGE SECTIONS */
+    .full-page-section {
+      min-height: 55vh;
+    }
+
+    .page-card {
+      margin-top: 14px;
+      padding: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      line-height: 1.8;
+    }
+
+    .page-title {
+      color: var(--primary);
+      font-family: "Orbitron", sans-serif;
+      font-size: 19px;
+      overflow-wrap: anywhere;
+    }
+
+    .view-block {
+      display: block;
+    }
+
+    .view-hidden {
+      display: none !important;
+    }
+
+    /* SUPPORT */
     .floating-support-container {
       position: fixed;
-      bottom: 85px;
-      right: 18px;
+      bottom: 86px;
+      right: max(18px, calc((100vw - 480px)/2 + 18px));
       z-index: 9999;
       display: none;
     }
 
     .floating-main-btn {
-      width: 50px;
-      height: 50px;
-      background: #7c3aed;
+      width: 54px;
+      height: 54px;
+      background: var(--primary);
+      border: 3px solid #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 22px;
+      font-size: 23px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
-      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(124,58,237,.4);
     }
 
     .floating-options-list {
       position: absolute;
-      bottom: 60px;
-      right: 2px;
+      bottom: 64px;
+      right: 4px;
       display: flex;
       flex-direction: column;
       gap: 10px;
       opacity: 0;
       pointer-events: none;
       transform: translateY(10px);
-      transition: all 0.3s ease;
+      transition: all .3s ease;
     }
 
     .floating-support-container.active .floating-options-list {
@@ -553,8 +697,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+      background: #fff;
       text-decoration: none;
     }
 
@@ -570,19 +714,22 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #ffffff;
-      border-top: 1px solid #f1f5f9;
+      background: #fff;
+      border-top: 1px solid #e5e7eb;
       display: none;
       justify-content: space-around;
       align-items: center;
-      padding: 8px 0 12px 0;
+      padding: 8px 0 max(12px, env(safe-area-inset-bottom));
       z-index: 1000;
     }
 
     .nav-item {
+      min-width: 0;
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 3px;
       background: transparent;
       border: none;
       color: #64748b;
@@ -591,40 +738,73 @@
       cursor: pointer;
     }
 
-    .nav-item.active { color: #7c3aed; }
-    .nav-item svg { width: 20px; height: 20px; fill: currentColor; margin-bottom: 2px; }
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item svg {
+      width: 23px;
+      height: 23px;
+      fill: currentColor;
+    }
 
     .nav-add-btn {
-      width: 46px;
-      height: 46px;
-      background: #7c3aed;
-      border: 3px solid #ffffff;
+      width: 62px;
+      height: 62px;
+      flex: 0 0 62px;
+      background: var(--primary);
+      border: 5px solid #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
-      font-size: 24px;
-      font-weight: 900;
+      color: #fff;
+      font-size: 33px;
+      font-weight: 500;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-      margin-top: -18px;
+      box-shadow: 0 4px 12px rgba(124,58,237,.3);
+      margin-top: -25px;
     }
 
-    .view-block { display: block; }
-    .view-hidden { display: none !important; }
+    @media (min-width: 700px) {
+      .main-container {
+        max-width: 480px;
+        box-shadow: 0 0 20px rgba(15,23,42,.04);
+      }
+    }
+
+    @media (max-width: 350px) {
+      .brand-text-main {
+        font-size: 11px;
+      }
+
+      .brand-text-sub {
+        font-size: 7px;
+      }
+
+      .wallet-pill {
+        padding: 6px 7px;
+        font-size: 10px;
+      }
+
+      .dropdown-item {
+        padding: 15px 18px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- AUTH FORM CONTAINER -->
+  <!-- LOGIN / SIGNUP -->
   <div class="app-card" id="authContainer">
     <div class="brand-logo-container">
-      <img src="file_000000007dac82118992c526a33fae9b.png" alt="Logo">
+      <img src="file_000000007dac82118992c526a33fae9b.png" alt="Rifat Panel Seller Logo">
     </div>
+
     <h1 class="brand-title">Rifat Panel Seller</h1>
 
-    <div class="auth-tabs" id="tabsBar">
+    <div class="auth-tabs">
       <button class="tab-btn active" id="btnTabSignin" onclick="showForm('signin')">সাইন ইন</button>
       <button class="tab-btn" id="btnTabSignup" onclick="showForm('signup')">সাইন আপ</button>
     </div>
@@ -632,13 +812,15 @@
     <div id="signinBox" class="view-block">
       <form onsubmit="onLoginSubmit(event)">
         <div class="form-group">
-          <label>ইমেল বা জিমেইল</label>
-          <input type="email" id="signin-email-input" placeholder="আপনার জিমেইল লিখুন" required />
+          <label for="signin-email-input">ইমেল বা জিমেইল</label>
+          <input type="email" id="signin-email-input" placeholder="আপনার জিমেইল লিখুন" autocomplete="email" required>
         </div>
+
         <div class="form-group">
-          <label>পাসওয়ার্ড</label>
-          <input type="password" id="signin-pass-input" placeholder="পাসওয়ার্ড দিন" required />
+          <label for="signin-pass-input">পাসওয়ার্ড</label>
+          <input type="password" id="signin-pass-input" placeholder="পাসওয়ার্ড দিন" autocomplete="current-password" required>
         </div>
+
         <button type="submit" class="submit-btn">সাইন ইন</button>
       </form>
     </div>
@@ -646,24 +828,26 @@
     <div id="signupBox" class="view-hidden">
       <form onsubmit="onRegisterSubmit(event)">
         <div class="form-group">
-          <label>ইমেল বা জিমেইল</label>
-          <input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" required />
+          <label for="signup-email-input">ইমেল বা জিমেইল</label>
+          <input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" autocomplete="email" required>
         </div>
+
         <div class="form-group">
-          <label>পাসওয়ার্ড</label>
-          <input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" required />
+          <label for="signup-pass-input">পাসওয়ার্ড</label>
+          <input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" autocomplete="new-password" minlength="6" required>
         </div>
+
         <button type="submit" class="submit-btn">সাইন আপ</button>
       </form>
     </div>
   </div>
 
-  <!-- MAIN APP CONTAINER -->
-  <div class="main-container" id="mainAppContainer" style="display: none;">
+  <!-- MAIN APP -->
+  <div class="main-container" id="mainAppContainer" style="display:none;">
 
-    <!-- TOP HEADER -->
-    <div class="top-user-area" id="topHeaderUserArea">
-      <a href="#" class="brand-logo-text">
+    <!-- HEADER -->
+    <header class="top-user-area" id="topHeaderUserArea">
+      <a href="#" class="brand-logo-text" onclick="switchTab('home'); return false;">
         <div class="brand-icon-box">R</div>
         <div class="brand-text-wrapper">
           <span class="brand-text-main">RIFAT FF</span>
@@ -672,243 +856,539 @@
       </a>
 
       <div class="wallet-avatar-group">
-        <div class="wallet-pill" onclick="switchTab('addmoney')">
-          <span>💳</span> <span id="userBalanceDisplay">0৳</span>
-        </div>
-        <div class="user-avatar-circle" id="userAvatarLetter" onclick="toggleDropdownMenu(event)">
+        <button class="wallet-pill" onclick="switchTab('addmoney')" aria-label="Add Money">
+          <span>💳</span>
+          <span id="userBalanceDisplay">0৳</span>
+        </button>
+
+        <button class="user-avatar-circle" id="userAvatarLetter"
+                onclick="toggleDropdownMenu(event)"
+                aria-label="Open account menu"
+                aria-controls="profileDropdown"
+                aria-expanded="false">
           F
+        </button>
+      </div>
+    </header>
+
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- SLIDE-OUT SIDEBAR -->
+    <aside class="profile-dropdown-menu" id="profileDropdown"
+           aria-label="Account navigation"
+           aria-hidden="true">
+
+      <div class="sidebar-close-row">
+        <button class="sidebar-close-btn" onclick="closeSidebar()" aria-label="Close menu">×</button>
+      </div>
+
+      <div class="dropdown-user-header">
+        <div class="dropdown-user-avatar" id="menuAvatarLetter">F</div>
+        <div class="dropdown-user-info">
+          <h5 id="menuUserName">Hi, User</h5>
+          <p id="menuUserEmail">email@gmail.com</p>
         </div>
       </div>
 
-      <div class="profile-dropdown-menu" id="profileDropdown">
-        <div class="dropdown-user-header">
-          <div class="dropdown-user-avatar" id="menuAvatarLetter">F</div>
-          <div class="dropdown-user-info">
-            <h5 id="menuUserName">Hi, User</h5>
-            <p id="menuUserEmail">email@gmail.com</p>
-          </div>
-        </div>
-        <div class="dropdown-menu-list">
-          <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">🏠 My Account</button>
-          <button class="dropdown-item" onclick="switchTab('orders'); toggleDropdownMenu();">📦 My Orders</button>
-          <button class="dropdown-item" onclick="switchTab('codes'); toggleDropdownMenu();">🔑 My Codes</button>
-          <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">📊 My Transaction</button>
-          <button class="dropdown-item" onclick="switchTab('addmoney'); toggleDropdownMenu();">💳 Add Money</button>
-          <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">ℹ️ Contact Us</button>
-        </div>
-        <div class="dropdown-support-box">
-          <a href="https://wa.me/8801845907321" target="_blank" class="dropdown-support-btn">
-            🎧 Support
-          </a>
-        </div>
-      </div>
-    </div>
+      <nav class="dropdown-menu-list">
+        <button class="dropdown-item" onclick="switchTab('account')">
+          <span class="menu-icon">⌂</span>
+          <span>My Account</span>
+        </button>
 
-    <!-- TAB 1: HOME SECTION -->
-    <div id="tabHome" class="full-page-section view-block">
+        <button class="dropdown-item" onclick="switchTab('orders')">
+          <span class="menu-icon">♧</span>
+          <span>My Orders</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('codes')">
+          <span class="menu-icon">▦</span>
+          <span>My Codes</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('transaction')">
+          <span class="menu-icon">☷</span>
+          <span>My Transaction</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('addmoney')">
+          <span class="menu-icon">▣</span>
+          <span>Add Money</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('contact')">
+          <span class="menu-icon">ⓘ</span>
+          <span>Contact Us</span>
+        </button>
+      </nav>
+
+      <div class="dropdown-support-box">
+        <a href="https://wa.me/8801845907321"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="dropdown-support-btn">
+          🎧 Support
+        </a>
+      </div>
+    </aside>
+
+    <!-- HOME -->
+    <section id="tabHome" class="full-page-section view-block">
       <div class="notice-bar-container" id="noticeBar">
         <div class="notice-tag">
           <span class="notice-tag-dot"></span>
           NOTICE
         </div>
+
         <div class="notice-marquee">
-          18 বছরের নিচে কেউ অর্ডার করবেন না! বাবা/মা বা ফ্যামিলির টাকা চুরি করে অর্ডার করবেন না।
+          ১৮ বছরের নিচে কেউ অর্ডার করবেন না! বাবা-মা বা পরিবারের টাকা চুরি করে অর্ডার করবেন না।
         </div>
-        <div class="notice-close-btn" onclick="document.getElementById('noticeBar').style.display='none'">✕</div>
+
+        <button class="notice-close-btn"
+                onclick="document.getElementById('noticeBar').style.display='none'"
+                aria-label="Close notice">✕</button>
       </div>
 
       <div class="panels-grid">
+
         <div class="video-box-full">
           <div class="panel-info">
             <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
             <div class="price">450 BDT</div>
-            <p>অফিশিয়াল টুর্নামেন্ট প্লেয়ারদের জন্য অ্যান্টি-ব্যান প্যানেল।</p>
+            <p>টুর্নামেন্ট প্লেয়ারদের জন্য প্যানেলের বিস্তারিত তথ্য।</p>
           </div>
+
           <div class="video-wrapper">
-            <video controls autoplay loop playsinline>
+            <video controls playsinline preload="metadata">
               <source src="VID_20261028_112023_896.mp4" type="video/mp4">
+              আপনার ব্রাউজার ভিডিও চালাতে পারছে না।
             </video>
           </div>
-          <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">কিনুন</button>
+
+          <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">
+            কিনুন
+          </button>
         </div>
 
         <div class="video-box-full">
           <div class="panel-info">
             <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
             <div class="price">550 BDT</div>
-            <p>ভিআরসিএস (VRCS) প্রযুক্তি সহ ফুল বডি লোকেশন ট্র্যাকিং।</p>
+            <p>প্যানেলের বিস্তারিত জানতে এবং অর্ডার করতে যোগাযোগ করুন।</p>
           </div>
+
           <div class="video-wrapper">
-            <video controls autoplay loop playsinline>
+            <video controls playsinline preload="metadata">
               <source src="lv_0_20261029123331.mp4" type="video/mp4">
+              আপনার ব্রাউজার ভিডিও চালাতে পারছে না।
             </video>
           </div>
-          <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">কিনুন</button>
-        </div>
-      </div>
-    </div>
 
-    <!-- TAB 2: MY ORDERS SECTION -->
-    <div id="tabOrders" class="full-page-section view-hidden" style="padding: 15px;">
-      <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">MY ORDERS</h3>
-      <div id="orderContentArea" style="margin-top: 10px; font-size: 14px; color: #64748b;">
+          <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">
+            কিনুন
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MY ORDERS -->
+    <section id="tabOrders" class="full-page-section view-hidden" style="padding:15px;">
+      <h3 class="page-title">MY ORDERS</h3>
+
+      <div id="orderContentArea" class="page-card">
         কোনো প্যানেল সিলেক্ট করা হয়নি।
       </div>
-    </div>
+    </section>
 
-    <!-- TAB 3: ADD MONEY SECTION -->
-    <div id="tabAddMoney" class="full-page-section view-hidden" style="padding: 15px;">
-      <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">ADD MONEY</h3>
-      <p style="margin-top: 10px; font-size: 14px;">WhatsApp এ সরাসরি যোগাযোগ করে ব্যালেন্স রিচার্জ করুন:</p>
-      <a href="https://wa.me/8801845907321" target="_blank" style="display: inline-block; margin-top: 10px; background: #25d366; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700;">WhatsApp রিচার্জ</a>
-    </div>
+    <!-- ADD MONEY -->
+    <section id="tabAddMoney" class="full-page-section view-hidden" style="padding:15px;">
+      <h3 class="page-title">ADD MONEY</h3>
 
-    <!-- TAB 4: MY CODES SECTION -->
-    <div id="tabCodes" class="full-page-section view-hidden" style="padding: 15px;">
-      <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">MY CODES</h3>
-      <p style="margin-top: 10px; font-size: 14px; color: #64748b;">আপনার প্যানেল কি (Key) এখানে দেখা যাবে।</p>
-    </div>
+      <div class="page-card">
+        <p>ব্যালেন্স রিচার্জ করতে আমাদের সঙ্গে WhatsApp-এ যোগাযোগ করুন।</p>
 
-    <!-- TAB 5: MY ACCOUNT SECTION -->
-    <div id="tabAccount" class="full-page-section view-hidden" style="padding: 15px;">
-      <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">MY ACCOUNT</h3>
-      <div style="margin-top: 15px; font-size: 14px;">
-        <p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p>
-        <p style="margin-top: 8px;">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p>
+        <a href="https://wa.me/8801845907321"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="display:block;margin-top:14px;background:#25d366;color:#fff;padding:12px 18px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
+          WhatsApp রিচার্জ
+        </a>
       </div>
-      <button onclick="executeLogout()" style="margin-top: 20px; background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer;">Log Out</button>
-    </div>
+    </section>
+
+    <!-- MY CODES -->
+    <section id="tabCodes" class="full-page-section view-hidden" style="padding:15px;">
+      <h3 class="page-title">MY CODES</h3>
+
+      <div class="page-card">
+        <p>আপনার প্যানেল কী (Key) এখানে দেখা যাবে।</p>
+        <p style="margin-top:8px;color:#64748b;font-size:13px;">
+          বর্তমানে কোনো কোড সংরক্ষণের ব্যবস্থা যুক্ত নেই।
+        </p>
+      </div>
+    </section>
+
+    <!-- MY ACCOUNT -->
+    <section id="tabAccount" class="full-page-section view-hidden" style="padding:15px;">
+      <h3 class="page-title">MY ACCOUNT</h3>
+
+      <div class="page-card">
+        <p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p>
+        <p style="margin-top:8px;">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p>
+
+        <button onclick="executeLogout()"
+                style="margin-top:20px;background:#ef4444;color:#fff;border:none;padding:11px 20px;border-radius:8px;font-weight:700;cursor:pointer;">
+          Log Out
+        </button>
+      </div>
+    </section>
+
+    <!-- MY TRANSACTION -->
+    <section id="tabTransaction" class="full-page-section view-hidden" style="padding:15px;">
+      <h3 class="page-title">MY TRANSACTION</h3>
+
+      <div class="page-card">
+        <p>আপনার লেনদেনের ইতিহাস এখানে দেখা যাবে।</p>
+        <p style="margin-top:8px;color:#64748b;font-size:13px;">
+          এখনো কোনো লেনদেনের রেকর্ড সংযুক্ত করা হয়নি।
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT US -->
+    <section id="tabContact" class="full-page-section view-hidden" style="padding:15px;">
+      <h3 class="page-title">CONTACT US</h3>
+
+      <div class="page-card">
+        <p>সাহায্য বা তথ্যের জন্য আমাদের সঙ্গে যোগাযোগ করুন।</p>
+
+        <a href="https://wa.me/8801845907321"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="display:block;margin-top:15px;background:#25d366;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
+          WhatsApp Support
+        </a>
+
+        <a href="https://t.me/rifatffpanelseller6"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="display:block;margin-top:10px;background:#229ed9;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
+          Telegram Support
+        </a>
+      </div>
+    </section>
 
   </div>
 
   <!-- FLOATING SUPPORT -->
   <div class="floating-support-container" id="floatingSupportContainer">
     <div class="floating-options-list">
-      <a href="https://wa.me/8801845907321" target="_blank" class="floating-social-icon" title="WhatsApp">
+      <a href="https://wa.me/8801845907321"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="floating-social-icon"
+         title="WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
       </a>
-      <a href="https://t.me/rifatffpanelseller6" target="_blank" class="floating-social-icon" title="Telegram">
+
+      <a href="https://t.me/rifatffpanelseller6"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="floating-social-icon"
+         title="Telegram">
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
       </a>
     </div>
-    <div class="floating-main-btn" onclick="toggleFloatingSupport()">🎧</div>
+
+    <button class="floating-main-btn"
+            onclick="toggleFloatingSupport()"
+            aria-label="Open support options">🎧</button>
   </div>
 
   <!-- BOTTOM NAVIGATION -->
-  <div class="bottom-nav" id="bottomNav">
+  <nav class="bottom-nav" id="bottomNav" aria-label="Bottom navigation">
+
     <button class="nav-item active" id="navHome" onclick="switchTab('home')">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      Home
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+      <span>Home</span>
     </button>
+
     <button class="nav-item" id="navOrders" onclick="switchTab('orders')">
-      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-      My Orders
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+      <span>My Orders</span>
     </button>
-    <button class="nav-add-btn" onclick="switchTab('addmoney')">+</button>
+
+    <button class="nav-add-btn" onclick="switchTab('addmoney')" aria-label="Add Money">+</button>
+
     <button class="nav-item" id="navCodes" onclick="switchTab('codes')">
-      <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
-      My Codes
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
+      </svg>
+      <span>My Codes</span>
     </button>
+
     <button class="nav-item" id="navAccount" onclick="switchTab('account')">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-      My Account
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+      </svg>
+      <span>My Account</span>
     </button>
-  </div>
+
+  </nav>
 
   <script>
+    /* TAB NAVIGATION */
     function switchTab(tabName) {
-      ['Home', 'Orders', 'AddMoney', 'Codes', 'Account'].forEach(t => {
-        const el = document.getElementById('tab' + t);
-        const nav = document.getElementById('nav' + t);
-        if(el) el.className = 'full-page-section view-hidden';
-        if(nav) nav.classList.remove('active');
+      const tabs = [
+        "Home",
+        "Orders",
+        "AddMoney",
+        "Codes",
+        "Account",
+        "Transaction",
+        "Contact"
+      ];
+
+      tabs.forEach(name => {
+        const section = document.getElementById("tab" + name);
+        if (section) {
+          section.classList.add("view-hidden");
+          section.classList.remove("view-block");
+        }
       });
 
-      const targetTab = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
-      const targetNav = document.getElementById('nav' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
-      
-      if(targetTab) targetTab.className = 'full-page-section view-block';
-      if(targetNav) targetNav.classList.add('active');
-      
-      const dropdown = document.getElementById('profileDropdown');
-      if(dropdown) dropdown.classList.remove('active');
-      window.scrollTo(0, 0);
+      document.querySelectorAll(".nav-item").forEach(item => {
+        item.classList.remove("active");
+      });
+
+      const formattedName =
+        tabName.charAt(0).toUpperCase() + tabName.slice(1);
+
+      const targetTab = document.getElementById("tab" + formattedName);
+      const targetNav = document.getElementById("nav" + formattedName);
+
+      if (targetTab) {
+        targetTab.classList.remove("view-hidden");
+        targetTab.classList.add("view-block");
+      }
+
+      if (targetNav) targetNav.classList.add("active");
+
+      closeSidebar();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      });
     }
 
-    function toggleDropdownMenu(e) {
-      if(e) e.stopPropagation();
-      const dropdown = document.getElementById('profileDropdown');
-      if(dropdown) dropdown.classList.toggle('active');
+    /* SIDEBAR */
+    function toggleDropdownMenu(event) {
+      if (event) event.stopPropagation();
+
+      const sidebar = document.getElementById("profileDropdown");
+
+      if (sidebar && sidebar.classList.contains("active")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
     }
 
-    function toggleFloatingSupport() {
-      const container = document.getElementById('floatingSupportContainer');
-      if(container) container.classList.toggle('active');
+    function openSidebar() {
+      const sidebar = document.getElementById("profileDropdown");
+      const overlay = document.getElementById("sidebarOverlay");
+      const avatarButton = document.getElementById("userAvatarLetter");
+
+      if (sidebar) {
+        sidebar.classList.add("active");
+        sidebar.setAttribute("aria-hidden", "false");
+      }
+
+      if (overlay) overlay.classList.add("active");
+      if (avatarButton) avatarButton.setAttribute("aria-expanded", "true");
+
+      document.body.classList.add("sidebar-open");
     }
 
-    window.addEventListener('click', function() {
-      const dropdown = document.getElementById('profileDropdown');
-      if(dropdown) dropdown.classList.remove('active');
+    function closeSidebar() {
+      const sidebar = document.getElementById("profileDropdown");
+      const overlay = document.getElementById("sidebarOverlay");
+      const avatarButton = document.getElementById("userAvatarLetter");
+
+      if (sidebar) {
+        sidebar.classList.remove("active");
+        sidebar.setAttribute("aria-hidden", "true");
+      }
+
+      if (overlay) overlay.classList.remove("active");
+      if (avatarButton) avatarButton.setAttribute("aria-expanded", "false");
+
+      document.body.classList.remove("sidebar-open");
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeSidebar();
+      }
     });
 
-    function openOrderPage(panelName, price) {
-      const orderArea = document.getElementById('orderContentArea');
-      if(orderArea) {
-        orderArea.innerHTML = `
-          <h4 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">📦 প্যানেল: ${panelName}</h4>
-          <p style="margin: 8px 0;">দাম: <strong>${price}</strong></p>
-          <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(panelName)}%20for%20${price}" target="_blank" style="display: inline-block; background: #25d366; color: #fff; padding: 10px 15px; border-radius: 8px; font-weight: 700; text-decoration: none;">
-            💬 WhatsApp এ অর্ডার কনফার্ম করুন
-          </a>
-        `;
-      }
-      switchTab('orders');
+    /* FLOATING SUPPORT */
+    function toggleFloatingSupport() {
+      const container = document.getElementById("floatingSupportContainer");
+      if (container) container.classList.toggle("active");
     }
 
+    /* ORDER PAGE */
+    function openOrderPage(panelName, price) {
+      const orderArea = document.getElementById("orderContentArea");
+
+      if (orderArea) {
+        const heading = document.createElement("h4");
+        heading.style.color = "#7c3aed";
+        heading.style.fontWeight = "700";
+        heading.textContent = "📦 প্যানেল: " + panelName;
+
+        const priceText = document.createElement("p");
+        priceText.style.margin = "8px 0";
+        priceText.textContent = "দাম: " + price;
+
+        const orderLink = document.createElement("a");
+        orderLink.href =
+          "https://wa.me/8801845907321?text=" +
+          encodeURIComponent(
+            "Hello, I want to buy " + panelName + " for " + price
+          );
+        orderLink.target = "_blank";
+        orderLink.rel = "noopener noreferrer";
+        orderLink.textContent = "💬 WhatsApp এ অর্ডার কনফার্ম করুন";
+
+        Object.assign(orderLink.style, {
+          display: "inline-block",
+          background: "#25d366",
+          color: "#fff",
+          padding: "11px 15px",
+          borderRadius: "8px",
+          fontWeight: "700",
+          textDecoration: "none",
+          marginTop: "8px"
+        });
+
+        orderArea.replaceChildren(heading, priceText, orderLink);
+      }
+
+      switchTab("orders");
+    }
+
+    /* LOG OUT */
     async function executeLogout() {
       try {
-        if(window.signOutUser && window.firebaseAuth) {
+        if (window.signOutUser && window.firebaseAuth) {
           await window.signOutUser(window.firebaseAuth);
+          closeSidebar();
+        } else {
+          alert("Firebase সংযোগ প্রস্তুত হয়নি। আবার চেষ্টা করুন।");
         }
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error(error);
+        alert("লগআউট করা যায়নি: " + error.message);
       }
     }
 
+    /* LOGIN / SIGNUP TABS */
     function showForm(formType) {
-      const signinBox = document.getElementById('signinBox');
-      const signupBox = document.getElementById('signupBox');
-      const btnSignin = document.getElementById('btnTabSignin');
-      const btnSignup = document.getElementById('btnTabSignup');
+      const signinBox = document.getElementById("signinBox");
+      const signupBox = document.getElementById("signupBox");
+      const btnSignin = document.getElementById("btnTabSignin");
+      const btnSignup = document.getElementById("btnTabSignup");
 
-      if(signinBox) signinBox.className = formType === 'signin' ? 'view-block' : 'view-hidden';
-      if(signupBox) signupBox.className = formType === 'signup' ? 'view-block' : 'view-hidden';
-      if(btnSignin) btnSignin.className = formType === 'signin' ? 'tab-btn active' : 'tab-btn';
-      if(btnSignup) btnSignup.className = formType === 'signup' ? 'tab-btn active' : 'tab-btn';
-    }
+      if (signinBox) {
+        signinBox.className =
+          formType === "signin" ? "view-block" : "view-hidden";
+      }
 
-    async function onLoginSubmit(e) {
-      e.preventDefault();
-      try {
-        const emailInput = document.getElementById('signin-email-input').value;
-        const passInput = document.getElementById('signin-pass-input').value;
-        await window.signInWithEmailAndPassword(window.firebaseAuth, emailInput, passInput);
-      } catch (err) { 
-        alert('লগইন ব্যর্থ: ' + err.message); 
+      if (signupBox) {
+        signupBox.className =
+          formType === "signup" ? "view-block" : "view-hidden";
+      }
+
+      if (btnSignin) {
+        btnSignin.className =
+          formType === "signin" ? "tab-btn active" : "tab-btn";
+      }
+
+      if (btnSignup) {
+        btnSignup.className =
+          formType === "signup" ? "tab-btn active" : "tab-btn";
       }
     }
 
-    async function onRegisterSubmit(e) {
-      e.preventDefault();
+    /* LOGIN */
+    async function onLoginSubmit(event) {
+      event.preventDefault();
+
       try {
-        const emailInput = document.getElementById('signup-email-input').value;
-        const passInput = document.getElementById('signup-pass-input').value;
-        await window.createUserWithEmailAndPassword(window.firebaseAuth, emailInput, passInput);
-        alert('সাইন আপ সফল!');
-      } catch (err) { 
-        alert('ত্রুটি: ' + err.message); 
+        if (!window.firebaseAuth || !window.signInWithEmailAndPassword) {
+          throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
+        }
+
+        const email = document.getElementById("signin-email-input").value.trim();
+        const password = document.getElementById("signin-pass-input").value;
+
+        await window.signInWithEmailAndPassword(
+          window.firebaseAuth,
+          email,
+          password
+        );
+      } catch (error) {
+        console.error(error);
+        alert("লগইন ব্যর্থ: " + error.message);
       }
     }
+
+    /* SIGNUP */
+    async function onRegisterSubmit(event) {
+      event.preventDefault();
+
+      try {
+        if (!window.firebaseAuth || !window.createUserWithEmailAndPassword) {
+          throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
+        }
+
+        const email = document.getElementById("signup-email-input").value.trim();
+        const password = document.getElementById("signup-pass-input").value;
+
+        await window.createUserWithEmailAndPassword(
+          window.firebaseAuth,
+          email,
+          password
+        );
+
+        alert("সাইন আপ সফল!");
+      } catch (error) {
+        console.error(error);
+        alert("সাইন আপ ব্যর্থ: " + error.message);
+      }
+    }
+
+    /* Make inline HTML handlers accessible */
+    window.switchTab = switchTab;
+    window.toggleDropdownMenu = toggleDropdownMenu;
+    window.openSidebar = openSidebar;
+    window.closeSidebar = closeSidebar;
+    window.toggleFloatingSupport = toggleFloatingSupport;
+    window.openOrderPage = openOrderPage;
+    window.executeLogout = executeLogout;
+    window.showForm = showForm;
+    window.onLoginSubmit = onLoginSubmit;
+    window.onRegisterSubmit = onRegisterSubmit;
   </script>
+
 </body>
-  </html>
+</html>
