@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rifat FF Panel Seller - Professional Portal</title>
+  <title>Rifat FF Panel Seller - Portal</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,9 +87,9 @@
         const accStatusEl = document.getElementById('accStatusDisplay');
         if(accStatusEl) {
           if(user.emailVerified) {
-            accStatusEl.innerHTML = '<span style="color: #10b981;">✅ ভেরিফাইড (Verified)</span>';
+            accStatusEl.innerHTML = '<span style="color: #16a34a;">✅ ভেরিফাইড (Verified)</span>';
           } else {
-            accStatusEl.innerHTML = '<span style="color: #f59e0b;">⚠️ ভেরিফাই করা হয়নি</span>';
+            accStatusEl.innerHTML = '<span style="color: #d97706;">⚠️ ভেরিফাই করা হয়নি</span>';
           }
         }
       } else {
@@ -109,10 +109,11 @@
       padding: 0;
     }
 
+    /* WHITE THEME BACKGROUND */
     body {
-      background: #090614;
-      background-image: radial-gradient(circle at top, #1e103a 0%, #090614 75%);
-      color: #ffffff;
+      background: #f8fafc;
+      background-image: radial-gradient(circle at top, #e2e8f0 0%, #f8fafc 75%);
+      color: #1e293b;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -122,14 +123,13 @@
     }
 
     .app-card {
-      background: rgba(18, 12, 36, 0.92);
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
       border-radius: 24px;
       padding: 30px 24px;
       width: 90%;
       max-width: 420px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       margin: 40px auto;
     }
 
@@ -144,9 +144,9 @@
       margin: 0 auto 10px;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 0 25px rgba(234, 179, 8, 0.4);
-      border: 2px solid rgba(234, 179, 8, 0.6);
-      background: #110b27;
+      box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
+      border: 2px solid #eab308;
+      background: #fff;
     }
 
     .brand-logo-container img {
@@ -161,16 +161,14 @@
       font-weight: 900;
       letter-spacing: 1px;
       text-transform: uppercase;
-      background: linear-gradient(180deg, #ffffff 30%, #facc15 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #0f172a;
       margin-bottom: 4px;
     }
 
     .auth-tabs {
       display: flex;
-      background: #110b27;
-      border: 1px solid #332554;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 4px;
       margin-bottom: 20px;
@@ -181,7 +179,7 @@
       padding: 10px;
       border: none;
       background: transparent;
-      color: #94a3b8;
+      color: #64748b;
       font-family: 'Hind Siliguri', sans-serif;
       font-size: 14px;
       font-weight: 700;
@@ -191,9 +189,9 @@
     }
 
     .tab-btn.active {
-      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+      background: #eab308;
       color: #000000;
-      box-shadow: 0 2px 10px rgba(234, 179, 8, 0.3);
+      box-shadow: 0 2px 8px rgba(234, 179, 8, 0.3);
     }
 
     .form-group {
@@ -204,7 +202,7 @@
       display: block;
       font-family: 'Hind Siliguri', sans-serif;
       font-size: 13px;
-      color: #cbd5e1;
+      color: #475569;
       margin-bottom: 5px;
       font-weight: 600;
     }
@@ -218,9 +216,9 @@
     input {
       width: 100%;
       padding: 12px 40px 12px 14px;
-      background: #110b27;
-      color: #ffffff;
-      border: 1.5px solid #332554;
+      background: #ffffff;
+      color: #0f172a;
+      border: 1.5px solid #cbd5e1;
       border-radius: 12px;
       font-size: 14px;
       font-family: 'Rajdhani', sans-serif;
@@ -230,8 +228,7 @@
 
     input:focus {
       border-color: #eab308;
-      box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
-      background: #160e33;
+      box-shadow: 0 0 10px rgba(234, 179, 8, 0.2);
     }
 
     .toggle-password {
@@ -248,7 +245,7 @@
 
     .link {
       font-family: 'Hind Siliguri', sans-serif;
-      color: #facc15;
+      color: #ca8a04;
       font-size: 12px;
       text-decoration: none;
       font-weight: 600;
@@ -266,14 +263,14 @@
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);
+      box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
       margin-top: 5px;
     }
 
     .otp-btn {
-      background: #332554;
-      color: #facc15;
-      border: 1px solid #facc15;
+      background: #f1f5f9;
+      color: #ca8a04;
+      border: 1px solid #eab308;
       padding: 8px 12px;
       border-radius: 8px;
       font-size: 12px;
@@ -295,17 +292,17 @@
       padding-bottom: 80px;
     }
 
-    /* TOP HEADER USER AREA (Left side cleared, Wallet & Avatar pushed to extreme right) */
+    /* TOP HEADER USER AREA (Pushed to extreme right as requested) */
     .top-user-area {
       display: none;
       justify-content: flex-end;
       align-items: center;
-      background: rgba(18, 12, 36, 0.98);
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
       border-radius: 16px;
       padding: 10px 16px;
       margin: 12px 12px 10px 12px;
-      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       position: relative;
     }
 
@@ -327,7 +324,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
+      box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
       cursor: pointer;
     }
 
@@ -336,7 +333,7 @@
       height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
-      border: 2px solid #facc15;
+      border: 2px solid #eab308;
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
       font-size: 16px;
@@ -344,7 +341,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 15px rgba(234, 179, 8, 0.5);
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
       cursor: pointer;
     }
 
@@ -354,10 +351,10 @@
       top: 65px;
       right: 12px;
       width: 280px;
-      background: #120c24;
-      border: 1.5px solid #7c3aed;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
       border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       display: none;
       z-index: 99999;
       overflow: hidden;
@@ -373,8 +370,8 @@
       align-items: center;
       gap: 12px;
       padding: 16px;
-      background: rgba(124, 58, 237, 0.15);
-      border-bottom: 1px solid #332554;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
     }
 
     .dropdown-user-avatar {
@@ -382,7 +379,7 @@
       height: 44px;
       border-radius: 50%;
       background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
-      border: 2px solid #facc15;
+      border: 2px solid #eab308;
       color: #fff;
       font-size: 18px;
       font-weight: 900;
@@ -393,14 +390,14 @@
 
     .dropdown-user-info h5 {
       font-size: 14px;
-      color: #facc15;
+      color: #0f172a;
       font-weight: 700;
       font-family: 'Orbitron', sans-serif;
     }
 
     .dropdown-user-info p {
       font-size: 11px;
-      color: #94a3b8;
+      color: #64748b;
       word-break: break-all;
     }
 
@@ -415,7 +412,7 @@
       align-items: center;
       gap: 12px;
       padding: 10px 18px;
-      color: #cbd5e1;
+      color: #334155;
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
@@ -428,13 +425,13 @@
     }
 
     .dropdown-item:hover {
-      background: rgba(124, 58, 237, 0.2);
-      color: #facc15;
+      background: #f1f5f9;
+      color: #7c3aed;
     }
 
     .dropdown-support-box {
       padding: 12px 16px;
-      border-top: 1px solid #332554;
+      border-top: 1px solid #e2e8f0;
       text-align: center;
     }
 
@@ -447,10 +444,9 @@
       border-radius: 10px;
       font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
     }
 
-    /* FLOATING HEADPHONE SUPPORT BUTTON */
+    /* FLOATING HEADPHONE SUPPORT BUTTON WITH UNIQUE LOGOS */
     .floating-support-container {
       position: fixed;
       bottom: 85px;
@@ -462,7 +458,7 @@
       width: 52px;
       height: 52px;
       background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-      border: 2px solid #facc15;
+      border: 2px solid #eab308;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -470,7 +466,7 @@
       color: #fff;
       font-size: 24px;
       cursor: pointer;
-      box-shadow: 0 5px 20px rgba(124, 58, 237, 0.6);
+      box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
       transition: 0.3s;
     }
 
@@ -480,7 +476,7 @@
       right: 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       opacity: 0;
       pointer-events: none;
       transform: translateY(10px);
@@ -499,31 +495,38 @@
       transform: rotate(90deg);
     }
 
-    .floating-option-item {
+    .floating-social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: #120c24;
-      border: 1.5px solid #7c3aed;
-      padding: 8px 14px;
-      border-radius: 25px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 700;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      white-space: nowrap;
-      transition: 0.2s;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
     }
 
-    .floating-option-item:hover {
-      background: #7c3aed;
-      border-color: #facc15;
+    .floating-social-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-badge {
+      background: #25d366;
+    }
+
+    .telegram-badge {
+      background: #229ed9;
+    }
+
+    .floating-social-icon img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
     }
 
     .notice-bar {
-      background: rgba(147, 51, 234, 0.2);
-      border: 1px solid rgba(147, 51, 234, 0.5);
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
       border-radius: 14px;
       padding: 12px 16px;
       margin: 0 12px 15px 12px;
@@ -532,6 +535,7 @@
       gap: 10px;
       font-size: 13px;
       font-family: 'Hind Siliguri', sans-serif;
+      color: #b45309;
     }
 
     .panels-grid {
@@ -542,21 +546,23 @@
     }
 
     .panel-card {
-      background: rgba(18, 12, 36, 0.9);
-      border: 1.5px solid rgba(139, 92, 246, 0.4);
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
       border-radius: 16px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
     }
 
     .video-box-full {
       grid-column: 1 / -1;
-      background: #110b27;
+      background: #ffffff;
       border: 2px solid #eab308;
       border-radius: 18px;
       padding: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
     .video-wrapper {
@@ -581,8 +587,8 @@
     .image-placeholder-box {
       width: 100%;
       height: 100px;
-      background: #05030a;
-      border: 1.5px dashed rgba(139, 92, 246, 0.4);
+      background: #f1f5f9;
+      border: 1.5px dashed #cbd5e1;
       border-radius: 10px;
       margin: 8px 0;
       display: flex;
@@ -594,14 +600,14 @@
 
     .panel-info h4 {
       font-size: 14px;
-      color: #ffffff;
+      color: #0f172a;
       font-weight: 700;
       font-family: 'Orbitron', sans-serif;
     }
 
     .panel-info .price {
       font-size: 14px;
-      color: #facc15;
+      color: #ca8a04;
       font-weight: 800;
       margin: 4px 0;
       font-family: 'Orbitron', sans-serif;
@@ -609,7 +615,7 @@
 
     .panel-info p {
       font-size: 11px;
-      color: #94a3b8;
+      color: #64748b;
       margin-bottom: 10px;
       font-family: 'Hind Siliguri', sans-serif;
     }
@@ -633,19 +639,20 @@
     .page-title-box {
       font-family: 'Orbitron', sans-serif;
       font-size: 20px;
-      color: #facc15;
+      color: #0f172a;
       margin: 0 12px 15px 12px;
-      border-bottom: 1px solid #332554;
+      border-bottom: 1px solid #cbd5e1;
       padding-bottom: 8px;
     }
 
     .account-card-box {
-      background: rgba(18, 12, 36, 0.9);
-      border: 1.5px solid rgba(139, 92, 246, 0.4);
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
       border-radius: 16px;
       padding: 20px;
       margin: 0 12px 15px 12px;
       font-family: 'Hind Siliguri', sans-serif;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
     }
 
     .account-info-row {
@@ -653,8 +660,9 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 0;
-      border-bottom: 1px solid rgba(51, 37, 84, 0.5);
+      border-bottom: 1px solid #f1f5f9;
       font-size: 14px;
+      color: #334155;
     }
 
     .logout-big-btn {
@@ -676,15 +684,15 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: rgba(18, 12, 36, 0.98);
+      background: #ffffff;
       backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(139, 92, 246, 0.3);
+      border-top: 1px solid #e2e8f0;
       display: flex;
       justify-content: space-around;
       align-items: center;
       padding: 8px 0 12px 0;
       z-index: 1000;
-      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
     }
 
     .nav-item {
@@ -693,7 +701,7 @@
       align-items: center;
       background: transparent;
       border: none;
-      color: #94a3b8;
+      color: #64748b;
       cursor: pointer;
       font-family: 'Hind Siliguri', sans-serif;
       font-size: 10px;
@@ -701,7 +709,7 @@
       transition: 0.2s;
     }
 
-    .nav-item.active { color: #facc15; }
+    .nav-item.active { color: #ca8a04; }
 
     .nav-item svg {
       width: 20px;
@@ -714,7 +722,7 @@
       width: 46px;
       height: 46px;
       background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
-      border: 2px solid #facc15;
+      border: 2px solid #eab308;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -723,7 +731,7 @@
       font-size: 24px;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.6);
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
       margin-top: -18px;
     }
   </style>
@@ -786,7 +794,7 @@
 
     <div id="forgotBox" class="view-hidden">
       <form onsubmit="onResetPasswordSubmit(event)">
-        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px; text-align: center;">আপনার জিমেইল দিয়ে ওটিপি পাঠান</p>
+        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px; text-align: center;">আপনার জিমেইল দিয়ে ওটিপি পাঠান</p>
         <div class="form-group">
           <label>জিমেইল অ্যাড্রেস</label>
           <div class="input-wrapper"><input type="email" id="reset-email-input" placeholder="আপনার জিমেইল লিখুন" required /></div>
@@ -807,7 +815,7 @@
   <!-- MAIN APP CONTAINER -->
   <div class="main-container view-hidden" id="mainAppContainer">
 
-    <!-- TOP HEADER USER AREA (Left cleared, Wallet & Avatar pushed to extreme right with Dropdown Menu) -->
+    <!-- TOP HEADER USER AREA (Wallet & Gmail Avatar restored to top-right) -->
     <div class="top-user-area" id="topHeaderUserArea">
       <div class="wallet-avatar-group">
         <div class="wallet-pill" onclick="switchTab('addmoney')">
@@ -901,8 +909,8 @@
     <div id="tabOrders" class="full-page-section view-hidden">
       <div class="page-title-box">MY ORDERS</div>
       <div class="account-card-box" id="orderContentArea">
-        <h4 style="color: #facc15; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">🛒 অর্ডারের বিবরণ</h4>
-        <p style="color: #cbd5e1; font-size: 13px;">কোনো প্যানেল সিলেক্ট করা হয়নি। হোম পেজ থেকে প্যানেল বেছে নিন।</p>
+        <h4 style="color: #ca8a04; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">🛒 অর্ডারের বিবরণ</h4>
+        <p style="color: #475569; font-size: 13px;">কোনো প্যানেল সিলেক্ট করা হয়নি। হোম পেজ থেকে প্যানেল বেছে নিন।</p>
       </div>
     </div>
 
@@ -910,8 +918,8 @@
     <div id="tabAddMoney" class="full-page-section view-hidden">
       <div class="page-title-box">ADD MONEY (রিচার্জ)</div>
       <div class="account-card-box">
-        <h4 style="color: #facc15; font-family: 'Orbitron', sans-serif; margin-bottom: 10px;">💳 বিকাশ / নগদ / রকেট</h4>
-        <p style="color: #cbd5e1; font-size: 13px; margin-bottom: 15px;">টাকা অ্যাড করতে নিচে WhatsApp এ পেমেন্ট স্ক্রিনশটসহ যোগাযোগ করুন:</p>
+        <h4 style="color: #ca8a04; font-family: 'Orbitron', sans-serif; margin-bottom: 10px;">💳 বিকাশ / নগদ / রকেট</h4>
+        <p style="color: #475569; font-size: 13px; margin-bottom: 15px;">টাকা অ্যাড করতে নিচে WhatsApp এ পেমেন্ট স্ক্রিনশটসহ যোগাযোগ করুন:</p>
         <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20add%20money%20to%20my%20wallet." target="_blank" style="display: block; background: #22c55e; color: #fff; text-align: center; padding: 12px; border-radius: 10px; font-weight: 800; text-decoration: none;">
           💬 WhatsApp এ ব্যালেন্স অ্যাড করুন
         </a>
@@ -922,8 +930,8 @@
     <div id="tabCodes" class="full-page-section view-hidden">
       <div class="page-title-box">MY PANEL CODES</div>
       <div class="account-card-box">
-        <h4 style="color: #facc15; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">🔑 আপনার প্যানেল কি (Key)</h4>
-        <p style="color: #cbd5e1; font-size: 13px;">আপনার কেনা প্যানেল বা অ্যাক্সেস কি (Key) গুলো এখানে দেখতে পাবেন।</p>
+        <h4 style="color: #ca8a04; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">🔑 আপনার প্যানেল কি (Key)</h4>
+        <p style="color: #475569; font-size: 13px;">আপনার কেনা প্যানেল বা অ্যাক্সেস কি (Key) গুলো এখানে দেখতে পাবেন।</p>
       </div>
     </div>
 
@@ -932,16 +940,16 @@
       <div class="page-title-box">MY ACCOUNT PROFILE</div>
       <div class="account-card-box">
         <div class="account-info-row">
-          <span style="color: #94a3b8;">লগইন জিমেইল:</span>
-          <span id="accEmailDisplay" style="color: #facc15; font-weight: 700;">Loading...</span>
+          <span style="color: #64748b;">লগইন জিমেইল:</span>
+          <span id="accEmailDisplay" style="color: #0f172a; font-weight: 700;">Loading...</span>
         </div>
         <div class="account-info-row">
-          <span style="color: #94a3b8;">স্ট্যাটাস:</span>
+          <span style="color: #64748b;">স্ট্যাটাস:</span>
           <span id="accStatusDisplay" style="font-weight: 700;">যাচাই করা হচ্ছে...</span>
         </div>
         <div class="account-info-row">
-          <span style="color: #94a3b8;">ওয়ালেট ব্যালেন্স:</span>
-          <span style="color: #10b981; font-weight: 700;">0৳</span>
+          <span style="color: #64748b;">ওয়ালেট ব্যালেন্স:</span>
+          <span style="color: #16a34a; font-weight: 700;">0৳</span>
         </div>
       </div>
       <button class="logout-big-btn" onclick="executeLogout()">লগআউট করুন (Log Out)</button>
@@ -949,14 +957,14 @@
 
   </div>
 
-  <!-- FLOATING HEADPHONE SUPPORT BUTTON (WhatsApp & Telegram options) -->
+  <!-- FLOATING HEADPHONE SUPPORT BUTTON WITH UNIQUE LOGOS (WhatsApp & Telegram Icons) -->
   <div class="floating-support-container view-hidden" id="floatingSupportContainer">
     <div class="floating-options-list">
-      <a href="https://wa.me/8801845907321" target="_blank" class="floating-option-item">
-        <span>💬 WhatsApp Support</span>
+      <a href="https://wa.me/8801845907321" target="_blank" class="floating-social-icon whatsapp-badge" title="WhatsApp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
       </a>
-      <a href="https://t.me/rifatffpanelseller6" target="_blank" class="floating-option-item">
-        <span>✈️ Telegram Support</span>
+      <a href="https://t.me/rifatffpanelseller6" target="_blank" class="floating-social-icon telegram-badge" title="Telegram">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
       </a>
     </div>
     <div class="floating-main-btn" onclick="toggleFloatingSupport()" title="Support">
@@ -1006,7 +1014,6 @@
       if(targetTab) targetTab.className = 'full-page-section view-block';
       if(targetNav) targetNav.classList.add('active');
       
-      // Close dropdown if open
       document.getElementById('profileDropdown').classList.remove('active');
       window.scrollTo(0, 0);
     }
@@ -1022,7 +1029,6 @@
       container.classList.toggle('active');
     }
 
-    // Close dropdown when clicking outside
     window.addEventListener('click', function() {
       const dropdown = document.getElementById('profileDropdown');
       if(dropdown) dropdown.classList.remove('active');
@@ -1030,8 +1036,8 @@
 
     function openOrderPage(panelName, price) {
       document.getElementById('orderContentArea').innerHTML = `
-        <h4 style="color: #facc15; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">📦 প্যানেল: ${panelName}</h4>
-        <p style="color: #cbd5e1; margin-bottom: 8px;">দাম: <strong style="color: #10b981;">${price}</strong></p>
+        <h4 style="color: #ca8a04; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">📦 প্যানেল: ${panelName}</h4>
+        <p style="color: #475569; margin-bottom: 8px;">দাম: <strong style="color: #16a34a;">${price}</strong></p>
         <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(panelName)}%20for%20${price}" target="_blank" style="display: block; background: #22c55e; color: #fff; text-align: center; padding: 10px; border-radius: 10px; font-weight: 800; text-decoration: none;">
           💬 WhatsApp এ অর্ডার কনফার্ম করুন
         </a>
