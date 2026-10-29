@@ -52,7 +52,6 @@
     window.sendPasswordResetEmail = sendPasswordResetEmail;
     window.signOutUser = signOut;
 
-    // রিফ্রেশ করলেও ইউজার আগের সেশনে থাকবে
     onAuthStateChanged(auth, (user) => {
       const authContainer = document.getElementById('authContainer');
       const dashboardSection = document.getElementById('dashboardSection');
@@ -82,7 +81,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 20px 20px 80px 20px; /* নিচের নেভবারের জন্য একটু প্যাডিং বাড়ানো হয়েছে */
       font-family: 'Rajdhani', 'Hind Siliguri', sans-serif;
     }
 
@@ -332,7 +331,6 @@
       transform: scale(1);
     }
 
-    /* মডালের ওপরের ডান পাশের ক্রস (❌) চিহ্ন */
     .modal-close-cross {
       position: absolute;
       top: 12px;
@@ -437,44 +435,6 @@
       color: #94a3b8;
     }
 
-    /* ওপরের ডান কোণায় ছোট লকআউট সিম্বল বাটন */
-    .logout-icon-btn {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #fca5a5;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
-    }
-
-    .logout-icon-btn:hover {
-      background: #ef4444;
-      color: #fff;
-      transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-    }
-
-    .logout-icon-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    .section-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 18px;
-      color: #fff;
-      margin-bottom: 18px;
-      border-left: 4px solid #eab308;
-      padding-left: 10px;
-    }
-
     .panels-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -552,7 +512,6 @@
       font-family: 'Orbitron', sans-serif;
     }
 
-    /* ইংরেজি দাম ফন্ট */
     .panel-info .price {
       font-size: 16px;
       color: #facc15;
@@ -585,6 +544,48 @@
       opacity: 0.9;
       transform: scale(1.02);
     }
+
+    /* BOTTOM 4-ICONS NAVIGATION BAR */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(18, 12, 36, 0.95);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(139, 92, 246, 0.3);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      z-index: 1000;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      color: #facc15;
+    }
+
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      margin-bottom: 3px;
+    }
   </style>
 </head>
 <body>
@@ -592,7 +593,6 @@
   <!-- CUSTOM MODAL POPUP WITH TOP-RIGHT CROSS (❌) BUTTON -->
   <div class="modal-overlay" id="customModal">
     <div class="modal-box">
-      <!-- ক্রস বাটন -->
       <button class="modal-close-cross" onclick="closeModal()" title="বন্ধ করুন">✕</button>
       
       <div class="modal-title" id="modalTitle">RIFAT PANEL SELLER</div>
@@ -730,13 +730,7 @@
         <h3>RIFAT PANEL SELLER</h3>
         <p>স্বাগতম, <span style="color: #10b981;">VIP Member</span></p>
       </div>
-      <!-- ওপরের ডানপাশে ছোট লকআউট সিম্বল বাটন -->
-      <button class="logout-icon-btn" onclick="logoutUser()" title="লগআউট">
-        <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
-      </button>
     </div>
-
-    <div class="section-title">আমাদের প্রিমিয়াম প্যানেল ও টুর্নামেন্ট কালেকশন</div>
 
     <!-- 10 Boxes Grid (সব দাম ইংরেজিতে) -->
     <div class="panels-grid">
@@ -857,6 +851,30 @@
       </div>
 
     </div>
+  </div>
+
+  <!-- BOTTOM 4-ICONS NAVIGATION BAR -->
+  <div class="bottom-nav" id="bottomNav">
+    <!-- ১. হোম স্ক্রিন -->
+    <button class="nav-item active" onclick="showTab('home')">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </button>
+    <!-- ২. ২৪/৭ কাস্টমার সাপোর্ট -->
+    <button class="nav-item" onclick="showModal('কাস্টমার সাপোর্ট', '24/7 সাপোর্ট পেতে আমাদের WhatsApp এ মেসেজ করুন!')">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2z"/></svg>
+      Support
+    </button>
+    <!-- ৩. মাই অ্যাকাউন্ট / অর্ডারস -->
+    <button class="nav-item" onclick="showModal('অর্ডার হিস্ট্রি', 'আপনার কোনো পেন্ডিং অর্ডার নেই।')">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      Orders
+    </button>
+    <!-- ৪. একাউন্ট (লগআউট অপশনসহ) -->
+    <button class="nav-item" onclick="logoutUser()">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      Account
+    </button>
   </div>
 
   <script>
@@ -1038,7 +1056,7 @@
       }
     }
 
-    // রিয়েল ফায়ারবেস সাইন-আউট
+    // একাউন্ট ট্যাব থেকে লগআউট করার লজিক
     async function logoutUser() {
       showModal('লগআউট', 'আপনি কি নিশ্চিত যে আপনি লগআউট করতে চান?', async function() {
         try {
@@ -1047,6 +1065,10 @@
           console.error(e);
         }
       });
+    }
+
+    function showTab(tabName) {
+      // ভবিষ্যতে ট্যাব ভিত্তিক পেজ পরিবর্তন করতে চাইলে এখানে কোড যোগ করা যাবে
     }
   </script>
 
