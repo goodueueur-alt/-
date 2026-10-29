@@ -956,10 +956,10 @@
       generatedResetCode = Math.floor(1000 + Math.random() * 9000);
 
       const templateParams = {
-        to_email: {{email}},
-        pass_code: generatedResetCode,
-        message: "আপনার পাসওয়ার্ড রিসেট কোড হলো: " + generatedResetCode
-      };
+    email: email,
+    pass_code: generatedResetCode,
+    message: "আপনার পাসওয়ার্ড রিসেট কোড হলো: " + generatedResetCode
+};
 
       try {
         await emailjs.send("service_u36uj8r", "template_aimy5cj", templateParams);
