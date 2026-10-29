@@ -1,498 +1,31 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#7c3aed">
-<title>Rifat FF Panel Seller - Official Portal</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--primary:#7c3aed;--dark:#6d28d9;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
-body{background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:90px;font-family:"Poppins","Hind Siliguri",sans-serif}
-button,input{font:inherit}
-button{cursor:pointer;-webkit-tap-highlight-color:transparent}
-.hidden{display:none!important}
-.main{width:100%;max-width:480px;min-height:100vh;margin:auto;padding-bottom:80px}
-.auth-card{background:#fff;border:1px solid var(--border);border-radius:24px;padding:28px 22px;width:90%;max-width:420px;margin:40px auto;box-shadow:0 10px 25px #00000010}
-.brand-title{font-family:Orbitron,sans-serif;font-size:18px;font-weight:900;color:var(--dark);text-align:center;margin:12px 0 20px}
-.logo{width:70px;height:70px;margin:auto;border-radius:20px;background:var(--primary);display:grid;place-items:center;color:#fff;font-size:35px;font-weight:900}
-.tabs{display:flex;background:#f1f5f9;border-radius:12px;padding:4px;margin-bottom:18px}
-.tabs button{flex:1;padding:10px;border:0;background:transparent;border-radius:8px;color:var(--muted);font-weight:700}
-.tabs button.active{background:var(--primary);color:#fff}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
-.field input,.amount-input,.tx-input{width:100%;padding:13px;border:1.5px solid #cbd5e1;border-radius:12px;background:#fff;color:#111827}
-.primary-btn{width:100%;padding:14px;border:0;border-radius:12px;color:#fff;background:linear-gradient(120deg,var(--primary),var(--dark));font-weight:800}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;padding:14px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
-.brand{display:flex;align-items:center;gap:9px;font-family:Orbitron,sans-serif;font-weight:900;font-size:13px}
-.brand-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:var(--primary);color:#fff;font-size:20px}
-.wallet{border:0;background:var(--primary);color:#fff;padding:10px 13px;border-radius:25px;font-weight:800}
-.notice{margin:14px 12px;padding:14px;background:#fff;border:1.5px solid var(--primary);border-radius:14px;line-height:1.8}
-.panel{margin:14px 12px;background:#fff;border:2px solid #8b48d7;border-radius:26px;padding:22px 18px}
-.panel h3{font-size:19px;line-height:1.6}
-.price{color:var(--primary);font-weight:900;font-size:24px;margin:10px 0}
-.panel p{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px}
-.buy-btn{width:100%;border:0;border-radius:16px;padding:16px;background:var(--primary);color:#fff;font-weight:800;font-size:20px}
-.section{padding:16px 12px}
-.page-title{font-size:22px;color:var(--primary);font-family:Orbitron,sans-serif;margin:6px 0 16px}
-.money-hero{background:linear-gradient(120deg,#214f53,#344b76 55%,#48358e);border-radius:26px;padding:25px 22px;color:#fff;min-height:220px}
-.pill{display:inline-block;background:#6d28d9;border-radius:30px;padding:9px 13px;font-size:11px;font-weight:800;letter-spacing:.7px}
-.money-hero h2{font-size:26px;line-height:1.3;margin-top:24px}
-.money-hero h2 span{display:block;color:#b8d0f0}
-.money-hero p{font-size:13px;color:#e0e7ff;margin-top:12px;line-height:1.7}
-.amount-card,.white-card{background:#fff;border-radius:22px;padding:22px;margin-top:16px;box-shadow:0 8px 24px #1f29370a}
-.amount-card h3{font-size:21px}
-.sub{font-size:12px;color:#858995;margin:4px 0 20px}
-.amount-label{font-size:12px;font-weight:800;display:block;margin:12px 0 8px}
-.amount-wrap{display:flex;align-items:center;gap:12px;padding:0 16px;border:2px solid #e0e2e8;border-radius:18px;background:#fafbff}
-.amount-wrap span{font-size:26px;font-weight:900}
-.amount-wrap input{border:0!important;background:transparent;height:64px;font-size:19px;min-width:0;outline:none}
-.hint{font-size:12px;color:var(--muted);line-height:1.7;margin:13px 0 20px}
-.pay-page{padding:16px 14px 25px;background:#f2f7ff;border-radius:22px;min-height:70vh}
-.pay-top{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:12px 15px;border-radius:13px;color:#71839a}
-.text-btn{border:0;background:transparent;font-size:25px;color:#71839a}
-.wallet-brand{text-align:center;padding:25px 0 18px;color:#71839a}
-.wallet-symbol{width:85px;height:85px;border-radius:50%;display:grid;place-items:center;background:#fff;margin:auto auto 10px;font-size:36px;color:var(--primary)}
-.bank-title{background:#0753b8;color:#fff;text-align:center;border-radius:12px;padding:16px;margin-bottom:18px;font-weight:800}
-.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.method{border:1px solid #e5e7eb;background:#fff;border-radius:15px;min-height:115px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-weight:800}
-.bkash{color:#c21870;font-size:24px}
-.nagad{color:#d92727;font-size:24px}
-.pay-total{text-align:center;color:#0753b8;background:#d5e7ff;border-radius:16px;padding:17px;margin-top:20px;font-size:20px;font-weight:900}
-.gateway-brand{display:flex;align-items:center;gap:14px;background:#fff;border-radius:15px;padding:18px;margin:16px 0 12px;color:#71839a;font-weight:900;font-size:19px}
-.gateway-logo{width:58px;height:58px;border-radius:50%;border:2px solid #eef2f7;display:grid;place-items:center;font-size:22px}
-.gateway-amount{background:#fff;border-radius:15px;padding:17px;margin-bottom:14px;color:#71839a;font-size:22px;font-weight:900}
-.instructions{background:#c92375;color:#fff;border-radius:15px;padding:20px;line-height:1.8}
-.instructions h3{text-align:center;margin-bottom:15px}
-.instructions label{display:block;font-size:13px;margin-bottom:6px}
-.tx-input{margin-bottom:12px;border:3px solid #f5a7c9;font-size:16px}
-.instruction-list{padding-left:18px;font-size:13px}
-.instruction-list li{padding:9px 0;border-bottom:1px solid #ffffff20}
-.copy-btn{background:#9f1456;color:#fff;border:0;border-radius:8px;padding:7px 12px;font-weight:800;margin:5px 0}
-.submit-tx{width:100%;padding:13px;border:0;border-radius:10px;background:#fff;color:#b51b65;font-weight:900;margin-top:15px}
-.status{background:#fff;color:#374151;padding:12px;border-radius:10px;font-size:13px;margin-top:12px;overflow-wrap:anywhere}
-.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e5e7eb;display:flex;justify-content:space-around;align-items:center;padding:9px 0 max(12px,env(safe-area-inset-bottom));z-index:20}
-.nav-item{flex:1;border:0;background:transparent;color:#64748b;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:700}
-.nav-item.active{color:var(--primary)}
-.add-btn{width:62px;height:62px;flex:0 0 62px;border:5px solid #fff;border-radius:50%;background:var(--primary);color:#fff;font-size:34px;margin-top:-25px;box-shadow:0 4px 12px #7c3aed40}
-.account-box{background:#fff;border-radius:15px;padding:18px;line-height:2}
-@media(max-width:350px){.panel h3{font-size:16px}.money-hero h2{font-size:22px}.amount-card{padding:16px}}
-</style>
-</head>
-
-<body>
-<div id="authContainer" class="auth-card">
-  <div class="logo">R</div>
-  <h1 class="brand-title">RIFAT FF PANEL SELLER</h1>
-
-  <div class="tabs">
-    <button id="signInTab" class="active" onclick="showAuth('signin')">সাইন ইন</button>
-    <button id="signUpTab" onclick="showAuth('signup')">সাইন আপ</button>
-  </div>
-
-  <form id="signinForm" onsubmit="login(event)">
-    <div class="field">
-      <label for="email">ইমেল বা জিমেইল</label>
-      <input id="email" type="email" required placeholder="আপনার ইমেল দিন">
-    </div>
-    <div class="field">
-      <label for="password">পাসওয়ার্ড</label>
-      <input id="password" type="password" required placeholder="পাসওয়ার্ড দিন">
-    </div>
-    <button class="primary-btn" type="submit">সাইন ইন</button>
-  </form>
-
-  <form id="signupForm" class="hidden" onsubmit="signup(event)">
-    <div class="field">
-      <label for="newEmail">ইমেল বা জিমেইল</label>
-      <input id="newEmail" type="email" required placeholder="আপনার ইমেল দিন">
-    </div>
-    <div class="field">
-      <label for="newPassword">পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)</label>
-      <input id="newPassword" type="password" minlength="6" required placeholder="পাসওয়ার্ড দিন">
-    </div>
-    <button class="primary-btn" type="submit">সাইন আপ</button>
-  </form>
-  <p id="authMessage" style="font-size:12px;color:#64748b;margin-top:12px"></p>
-</div>
-
-<div id="mainApp" class="main hidden">
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">R</div>
-      <div>RIFAT FF<br><small style="color:#7c3aed">PANEL SELLER</small></div>
-    </div>
-    <button class="wallet" onclick="switchTab('addmoney')">💳 <span id="balance">0৳</span></button>
-  </header>
-
-  <section id="tabHome">
-    <div class="notice"><b>NOTICE</b> — ১৮ বছরের নিচে কেউ অর্ডার করবেন না। বাবা-মা বা পরিবারের টাকা চুরি করে অর্ডার করবেন না।</div>
-
-    <article class="panel">
-      <h3>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h3>
-      <div class="price">450 BDT</div>
-      <p>টুর্নামেন্ট প্লেয়ারদের জন্য প্যানেলের বিস্তারিত তথ্য।</p>
-      <button class="buy-btn" onclick="buyPanel('Tournament Panel',450)">কিনুন</button>
-    </article>
-
-    <article class="panel">
-      <h3>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h3>
-      <div class="price">550 BDT</div>
-      <p>প্যানেলের বিস্তারিত জানতে এবং অর্ডার করতে পেমেন্ট সম্পন্ন করুন।</p>
-      <button class="buy-btn" onclick="buyPanel('Full Body Location Panel',550)">কিনুন</button>
-    </article>
-  </section>
-
-  <section id="tabAddMoney" class="section hidden">
-    <div id="amountStep">
-      <div class="money-hero">
-        <span class="pill">⚡ INSTANT &amp; SECURE</span>
-        <h2>Add Money to <span>Rifat FF Panel</span></h2>
-        <p>Fast, secure wallet recharge for your panel balance.</p>
-      </div>
-
-      <div class="amount-card">
-        <h3>Enter Amount</h3>
-        <p class="sub">Type the amount you want to add.</p>
-        <label class="amount-label" for="rechargeAmount">AMOUNT (BDT)</label>
-        <div class="amount-wrap">
-          <span>৳</span>
-          <input class="amount-input" id="rechargeAmount" type="number" min="1" step="1" inputmode="numeric" placeholder="Enter amount">
-        </div>
-        <p class="hint">পেমেন্ট যাচাই না হওয়া পর্যন্ত ব্যালেন্সে টাকা যোগ হবে না।</p>
-        <button class="primary-btn" onclick="continueToPayment()">▣ Add Money Securely →</button>
-      </div>
-    </div>
-
-    <div id="methodStep" class="hidden pay-page">
-      <div class="pay-top">
-        <span>Payment Method</span>
-        <button class="text-btn" onclick="backToAmount()">×</button>
-      </div>
-      <div class="wallet-brand">
-        <div class="wallet-symbol">▣</div>
-        <h2>Wallet</h2>
-      </div>
-      <div class="bank-title">মোবাইল ব্যাংকিং</div>
-
-      <div class="methods">
-        <button class="method" onclick="selectPaymentMethod('bkash')">
-          <span class="bkash">bKash</span>
-          <span>বিকাশ পার্সোনাল</span>
-        </button>
-        <button class="method" onclick="selectPaymentMethod('nagad')">
-          <span class="nagad">নগদ</span>
-          <span>Nagad Personal</span>
-        </button>
-      </div>
-      <div id="selectedPayAmount" class="pay-total">পে করুন ৳ 0.00</div>
-    </div>
-
-    <div id="instructionStep" class="hidden pay-page">
-      <div class="pay-top">
-        <button class="text-btn" onclick="backToMethods()">‹</button>
-        <span>Payment Details</span>
-        <button class="text-btn" onclick="backToMethods()">×</button>
-      </div>
-
-      <div class="gateway-brand">
-        <div id="gatewayLogo" class="gateway-logo">bK</div>
-        <span id="gatewayName">bKash Personal</span>
-      </div>
-
-      <div id="gatewayAmount" class="gateway-amount">৳ 0</div>
-
-      <div class="instructions">
-        <h3>ট্রানজেকশন আইডি দিন</h3>
-        <label for="transactionId">Transaction ID</label>
-        <input id="transactionId" class="tx-input" type="text" maxlength="100" autocomplete="off" placeholder="ট্রানজেকশন আইডি লিখুন">
-
-        <ul class="instruction-list">
-          <li>আপনার <b id="instructionProvider">bKash</b> অ্যাপ খুলুন।</li>
-          <li>Send Money নির্বাচন করুন।</li>
-          <li>
-            এই নম্বরে টাকা পাঠান:
-            <b id="recipientNumber">01845907321</b><br>
-            <button class="copy-btn" type="button" onclick="copyRecipientNumber()">নম্বর কপি করুন</button>
-          </li>
-          <li>টাকার পরিমাণ: <b id="instructionAmount">৳ 0</b></li>
-          <li>পেমেন্ট সফল হলে রসিদ থেকে Transaction ID লিখুন।</li>
-        </ul>
-
-        <button class="submit-tx" onclick="submitTransaction()">ট্রানজেকশন আইডি জমা দিন</button>
-        <div id="transactionStatus" class="status hidden" role="status"></div>
-        <p style="font-size:12px;color:#fff4c5;margin-top:12px">PIN বা OTP কখনো লিখবেন না। Transaction ID জমা দিলেই ব্যালেন্স যোগ হয় না; পেমেন্ট যাচাই করতে হবে।</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="tabOrders" class="section hidden">
-    <h2 class="page-title">MY ORDERS</h2>
-    <div id="orderContent" class="account-box">এখনো কোনো প্যানেল নির্বাচন করা হয়নি।</div>
-  </section>
-
-  <section id="tabCodes" class="section hidden">
-    <h2 class="page-title">MY CODES</h2>
-    <div class="account-box">আপনার প্যানেল কী (Key) এখানে দেখা যাবে। বর্তমানে কোড সংরক্ষণের ব্যবস্থা যুক্ত নেই।</div>
-  </section>
-
-  <section id="tabAccount" class="section hidden">
-    <h2 class="page-title">MY ACCOUNT</h2>
-    <div class="account-box">
-      ইমেল: <b id="accountEmail">—</b><br>
-      <button class="primary-btn" style="margin-top:15px" onclick="logout()">Log Out</button>
-    </div>
-  </section>
-
-  <section id="tabTransaction" class="section hidden">
-    <h2 class="page-title">MY TRANSACTION</h2>
-    <div class="account-box">Transaction ID জমা দিলে যাচাইয়ের জন্য এখানে রেকর্ড দেখানোর backend সংযুক্ত করতে হবে।</div>
-  </section>
-</div>
-
-<nav id="bottomNav" class="bottom-nav hidden">
-  <button id="navHome" class="nav-item active" onclick="switchTab('home')">⌂<span>Home</span></button>
-  <button id="navOrders" class="nav-item" onclick="switchTab('orders')">▤<span>My Orders</span></button>
-  <button class="add-btn" onclick="switchTab('addmoney')" aria-label="Add Money">+</button>
-  <button id="navCodes" class="nav-item" onclick="switchTab('codes')">▦<span>My Codes</span></button>
-  <button id="navAccount" class="nav-item" onclick="switchTab('account')">●<span>My Account</span></button>
-</nav>
-
-<script>
-const PAYMENT_NUMBER = "01845907321";
-
-let currentRechargeAmount = 0;
-let currentPaymentMethod = "bkash";
-let selectedPanel = null;
-
-function el(id) {
-  return document.getElementById(id);
-}
-
-function showAuth(type) {
-  el("signinForm").classList.toggle("hidden", type !== "signin");
-  el("signupForm").classList.toggle("hidden", type !== "signup");
-  el("signInTab").classList.toggle("active", type === "signin");
-  el("signUpTab").classList.toggle("active", type === "signup");
-  el("authMessage").textContent = "";
-}
-
-function showApp(email) {
-  el("authContainer").classList.add("hidden");
-  el("mainApp").classList.remove("hidden");
-  el("bottomNav").classList.remove("hidden");
-  el("accountEmail").textContent = email || "User";
-
-  try {
-    localStorage.setItem("rifatDemoEmail", email || "User");
-  } catch (e) {}
-}
-
-function login(e) {
-  e.preventDefault();
-
-  const email = el("email").value.trim();
-  const pass = el("password").value;
-
-  if (!window.rifatFirebase) {
-    el("authMessage").textContent = "Firebase সংযোগ হচ্ছে। কয়েক সেকেন্ড পরে আবার চেষ্টা করুন।";
-    return;
-  }
-
-  window.rifatFirebase.authMod
-    .signInWithEmailAndPassword(window.rifatFirebase.auth, email, pass)
-    .catch(err => {
-      el("authMessage").textContent = "লগইন ব্যর্থ: " + err.message;
-    });
-}
-
-function signup(e) {
-  e.preventDefault();
-
-  const email = el("newEmail").value.trim();
-  const pass = el("newPassword").value;
-
-  if (!window.rifatFirebase) {
-    el("authMessage").textContent = "Firebase সংযোগ হচ্ছে। কয়েক সেকেন্ড পরে আবার চেষ্টা করুন।";
-    return;
-  }
-
-  window.rifatFirebase.authMod
-    .createUserWithEmailAndPassword(window.rifatFirebase.auth, email, pass)
-    .catch(err => {
-      el("authMessage").textContent = "সাইন আপ ব্যর্থ: " + err.message;
-    });
-}
-
-function logout() {
-  if (window.rifatFirebase) {
-    window.rifatFirebase.authMod.signOut(window.rifatFirebase.auth);
-  }
-
-  el("mainApp").classList.add("hidden");
-  el("bottomNav").classList.add("hidden");
-  el("authContainer").classList.remove("hidden");
-}
-
-function switchTab(name) {
-  ["home", "addmoney", "orders", "codes", "account", "transaction"].forEach(t => {
-    el("tab" + t[0].toUpperCase() + t.slice(1))?.classList.toggle("hidden", t !== name);
-    el("nav" + t[0].toUpperCase() + t.slice(1))?.classList.toggle("active", t === name);
-  });
-
-  if (name === "addmoney") {
-    showAmountStep();
-  }
-
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
-
-/* Panel কিনলে সরাসরি পেমেন্ট মেথড দেখাবে */
-function buyPanel(name, price) {
-  selectedPanel = { name, price };
-  currentRechargeAmount = price;
-
-  el("rechargeAmount").value = price;
-
-  switchTab("addmoney");
-
-  // Add Money-এর amount entry বাদ দিয়ে সরাসরি method selection
-  el("amountStep").classList.add("hidden");
-  el("instructionStep").classList.add("hidden");
-  el("methodStep").classList.remove("hidden");
-
-  el("selectedPayAmount").textContent = "পে করুন ৳ " + price.toFixed(2);
-
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
-
-function showAmountStep() {
-  ["amountStep", "methodStep", "instructionStep"].forEach(id => {
-    el(id).classList.add("hidden");
-  });
-
-  el("amountStep").classList.remove("hidden");
-}
-
-function continueToPayment() {
-  const amount = Number(el("rechargeAmount").value);
-
-  if (!Number.isInteger(amount) || amount < 1) {
-    alert("অনুগ্রহ করে ১ টাকা বা তার বেশি পূর্ণ সংখ্যার পরিমাণ লিখুন।");
-    el("rechargeAmount").focus();
-    return;
-  }
-
-  // এটি Add Money-এর নিজস্ব পরিমাণ
-  selectedPanel = null;
-  currentRechargeAmount = amount;
-
-  el("selectedPayAmount").textContent = "পে করুন ৳ " + amount.toFixed(2);
-  el("amountStep").classList.add("hidden");
-  el("instructionStep").classList.add("hidden");
-  el("methodStep").classList.remove("hidden");
-
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
-
-function backToAmount() {
-  selectedPanel = null;
-  showAmountStep();
-}
-
-function backToMethods() {
-  el("instructionStep").classList.add("hidden");
-  el("methodStep").classList.remove("hidden");
-}
-
-/* bKash অথবা Nagad নির্বাচন */
-function selectPaymentMethod(method) {
-  currentPaymentMethod = method;
-
-  const isBkash = method === "bkash";
-
-  el("gatewayLogo").textContent = isBkash ? "bK" : "ন";
-  el("gatewayName").textContent = isBkash ? "bKash Personal" : "Nagad Personal";
-  el("instructionProvider").textContent = isBkash ? "bKash" : "Nagad";
-
-  el("recipientNumber").textContent = PAYMENT_NUMBER;
-
-  el("gatewayAmount").textContent =
-    "৳ " + currentRechargeAmount.toLocaleString("en-BD");
-
-  el("instructionAmount").textContent =
-    "৳ " + currentRechargeAmount.toLocaleString("en-BD");
-
-  el("transactionId").value = "";
-  el("transactionStatus").classList.add("hidden");
-  el("transactionStatus").textContent = "";
-
-  el("methodStep").classList.add("hidden");
-  el("instructionStep").classList.remove("hidden");
-
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
-
-async function copyRecipientNumber() {
-  try {
-    await navigator.clipboard.writeText(PAYMENT_NUMBER);
-  } catch (e) {
-    const textarea = document.createElement("textarea");
-    textarea.value = PAYMENT_NUMBER;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    textarea.remove();
-  }
-
-  alert("পেমেন্ট নম্বর কপি হয়েছে: " + PAYMENT_NUMBER);
-}
-
-/* Transaction ID-এর ডেমো সাবমিশন */
-function submitTransaction() {
-  const tx = el("transactionId").value.trim();
-
-  if (tx.length < 5) {
-    alert("সঠিক Transaction ID লিখুন।");
-    el("transactionId").focus();
-    return;
-  }
-
-  const status = el("transactionStatus");
-  status.classList.remove("hidden");
-
-  const paymentType = currentPaymentMethod === "bkash"
-    ? "bKash Personal"
-    : "Nagad Personal";
-
-  const orderInfo = selectedPanel
-    ? "প্যানেল: " + selectedPanel.name + " | "
-    : "Add Money | ";
-
-  status.textContent =
-    orderInfo +
-    "পেমেন্ট মাধ্যম: " + paymentType +
-    " | পরিমাণ: ৳" + currentRechargeAmount +
-    " | Transaction ID: " + tx +
-    " — এই ডেমো পেজে তথ্যটি শুধু দেখানো হয়েছে; সার্ভারে জমা বা পেমেন্ট যাচাই করা হয়নি।";
-}
-
-/* Firebase Authentication */
-(async function initFirebase() {
-  try {
-    const appMod = await import(
-      "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"
-    );
-
-    const authMod = await import(
-      "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"
-    );
-
-    const config = {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#7c3aed" />
+  <title>Rifat FF Panel Seller - Official Portal</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Firebase SDK Setup -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+      getAuth, 
+      setPersistence,
+      browserLocalPersistence,
+      onAuthStateChanged,
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword,
+      sendPasswordResetEmail,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
       apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
       authDomain: "rifat-ffpanel-seller.firebaseapp.com",
       projectId: "rifat-ffpanel-seller",
@@ -501,20 +34,738 @@ function submitTransaction() {
       appId: "1:270050253341:web:ca5db10f52d746751444f4"
     };
 
-    const app = appMod.initializeApp(config);
-    const auth = authMod.getAuth(app);
+    try {
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-    window.rifatFirebase = { auth, authMod };
+      setPersistence(auth, browserLocalPersistence).catch((error) => {
+        console.error("Persistence Error:", error);
+      });
 
-    authMod.onAuthStateChanged(auth, user => {
-      if (user) {
-        showApp(user.email || "User");
-      }
+      window.firebaseAuth = auth;
+      window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+      window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+      window.sendPasswordResetEmail = sendPasswordResetEmail;
+      window.signOutUser = signOut;
+
+      onAuthStateChanged(auth, (user) => {
+        const authContainer = document.getElementById('authContainer');
+        const mainAppContainer = document.getElementById('mainAppContainer');
+        const bottomNav = document.getElementById('bottomNav');
+        const topHeaderUserArea = document.getElementById('topHeaderUserArea');
+        const floatingSupport = document.getElementById('floatingSupportContainer');
+
+        if (user) {
+          if (authContainer) authContainer.style.display = 'none';
+          if (mainAppContainer) mainAppContainer.style.display = 'block';
+          if (bottomNav) bottomNav.style.display = 'flex';
+          if (topHeaderUserArea) topHeaderUserArea.style.display = 'flex';
+          if (floatingSupport) floatingSupport.style.display = 'block';
+          
+          const email = user.email || 'user@gmail.com';
+          const firstLetter = email.charAt(0).toUpperCase();
+          const username = email.split('@')[0];
+          
+          const userAvatarEl = document.getElementById('userAvatarLetter');
+          if(userAvatarEl) userAvatarEl.innerText = firstLetter;
+
+          const menuAvatarEl = document.getElementById('menuAvatarLetter');
+          if(menuAvatarEl) menuAvatarEl.innerText = firstLetter;
+
+          const menuNameEl = document.getElementById('menuUserName');
+          if(menuNameEl) menuNameEl.innerText = "Hi, " + username;
+
+          const menuEmailEl = document.getElementById('menuUserEmail');
+          if(menuEmailEl) menuEmailEl.innerText = email;
+
+          const accEmailEl = document.getElementById('accEmailDisplay');
+          if(accEmailEl) accEmailEl.innerText = email;
+
+          const accStatusEl = document.getElementById('accStatusDisplay');
+          if(accStatusEl) {
+            if(user.emailVerified) {
+              accStatusEl.innerHTML = '<span style="color: #16a34a;">✅ ভেরিফাইড (Verified)</span>';
+            } else {
+              accStatusEl.innerHTML = '<span style="color: #d97706;">⚠️ ভেরিফাই করা হয়নি</span>';
+            }
+          }
+        } else {
+          if (authContainer) authContainer.style.display = 'block';
+          if (mainAppContainer) mainAppContainer.style.display = 'none';
+          if (bottomNav) bottomNav.style.display = 'none';
+          if (topHeaderUserArea) topHeaderUserArea.style.display = 'none';
+          if (floatingSupport) floatingSupport.style.display = 'none';
+        }
+      });
+    } catch(err) {
+      console.error("Firebase Init Error:", err);
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --primary: #7c3aed; --dark: #6d28d9; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; --bg: #f8fafc; }
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-bottom: 90px;
+      font-family: "Poppins", "Hind Siliguri", sans-serif;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .hidden { display: none !important; }
+
+    /* AUTH CARD */
+    .app-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px 22px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      margin: 40px auto;
+    }
+    .brand-logo-container {
+      width: 75px; height: 75px; margin: 0 auto 10px; border-radius: 20px;
+      overflow: hidden; border: 2px solid var(--primary); background: #fff;
+      display: grid; place-items: center; color: var(--primary); font-size: 35px; font-weight: 900;
+    }
+    .brand-title {
+      font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900;
+      color: var(--dark); text-align: center; margin-bottom: 18px;
+    }
+    .auth-tabs { display: flex; background: #f1f5f9; border-radius: 12px; padding: 4px; margin-bottom: 20px; }
+    .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: var(--muted); font-weight: 700; border-radius: 8px; }
+    .tab-btn.active { background: var(--primary); color: #ffffff; }
+
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; color: #475569; margin-bottom: 6px; font-weight: 600; }
+    input {
+      width: 100%; padding: 13px; background: #ffffff; color: #111827;
+      border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 14px; outline: none;
+    }
+    .submit-btn {
+      width: 100%; padding: 14px; background: linear-gradient(135deg, var(--primary), var(--dark));
+      border: none; border-radius: 12px; color: #ffffff; font-size: 16px; font-weight: 800;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3); margin-top: 5px;
+    }
+    .forgot-pass { text-align: right; margin-top: 8px; margin-bottom: 12px; }
+    .forgot-pass a { font-size: 12px; color: var(--primary); text-decoration: none; font-weight: 600; }
+
+    /* MAIN CONTAINER */
+    .main-container { width: 100%; max-width: 480px; margin: 0 auto; padding-bottom: 80px; }
+
+    /* TOP HEADER & DROPDOWN */
+    .top-user-area {
+      display: none; justify-content: space-between; align-items: center;
+      background: #ffffff; padding: 12px 16px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 999;
+    }
+    .brand-logo-text { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .brand-icon-box {
+      width: 38px; height: 38px; background: var(--primary); border-radius: 11px;
+      display: flex; align-items: center; justify-content: center; color: #fff;
+      font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 18px;
+    }
+    .brand-text-main { font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 900; color: #0f172a; line-height: 1.2; }
+    .brand-text-sub { font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 800; color: var(--primary); display: block; }
+    
+    .wallet-avatar-group { display: flex; align-items: center; gap: 10px; }
+    .wallet-pill {
+      background: var(--primary); border-radius: 25px; padding: 8px 14px;
+      font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 800; color: #ffffff;
+      display: flex; align-items: center; gap: 6px; cursor: pointer; border: none;
+    }
+    .user-avatar-circle {
+      width: 38px; height: 38px; border-radius: 50%; background: #a855f7; color: #ffffff;
+      font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+
+    /* PROFILE DROPDOWN */
+    .profile-dropdown-menu {
+      position: absolute; top: 60px; right: 10px; width: 270px; background: #ffffff;
+      border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; z-index: 99999;
+      overflow: hidden; border: 1px solid var(--border);
+    }
+    .profile-dropdown-menu.active { display: block; }
+    .dropdown-user-header { display: flex; align-items: center; gap: 12px; padding: 16px; background: #a855f7; color: #ffffff; }
+    .dropdown-user-avatar { width: 42px; height: 42px; border-radius: 4px; background: rgba(255,255,255,0.2); display: grid; place-items: center; font-size: 20px; font-weight: 900; }
+    .dropdown-user-info h5 { font-size: 14px; font-weight: 700; color: #fff; }
+    .dropdown-user-info p { font-size: 11px; color: rgba(255,255,255,0.8); word-break: break-all; }
+    .dropdown-menu-list { display: flex; flex-direction: column; padding: 6px 0; }
+    .dropdown-item {
+      display: flex; align-items: center; gap: 12px; padding: 10px 18px; color: #334155;
+      font-size: 13px; font-weight: 600; background: transparent; border: none; width: 100%; text-align: left; cursor: pointer;
+    }
+    .dropdown-item:hover { background: #f8fafc; color: var(--primary); }
+    .dropdown-support-box { padding: 12px 16px; border-top: 1px solid var(--border); }
+    .dropdown-support-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;
+      background: var(--primary); color: #fff; padding: 10px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 13px;
+    }
+
+    /* NOTICE BAR */
+    .notice-bar-container {
+      margin: 14px 12px; background: #ffffff; border: 1.5px solid var(--primary);
+      border-radius: 14px; display: flex; align-items: center; overflow: hidden; box-shadow: 0 2px 8px rgba(124, 58, 237, 0.1);
+    }
+    .notice-tag { background: var(--primary); color: #ffffff; padding: 10px 12px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .notice-tag-dot { width: 7px; height: 7px; background: #ffffff; border-radius: 50%; }
+    .notice-marquee { flex: 1; padding: 0 10px; font-size: 12px; color: #334155; font-weight: 600; white-space: nowrap; overflow: hidden; }
+    .notice-close-btn { padding: 10px 14px; color: var(--primary); font-size: 14px; cursor: pointer; font-weight: 800; }
+
+    /* PANELS GRID */
+    .panels-grid { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 0 12px; }
+    .panel { background: #fff; border: 2px solid #8b48d7; border-radius: 26px; padding: 22px 18px; }
+    .panel h3 { font-size: 17px; line-height: 1.5; color: #0f172a; }
+    .price { color: var(--primary); font-weight: 900; font-size: 22px; margin: 8px 0; }
+    .panel p { color: var(--muted); font-size: 13px; line-height: 1.7; margin-bottom: 14px; }
+    .video-wrapper { position: relative; width: 100%; padding-top: 45%; background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+    .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+    .buy-btn { width: 100%; border: 0; border-radius: 16px; padding: 14px; background: var(--primary); color: #fff; font-weight: 800; font-size: 18px; }
+
+    /* PAYMENT / ADD MONEY PAGE */
+    .section { padding: 16px 12px; }
+    .page-title { font-size: 22px; color: var(--primary); font-family: 'Orbitron', sans-serif; margin: 6px 0 16px; }
+    .money-hero { background: linear-gradient(120deg,#214f53,#344b76 55%,#48358e); border-radius: 26px; padding: 25px 22px; color: #fff; min-height: 200px; }
+    .pill { display: inline-block; background: var(--dark); border-radius: 30px; padding: 7px 12px; font-size: 11px; font-weight: 800; letter-spacing: .7px; }
+    .money-hero h2 { font-size: 24px; line-height: 1.3; margin-top: 18px; }
+    .money-hero h2 span { display: block; color: #b8d0f0; }
+    .money-hero p { font-size: 12px; color: #e0e7ff; margin-top: 8px; line-height: 1.6; }
+    
+    .amount-card { background: #fff; border-radius: 22px; padding: 22px; margin-top: 16px; box-shadow: 0 8px 24px rgba(31,41,55,0.06); }
+    .amount-card h3 { font-size: 19px; }
+    .sub { font-size: 12px; color: #858995; margin: 4px 0 16px; }
+    .amount-label { font-size: 12px; font-weight: 800; display: block; margin: 10px 0 6px; }
+    .amount-wrap { display: flex; align-items: center; gap: 12px; padding: 0 14px; border: 2px solid #e0e2e8; border-radius: 16px; background: #fafbff; }
+    .amount-wrap span { font-size: 24px; font-weight: 900; }
+    .amount-wrap input { border: 0 !important; background: transparent; height: 55px; font-size: 18px; min-width: 0; outline: none; }
+    .hint { font-size: 12px; color: var(--muted); line-height: 1.6; margin: 12px 0 16px; }
+
+    .pay-page { padding: 16px 14px 25px; background: #f2f7ff; border-radius: 22px; min-height: 65vh; margin-top: 10px; }
+    .pay-top { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 12px 15px; border-radius: 13px; color: #71839a; }
+    .text-btn { border: 0; background: transparent; font-size: 22px; color: #71839a; cursor: pointer; }
+    .wallet-brand { text-align: center; padding: 20px 0 14px; color: #71839a; }
+    .wallet-symbol { width: 75px; height: 75px; border-radius: 50%; display: grid; place-items: center; background: #fff; margin: auto auto 8px; font-size: 32px; color: var(--primary); }
+    .bank-title { background: #0753b8; color: #fff; text-align: center; border-radius: 12px; padding: 14px; margin-bottom: 16px; font-weight: 800; }
+    
+    .methods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .method { border: 1px solid #e5e7eb; background: #fff; border-radius: 15px; min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 800; cursor: pointer; }
+    .bkash { color: #c21870; font-size: 22px; }
+    .nagad { color: #d92727; font-size: 22px; }
+    .pay-total { text-align: center; color: #0753b8; background: #d5e7ff; border-radius: 16px; padding: 15px; margin-top: 18px; font-size: 18px; font-weight: 900; }
+
+    .gateway-brand { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 15px; padding: 16px; margin: 14px 0 12px; color: #71839a; font-weight: 900; font-size: 17px; }
+    .gateway-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #eef2f7; display: grid; place-items: center; font-size: 20px; }
+    .gateway-amount { background: #fff; border-radius: 15px; padding: 15px; margin-bottom: 12px; color: #71839a; font-size: 20px; font-weight: 900; }
+
+    .instructions { background: #c92375; color: #fff; border-radius: 15px; padding: 18px; line-height: 1.7; }
+    .instructions h3 { text-align: center; margin-bottom: 12px; font-size: 16px; }
+    .instructions label { display: block; font-size: 13px; margin-bottom: 6px; color: #fff; }
+    .tx-input { width: 100%; padding: 12px; border: 3px solid #f5a7c9; border-radius: 10px; background: #fff; color: #111; font-size: 15px; margin-bottom: 12px; outline: none; }
+    .instruction-list { padding-left: 18px; font-size: 13px; }
+    .instruction-list li { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .copy-btn { background: #9f1456; color: #fff; border: 0; border-radius: 8px; padding: 6px 10px; font-weight: 800; margin: 4px 0; cursor: pointer; }
+    .submit-tx { width: 100%; padding: 13px; border: 0; border-radius: 10px; background: #fff; color: #b51b65; font-weight: 900; margin-top: 14px; cursor: pointer; }
+    .status { background: #fff; color: #374151; padding: 12px; border-radius: 10px; font-size: 13px; margin-top: 12px; overflow-wrap: anywhere; }
+
+    .account-box { background: #fff; border-radius: 16px; padding: 20px; line-height: 1.8; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+
+    /* FLOATING SUPPORT */
+    .floating-support-container { position: fixed; bottom: 85px; right: 18px; z-index: 9999; display: none; }
+    .floating-main-btn {
+      width: 50px; height: 50px; background: var(--primary); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; cursor: pointer;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    }
+    .floating-options-list {
+      position: absolute; bottom: 60px; right: 2px; display: flex; flex-direction: column; gap: 10px;
+      opacity: 0; pointer-events: none; transform: translateY(10px); transition: all 0.3s ease;
+    }
+    .floating-support-container.active .floating-options-list { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .floating-social-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: #ffffff; text-decoration: none; }
+    .floating-social-icon img { width: 26px; height: 26px; object-fit: contain; }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff;
+      border-top: 1px solid var(--border); display: none; justify-content: space-around;
+      align-items: center; padding: 8px 0 max(12px, env(safe-area-inset-bottom)); z-index: 1000;
+    }
+    .nav-item { flex: 1; border: 0; background: transparent; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10px; font-weight: 700; cursor: pointer; }
+    .nav-item.active { color: var(--primary); }
+    .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
+    .add-btn {
+      width: 54px; height: 54px; flex: 0 0 54px; border: 4px solid #fff; border-radius: 50%;
+      background: var(--primary); color: #fff; font-size: 30px; margin-top: -24px;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4); display: grid; place-items: center; cursor: pointer;
+    }
+
+    @media(max-width:350px){ .panel h3 { font-size: 15px; } .money-hero h2 { font-size: 20px; } }
+  </style>
+</head>
+
+<body>
+
+  <!-- AUTH FORM CONTAINER (SIGN IN / SIGN UP / FORGOT PASSWORD) -->
+  <div class="app-card" id="authContainer">
+    <div class="brand-logo-container">R</div>
+    <h1 class="brand-title">RIFAT FF PANEL SELLER</h1>
+
+    <div class="auth-tabs" id="tabsBar">
+      <button class="tab-btn active" id="btnTabSignin" onclick="showAuthMode('signin')">সাইন ইন</button>
+      <button class="tab-btn" id="btnTabSignup" onclick="showAuthMode('signup')">সাইন আপ</button>
+    </div>
+
+    <!-- Sign In Form -->
+    <form id="signinForm" onsubmit="login(event)">
+      <div class="form-group">
+        <label for="email">ইমেল বা জিমেইল</label>
+        <input id="email" type="email" required placeholder="আপনার ইমেল দিন">
+      </div>
+      <div class="form-group">
+        <label for="password">পাসওয়ার্ড</label>
+        <input id="password" type="password" required placeholder="পাসওয়ার্ড দিন">
+      </div>
+      <div class="forgot-pass">
+        <a href="#" onclick="showAuthMode('forgot')">পাসওয়ার্ড ভুলে গেছেন?</a>
+      </div>
+      <button class="submit-btn" type="submit">সাইন ইন</button>
+    </form>
+
+    <!-- Sign Up Form -->
+    <form id="signupForm" class="hidden" onsubmit="signup(event)">
+      <div class="form-group">
+        <label for="newEmail">ইমেল বা জিমেইল</label>
+        <input id="newEmail" type="email" required placeholder="আপনার ইমেল দিন">
+      </div>
+      <div class="form-group">
+        <label for="newPassword">পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)</label>
+        <input id="newPassword" type="password" minlength="6" required placeholder="পাসওয়ার্ড দিন">
+      </div>
+      <button class="submit-btn" type="submit">সাইন আপ</button>
+    </form>
+
+    <!-- Forgot Password Form -->
+    <form id="forgotForm" class="hidden" onsubmit="forgotPassword(event)">
+      <div class="form-group">
+        <label for="forgotEmail">আপনার অ্যাকাউন্ট জিমেইল দিন</label>
+        <input id="forgotEmail" type="email" required placeholder="জিমেইল লিখুন">
+      </div>
+      <button class="submit-btn" type="submit">রিসেট লিংক পাঠান</button>
+      <div style="text-align:center; margin-top:12px;">
+        <a href="#" onclick="showAuthMode('signin')" style="font-size:13px; color:var(--primary); font-weight:600; text-decoration:none;">‹ সাইইন পেজে ফিরে যান</a>
+      </div>
+    </form>
+
+    <p id="authMessage" style="font-size:12px; color:#ef4444; margin-top:12px; text-align:center;"></p>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="main-container hidden" id="mainAppContainer">
+
+    <!-- TOP HEADER -->
+    <header class="top-user-area" id="topHeaderUserArea">
+      <a href="#" class="brand-logo-text" onclick="switchTab('home')">
+        <div class="brand-icon-box">R</div>
+        <div>
+          <span class="brand-text-main">RIFAT FF</span>
+          <small class="brand-text-sub">PANEL SELLER</small>
+        </div>
+      </a>
+
+      <div class="wallet-avatar-group">
+        <button class="wallet-pill" onclick="switchTab('addmoney')">
+          <span>💳</span> <span id="userBalanceDisplay">0৳</span>
+        </button>
+        <div class="user-avatar-circle" id="userAvatarLetter" onclick="toggleDropdownMenu(event)">F</div>
+      </div>
+
+      <!-- DROPDOWN MENU -->
+      <div class="profile-dropdown-menu" id="profileDropdown">
+        <div class="dropdown-user-header">
+          <div class="dropdown-user-avatar" id="menuAvatarLetter">F</div>
+          <div class="dropdown-user-info">
+            <h5 id="menuUserName">Hi, User</h5>
+            <p id="menuUserEmail">email@gmail.com</p>
+          </div>
+        </div>
+        <div class="dropdown-menu-list">
+          <button class="dropdown-item" onclick="switchTab('home'); toggleDropdownMenu();">🏠 Home</button>
+          <button class="dropdown-item" onclick="switchTab('orders'); toggleDropdownMenu();">📦 My Orders</button>
+          <button class="dropdown-item" onclick="switchTab('codes'); toggleDropdownMenu();">🔑 My Codes</button>
+          <button class="dropdown-item" onclick="switchTab('transaction'); toggleDropdownMenu();">📊 My Transaction</button>
+          <button class="dropdown-item" onclick="switchTab('addmoney'); toggleDropdownMenu();">💳 Add Money</button>
+          <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">● My Account</button>
+        </div>
+        <div class="dropdown-support-box">
+          <a href="https://wa.me/8801845907321" target="_blank" class="dropdown-support-btn">🎧 Support</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- TAB 1: HOME SECTION -->
+    <section id="tabHome" class="section">
+      <div class="notice-bar-container" id="noticeBar">
+        <div class="notice-tag"><span class="notice-tag-dot"></span>NOTICE</div>
+        <div class="notice-marquee">১৮ বছরের নিচে কেউ অর্ডার করবেন না। বাবা-মা বা পরিবারের টাকা চুরি করে অর্ডার করবেন না।</div>
+        <div class="notice-close-btn" onclick="document.getElementById('noticeBar').style.display='none'">✕</div>
+      </div>
+
+      <div class="panels-grid">
+        <article class="panel">
+          <h3>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h3>
+          <div class="price">450 BDT</div>
+          <p>টুর্নামেন্ট প্লেয়ারদের জন্য অ্যান্টি-ব্যান প্যানেল ও বিস্তারিত ফিচার।</p>
+          <div class="video-wrapper">
+            <video controls autoplay loop playsinline>
+              <source src="VID_20261028_112023_896.mp4" type="video/mp4">
+            </video>
+          </div>
+          <button class="buy-btn" onclick="buyPanel('Tournament Panel', 450)">কিনুন</button>
+        </article>
+
+        <article class="panel" style="margin-top: 6px;">
+          <h3>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h3>
+          <div class="price">550 BDT</div>
+          <p>ভিআরসিএস (VRCS) প্রযুক্তি সহ ফুল বডি লোকেশন ট্র্যাকিং প্যানেল।</p>
+          <div class="video-wrapper">
+            <video controls autoplay loop playsinline>
+              <source src="lv_0_20261029123331.mp4" type="video/mp4">
+            </video>
+          </div>
+          <button class="buy-btn" onclick="buyPanel('Full Body Location Panel', 550)">কিনুন</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 2: ADD MONEY / PAYMENT SECTION -->
+    <section id="tabAddMoney" class="section hidden">
+      <div id="amountStep">
+        <div class="money-hero">
+          <span class="pill">⚡ INSTANT &amp; SECURE</span>
+          <h2>Add Money to <span>Rifat FF Panel</span></h2>
+          <p>Fast, secure wallet recharge for your panel balance.</p>
+        </div>
+        <div class="amount-card">
+          <h3>Enter Amount</h3>
+          <p class="sub">Type the amount you want to add.</p>
+          <label class="amount-label" for="rechargeAmount">AMOUNT (BDT)</label>
+          <div class="amount-wrap">
+            <span>৳</span>
+            <input class="amount-input" id="rechargeAmount" type="number" min="1" step="1" inputmode="numeric" placeholder="Enter amount">
+          </div>
+          <p class="hint">পেমেন্ট যাচাই না হওয়া পর্যন্ত ব্যালেন্সে টাকা যোগ হবে না।</p>
+          <button class="submit-btn" onclick="continueToPayment()">▣ Add Money Securely →</button>
+        </div>
+      </div>
+
+      <!-- Payment Method Step -->
+      <div id="methodStep" class="hidden pay-page">
+        <div class="pay-top">
+          <span>Payment Method</span>
+          <button class="text-btn" onclick="backToAmount()">×</button>
+        </div>
+        <div class="wallet-brand">
+          <div class="wallet-symbol">▣</div>
+          <h2>Wallet</h2>
+        </div>
+        <div class="bank-title">মোবাইল ব্যাংকিং</div>
+        <div class="methods">
+          <button class="method" onclick="selectPaymentMethod('bkash')">
+            <span class="bkash">bKash</span>
+            <span>বিকাশ পার্সোনাল</span>
+          </button>
+          <button class="method" onclick="selectPaymentMethod('nagad')">
+            <span class="nagad">নগদ</span>
+            <span>Nagad Personal</span>
+          </button>
+        </div>
+        <div id="selectedPayAmount" class="pay-total">পে করুন ৳ 0.00</div>
+      </div>
+
+      <!-- Payment Details & Instruction Step -->
+      <div id="instructionStep" class="hidden pay-page">
+        <div class="pay-top">
+          <button class="text-btn" onclick="backToMethods()">‹</button>
+          <span>Payment Details</span>
+          <button class="text-btn" onclick="backToMethods()">×</button>
+        </div>
+        <div class="gateway-brand">
+          <div id="gatewayLogo" class="gateway-logo">bK</div>
+          <span id="gatewayName">bKash Personal</span>
+        </div>
+        <div id="gatewayAmount" class="gateway-amount">৳ 0</div>
+        <div class="instructions">
+          <h3>ট্রানজেকশন আইডি দিন</h3>
+          <label for="transactionId">Transaction ID</label>
+          <input id="transactionId" class="tx-input" type="text" maxlength="100" autocomplete="off" placeholder="ট্রানজেকশন আইডি লিখুন">
+          <ul class="instruction-list">
+            <li>আপনার <b id="instructionProvider">bKash</b> অ্যাপ খুলুন।</li>
+            <li>Send Money নির্বাচন করুন।</li>
+            <li>এই নম্বরে টাকা পাঠান: <b id="recipientNumber">01845907321</b><br><button class="copy-btn" type="button" onclick="copyRecipientNumber()">নম্বর কপি করুন</button></li>
+            <li>টাকার পরিমাণ: <b id="instructionAmount">৳ 0</b></li>
+            <li>পেমেন্ট সফল হলে রসিদ থেকে Transaction ID লিখুন।</li>
+          </ul>
+          <button class="submit-tx" onclick="submitTransaction()">ট্রানজেকশন আইডি জমা দিন</button>
+          <div id="transactionStatus" class="status hidden" role="status"></div>
+          <p style="font-size:11px; color:#fff4c5; margin-top:10px;">PIN বা OTP কখনো লিখবেন না। পেমেন্ট যাচাই সাপেক্ষে ব্যালেন্স যোগ হবে।</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: MY ORDERS SECTION -->
+    <section id="tabOrders" class="section hidden">
+      <h2 class="page-title">MY ORDERS</h2>
+      <div id="orderContentArea" class="account-box">কোনো প্যানেল নির্বাচন করা হয়নি।</div>
+    </section>
+
+    <!-- TAB 4: MY CODES SECTION -->
+    <section id="tabCodes" class="section hidden">
+      <h2 class="page-title">MY CODES</h2>
+      <div class="account-box">আপনার প্যানেল কি (Key) এখানে দেখা যাবে। বর্তমানে কোড সংরক্ষণের ব্যবস্থা যুক্ত নেই।</div>
+    </section>
+
+    <!-- TAB 5: MY TRANSACTION SECTION -->
+    <section id="tabTransaction" class="section hidden">
+      <h2 class="page-title">MY TRANSACTION</h2>
+      <div class="account-box">Transaction ID জমা দিলে যাচাইয়ের জন্য এখানে রেকর্ড দেখানো হবে।</div>
+    </section>
+
+    <!-- TAB 6: MY ACCOUNT SECTION -->
+    <section id="tabAccount" class="section hidden">
+      <h2 class="page-title">MY ACCOUNT</h2>
+      <div class="account-box">
+        <p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p>
+        <p style="margin-top: 8px;">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p>
+        <button onclick="executeLogout()" style="margin-top: 20px; background: #ef4444; color: #fff; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; width: 100%;">Log Out</button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FLOATING SUPPORT -->
+  <div class="floating-support-container" id="floatingSupportContainer">
+    <div class="floating-options-list">
+      <a href="https://wa.me/8801845907321" target="_blank" class="floating-social-icon" title="WhatsApp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+      </a>
+      <a href="https://t.me/rifatffpanelseller6" target="_blank" class="floating-social-icon" title="Telegram">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+      </a>
+    </div>
+    <div class="floating-main-btn" onclick="toggleFloatingSupport()">🎧</div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-item active" id="navHome" onclick="switchTab('home')">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </button>
+    <button class="nav-item" id="navOrders" onclick="switchTab('orders')">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      Orders
+    </button>
+    <div class="add-btn" onclick="switchTab('addmoney')" aria-label="Add Money">+</div>
+    <button class="nav-item" id="navCodes" onclick="switchTab('codes')">
+      <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+      Codes
+    </button>
+    <button class="nav-item" id="navAccount" onclick="switchTab('account')">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      Account
+    </button>
+  </nav>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const PAYMENT_NUMBER = "01845907321";
+    let currentRechargeAmount = 0;
+    let currentPaymentMethod = "bkash";
+    let selectedPanel = null;
+
+    function el(id) { return document.getElementById(id); }
+
+    function showAuthMode(mode) {
+      el('signinForm').classList.toggle('hidden', mode !== 'signin');
+      el('signupForm').classList.toggle('hidden', mode !== 'signup');
+      el('forgotForm').classList.toggle('hidden', mode !== 'forgot');
+      
+      el('tabsBar').style.display = mode === 'forgot' ? 'none' : 'flex';
+      el('btnTabSignin').classList.toggle('active', mode === 'signin');
+      el('btnTabSignup').classList.toggle('active', mode === 'signup');
+      el('authMessage').textContent = '';
+    }
+
+    function switchTab(name) {
+      ['home', 'addmoney', 'orders', 'codes', 'transaction', 'account'].forEach(t => {
+        el('tab' + t[0].toUpperCase() + t.slice(1))?.classList.toggle('hidden', t !== name);
+        el('nav' + t[0].toUpperCase() + t.slice(1))?.classList.toggle('active', t === name);
+      });
+      if (name === 'addmoney') showAmountStep();
+      el('profileDropdown')?.classList.remove('active');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    function toggleDropdownMenu(e) {
+      if(e) e.stopPropagation();
+      el('profileDropdown')?.classList.toggle('active');
+    }
+
+    function toggleFloatingSupport() {
+      el('floatingSupportContainer')?.classList.toggle('active');
+    }
+
+    window.addEventListener('click', () => {
+      el('profileDropdown')?.classList.remove('active');
     });
-  } catch (error) {
-    console.warn("Firebase unavailable.", error);
-  }
-})();
-</script>
+
+    function buyPanel(name, price) {
+      selectedPanel = { name, price };
+      currentRechargeAmount = price;
+      el('rechargeAmount').value = price;
+      
+      // Update order view
+      const orderArea = el('orderContentArea');
+      if(orderArea) {
+        orderArea.innerHTML = `
+          <h4 style="color: var(--primary); font-family: 'Orbitron', sans-serif;">📦 প্যানেল: ${name}</h4>
+          <p style="margin: 8px 0;">দাম: <strong>${price} BDT</strong></p>
+          <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(name)}%20for%20${price}%20BDT" target="_blank" style="display: inline-block; background: #25d366; color: #fff; padding: 10px 15px; border-radius: 8px; font-weight: 700; text-decoration: none;">
+            💬 WhatsApp এ অর্ডার কনফার্ম করুন
+          </a>
+        `;
+      }
+
+      switchTab('addmoney');
+      el('amountStep').classList.add('hidden');
+      el('instructionStep').classList.add('hidden');
+      el('methodStep').classList.remove('hidden');
+      el('selectedPayAmount').textContent = "পে করুন ৳ " + price.toFixed(2);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    function showAmountStep() {
+      ['amountStep', 'methodStep', 'instructionStep'].forEach(id => el(id)?.classList.add('hidden'));
+      el('amountStep')?.classList.remove('hidden');
+    }
+
+    function continueToPayment() {
+      const amount = Number(el('rechargeAmount').value);
+      if (!Number.isInteger(amount) || amount < 1) {
+        alert('অনুগ্রহ করে ১ টাকা বা তার বেশি পূর্ণ সংখ্যার পরিমাণ লিখুন।');
+        el('rechargeAmount').focus();
+        return;
+      }
+      selectedPanel = null;
+      currentRechargeAmount = amount;
+      el('selectedPayAmount').textContent = 'পে করুন ৳ ' + amount.toFixed(2);
+      el('amountStep').classList.add('hidden');
+      el('instructionStep').classList.add('hidden');
+      el('methodStep').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    function backToAmount() { selectedPanel = null; showAmountStep(); }
+    function backToMethods() { el('instructionStep').classList.add('hidden'); el('methodStep').classList.remove('hidden'); }
+
+    function selectPaymentMethod(method) {
+      currentPaymentMethod = method;
+      const isBkash = method === 'bkash';
+      el('gatewayLogo').textContent = isBkash ? 'bK' : 'ন';
+      el('gatewayName').textContent = isBkash ? 'bKash Personal' : 'Nagad Personal';
+      el('instructionProvider').textContent = isBkash ? 'bKash' : 'Nagad';
+      el('recipientNumber').textContent = PAYMENT_NUMBER;
+      el('gatewayAmount').textContent = '৳ ' + currentRechargeAmount.toLocaleString('en-BD');
+      el('instructionAmount').textContent = '৳ ' + currentRechargeAmount.toLocaleString('en-BD');
+      el('transactionId').value = '';
+      el('transactionStatus').classList.add('hidden');
+      el('methodStep').classList.add('hidden');
+      el('instructionStep').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    async function copyRecipientNumber() {
+      try {
+        await navigator.clipboard.writeText(PAYMENT_NUMBER);
+      } catch (e) {
+        const t = document.createElement('textarea');
+        t.value = PAYMENT_NUMBER;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        t.remove();
+      }
+      alert('পেমেন্ট নম্বর কপি হয়েছে: ' + PAYMENT_NUMBER);
+    }
+
+    function submitTransaction() {
+      const tx = el('transactionId').value.trim();
+      if (tx.length < 5) {
+        alert('সঠিক Transaction ID লিখুন।');
+        el('transactionId').focus();
+        return;
+      }
+      const status = el('transactionStatus');
+      status.classList.remove('hidden');
+      const paymentType = currentPaymentMethod === 'bkash' ? 'bKash Personal' : 'Nagad Personal';
+      const orderInfo = selectedPanel ? "প্যানেল: " + selectedPanel.name + " | " : "Add Money | ";
+      status.textContent = orderInfo + "মাধ্যম: " + paymentType + " | পরিমাণ: ৳" + currentRechargeAmount + " | TrxID: " + tx + " — সফলভাবে জমা হয়েছে! অ্যাডমিন যাচাই করে ব্যালেন্স বা প্যানেল একটিভ করবেন।";
+    }
+
+    // Firebase Authentication Functions
+    async function login(e) {
+      e.preventDefault();
+      const email = el('email').value.trim();
+      const pass = el('password').value;
+      try {
+        await window.signInWithEmailAndPassword(window.firebaseAuth, email, pass);
+      } catch (err) {
+        el('authMessage').textContent = 'লগইন ব্যর্থ: ' + err.message;
+      }
+    }
+
+    async function signup(e) {
+      e.preventDefault();
+      const email = el('newEmail').value.trim();
+      const pass = el('newPassword').value;
+      try {
+        await window.createUserWithEmailAndPassword(window.firebaseAuth, email, pass);
+        alert('সাইন আপ সফল হয়েছে!');
+      } catch (err) {
+        el('authMessage').textContent = 'সাইন আপ ব্যর্থ: ' + err.message;
+      }
+    }
+
+    async function forgotPassword(e) {
+      e.preventDefault();
+      const email = el('forgotEmail').value.trim();
+      try {
+        await window.sendPasswordResetEmail(window.firebaseAuth, email);
+        alert('পাসওয়ার্ড রিসেট লিংক আপনার জিমেইলে পাঠানো হয়েছে। ইনবক্স বা স্প্যাম ফোল্ডার চেক করুন।');
+        showAuthMode('signin');
+      } catch (err) {
+        el('authMessage').textContent = 'রিসেট ব্যর্থ: ' + err.message;
+      }
+    }
+
+    async function executeLogout() {
+      try {
+        if(window.signOutUser && window.firebaseAuth) {
+          await window.signOutUser(window.firebaseAuth);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  </script>
 </body>
 </html>
