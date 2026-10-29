@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rifat FF Panel Seller - Portal</title>
+  <title>Rifat FF Panel Seller - Official Portal</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&family=Hind+Siliguri:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@600;700;800&family=Hind+Siliguri:wght@500;600;700&display=swap" rel="stylesheet">
   
   <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -21,7 +21,6 @@
       setPersistence,
       browserLocalPersistence,
       onAuthStateChanged,
-      fetchSignInMethodsForEmail, 
       signInWithEmailAndPassword, 
       createUserWithEmailAndPassword,
       sendPasswordResetEmail,
@@ -45,7 +44,6 @@
     });
 
     window.firebaseAuth = auth;
-    window.fetchSignInMethodsForEmail = fetchSignInMethodsForEmail;
     window.signInWithEmailAndPassword = signInWithEmailAndPassword;
     window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
     window.sendPasswordResetEmail = sendPasswordResetEmail;
@@ -59,11 +57,11 @@
       const floatingSupport = document.getElementById('floatingSupportContainer');
 
       if (user) {
-        if (authContainer) authContainer.className = 'view-hidden';
-        if (mainAppContainer) mainAppContainer.className = 'view-block';
-        if (bottomNav) bottomNav.className = 'bottom-nav view-block';
-        if (topHeaderUserArea) topHeaderUserArea.style.display = 'flex'; // Force display flex
-        if (floatingSupport) floatingSupport.className = 'floating-support-container view-block';
+        if (authContainer) authContainer.style.display = 'none';
+        if (mainAppContainer) mainAppContainer.style.display = 'block';
+        if (bottomNav) bottomNav.style.display = 'flex';
+        if (topHeaderUserArea) topHeaderUserArea.style.display = 'flex';
+        if (floatingSupport) floatingSupport.style.display = 'block';
         
         const email = user.email || 'user@gmail.com';
         const firstLetter = email.charAt(0).toUpperCase();
@@ -76,7 +74,7 @@
         if(menuAvatarEl) menuAvatarEl.innerText = firstLetter;
 
         const menuNameEl = document.getElementById('menuUserName');
-        if(menuNameEl) menuNameEl.innerText = username;
+        if(menuNameEl) menuNameEl.innerText = "Hi, " + username;
 
         const menuEmailEl = document.getElementById('menuUserEmail');
         if(menuEmailEl) menuEmailEl.innerText = email;
@@ -93,11 +91,11 @@
           }
         }
       } else {
-        if (authContainer) authContainer.className = 'view-block app-card';
-        if (mainAppContainer) mainAppContainer.className = 'view-hidden';
-        if (bottomNav) bottomNav.className = 'bottom-nav view-hidden';
+        if (authContainer) authContainer.style.display = 'block';
+        if (mainAppContainer) mainAppContainer.style.display = 'none';
+        if (bottomNav) bottomNav.style.display = 'none';
         if (topHeaderUserArea) topHeaderUserArea.style.display = 'none';
-        if (floatingSupport) floatingSupport.className = 'floating-support-container view-hidden';
+        if (floatingSupport) floatingSupport.style.display = 'none';
       }
     });
   </script>
@@ -111,19 +109,19 @@
 
     body {
       background: #f8fafc;
-      background-image: radial-gradient(circle at top, #e2e8f0 0%, #f8fafc 75%);
       color: #1e293b;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       padding: 0 0 90px 0;
-      font-family: 'Rajdhani', 'Hind Siliguri', sans-serif;
+      font-family: 'Poppins', 'Hind Siliguri', sans-serif;
     }
 
+    /* AUTH CARD */
     .app-card {
       background: #ffffff;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #e2e8f0;
       border-radius: 24px;
       padding: 30px 24px;
       width: 90%;
@@ -132,19 +130,13 @@
       margin: 40px auto;
     }
 
-    .header-area {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
     .brand-logo-container {
-      width: 80px;
-      height: 80px;
+      width: 75px;
+      height: 75px;
       margin: 0 auto 10px;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
-      border: 2px solid #eab308;
+      border: 2px solid #7c3aed;
       background: #fff;
     }
 
@@ -158,16 +150,14 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 18px;
       font-weight: 900;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #0f172a;
-      margin-bottom: 4px;
+      color: #6d28d9;
+      text-align: center;
+      margin-bottom: 15px;
     }
 
     .auth-tabs {
       display: flex;
       background: #f1f5f9;
-      border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 4px;
       margin-bottom: 20px;
@@ -179,110 +169,44 @@
       border: none;
       background: transparent;
       color: #64748b;
-      font-family: 'Hind Siliguri', sans-serif;
-      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       border-radius: 8px;
-      transition: all 0.3s ease;
     }
 
     .tab-btn.active {
-      background: #eab308;
-      color: #000000;
-      box-shadow: 0 2px 8px rgba(234, 179, 8, 0.3);
+      background: #7c3aed;
+      color: #ffffff;
     }
 
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      font-family: 'Hind Siliguri', sans-serif;
-      font-size: 13px;
-      color: #475569;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-
-    .input-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-size: 13px; color: #475569; margin-bottom: 5px; font-weight: 600; }
 
     input {
       width: 100%;
-      padding: 12px 40px 12px 14px;
+      padding: 12px 14px;
       background: #ffffff;
       color: #0f172a;
       border: 1.5px solid #cbd5e1;
       border-radius: 12px;
       font-size: 14px;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 600;
       outline: none;
-    }
-
-    input:focus {
-      border-color: #eab308;
-      box-shadow: 0 0 10px rgba(234, 179, 8, 0.2);
-    }
-
-    .toggle-password {
-      position: absolute;
-      right: 14px;
-      cursor: pointer;
-      opacity: 0.6;
-    }
-
-    .forgot-pass {
-      text-align: right;
-      margin-bottom: 18px;
-    }
-
-    .link {
-      font-family: 'Hind Siliguri', sans-serif;
-      color: #ca8a04;
-      font-size: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
     }
 
     .submit-btn {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
       border: none;
       border-radius: 12px;
-      color: #000000;
-      font-family: 'Hind Siliguri', sans-serif;
+      color: #ffffff;
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
-      margin-top: 5px;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
     }
 
-    .otp-btn {
-      background: #f1f5f9;
-      color: #ca8a04;
-      border: 1px solid #eab308;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 8px;
-      width: 100%;
-    }
-
-    .view-block { display: block; }
-    .view-hidden { display: none !important; }
-
-    /* MAIN APP CONTAINER */
+    /* MAIN CONTAINER */
     .main-container {
       width: 100%;
       max-width: 480px;
@@ -290,29 +214,76 @@
       padding-bottom: 80px;
     }
 
-    /* TOP HEADER USER AREA (Explicitly styled to show on right) */
+    /* STYLISH TOP HEADER */
     .top-user-area {
       display: none;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 10px 16px;
-      margin: 12px 12px 10px 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      position: relative;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    /* BRAND LOGO DESIGN LIKE "OFFER TOPUP" */
+    .brand-logo-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .brand-icon-box {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .brand-text-wrapper {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-text-main {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-text-sub {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      color: #7c3aed;
+      background: rgba(124, 58, 237, 0.1);
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin-top: 2px;
+      display: inline-block;
+      text-transform: uppercase;
     }
 
     .wallet-avatar-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .wallet-pill {
-      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-      border: 1px solid #a78bfa;
+      background: #7c3aed;
       border-radius: 20px;
       padding: 6px 14px;
       font-family: 'Orbitron', sans-serif;
@@ -322,16 +293,14 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
       cursor: pointer;
     }
 
     .user-avatar-circle {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
-      border: 2px solid #eab308;
+      background: #a855f7;
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
       font-size: 16px;
@@ -339,47 +308,42 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
       cursor: pointer;
     }
 
-    /* GMAIL DROPDOWN MENU */
+    /* DROPDOWN MENU MATCHING REFERENCE IMAGE */
     .profile-dropdown-menu {
       position: absolute;
-      top: 65px;
-      right: 12px;
-      width: 280px;
+      top: 60px;
+      right: 10px;
+      width: 270px;
       background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 18px;
+      border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       display: none;
       z-index: 99999;
       overflow: hidden;
-      font-family: 'Hind Siliguri', sans-serif;
+      border: 1px solid #f1f5f9;
     }
 
-    .profile-dropdown-menu.active {
-      display: block;
-    }
+    .profile-dropdown-menu.active { display: block; }
 
     .dropdown-user-header {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 16px;
-      background: #f8fafc;
-      border-bottom: 1px solid #e2e8f0;
+      background: #a855f7;
+      color: #ffffff;
     }
 
     .dropdown-user-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
-      border: 2px solid #eab308;
+      width: 42px;
+      height: 42px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.2);
       color: #fff;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 900;
       display: flex;
       align-items: center;
@@ -388,21 +352,20 @@
 
     .dropdown-user-info h5 {
       font-size: 14px;
-      color: #0f172a;
       font-weight: 700;
-      font-family: 'Orbitron', sans-serif;
+      color: #ffffff;
     }
 
     .dropdown-user-info p {
       font-size: 11px;
-      color: #64748b;
+      color: rgba(255,255,255,0.8);
       word-break: break-all;
     }
 
     .dropdown-menu-list {
       display: flex;
       flex-direction: column;
-      padding: 8px 0;
+      padding: 6px 0;
     }
 
     .dropdown-item {
@@ -411,10 +374,8 @@
       gap: 12px;
       padding: 10px 18px;
       color: #334155;
-      text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      transition: 0.2s;
       background: transparent;
       border: none;
       width: 100%;
@@ -422,115 +383,78 @@
       cursor: pointer;
     }
 
-    .dropdown-item:hover {
-      background: #f1f5f9;
-      color: #7c3aed;
-    }
+    .dropdown-item:hover { background: #f8fafc; color: #7c3aed; }
 
     .dropdown-support-box {
       padding: 12px 16px;
-      border-top: 1px solid #e2e8f0;
-      text-align: center;
+      border-top: 1px solid #f1f5f9;
     }
 
     .dropdown-support-btn {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       width: 100%;
-      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      background: #7c3aed;
       color: #fff;
       padding: 10px;
       border-radius: 10px;
-      font-weight: 800;
+      font-weight: 700;
       text-decoration: none;
-    }
-
-    /* FLOATING HEADPHONE SUPPORT BUTTON WITH UNIQUE LOGOS */
-    .floating-support-container {
-      position: fixed;
-      bottom: 85px;
-      right: 18px;
-      z-index: 9999;
-    }
-
-    .floating-main-btn {
-      width: 52px;
-      height: 52px;
-      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-      border: 2px solid #eab308;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
-      transition: 0.3s;
-    }
-
-    .floating-options-list {
-      position: absolute;
-      bottom: 65px;
-      right: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px);
-      transition: all 0.3s ease;
-    }
-
-    .floating-support-container.active .floating-options-list {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .floating-support-container.active .floating-main-btn {
-      background: #ef4444;
-      border-color: #fff;
-      transform: rotate(90deg);
-    }
-
-    .floating-social-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-    }
-
-    .floating-social-icon:hover {
-      transform: scale(1.1);
-    }
-
-    .whatsapp-badge { background: #25d366; }
-    .telegram-badge { background: #229ed9; }
-
-    .floating-social-icon img {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
-    }
-
-    .notice-bar {
-      background: #fef3c7;
-      border: 1px solid #f59e0b;
-      border-radius: 14px;
-      padding: 12px 16px;
-      margin: 0 12px 15px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
       font-size: 13px;
-      font-family: 'Hind Siliguri', sans-serif;
-      color: #b45309;
     }
 
+    /* MATCHING NOTICE BAR DESIGN */
+    .notice-bar-container {
+      margin: 12px;
+      background: #ffffff;
+      border: 1.5px solid #7c3aed;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.1);
+    }
+
+    .notice-tag {
+      background: #7c3aed;
+      color: #ffffff;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .notice-tag-dot {
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+
+    .notice-marquee {
+      flex: 1;
+      padding: 0 10px;
+      font-size: 12px;
+      color: #334155;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .notice-close-btn {
+      padding: 8px 12px;
+      color: #7c3aed;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    /* PANELS GRID */
     .panels-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -540,22 +464,21 @@
 
     .panel-card {
       background: #ffffff;
-      border: 1.5px solid #cbd5e1;
+      border: 1px solid #e2e8f0;
       border-radius: 16px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
 
     .video-box-full {
       grid-column: 1 / -1;
       background: #ffffff;
-      border: 2px solid #eab308;
+      border: 1.5px solid #7c3aed;
       border-radius: 18px;
       padding: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
     .video-wrapper {
@@ -570,120 +493,98 @@
 
     .video-wrapper video {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
     }
 
-    .image-placeholder-box {
-      width: 100%;
-      height: 100px;
-      background: #f1f5f9;
-      border: 1.5px dashed #cbd5e1;
-      border-radius: 10px;
-      margin: 8px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #64748b;
-      font-size: 12px;
-    }
-
-    .panel-info h4 {
-      font-size: 14px;
-      color: #0f172a;
-      font-weight: 700;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .panel-info .price {
-      font-size: 14px;
-      color: #ca8a04;
-      font-weight: 800;
-      margin: 4px 0;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .panel-info p {
-      font-size: 11px;
-      color: #64748b;
-      margin-bottom: 10px;
-      font-family: 'Hind Siliguri', sans-serif;
-    }
+    .panel-info h4 { font-size: 14px; color: #0f172a; font-weight: 700; }
+    .panel-info .price { font-size: 14px; color: #7c3aed; font-weight: 800; margin: 4px 0; }
+    .panel-info p { font-size: 11px; color: #64748b; margin-bottom: 10px; }
 
     .buy-btn {
       width: 100%;
-      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
-      color: #000000;
+      background: #7c3aed;
+      color: #ffffff;
       border: none;
       padding: 9px;
       border-radius: 10px;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 700;
       cursor: pointer;
-      font-family: 'Hind Siliguri', sans-serif;
     }
 
-    .full-page-section { width: 100%; }
-
-    .page-title-box {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 20px;
-      color: #0f172a;
-      margin: 0 12px 15px 12px;
-      border-bottom: 1px solid #cbd5e1;
-      padding-bottom: 8px;
+    /* FLOATING SUPPORT WITH OFFICIAL LOGOS */
+    .floating-support-container {
+      position: fixed;
+      bottom: 85px;
+      right: 18px;
+      z-index: 9999;
     }
 
-    .account-card-box {
-      background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 16px;
-      padding: 20px;
-      margin: 0 12px 15px 12px;
-      font-family: 'Hind Siliguri', sans-serif;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    }
-
-    .account-info-row {
+    .floating-main-btn {
+      width: 50px;
+      height: 50px;
+      background: #7c3aed;
+      border-radius: 50%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #f1f5f9;
-      font-size: 14px;
-      color: #334155;
-    }
-
-    .logout-big-btn {
-      width: calc(100% - 24px);
-      margin: 0 12px;
-      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-      color: #ffffff;
-      border: none;
-      padding: 12px;
-      border-radius: 12px;
-      font-weight: 800;
+      justify-content: center;
+      color: #fff;
+      font-size: 22px;
       cursor: pointer;
-      font-family: 'Hind Siliguri', sans-serif;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+      transition: 0.3s;
     }
 
+    .floating-options-list {
+      position: absolute;
+      bottom: 60px;
+      right: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+    }
+
+    .floating-support-container.active .floating-options-list {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .floating-social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      background: #ffffff;
+      text-decoration: none;
+    }
+
+    .floating-social-icon img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    /* BOTTOM NAV */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
       background: #ffffff;
-      backdrop-filter: blur(16px);
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid #f1f5f9;
       display: flex;
       justify-content: space-around;
       align-items: center;
       padding: 8px 0 12px 0;
       z-index: 1000;
-      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
     }
 
     .nav-item {
@@ -693,27 +594,19 @@
       background: transparent;
       border: none;
       color: #64748b;
-      cursor: pointer;
-      font-family: 'Hind Siliguri', sans-serif;
       font-size: 10px;
       font-weight: 600;
-      transition: 0.2s;
+      cursor: pointer;
     }
 
-    .nav-item.active { color: #ca8a04; }
-
-    .nav-item svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-      margin-bottom: 2px;
-    }
+    .nav-item.active { color: #7c3aed; }
+    .nav-item svg { width: 20px; height: 20px; fill: currentColor; margin-bottom: 2px; }
 
     .nav-add-btn {
       width: 46px;
       height: 46px;
-      background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
-      border: 2px solid #eab308;
+      background: #7c3aed;
+      border: 3px solid #ffffff;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -722,21 +615,22 @@
       font-size: 24px;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
       margin-top: -18px;
     }
+
+    .view-block { display: block; }
+    .view-hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-  <!-- AUTHENTICATION SECTION -->
+  <!-- AUTH FORM CONTAINER -->
   <div class="app-card" id="authContainer">
-    <div class="header-area">
-      <div class="brand-logo-container">
-        <img src="file_000000007dac82118992c526a33fae9b.png" alt="Logo">
-      </div>
-      <h1 class="brand-title">Rifat Panel Seller</h1>
+    <div class="brand-logo-container">
+      <img src="file_000000007dac82118992c526a33fae9b.png" alt="Logo">
     </div>
+    <h1 class="brand-title">Rifat Panel Seller</h1>
 
     <div class="auth-tabs" id="tabsBar">
       <button class="tab-btn active" id="btnTabSignin" onclick="showForm('signin')">সাইন ইন</button>
@@ -747,19 +641,11 @@
       <form onsubmit="onLoginSubmit(event)">
         <div class="form-group">
           <label>ইমেল বা জিমেইল</label>
-          <div class="input-wrapper">
-            <input type="email" id="signin-email-input" placeholder="আপনার ইমেল টাইপ করুন" required />
-          </div>
+          <input type="email" id="signin-email-input" placeholder="আপনার জিমেইল লিখুন" required />
         </div>
         <div class="form-group">
           <label>পাসওয়ার্ড</label>
-          <div class="input-wrapper">
-            <input type="password" id="signin-pass-input" placeholder="পাসওয়ার্ড দিন" required />
-            <span class="toggle-password" onclick="togglePassField('signin-pass-input')">👁️</span>
-          </div>
-        </div>
-        <div class="forgot-pass">
-          <a href="#" class="link" onclick="showForm('forgot')">পাসওয়ার্ড ভুলে গেছেন?</a>
+          <input type="password" id="signin-pass-input" placeholder="পাসওয়ার্ড দিন" required />
         </div>
         <button type="submit" class="submit-btn">সাইন ইন</button>
       </form>
@@ -768,37 +654,14 @@
     <div id="signupBox" class="view-hidden">
       <form onsubmit="onRegisterSubmit(event)">
         <div class="form-group">
-          <label>সম্পূর্ণ নাম</label>
-          <div class="input-wrapper"><input type="text" placeholder="আপনার পূর্ণ নাম" required /></div>
-        </div>
-        <div class="form-group">
           <label>ইমেল বা জিমেইল</label>
-          <div class="input-wrapper"><input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" required /></div>
+          <input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" required />
         </div>
         <div class="form-group">
           <label>পাসওয়ার্ড</label>
-          <div class="input-wrapper"><input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" required /></div>
+          <input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" required />
         </div>
         <button type="submit" class="submit-btn">সাইন আপ</button>
-      </form>
-    </div>
-
-    <div id="forgotBox" class="view-hidden">
-      <form onsubmit="onResetPasswordSubmit(event)">
-        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px; text-align: center;">আপনার জিমেইল দিয়ে ওটিপি পাঠান</p>
-        <div class="form-group">
-          <label>জিমেইল অ্যাড্রেস</label>
-          <div class="input-wrapper"><input type="email" id="reset-email-input" placeholder="আপনার জিমেইল লিখুন" required /></div>
-          <button type="button" class="otp-btn" onclick="sendOTPCode()">ওটিপি কোড পাঠান</button>
-        </div>
-        <div class="form-group">
-          <label>ওটিপি (OTP কোড)</label>
-          <div class="input-wrapper"><input type="text" id="otp-input" placeholder="৬ ডিজিটের ওটিপি লিখুন" required /></div>
-        </div>
-        <button type="submit" class="submit-btn">পাসওয়ার্ড রিসেট লিংক পাঠান</button>
-        <div style="text-align: center; margin-top: 10px;">
-          <a href="#" class="link" onclick="showForm('signin')">← লগইন পেজে ফিরে যান</a>
-        </div>
       </form>
     </div>
   </div>
@@ -806,23 +669,33 @@
   <!-- MAIN APP CONTAINER -->
   <div class="main-container view-hidden" id="mainAppContainer">
 
-    <!-- TOP HEADER USER AREA -->
+    <!-- TOP HEADER -->
     <div class="top-user-area" id="topHeaderUserArea">
+      <!-- BRAND LOGO TEXT DESIGN -->
+      <a href="#" class="brand-logo-text">
+        <div class="brand-icon-box">R</div>
+        <div class="brand-text-wrapper">
+          <span class="brand-text-main">RIFAT FF</span>
+          <span class="brand-text-sub">PANEL SELLER</span>
+        </div>
+      </a>
+
+      <!-- WALLET & AVATAR -->
       <div class="wallet-avatar-group">
         <div class="wallet-pill" onclick="switchTab('addmoney')">
           <span>💳</span> <span id="userBalanceDisplay">0৳</span>
         </div>
-        <div class="user-avatar-circle" id="userAvatarLetter" onclick="toggleDropdownMenu(event)" title="Account">
+        <div class="user-avatar-circle" id="userAvatarLetter" onclick="toggleDropdownMenu(event)">
           F
         </div>
       </div>
 
-      <!-- Gmail Dropdown Menu -->
+      <!-- DROPDOWN MENU -->
       <div class="profile-dropdown-menu" id="profileDropdown">
         <div class="dropdown-user-header">
           <div class="dropdown-user-avatar" id="menuAvatarLetter">F</div>
           <div class="dropdown-user-info">
-            <h5 id="menuUserName">User</h5>
+            <h5 id="menuUserName">Hi, User</h5>
             <p id="menuUserEmail">email@gmail.com</p>
           </div>
         </div>
@@ -830,19 +703,30 @@
           <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">🏠 My Account</button>
           <button class="dropdown-item" onclick="switchTab('orders'); toggleDropdownMenu();">📦 My Orders</button>
           <button class="dropdown-item" onclick="switchTab('codes'); toggleDropdownMenu();">🔑 My Codes</button>
+          <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">📊 My Transaction</button>
           <button class="dropdown-item" onclick="switchTab('addmoney'); toggleDropdownMenu();">💳 Add Money</button>
+          <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">ℹ️ Contact Us</button>
         </div>
         <div class="dropdown-support-box">
-          <a href="https://wa.me/8801845907321" target="_blank" class="dropdown-support-btn">🎧 Support</a>
+          <a href="https://wa.me/8801845907321" target="_blank" class="dropdown-support-btn">
+            🎧 Support
+          </a>
         </div>
       </div>
     </div>
 
     <!-- TAB 1: HOME SECTION -->
     <div id="tabHome" class="full-page-section view-block">
-      <div class="notice-bar">
-        <span>📢</span>
-        <span>NOTICE: ১৮ বছরের নিচে কেউ অর্ডার করবেন না!</span>
+      <!-- NOTICE BAR -->
+      <div class="notice-bar-container" id="noticeBar">
+        <div class="notice-tag">
+          <span class="notice-tag-dot"></span>
+          NOTICE
+        </div>
+        <div class="notice-marquee">
+          18 বছরের নিচে কেউ অর্ডার করবেন না! বাবা/মা বা ফ্যামিলির টাকা চুরি করে অর্ডার করবেন না।
+        </div>
+        <div class="notice-close-btn" onclick="document.getElementById('noticeBar').style.display='none'">✕</div>
       </div>
 
       <div class="panels-grid">
@@ -873,97 +757,56 @@
           </div>
           <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">কিনুন</button>
         </div>
-
-        <div class="panel-card">
-          <div class="panel-info">
-            <h4>Normal Panel</h4>
-            <div class="price">100 BDT</div>
-            <p>বেসিক অ্যান্টি-ব্যান ফিচার।</p>
-          </div>
-          <div class="image-placeholder-box">🖼️ ছবি</div>
-          <button class="buy-btn" onclick="openOrderPage('Normal Panel', '100 BDT')">কিনুন</button>
-        </div>
-
-        <div class="panel-card">
-          <div class="panel-info">
-            <h4>Standard FF</h4>
-            <div class="price">200 BDT</div>
-            <p>স্মুথ হেডশট প্যানেল।</p>
-          </div>
-          <div class="image-placeholder-box">🖼️ ছবি</div>
-          <button class="buy-btn" onclick="openOrderPage('Standard FF Panel', '200 BDT')">কিনুন</button>
-        </div>
       </div>
     </div>
 
     <!-- TAB 2: MY ORDERS SECTION -->
-    <div id="tabOrders" class="full-page-section view-hidden">
-      <div class="page-title-box">MY ORDERS</div>
-      <div class="account-card-box" id="orderContentArea">
-        <h4 style="color: #ca8a04; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">🛒 অর্ডারের বিবরণ</h4>
-        <p style="color: #475569; font-size: 13px;">কোনো প্যানেল সিলেক্ট করা হয়নি। হোম পেজ থেকে প্যানেল বেছে নিন।</p>
+    <div id="tabOrders" class="full-page-section view-hidden" style="padding: 15px;">
+      <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">MY ORDERS</h3>
+      <div id="orderContentArea" style="margin-top: 10px; font-size: 14px; color: #64748b;">
+        কোনো প্যানেল সিলেক্ট করা হয়নি।
       </div>
     </div>
 
     <!-- TAB 3: ADD MONEY SECTION -->
-    <div id="tabAddMoney" class="full-page-section view-hidden">
-      <div class="page-title-box">ADD MONEY (রিচার্জ)</div>
-      <div class="account-card-box">
-        <h4 style="color: #ca8a04; font-family: 'Orbitron', sans-serif; margin-bottom: 10px;">💳 বিকাশ / নগদ / রকেট</h4>
-        <p style="color: #475569; font-size: 13px; margin-bottom: 15px;">টাকা অ্যাড করতে নিচে WhatsApp এ পেমেন্ট স্ক্রিনশটসহ যোগাযোগ করুন:</p>
-        <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20add%20money%20to%20my%20wallet." target="_blank" style="display: block; background: #22c55e; color: #fff; text-align: center; padding: 12px; border-radius: 10px; font-weight: 800; text-decoration: none;">
-          💬 WhatsApp এ ব্যালেন্স অ্যাড করুন
-        </a>
-      </div>
+    <div id="tabAddMoney" class="full-page-section view-hidden" style="padding: 15px;">
+      <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">ADD MONEY</h3>
+      <p style="margin-top: 10px; font-size: 14px;">WhatsApp এ সরাসরি যোগাযোগ করে ব্যালেন্স রিচার্জ করুন:</p>
+      <a href="https://wa.me/8801845907321" target="_blank" style="display: inline-block; margin-top: 10px; background: #25d366; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700;">WhatsApp রিচার্জ</a>
     </div>
 
     <!-- TAB 4: MY CODES SECTION -->
-    <div id="tabCodes" class="full-page-section view-hidden">
-      <div class="page-title-box">MY PANEL CODES</div>
-      <div class="account-card-box">
-        <h4 style="color: #ca8a04; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">🔑 আপনার প্যানেল কি (Key)</h4>
-        <p style="color: #475569; font-size: 13px;">আপনার কেনা প্যানেল বা অ্যাক্সেস কি (Key) গুলো এখানে দেখতে পাবেন।</p>
-      </div>
+    <div id="tabCodes" class="full-page-section view-hidden" style="padding: 15px;">
+      <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">MY CODES</h3>
+      <p style="margin-top: 10px; font-size: 14px; color: #64748b;">আপনার প্যানেল কি (Key) এখানে দেখা যাবে।</p>
     </div>
 
     <!-- TAB 5: MY ACCOUNT SECTION -->
-    <div id="tabAccount" class="full-page-section view-hidden">
-      <div class="page-title-box">MY ACCOUNT PROFILE</div>
-      <div class="account-card-box">
-        <div class="account-info-row">
-          <span style="color: #64748b;">লগইন জিমেইল:</span>
-          <span id="accEmailDisplay" style="color: #0f172a; font-weight: 700;">Loading...</span>
-        </div>
-        <div class="account-info-row">
-          <span style="color: #64748b;">স্ট্যাটাস:</span>
-          <span id="accStatusDisplay" style="font-weight: 700;">যাচাই করা হচ্ছে...</span>
-        </div>
-        <div class="account-info-row">
-          <span style="color: #64748b;">ওয়ালেট ব্যালেন্স:</span>
-          <span style="color: #16a34a; font-weight: 700;">0৳</span>
-        </div>
+    <div id="tabAccount" class="full-page-section view-hidden" style="padding: 15px;">
+      <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">MY ACCOUNT</h3>
+      <div style="margin-top: 15px; font-size: 14px;">
+        <p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p>
+        <p style="margin-top: 8px;">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p>
       </div>
-      <button class="logout-big-btn" onclick="executeLogout()">লগআউট করুন (Log Out)</button>
+      <button onclick="executeLogout()" style="margin-top: 20px; background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer;">Log Out</button>
     </div>
 
   </div>
 
-  <!-- FLOATING HEADPHONE SUPPORT BUTTON WITH UNIQUE LOGOS -->
+  <!-- FLOATING SUPPORT BUTTON WITH OFFICIAL LOGOS -->
   <div class="floating-support-container view-hidden" id="floatingSupportContainer">
     <div class="floating-options-list">
-      <a href="https://wa.me/8801845907321" target="_blank" class="floating-social-icon whatsapp-badge" title="WhatsApp">
+      <a href="https://wa.me/8801845907321" target="_blank" class="floating-social-icon" title="WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
       </a>
-      <a href="https://t.me/rifatffpanelseller6" target="_blank" class="floating-social-icon telegram-badge" title="Telegram">
+      <a href="https://t.me/rifatffpanelseller6" target="_blank" class="floating-social-icon" title="Telegram">
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
       </a>
     </div>
-    <div class="floating-main-btn" onclick="toggleFloatingSupport()" title="Support">
-      🎧
-    </div>
+    <div class="floating-main-btn" onclick="toggleFloatingSupport()">🎧</div>
   </div>
 
-  <!-- BOTTOM 5-ICONS NAVIGATION BAR -->
+  <!-- BOTTOM NAVIGATION BAR -->
   <div class="bottom-nav view-hidden" id="bottomNav">
     <button class="nav-item active" id="navHome" onclick="switchTab('home')">
       <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -973,7 +816,7 @@
       <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
       My Orders
     </button>
-    <button class="nav-add-btn" onclick="switchTab('addmoney')" title="Add Money">+</button>
+    <button class="nav-add-btn" onclick="switchTab('addmoney')">+</button>
     <button class="nav-item" id="navCodes" onclick="switchTab('codes')">
       <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
       My Codes
@@ -985,12 +828,6 @@
   </div>
 
   <script>
-    (function(){
-       emailjs.init("YKCEjv8TUbgGmlnEX");
-    })();
-
-    let generatedOTP = "";
-
     function switchTab(tabName) {
       ['Home', 'Orders', 'AddMoney', 'Codes', 'Account'].forEach(t => {
         const el = document.getElementById('tab' + t);
@@ -1011,13 +848,11 @@
 
     function toggleDropdownMenu(e) {
       if(e) e.stopPropagation();
-      const dropdown = document.getElementById('profileDropdown');
-      dropdown.classList.toggle('active');
+      document.getElementById('profileDropdown').classList.toggle('active');
     }
 
     function toggleFloatingSupport() {
-      const container = document.getElementById('floatingSupportContainer');
-      container.classList.toggle('active');
+      document.getElementById('floatingSupportContainer').classList.toggle('active');
     }
 
     window.addEventListener('click', function() {
@@ -1027,9 +862,9 @@
 
     function openOrderPage(panelName, price) {
       document.getElementById('orderContentArea').innerHTML = `
-        <h4 style="color: #ca8a04; font-family: 'Orbitron', sans-serif; margin-bottom: 8px;">📦 প্যানেল: ${panelName}</h4>
-        <p style="color: #475569; margin-bottom: 8px;">দাম: <strong style="color: #16a34a;">${price}</strong></p>
-        <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(panelName)}%20for%20${price}" target="_blank" style="display: block; background: #22c55e; color: #fff; text-align: center; padding: 10px; border-radius: 10px; font-weight: 800; text-decoration: none;">
+        <h4 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">📦 প্যানেল: ${panelName}</h4>
+        <p style="margin: 8px 0;">দাম: <strong>${price}</strong></p>
+        <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(panelName)}%20for%20${price}" target="_blank" style="display: inline-block; background: #25d366; color: #fff; padding: 10px 15px; border-radius: 8px; font-weight: 700; text-decoration: none;">
           💬 WhatsApp এ অর্ডার কনফার্ম করুন
         </a>
       `;
@@ -1047,24 +882,15 @@
     function showForm(formType) {
       document.getElementById('signinBox').className = formType === 'signin' ? 'view-block' : 'view-hidden';
       document.getElementById('signupBox').className = formType === 'signup' ? 'view-block' : 'view-hidden';
-      document.getElementById('forgotBox').className = formType === 'forgot' ? 'view-block' : 'view-hidden';
-      document.getElementById('tabsBar').style.display = formType === 'forgot' ? 'none' : 'flex';
       document.getElementById('btnTabSignin').className = formType === 'signin' ? 'tab-btn active' : 'tab-btn';
       document.getElementById('btnTabSignup').className = formType === 'signup' ? 'tab-btn active' : 'tab-btn';
-    }
-
-    function togglePassField(fieldId) {
-      const input = document.getElementById(fieldId);
-      if (input) input.type = input.type === 'password' ? 'text' : 'password';
     }
 
     async function onLoginSubmit(e) {
       e.preventDefault();
       try {
         await window.signInWithEmailAndPassword(window.firebaseAuth, document.getElementById('signin-email-input').value, document.getElementById('signin-pass-input').value);
-      } catch (err) {
-        alert('লগইন ব্যর্থ: ' + err.message);
-      }
+      } catch (err) { alert('লগইন ব্যর্থ: ' + err.message); }
     }
 
     async function onRegisterSubmit(e) {
@@ -1072,28 +898,7 @@
       try {
         await window.createUserWithEmailAndPassword(window.firebaseAuth, document.getElementById('signup-email-input').value, document.getElementById('signup-pass-input').value);
         alert('সাইন আপ সফল!');
-      } catch (err) {
-        alert('ত্রুটি: ' + err.message);
-      }
-    }
-
-    async function sendOTPCode() {
-      const email = document.getElementById('reset-email-input').value;
-      if (!email) { alert('আগে জিমেইল দিন!'); return; }
-      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-      emailjs.send("service_u36uj8r", "template_aimy5cj", { to_email: email, passcode: generatedOTP, otp: generatedOTP })
-        .then(() => alert('ওটিপি পাঠানো হয়েছে!'));
-    }
-
-    async function onResetPasswordSubmit(e) {
-      e.preventDefault();
-      if (document.getElementById('otp-input').value !== generatedOTP) {
-        alert('ভুল ওটিপি!');
-        return;
-      }
-      await window.sendPasswordResetEmail(window.firebaseAuth, document.getElementById('reset-email-input').value);
-      alert('রিসেট লিংক পাঠানো হয়েছে!');
-      showForm('signin');
+      } catch (err) { alert('ত্রুটি: ' + err.message); }
     }
   </script>
 </body>
