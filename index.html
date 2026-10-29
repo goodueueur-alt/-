@@ -359,7 +359,7 @@
       transition: 0.2s;
     }
 
-    /* DASHBOARD 10-BOXES GRID STYLES */
+    /* DASHBOARD STYLES */
     #dashboardSection {
       width: 100%;
       max-width: 1100px;
@@ -445,7 +445,6 @@
       border: 2px solid #eab308;
       border-radius: 18px;
       padding: 20px;
-      text-align: center;
     }
 
     .video-wrapper {
@@ -455,7 +454,7 @@
       background: #000;
       border-radius: 12px;
       overflow: hidden;
-      margin-top: 10px;
+      margin: 12px 0 16px 0;
     }
 
     .video-wrapper video, 
@@ -522,7 +521,7 @@
     </div>
   </div>
 
-  <!-- 1. AUTHENTICATION SECTION (লগইন / সাইন-আপ) -->
+  <!-- 1. AUTHENTICATION SECTION -->
   <div class="app-card" id="authContainer">
     <div id="authSection" class="view-block">
       <div class="header-area">
@@ -642,7 +641,7 @@
     </div>
   </div>
 
-  <!-- 2. DASHBOARD SECTION (লগইন করার পর ১০টি বক্স আসবে) -->
+  <!-- 2. DASHBOARD SECTION -->
   <div id="dashboardSection" class="view-hidden">
     <div class="dashboard-header">
       <div class="user-welcome">
@@ -657,11 +656,12 @@
     <!-- 10 Boxes Grid -->
     <div class="panels-grid">
 
-      <!-- Box 1: Tournament Panel Video Box -->
+      <!-- Box 1: Tournament Panel (Video Box + Price + Buy Button) -->
       <div class="video-box">
-        <div class="panel-info" style="text-align: left;">
-          <h4>🔥 লাইভ টুর্নামেন্ট প্যানেল প্রিভিউ ভিডিও</h4>
-          <p>প্যানেলটি কীভাবে কাজ করে তার লাইভ ডেমো নিচে দেখে নিন।</p>
+        <div class="panel-info">
+          <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
+          <div class="price">৳ ৪৫০ BDT</div>
+          <p>অফিশিয়াল টুর্নামেন্ট প্লেয়ারদের জন্য বিশেষ অ্যান্টি-ব্যান সুরক্ষিত প্যানেল।</p>
         </div>
         <div class="video-wrapper">
           <video autoplay muted loop playsinline>
@@ -669,6 +669,7 @@
             আপনার ব্রাউজার ভিডিও সমর্থন করে না।
           </video>
         </div>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Tournament Panel (৪৫০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 2: 100 BDT -->
@@ -678,7 +679,7 @@
           <div class="price">৳ ১০০ BDT</div>
           <p>বেসিক ফিচার এবং অ্যান্টি-ব্যান প্রোটেকশন সহ নরমাল প্যানেল।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Normal Panel (১০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 3: 200 BDT -->
@@ -688,7 +689,7 @@
           <div class="price">৳ ২০০ BDT</div>
           <p>ফাস্ট স্পিড এবং স্মুথ হেডশট সুবিধা সম্বলিত স্ট্যান্ডার্ড প্যানেল।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Standard Panel (২০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 4: 300 BDT -->
@@ -698,7 +699,7 @@
           <div class="price">৳ ৩০০ BDT</div>
           <p>হাই-কোয়ালিটি এইমবট এবং অটো হেডশট প্যানেল অ্যাক্সেস।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Pro Aimbot Panel (৩০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 5: 400 BDT -->
@@ -708,7 +709,7 @@
           <div class="price">৳ ৪০০ BDT</div>
           <p>এনিমি লোকেশন ট্র্যাক করার জন্য স্পেশাল ম্যাক্স লোকেশন টুল।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'VIP Location Tool (৪০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 6: 500 BDT -->
@@ -718,7 +719,7 @@
           <div class="price">৳ ৫০০ BDT</div>
           <p>ম্যাজিক বুলেট এবং ফুল কন্ট্রোল সেফ প্যানেল প্যাকেজ।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultra Magic Panel (৫০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 7: 600 BDT -->
@@ -728,7 +729,7 @@
           <div class="price">৳ ৬০০ BDT</div>
           <p>উন্নত প্রযুক্তির এক্সক্লুসিভ হ্যাকার ও ড্রাইভ লেভেল প্যানেল।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Extreme Hacker Tool (৬০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 8: 700 BDT -->
@@ -738,7 +739,7 @@
           <div class="price">৳ ৭০০ BDT</div>
           <p>রয়্যাল লেভেলের সমস্ত ভিআইপি ফিচার এবং ডেডিকেটেড সাপোর্ট।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Royal VIP Panel (৭০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 9: 800 BDT -->
@@ -748,7 +749,7 @@
           <div class="price">৳ ৮০০ BDT</div>
           <p>প্রো গেমারদের জন্য লেজেন্ডারি আনলিমিটেড প্যানেল অ্যাক্সেস।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Elite Legend Panel (৮০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 10: 900 BDT -->
@@ -758,7 +759,7 @@
           <div class="price">৳ ৯০০ BDT</div>
           <p>আজীবন মেম্বারশিপ সহ আল্টিমেট সমস্ত প্যানেল ও টুলস আনলক।</p>
         </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultimate Lifetime Panel (৯০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
     </div>
@@ -834,7 +835,7 @@
       }
     }
 
-    // ১. লগইন করার পর ড্যাশবোর্ডে সুইচ করার লজিক
+    // ১. লগইন
     async function onLoginSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('signin-email-input').value;
@@ -854,7 +855,7 @@
       }
     }
 
-    // ২. সাইন-আপ করার পর ড্যাশবোর্ডে সুইচ করার লজিক
+    // ২. সাইন-আপ
     async function onRegisterSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('signup-email-input').value;
@@ -923,7 +924,7 @@
       }
     }
 
-    // ৪. ওটিপি ভেরিফাই করে রিসেট লিংক পাঠানো
+    // ৪. ওটিপি ভেরিফাই করে পাসওয়ার্ড রিসেট
     async function onResetPasswordSubmit(e) {
       e.preventDefault();
       const resetEmail = document.getElementById('reset-email-input').value;
