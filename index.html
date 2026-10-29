@@ -105,7 +105,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10px 10px 90px 10px;
+      padding: 0 0 90px 0;
       font-family: 'Rajdhani', 'Hind Siliguri', sans-serif;
     }
 
@@ -114,11 +114,11 @@
       border: 1px solid rgba(139, 92, 246, 0.3);
       border-radius: 24px;
       padding: 30px 24px;
-      width: 100%;
+      width: 90%;
       max-width: 420px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(16px);
-      position: relative;
+      margin: 20px auto;
     }
 
     .header-area {
@@ -275,34 +275,35 @@
     .view-hidden { display: none !important; }
     .view-flex { display: flex; }
 
-    /* TOP HEADER USER AREA (Wallet & Avatar) */
+    /* TOP HEADER USER AREA (Wallet & Avatar Fixed at Top) */
     .top-user-area {
       display: none;
       justify-content: space-between;
       align-items: center;
-      background: rgba(18, 12, 36, 0.95);
+      background: rgba(18, 12, 36, 0.98);
       border-bottom: 1px solid rgba(139, 92, 246, 0.3);
-      padding: 10px 15px;
+      padding: 12px 16px;
       position: sticky;
       top: 0;
-      z-index: 998;
-      backdrop-filter: blur(10px);
+      z-index: 9999;
+      backdrop-filter: blur(12px);
+      width: 100%;
     }
 
     .top-brand-mini {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 800;
       color: #facc15;
     }
 
     .top-brand-mini img {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 35px;
+      height: 35px;
+      border-radius: 10px;
       border: 1px solid #eab308;
       object-fit: cover;
     }
@@ -310,7 +311,7 @@
     .wallet-avatar-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .wallet-pill {
@@ -325,13 +326,13 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+      box-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
       cursor: pointer;
     }
 
     .user-avatar-circle {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
       border: 2px solid #facc15;
@@ -342,7 +343,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 12px rgba(234, 179, 8, 0.4);
+      box-shadow: 0 0 15px rgba(234, 179, 8, 0.5);
+      cursor: pointer;
     }
 
     /* MAIN APP CONTAINER */
@@ -350,15 +352,16 @@
       width: 100%;
       max-width: 480px;
       margin: 0 auto;
-      padding-bottom: 30px;
+      padding: 12px;
+      padding-bottom: 80px;
     }
 
     .notice-bar {
       background: rgba(147, 51, 234, 0.2);
       border: 1px solid rgba(147, 51, 234, 0.5);
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin: 12px 0;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -370,14 +373,13 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 14px;
-      margin-top: 15px;
     }
 
     .panel-card {
       background: rgba(18, 12, 36, 0.9);
       border: 1.5px solid rgba(139, 92, 246, 0.4);
       border-radius: 16px;
-      padding: 12px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -402,7 +404,7 @@
       width: 100%;
       padding-top: 45%;
       background: #000;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
       margin: 10px 0;
     }
@@ -449,6 +451,7 @@
       font-size: 11px;
       color: #94a3b8;
       margin-bottom: 10px;
+      font-family: 'Hind Siliguri', sans-serif;
     }
 
     .buy-btn {
@@ -456,8 +459,8 @@
       background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
       color: #000000;
       border: none;
-      padding: 8px;
-      border-radius: 8px;
+      padding: 9px;
+      border-radius: 10px;
       font-size: 13px;
       font-weight: 800;
       cursor: pointer;
@@ -484,6 +487,7 @@
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 15px;
+      font-family: 'Hind Siliguri', sans-serif;
     }
 
     .account-info-row {
@@ -504,6 +508,7 @@
       border-radius: 12px;
       font-weight: 800;
       cursor: pointer;
+      font-family: 'Hind Siliguri', sans-serif;
     }
 
     /* 5-ICONS BOTTOM NAVIGATION BAR */
@@ -548,7 +553,6 @@
       margin-bottom: 2px;
     }
 
-    /* Center Add Money (+) Floating Button */
     .nav-add-btn {
       width: 46px;
       height: 46px;
@@ -681,7 +685,7 @@
     </div>
   </div>
 
-  <!-- MAIN APP CONTAINER (Tabs Views) -->
+  <!-- MAIN APP CONTAINER -->
   <div class="main-container view-hidden" id="mainAppContainer">
 
     <!-- TAB 1: HOME SECTION -->
@@ -692,7 +696,7 @@
       </div>
 
       <div class="panels-grid">
-        <!-- Box 1: Tournament Panel (Video) -->
+        <!-- Box 1: Tournament Panel -->
         <div class="video-box-full">
           <div class="panel-info">
             <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
@@ -707,7 +711,7 @@
           <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">কিনুন</button>
         </div>
 
-        <!-- Box 2: Full Body Location Panel (Video) -->
+        <!-- Box 2: Full Body Location Panel -->
         <div class="video-box-full">
           <div class="panel-info">
             <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
@@ -798,7 +802,7 @@
 
   </div>
 
-  <!-- BOTTOM 5-ICONS NAVIGATION BAR (Matching screenshot layout) -->
+  <!-- BOTTOM 5-ICONS NAVIGATION BAR -->
   <div class="bottom-nav view-hidden" id="bottomNav">
     <button class="nav-item active" id="navHome" onclick="switchTab('home')">
       <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -808,7 +812,6 @@
       <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
       My Orders
     </button>
-    <!-- Center Add Money Button (+) -->
     <button class="nav-add-btn" onclick="switchTab('addmoney')" title="Add Money">+</button>
     <button class="nav-item" id="navCodes" onclick="switchTab('codes')">
       <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
