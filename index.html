@@ -794,15 +794,15 @@
     <!-- Panels Grid -->
     <div class="panels-grid">
 
-      <!-- Box 1: Tournament Panel (450 BDT) -->
+      <!-- Box 1: Tournament Panel (450 BDT) [এখানে controls যোগ করা হয়েছে যাতে সাউন্ড ও কন্ট্রোল থাকে] -->
       <div class="video-box">
         <div class="panel-info">
           <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
-          <div class="price">450 BDT</div>
+          <div class="price">400 BDT</div>
           <p>অফিশিয়াল টুর্নামেন্ট প্লেয়ারদের জন্য বিশেষ অ্যান্টি-ব্যান সুরক্ষিত প্যানেল।</p>
         </div>
         <div class="video-wrapper">
-          <video autoplay muted loop playsinline>
+          <video controls autoplay loop playsinline>
             <source src="VID_20261028_112023_896.mp4" type="video/mp4">
             আপনার ব্রাউজার ভিডিও সমর্থন করে না।
           </video>
@@ -810,12 +810,12 @@
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Tournament Panel (450 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
-      <!-- Box 2: Full Body Location Panel (550 BDT) [ভিডিও ফাইলে আপনার নতুন ভিডিও এবং সাউন্ড কন্ট্রোলস যুক্ত করা হয়েছে] -->
+      <!-- Box 2: Full Body Location Panel (550 BDT) -->
       <div class="video-box">
         <div class="panel-info">
           <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
-          <div class="price">550 BDT</div>
-          <p>ভিআরসিএস (VRCS) প্রযুক্তি সহ নিখুঁত ফুল বডি লোকেশন ট্র্যাকিং প্যানেল।</p>
+          <div class="price">350 BDT</div>
+          <p>ভিআরসিএস (VRCS) প্রযুক্তি সহ নিখুঁত ফুল বডি লোকেশন  প্যানেল।</p>
         </div>
         <div class="video-wrapper">
           <video controls autoplay loop playsinline>
@@ -1030,7 +1030,7 @@
       const signinBox = document.getElementById('signinBox');
       const signupBox = document.getElementById('signupBox');
       const forgotBox = document.getElementById('forgotBox');
-      const btnTabSignin = document.getElementById('btnTabSignin');
+      val btnTabSignin = document.getElementById('btnTabSignin');
       const btnTabSignup = document.getElementById('btnTabSignup');
       const tabsBar = document.getElementById('tabsBar');
 
@@ -1083,7 +1083,7 @@
       }
     }
 
-    async function onRegisterSubmit(e.preventDefault()) {
+    async function onRegisterSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('signup-email-input').value;
       const password = document.getElementById('signup-pass-input').value;
@@ -1121,4 +1121,65 @@
       try {
         const signInMethods = await window.fetchSignInMethodsForEmail(window.firebaseAuth, emailField);
         
-        ...
+        if (!signInMethods || signInMethods.length === 0) {
+          showModal('অ্যাকাউন্ট পাওয়া যায়নি', 'এই জিমেইল দিয়ে কোনো অ্যাকাউন্ট রেজিস্টার্ড করা নেই!');
+          return;
+        }
+
+        generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+        const templateParams = {
+          to_email: emailField,
+          email: emailField,
+          passcode: generatedOTP,
+          otp: generatedOTP
+        };
+
+        showModal('ওটিপি পাঠানো হচ্ছে', 'অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন...');
+
+        emailjs.send("service_u36uj8r", "template_aimy5cj", templateParams)
+          .then(function(response) {
+              showModal('সফলতা', 'ওটিপি কোডটি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
+          }, function(error) {
+              console.error('FAILED...', error);
+              showModal('ব্যর্থ হয়েছে', 'ইমেল পাঠানো সম্ভব হয়নি: ' + (error.text || 'সার্ভার এরর'));
+          });
+
+      } catch (error) {
+        console.error(error);
+        showModal('ত্রুটি', 'ইমেল যাচাই করতে সমস্যা হয়েছে।');
+      }
+    }
+
+    async function onResetPasswordSubmit(e) {
+      e.preventDefault();
+      const resetEmail = document.getElementById('reset-email-input').value;
+      const enteredOTP = document.getElementById('otp-input').value;
+
+      if (enteredOTP !== generatedOTP) {
+        showModal('ভুল ওটিপি', 'আপনার দেওয়া ওটিপি কোডটি সঠিক নয়। পুনরায় চেষ্টা করুন।');
+        return;
+      }
+
+      showModal('প্রক্রিয়াদীন', 'অনুগ্রহ করে অপেক্ষা করুন...');
+
+      try {
+        await window.sendPasswordResetEmail(window.firebaseAuth, resetEmail);
+
+        const gmailBtnHTML = `<a href="https://mail.google.com" target="_blank" class="gmail-direct-btn" onclick="closeModal(); showForm('signin');">✉️ সরাসরি জিমেইল ওপেন করুন</a>`;
+        
+        showModal('সফলতা', 'আপনার ওটিপি সঠিক হয়েছে! ' + resetEmail + ' জিমেইলে ফায়ারবেস পাসওয়ার্ড রিসেটের লিংক পাঠানো হয়েছে।', null, gmailBtnHTML);
+
+      } catch (error) {
+        console.error(error);
+        showModal('ত্রুটি', 'পাসওয়ার্ড রিসেট লিংক পাঠাতে সমস্যা হয়েছে: ' + error.message);
+      }
+    }
+
+    function showTab(tabName) {
+      // ভবিষ্যতের ট্যাব ন্যাভিগেশনের জন্য
+    }
+  </script>
+
+</body>
+</html>
