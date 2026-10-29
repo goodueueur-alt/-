@@ -13,7 +13,7 @@
   <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-  <!-- Firebase App & Auth SDK (Modular v10) -->
+  <!-- Firebase SDK Setup -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { 
@@ -23,7 +23,6 @@
       onAuthStateChanged,
       signInWithEmailAndPassword, 
       createUserWithEmailAndPassword,
-      sendPasswordResetEmail,
       signOut
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -36,68 +35,71 @@
       appId: "1:270050253341:web:ca5db10f52d746751444f4"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    try {
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-    setPersistence(auth, browserLocalPersistence).catch((error) => {
-      console.error("Persistence Error:", error);
-    });
+      setPersistence(auth, browserLocalPersistence).catch((error) => {
+        console.error("Persistence Error:", error);
+      });
 
-    window.firebaseAuth = auth;
-    window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-    window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-    window.sendPasswordResetEmail = sendPasswordResetEmail;
-    window.signOutUser = signOut;
+      window.firebaseAuth = auth;
+      window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+      window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+      window.signOutUser = signOut;
 
-    onAuthStateChanged(auth, (user) => {
-      const authContainer = document.getElementById('authContainer');
-      const mainAppContainer = document.getElementById('mainAppContainer');
-      const bottomNav = document.getElementById('bottomNav');
-      const topHeaderUserArea = document.getElementById('topHeaderUserArea');
-      const floatingSupport = document.getElementById('floatingSupportContainer');
+      onAuthStateChanged(auth, (user) => {
+        const authContainer = document.getElementById('authContainer');
+        const mainAppContainer = document.getElementById('mainAppContainer');
+        const bottomNav = document.getElementById('bottomNav');
+        const topHeaderUserArea = document.getElementById('topHeaderUserArea');
+        const floatingSupport = document.getElementById('floatingSupportContainer');
 
-      if (user) {
-        if (authContainer) authContainer.style.display = 'none';
-        if (mainAppContainer) mainAppContainer.style.display = 'block';
-        if (bottomNav) bottomNav.style.display = 'flex';
-        if (topHeaderUserArea) topHeaderUserArea.style.display = 'flex';
-        if (floatingSupport) floatingSupport.style.display = 'block';
-        
-        const email = user.email || 'user@gmail.com';
-        const firstLetter = email.charAt(0).toUpperCase();
-        const username = email.split('@')[0];
-        
-        const userAvatarEl = document.getElementById('userAvatarLetter');
-        if(userAvatarEl) userAvatarEl.innerText = firstLetter;
+        if (user) {
+          if (authContainer) authContainer.style.display = 'none';
+          if (mainAppContainer) mainAppContainer.style.display = 'block';
+          if (bottomNav) bottomNav.style.display = 'flex';
+          if (topHeaderUserArea) topHeaderUserArea.style.display = 'flex';
+          if (floatingSupport) floatingSupport.style.display = 'block';
+          
+          const email = user.email || 'user@gmail.com';
+          const firstLetter = email.charAt(0).toUpperCase();
+          const username = email.split('@')[0];
+          
+          const userAvatarEl = document.getElementById('userAvatarLetter');
+          if(userAvatarEl) userAvatarEl.innerText = firstLetter;
 
-        const menuAvatarEl = document.getElementById('menuAvatarLetter');
-        if(menuAvatarEl) menuAvatarEl.innerText = firstLetter;
+          const menuAvatarEl = document.getElementById('menuAvatarLetter');
+          if(menuAvatarEl) menuAvatarEl.innerText = firstLetter;
 
-        const menuNameEl = document.getElementById('menuUserName');
-        if(menuNameEl) menuNameEl.innerText = "Hi, " + username;
+          const menuNameEl = document.getElementById('menuUserName');
+          if(menuNameEl) menuNameEl.innerText = "Hi, " + username;
 
-        const menuEmailEl = document.getElementById('menuUserEmail');
-        if(menuEmailEl) menuEmailEl.innerText = email;
+          const menuEmailEl = document.getElementById('menuUserEmail');
+          if(menuEmailEl) menuEmailEl.innerText = email;
 
-        const accEmailEl = document.getElementById('accEmailDisplay');
-        if(accEmailEl) accEmailEl.innerText = email;
+          const accEmailEl = document.getElementById('accEmailDisplay');
+          if(accEmailEl) accEmailEl.innerText = email;
 
-        const accStatusEl = document.getElementById('accStatusDisplay');
-        if(accStatusEl) {
-          if(user.emailVerified) {
-            accStatusEl.innerHTML = '<span style="color: #16a34a;">✅ ভেরিফাইড (Verified)</span>';
-          } else {
-            accStatusEl.innerHTML = '<span style="color: #d97706;">⚠️ ভেরিফাই করা হয়নি</span>';
+          const accStatusEl = document.getElementById('accStatusDisplay');
+          if(accStatusEl) {
+            if(user.emailVerified) {
+              accStatusEl.innerHTML = '<span style="color: #16a34a;">✅ ভেরিফাইড (Verified)</span>';
+            } else {
+              accStatusEl.innerHTML = '<span style="color: #d97706;">⚠️ ভেরিফাই করা হয়নি</span>';
+            }
           }
+        } else {
+          if (authContainer) authContainer.style.display = 'block';
+          if (mainAppContainer) mainAppContainer.style.display = 'none';
+          if (bottomNav) bottomNav.style.display = 'none';
+          if (topHeaderUserArea) topHeaderUserArea.style.display = 'none';
+          if (floatingSupport) floatingSupport.style.display = 'none';
         }
-      } else {
-        if (authContainer) authContainer.style.display = 'block';
-        if (mainAppContainer) mainAppContainer.style.display = 'none';
-        if (bottomNav) bottomNav.style.display = 'none';
-        if (topHeaderUserArea) topHeaderUserArea.style.display = 'none';
-        if (floatingSupport) floatingSupport.style.display = 'none';
-      }
-    });
+      });
+    } catch(err) {
+      console.error("Firebase Init Error:", err);
+    }
   </script>
 
   <style>
@@ -128,6 +130,7 @@
       max-width: 420px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       margin: 40px auto;
+      display: block;
     }
 
     .brand-logo-container {
@@ -227,7 +230,6 @@
       z-index: 999;
     }
 
-    /* BRAND LOGO DESIGN LIKE "OFFER TOPUP" */
     .brand-logo-text {
       display: flex;
       align-items: center;
@@ -311,7 +313,7 @@
       cursor: pointer;
     }
 
-    /* DROPDOWN MENU MATCHING REFERENCE IMAGE */
+    /* DROPDOWN MENU */
     .profile-dropdown-menu {
       position: absolute;
       top: 60px;
@@ -405,7 +407,7 @@
       font-size: 13px;
     }
 
-    /* MATCHING NOTICE BAR DESIGN */
+    /* NOTICE BAR */
     .notice-bar-container {
       margin: 12px;
       background: #ffffff;
@@ -462,17 +464,6 @@
       padding: 0 12px;
     }
 
-    .panel-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-    }
-
     .video-box-full {
       grid-column: 1 / -1;
       background: #ffffff;
@@ -512,12 +503,13 @@
       cursor: pointer;
     }
 
-    /* FLOATING SUPPORT WITH OFFICIAL LOGOS */
+    /* FLOATING SUPPORT */
     .floating-support-container {
       position: fixed;
       bottom: 85px;
       right: 18px;
       z-index: 9999;
+      display: none;
     }
 
     .floating-main-btn {
@@ -580,7 +572,7 @@
       width: 100%;
       background: #ffffff;
       border-top: 1px solid #f1f5f9;
-      display: flex;
+      display: none;
       justify-content: space-around;
       align-items: center;
       padding: 8px 0 12px 0;
@@ -667,11 +659,10 @@
   </div>
 
   <!-- MAIN APP CONTAINER -->
-  <div class="main-container view-hidden" id="mainAppContainer">
+  <div class="main-container" id="mainAppContainer" style="display: none;">
 
     <!-- TOP HEADER -->
     <div class="top-user-area" id="topHeaderUserArea">
-      <!-- BRAND LOGO TEXT DESIGN -->
       <a href="#" class="brand-logo-text">
         <div class="brand-icon-box">R</div>
         <div class="brand-text-wrapper">
@@ -680,7 +671,6 @@
         </div>
       </a>
 
-      <!-- WALLET & AVATAR -->
       <div class="wallet-avatar-group">
         <div class="wallet-pill" onclick="switchTab('addmoney')">
           <span>💳</span> <span id="userBalanceDisplay">0৳</span>
@@ -690,7 +680,6 @@
         </div>
       </div>
 
-      <!-- DROPDOWN MENU -->
       <div class="profile-dropdown-menu" id="profileDropdown">
         <div class="dropdown-user-header">
           <div class="dropdown-user-avatar" id="menuAvatarLetter">F</div>
@@ -717,7 +706,6 @@
 
     <!-- TAB 1: HOME SECTION -->
     <div id="tabHome" class="full-page-section view-block">
-      <!-- NOTICE BAR -->
       <div class="notice-bar-container" id="noticeBar">
         <div class="notice-tag">
           <span class="notice-tag-dot"></span>
@@ -793,8 +781,8 @@
 
   </div>
 
-  <!-- FLOATING SUPPORT BUTTON WITH OFFICIAL LOGOS -->
-  <div class="floating-support-container view-hidden" id="floatingSupportContainer">
+  <!-- FLOATING SUPPORT -->
+  <div class="floating-support-container" id="floatingSupportContainer">
     <div class="floating-options-list">
       <a href="https://wa.me/8801845907321" target="_blank" class="floating-social-icon" title="WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
@@ -806,8 +794,8 @@
     <div class="floating-main-btn" onclick="toggleFloatingSupport()">🎧</div>
   </div>
 
-  <!-- BOTTOM NAVIGATION BAR -->
-  <div class="bottom-nav view-hidden" id="bottomNav">
+  <!-- BOTTOM NAVIGATION -->
+  <div class="bottom-nav" id="bottomNav">
     <button class="nav-item active" id="navHome" onclick="switchTab('home')">
       <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
       Home
@@ -842,17 +830,20 @@
       if(targetTab) targetTab.className = 'full-page-section view-block';
       if(targetNav) targetNav.classList.add('active');
       
-      document.getElementById('profileDropdown').classList.remove('active');
+      const dropdown = document.getElementById('profileDropdown');
+      if(dropdown) dropdown.classList.remove('active');
       window.scrollTo(0, 0);
     }
 
     function toggleDropdownMenu(e) {
       if(e) e.stopPropagation();
-      document.getElementById('profileDropdown').classList.toggle('active');
+      const dropdown = document.getElementById('profileDropdown');
+      if(dropdown) dropdown.classList.toggle('active');
     }
 
     function toggleFloatingSupport() {
-      document.getElementById('floatingSupportContainer').classList.toggle('active');
+      const container = document.getElementById('floatingSupportContainer');
+      if(container) container.classList.toggle('active');
     }
 
     window.addEventListener('click', function() {
@@ -861,45 +852,63 @@
     });
 
     function openOrderPage(panelName, price) {
-      document.getElementById('orderContentArea').innerHTML = `
-        <h4 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">📦 প্যানেল: ${panelName}</h4>
-        <p style="margin: 8px 0;">দাম: <strong>${price}</strong></p>
-        <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(panelName)}%20for%20${price}" target="_blank" style="display: inline-block; background: #25d366; color: #fff; padding: 10px 15px; border-radius: 8px; font-weight: 700; text-decoration: none;">
-          💬 WhatsApp এ অর্ডার কনফার্ম করুন
-        </a>
-      `;
+      const orderArea = document.getElementById('orderContentArea');
+      if(orderArea) {
+        orderArea.innerHTML = `
+          <h4 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">📦 প্যানেল: ${panelName}</h4>
+          <p style="margin: 8px 0;">দাম: <strong>${price}</strong></p>
+          <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(panelName)}%20for%20${price}" target="_blank" style="display: inline-block; background: #25d366; color: #fff; padding: 10px 15px; border-radius: 8px; font-weight: 700; text-decoration: none;">
+            💬 WhatsApp এ অর্ডার কনফার্ম করুন
+          </a>
+        `;
+      }
       switchTab('orders');
     }
 
     async function executeLogout() {
       try {
-        await window.signOutUser(window.firebaseAuth);
+        if(window.signOutUser && window.firebaseAuth) {
+          await window.signOutUser(window.firebaseAuth);
+        }
       } catch (e) {
         console.error(e);
       }
     }
 
     function showForm(formType) {
-      document.getElementById('signinBox').className = formType === 'signin' ? 'view-block' : 'view-hidden';
-      document.getElementById('signupBox').className = formType === 'signup' ? 'view-block' : 'view-hidden';
-      document.getElementById('btnTabSignin').className = formType === 'signin' ? 'tab-btn active' : 'tab-btn';
-      document.getElementById('btnTabSignup').className = formType === 'signup' ? 'tab-btn active' : 'tab-btn';
+      const signinBox = document.getElementById('signinBox');
+      const signupBox = document.getElementById('signupBox');
+      const btnSignin = document.getElementById('btnTabSignin');
+      const btnSignup = document.getElementById('btnTabSignup');
+
+      if(signinBox) signinBox.className = formType === 'signin' ? 'view-block' : 'view-hidden';
+      if(signupBox) signupBox.className = formType === 'signup' ? 'view-block' : 'view-hidden';
+      if(btnSignin) btnSignin.className = formType === 'signin' ? 'tab-btn active' : 'tab-btn';
+      if(btnSignup) btnSignup.className = formType === 'signup' ? 'tab-btn active' : 'tab-btn';
     }
 
     async function onLoginSubmit(e) {
       e.preventDefault();
       try {
-        await window.signInWithEmailAndPassword(window.firebaseAuth, document.getElementById('signin-email-input').value, document.getElementById('signin-pass-input').value);
-      } catch (err) { alert('লগইন ব্যর্থ: ' + err.message); }
+        const emailInput = document.getElementById('signin-email-input').value;
+        const passInput = document.getElementById('signin-pass-input').value;
+        await window.signInWithEmailAndPassword(window.firebaseAuth, emailInput, passInput);
+      } catch (err) { 
+        alert('লগইন ব্যর্থ: ' + err.message); 
+      }
     }
 
     async function onRegisterSubmit(e) {
       e.preventDefault();
       try {
-        await window.createUserWithEmailAndPassword(window.firebaseAuth, document.getElementById('signup-email-input').value, document.getElementById('signup-pass-input').value);
+        const emailInput = document.getElementById('signup-email-input').value;
+        const passInput = document.getElementById('signup-pass-input').value;
+        await window.createUserWithEmailAndPassword(window.firebaseAuth, emailInput, passInput);
         alert('সাইন আপ সফল!');
-      } catch (err) { alert('ত্রুটি: ' + err.message); }
+      } catch (err) { 
+        alert('ত্রুটি: ' + err.message); 
+      }
     }
   </script>
 </body>
-</html>
+  </html>
