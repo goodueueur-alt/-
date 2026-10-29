@@ -24,7 +24,6 @@
       sendPasswordResetEmail 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // আপনার Firebase কনফিগারেশন
     const firebaseConfig = {
       apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
       authDomain: "rifat-ffpanel-seller.firebaseapp.com",
@@ -34,11 +33,9 @@
       appId: "1:270050253341:web:ca5db10f52d746751444f4"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // গ্লোবাল উইন্ডোতে মেথডগুলো যুক্ত করা
     window.firebaseAuth = auth;
     window.fetchSignInMethodsForEmail = fetchSignInMethodsForEmail;
     window.signInWithEmailAndPassword = signInWithEmailAndPassword;
@@ -467,6 +464,22 @@
       object-fit: cover;
     }
 
+    /* নতুন খালি বা কালচে ইমেজ বক্স স্টাইল (সব কার্ডের জন্য) */
+    .image-placeholder-box {
+      width: 100%;
+      height: 130px;
+      background: #05030a;
+      border: 1.5px dashed rgba(139, 92, 246, 0.4);
+      border-radius: 10px;
+      margin: 10px 0 14px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 13px;
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+
     .panel-info h4 {
       font-size: 17px;
       color: #ffffff;
@@ -656,7 +669,7 @@
     <!-- 10 Boxes Grid -->
     <div class="panels-grid">
 
-      <!-- Box 1: Tournament Panel (Video Box + Price + Buy Button) -->
+      <!-- Box 1: Tournament Panel (Video Box + 450 BDT + Buy Button) -->
       <div class="video-box">
         <div class="panel-info">
           <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
@@ -669,6 +682,7 @@
             আপনার ব্রাউজার ভিডিও সমর্থন করে না।
           </video>
         </div>
+        <!-- টুর্নামেন্ট বক্সেও অতিরিক্ত খালি বাক্স চাইলে এখানে রাখা যায়, তবে উপরে ভিডিওর পাশাপাশি নিচের বাটন সেট করা আছে -->
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Tournament Panel (৪৫০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -679,6 +693,7 @@
           <div class="price">৳ ১০০ BDT</div>
           <p>বেসিক ফিচার এবং অ্যান্টি-ব্যান প্রোটেকশন সহ নরমাল প্যানেল।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Normal Panel (১০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -689,6 +704,7 @@
           <div class="price">৳ ২০০ BDT</div>
           <p>ফাস্ট স্পিড এবং স্মুথ হেডশট সুবিধা সম্বলিত স্ট্যান্ডার্ড প্যানেল।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Standard Panel (২০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -699,6 +715,7 @@
           <div class="price">৳ ৩০০ BDT</div>
           <p>হাই-কোয়ালিটি এইমবট এবং অটো হেডশট প্যানেল অ্যাক্সেস।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Pro Aimbot Panel (৩০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -709,6 +726,7 @@
           <div class="price">৳ ৪০০ BDT</div>
           <p>এনিমি লোকেশন ট্র্যাক করার জন্য স্পেশাল ম্যাক্স লোকেশন টুল।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'VIP Location Tool (৪০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -719,6 +737,7 @@
           <div class="price">৳ ৫০০ BDT</div>
           <p>ম্যাজিক বুলেট এবং ফুল কন্ট্রোল সেফ প্যানেল প্যাকেজ।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultra Magic Panel (৫০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -729,6 +748,7 @@
           <div class="price">৳ ৬০০ BDT</div>
           <p>উন্নত প্রযুক্তির এক্সক্লুসিভ হ্যাকার ও ড্রাইভ লেভেল প্যানেল।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Extreme Hacker Tool (৬০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -739,6 +759,7 @@
           <div class="price">৳ ৭০০ BDT</div>
           <p>রয়্যাল লেভেলের সমস্ত ভিআইপি ফিচার এবং ডেডিকেটেড সাপোর্ট।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Royal VIP Panel (৭০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -749,6 +770,7 @@
           <div class="price">৳ ৮০০ BDT</div>
           <p>প্রো গেমারদের জন্য লেজেন্ডারি আনলিমিটেড প্যানেল অ্যাক্সেস।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Elite Legend Panel (৮০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -759,6 +781,7 @@
           <div class="price">৳ ৯০০ BDT</div>
           <p>আজীবন মেম্বারশিপ সহ আল্টিমেট সমস্ত প্যানেল ও টুলস আনলক।</p>
         </div>
+        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
         <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultimate Lifetime Panel (৯০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
@@ -766,7 +789,6 @@
   </div>
 
   <script>
-    // EmailJS Init
     (function(){
        emailjs.init("YKCEjv8TUbgGmlnEX");
     })();
@@ -774,7 +796,6 @@
     let generatedOTP = "";
     let modalCallback = null;
 
-    // CUSTOM MODAL
     function showModal(title, message, callback = null, customHTML = null) {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalMessage').innerText = message;
@@ -835,7 +856,6 @@
       }
     }
 
-    // ১. লগইন
     async function onLoginSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('signin-email-input').value;
@@ -855,7 +875,6 @@
       }
     }
 
-    // ২. সাইন-আপ
     async function onRegisterSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('signup-email-input').value;
@@ -881,7 +900,6 @@
       }
     }
 
-    // ৩. ওটিপি পাঠানো
     async function sendOTPCode() {
       const emailField = document.getElementById('reset-email-input').value;
       if (!emailField) {
@@ -924,7 +942,6 @@
       }
     }
 
-    // ৪. ওটিপি ভেরিফাই করে পাসওয়ার্ড রিসেট
     async function onResetPasswordSubmit(e) {
       e.preventDefault();
       const resetEmail = document.getElementById('reset-email-input').value;
@@ -950,7 +967,6 @@
       }
     }
 
-    // ৫. লগআউট
     function logoutUser() {
       showModal('লগআউট', 'আপনি সফলভাবে লগআউট করেছেন।', function() {
         document.getElementById('dashboardSection').className = 'view-hidden';
