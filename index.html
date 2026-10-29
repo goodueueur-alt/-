@@ -62,7 +62,7 @@
         if (authContainer) authContainer.className = 'view-hidden';
         if (mainAppContainer) mainAppContainer.className = 'view-block';
         if (bottomNav) bottomNav.className = 'bottom-nav view-block';
-        if (topHeaderUserArea) topHeaderUserArea.className = 'top-user-area view-flex';
+        if (topHeaderUserArea) topHeaderUserArea.style.display = 'flex'; // Force display flex
         if (floatingSupport) floatingSupport.className = 'floating-support-container view-block';
         
         const email = user.email || 'user@gmail.com';
@@ -96,7 +96,7 @@
         if (authContainer) authContainer.className = 'view-block app-card';
         if (mainAppContainer) mainAppContainer.className = 'view-hidden';
         if (bottomNav) bottomNav.className = 'bottom-nav view-hidden';
-        if (topHeaderUserArea) topHeaderUserArea.className = 'top-user-area view-hidden';
+        if (topHeaderUserArea) topHeaderUserArea.style.display = 'none';
         if (floatingSupport) floatingSupport.className = 'floating-support-container view-hidden';
       }
     });
@@ -109,7 +109,6 @@
       padding: 0;
     }
 
-    /* WHITE THEME BACKGROUND */
     body {
       background: #f8fafc;
       background-image: radial-gradient(circle at top, #e2e8f0 0%, #f8fafc 75%);
@@ -282,7 +281,6 @@
 
     .view-block { display: block; }
     .view-hidden { display: none !important; }
-    .view-flex { display: flex; }
 
     /* MAIN APP CONTAINER */
     .main-container {
@@ -292,7 +290,7 @@
       padding-bottom: 80px;
     }
 
-    /* TOP HEADER USER AREA (Pushed to extreme right as requested) */
+    /* TOP HEADER USER AREA (Explicitly styled to show on right) */
     .top-user-area {
       display: none;
       justify-content: flex-end;
@@ -510,13 +508,8 @@
       transform: scale(1.1);
     }
 
-    .whatsapp-badge {
-      background: #25d366;
-    }
-
-    .telegram-badge {
-      background: #229ed9;
-    }
+    .whatsapp-badge { background: #25d366; }
+    .telegram-badge { background: #229ed9; }
 
     .floating-social-icon img {
       width: 24px;
@@ -633,7 +626,6 @@
       font-family: 'Hind Siliguri', sans-serif;
     }
 
-    /* FULL SCREEN TABS */
     .full-page-section { width: 100%; }
 
     .page-title-box {
@@ -678,7 +670,6 @@
       font-family: 'Hind Siliguri', sans-serif;
     }
 
-    /* BOTTOM 5-ICONS NAVIGATION BAR */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -815,7 +806,7 @@
   <!-- MAIN APP CONTAINER -->
   <div class="main-container view-hidden" id="mainAppContainer">
 
-    <!-- TOP HEADER USER AREA (Wallet & Gmail Avatar restored to top-right) -->
+    <!-- TOP HEADER USER AREA -->
     <div class="top-user-area" id="topHeaderUserArea">
       <div class="wallet-avatar-group">
         <div class="wallet-pill" onclick="switchTab('addmoney')">
@@ -957,7 +948,7 @@
 
   </div>
 
-  <!-- FLOATING HEADPHONE SUPPORT BUTTON WITH UNIQUE LOGOS (WhatsApp & Telegram Icons) -->
+  <!-- FLOATING HEADPHONE SUPPORT BUTTON WITH UNIQUE LOGOS -->
   <div class="floating-support-container view-hidden" id="floatingSupportContainer">
     <div class="floating-options-list">
       <a href="https://wa.me/8801845907321" target="_blank" class="floating-social-icon whatsapp-badge" title="WhatsApp">
