@@ -53,16 +53,28 @@
 
     onAuthStateChanged(auth, (user) => {
       const authContainer = document.getElementById('authContainer');
-      const dashboardSection = document.getElementById('dashboardSection');
+      const mainAppContainer = document.getElementById('mainAppContainer');
       const bottomNav = document.getElementById('bottomNav');
 
       if (user) {
         if (authContainer) authContainer.className = 'view-hidden';
-        if (dashboardSection) dashboardSection.className = 'view-block';
+        if (mainAppContainer) mainAppContainer.className = 'view-block';
         if (bottomNav) bottomNav.className = 'bottom-nav view-block';
+        
+        // Update Account Info dynamically
+        const accEmailEl = document.getElementById('accEmailDisplay');
+        const accStatusEl = document.getElementById('accStatusDisplay');
+        if(accEmailEl) accEmailEl.innerText = user.email || 'N/A';
+        if(accStatusEl) {
+          if(user.emailVerified) {
+            accStatusEl.innerHTML = '<span style="color: #10b981;">✅ ভেরিফাইড (Verified)</span>';
+          } else {
+            accStatusEl.innerHTML = '<span style="color: #f59e0b;">⚠️ ভেরিফাই করা হয়নি (Not Verified)</span>';
+          }
+        }
       } else {
         if (authContainer) authContainer.className = 'view-block app-card';
-        if (dashboardSection) dashboardSection.className = 'view-hidden';
+        if (mainAppContainer) mainAppContainer.className = 'view-hidden';
         if (bottomNav) bottomNav.className = 'bottom-nav view-hidden';
       }
     });
@@ -83,7 +95,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px 20px 80px 20px;
+      padding: 20px 20px 90px 20px;
       font-family: 'Rajdhani', 'Hind Siliguri', sans-serif;
     }
 
@@ -291,174 +303,8 @@
       display: none !important;
     }
 
-    /* CUSTOM MODAL POPUP */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-box {
-      background: #110b27;
-      border: 2px solid #eab308;
-      border-radius: 20px;
-      padding: 26px 22px;
-      width: 90%;
-      max-width: 360px;
-      text-align: center;
-      box-shadow: 0 0 35px rgba(234, 179, 8, 0.35);
-      transform: scale(0.8);
-      transition: transform 0.3s ease;
-      position: relative;
-    }
-
-    .modal-overlay.active .modal-box {
-      transform: scale(1);
-    }
-
-    .modal-close-cross {
-      position: absolute;
-      top: 12px;
-      right: 14px;
-      width: 28px;
-      height: 28px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(250, 204, 21, 0.4);
-      border-radius: 50%;
-      color: #facc15;
-      font-size: 16px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .modal-close-cross:hover {
-      background: #ef4444;
-      border-color: #ef4444;
-      color: #ffffff;
-      transform: scale(1.1);
-    }
-
-    .modal-title {
-      font-family: 'Orbitron', sans-serif;
-      color: #facc15;
-      font-size: 18px;
-      font-weight: 800;
-      margin-top: 5px;
-      margin-bottom: 12px;
-    }
-
-    .modal-message {
-      font-family: 'Hind Siliguri', sans-serif;
-      color: #cbd5e1;
-      font-size: 15px;
-      line-height: 1.5;
-      margin-bottom: 22px;
-    }
-
-    .modal-btn {
-      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
-      color: #000;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-family: 'Hind Siliguri', sans-serif;
-      font-weight: 800;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
-      transition: 0.2s;
-      width: 100%;
-    }
-
-    .gmail-direct-btn {
-      display: block;
-      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
-      color: #000;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-family: 'Hind Siliguri', sans-serif;
-      font-weight: 800;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
-      text-decoration: none;
-      width: 100%;
-      text-align: center;
-      transition: 0.2s;
-    }
-
-    /* CUSTOM SUPPORT MODAL LIST STYLES */
-    .support-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 10px;
-    }
-
-    .support-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(18, 12, 36, 0.9);
-      border: 1px solid rgba(139, 92, 246, 0.4);
-      padding: 10px 14px;
-      border-radius: 12px;
-      text-decoration: none;
-      color: #ffffff;
-      font-family: 'Hind Siliguri', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-
-    .support-item:hover {
-      border-color: #eab308;
-      background: rgba(234, 179, 8, 0.1);
-      transform: translateY(-2px);
-    }
-
-    .support-icon-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #110b27;
-      border: 1.5px solid #eab308;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      overflow: hidden;
-    }
-
-    .support-icon-circle img {
-      width: 20px;
-      height: 20px;
-      object-fit: contain;
-    }
-
-    /* DASHBOARD STYLES */
-    #dashboardSection {
+    /* FULL PAGE SECTION STYLES */
+    .full-page-section {
       width: 100%;
       max-width: 1100px;
       margin: 0 auto;
@@ -595,13 +441,112 @@
       transform: scale(1.02);
     }
 
+    /* FULL PAGE STYLING FOR SUPPORT, ORDERS, ACCOUNT */
+    .page-title-box {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      color: #facc15;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #332554;
+      padding-bottom: 10px;
+    }
+
+    .support-full-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .support-card-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(18, 12, 36, 0.9);
+      border: 1.5px solid rgba(139, 92, 246, 0.4);
+      padding: 16px 20px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: #ffffff;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .support-card-item:hover {
+      border-color: #eab308;
+      background: rgba(234, 179, 8, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .support-big-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #110b27;
+      border: 2px solid #eab308;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .support-big-icon img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    .account-card-box {
+      background: rgba(18, 12, 36, 0.9);
+      border: 1.5px solid rgba(139, 92, 246, 0.4);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .account-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(51, 37, 84, 0.5);
+      font-family: 'Hind Siliguri', sans-serif;
+      font-size: 15px;
+    }
+
+    .account-info-row:last-child {
+      border-bottom: none;
+    }
+
+    .logout-big-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-family: 'Hind Siliguri', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+      transition: 0.2s;
+    }
+
+    .logout-big-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
     /* BOTTOM 4-ICONS NAVIGATION BAR */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      background: rgba(18, 12, 36, 0.95);
+      background: rgba(18, 12, 36, 0.98);
       backdrop-filter: blur(16px);
       border-top: 1px solid rgba(139, 92, 246, 0.3);
       display: flex;
@@ -648,19 +593,6 @@
   </style>
 </head>
 <body>
-
-  <!-- CUSTOM MODAL POPUP -->
-  <div class="modal-overlay" id="customModal">
-    <div class="modal-box">
-      <button class="modal-close-cross" onclick="closeModal()" title="বন্ধ করুন">✕</button>
-      
-      <div class="modal-title" id="modalTitle">RIFAT PANEL SELLER</div>
-      <div class="modal-message" id="modalMessage">এখানে বার্তার তথ্য থাকবে</div>
-      <div id="modalActionContainer">
-        <button class="modal-btn" id="modalActionBtn" onclick="closeModal()">ঠিক আছে</button>
-      </div>
-    </div>
-  </div>
 
   <!-- 1. AUTHENTICATION SECTION -->
   <div class="app-card" id="authContainer">
@@ -782,160 +714,237 @@
     </div>
   </div>
 
-  <!-- 2. DASHBOARD SECTION -->
-  <div id="dashboardSection" class="view-hidden">
-    <div class="dashboard-header">
-      <div class="user-welcome">
-        <h3>RIFAT PANEL SELLER</h3>
-        <p>স্বাগতম, <span style="color: #10b981;">VIP Member</span></p>
+  <!-- 2. MAIN APP CONTAINER (Full Screen Tabs) -->
+  <div id="mainAppContainer" class="view-hidden">
+
+    <!-- TAB 1: HOME SECTION (Panels Grid) -->
+    <div id="tabHome" class="full-page-section view-block">
+      <div class="dashboard-header">
+        <div class="user-welcome">
+          <h3>RIFAT PANEL SELLER</h3>
+          <p>স্বাগতম, <span style="color: #10b981;">VIP Member</span></p>
+        </div>
+      </div>
+
+      <div class="panels-grid">
+        <!-- Box 1: Tournament Panel (450 BDT) -->
+        <div class="video-box">
+          <div class="panel-info">
+            <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
+            <div class="price">450 BDT</div>
+            <p>অফিশিয়াল টুর্নামেন্ট প্লেয়ারদের জন্য বিশেষ অ্যান্টি-ব্যান সুরক্ষিত প্যানেল।</p>
+          </div>
+          <div class="video-wrapper">
+            <video controls autoplay loop playsinline>
+              <source src="VID_20261028_112023_896.mp4" type="video/mp4">
+              আপনার ব্রাউজার ভিডিও সমর্থন করে না।
+            </video>
+          </div>
+          <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 2: Full Body Location Panel (550 BDT) -->
+        <div class="video-box">
+          <div class="panel-info">
+            <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
+            <div class="price">550 BDT</div>
+            <p>ভিআরসিএস (VRCS) প্রযুক্তি সহ নিখুঁত ফুল বডি লোকেশন ট্র্যাকিং প্যানেল।</p>
+          </div>
+          <div class="video-wrapper">
+            <video controls autoplay loop playsinline>
+              <source src="lv_0_20261029123331.mp4" type="video/mp4">
+              আপনার ব্রাউজার ভিডিও সমর্থন করে না।
+            </video>
+          </div>
+          <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 3: 100 BDT -->
+        <div class="panel-card">
+          <div class="panel-info">
+            <h4>Normal Panel</h4>
+            <div class="price">100 BDT</div>
+            <p>বেসিক ফিচার এবং অ্যান্টি-ব্যান প্রোটেকশন সহ নরমাল প্যানেল।</p>
+          </div>
+          <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
+          <button class="buy-btn" onclick="openOrderPage('Normal Panel', '100 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 4: 200 BDT -->
+        <div class="panel-card">
+          <div class="panel-info">
+            <h4>Standard FF Panel</h4>
+            <div class="price">200 BDT</div>
+            <p>ফাস্ট স্পিড এবং স্মুথ হেডশট সুবিধা সম্বলিত স্ট্যান্ডার্ড প্যানেল।</p>
+          </div>
+          <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
+          <button class="buy-btn" onclick="openOrderPage('Standard FF Panel', '200 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 5: 300 BDT -->
+        <div class="panel-card">
+          <div class="panel-info">
+            <h4>Pro Aimbot Panel</h4>
+            <div class="price">300 BDT</div>
+            <p>হাই-কোয়ালিটি এইমবট এবং অটো হেডশট প্যানেল অ্যাক্সেস।</p>
+          </div>
+          <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
+          <button class="buy-btn" onclick="openOrderPage('Pro Aimbot Panel', '300 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 6: 400 BDT -->
+        <div class="panel-card">
+          <div class="panel-info">
+            <h4>VIP Location Tool</h4>
+            <div class="price">400 BDT</div>
+            <p>এনিমি লোকেশন ট্র্যাক করার জন্য স্পেশাল ম্যাক্স লোকেশন টুল।</p>
+          </div>
+          <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
+          <button class="buy-btn" onclick="openOrderPage('VIP Location Tool', '400 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 7: 500 BDT -->
+        <div class="panel-card">
+          <div class="panel-info">
+            <h4>Ultra Magic Panel</h4>
+            <div class="price">500 BDT</div>
+            <p>ম্যাজিক বুলেট এবং ফুল কন্ট্রোল সেফ প্যানেল প্যাকেজ।</p>
+          </div>
+          <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
+          <button class="buy-btn" onclick="openOrderPage('Ultra Magic Panel', '500 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 8: 600 BDT -->
+        <div class="panel-card">
+          <div class="panel-info">
+            <h4>Extreme Hacker Tool</h4>
+            <div class="price">600 BDT</div>
+            <p>উন্নত প্রযুক্তির এক্সক্লুসিভ হ্যাকার ও ড্রাইভ লেভেল প্যানেল।</p>
+          </div>
+          <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
+          <button class="buy-btn" onclick="openOrderPage('Extreme Hacker Tool', '600 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 9: 700 BDT -->
+        <div class="panel-card">
+          <div class="panel-info">
+            <h4>Royal VIP Panel</h4>
+            <div class="price">700 BDT</div>
+            <p>রয়্যাল লেভেলের সমস্ত ভিআইপি ফিচার এবং ডেডিকেটেড সাপোর্ট।</p>
+          </div>
+          <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
+          <button class="buy-btn" onclick="openOrderPage('Royal VIP Panel', '700 BDT')">কিনুন</button>
+        </div>
+
+        <!-- Box 10: 800 BDT -->
+        <div class="panel-card">
+          <div class="panel-info">
+            <h4>Elite Legend Panel</h4>
+            <div class="price">800 BDT</div>
+            <p>প্রো গেমারদের জন্য লেজেন্ডারি আনলিমিটেড প্যানেল অ্যাক্সেস।</p>
+          </div>
+          <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
+          <button class="buy-btn" onclick="openOrderPage('Elite Legend Panel', '800 BDT')">কিনুন</button>
+        </div>
       </div>
     </div>
 
-    <!-- Panels Grid -->
-    <div class="panels-grid">
-
-      <!-- Box 1: Tournament Panel (450 BDT) [এখানে controls যোগ করা হয়েছে যাতে সাউন্ড ও কন্ট্রোল থাকে] -->
-      <div class="video-box">
-        <div class="panel-info">
-          <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
-          <div class="price">400 BDT</div>
-          <p>অফিশিয়াল টুর্নামেন্ট প্লেয়ারদের জন্য বিশেষ অ্যান্টি-ব্যান সুরক্ষিত প্যানেল।</p>
-        </div>
-        <div class="video-wrapper">
-          <video controls autoplay loop playsinline>
-            <source src="VID_20261028_112023_896.mp4" type="video/mp4">
-            আপনার ব্রাউজার ভিডিও সমর্থন করে না।
-          </video>
-        </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Tournament Panel (450 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+    <!-- TAB 2: SUPPORT SECTION (Full Screen) -->
+    <div id="tabSupport" class="full-page-section view-hidden">
+      <div class="page-title-box">24/7 CUSTOMER SUPPORT</div>
+      <p style="color: #94a3b8; font-family: 'Hind Siliguri', sans-serif; margin-bottom: 20px;">আমাদের সাথে যোগাযোগের মাধ্যমসমূহ:</p>
+      
+      <div class="support-full-list">
+        <a href="https://wa.me/your-number" target="_blank" class="support-card-item">
+          <div class="support-big-icon"><img src="file_000000007dac82118992c526a33fae9b.png" alt="WA"></div>
+          <div>
+            <div style="font-weight: 700; color: #facc15;">WhatsApp পার্সোনাল</div>
+            <div style="font-size: 13px; color: #94a3b8;">সরাসরি চ্যাট করতে এখানে ক্লিক করুন</div>
+          </div>
+        </a>
+        <a href="https://wa.me/channel/your-channel" target="_blank" class="support-card-item">
+          <div class="support-big-icon"><img src="file_000000007dac82118992c526a33fae9b.png" alt="WAC"></div>
+          <div>
+            <div style="font-weight: 700; color: #facc15;">WhatsApp পেজ / চ্যানেল</div>
+            <div style="font-size: 13px; color: #94a3b8;">আমাদের অফিশিয়াল আপডেট পেতে যুক্ত হোন</div>
+          </div>
+        </a>
+        <a href="https://t.me/rifatffpanelseller6" target="_blank" class="support-card-item">
+          <div class="support-big-icon"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TG"></div>
+          <div>
+            <div style="font-weight: 700; color: #facc15;">Telegram পার্সোনাল</div>
+            <div style="font-size: 13px; color: #94a3b8;">আইডি: @rifatffpanelseller6</div>
+          </div>
+        </a>
+        <a href="https://t.me/rifatffpanelSellerBot1" target="_blank" class="support-card-item">
+          <div class="support-big-icon"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TGG"></div>
+          <div>
+            <div style="font-weight: 700; color: #facc15;">Telegram গ্রুপ ও বট</div>
+            <div style="font-size: 13px; color: #94a3b8;">গ্রুপ এবং অটোমেশন বট সাপোর্ট</div>
+          </div>
+        </a>
+        <a href="https://t.me/RifatFFPanelSeller" target="_blank" class="support-card-item">
+          <div class="support-big-icon"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TGC"></div>
+          <div>
+            <div style="font-weight: 700; color: #facc15;">Telegram চ্যানেল</div>
+            <div style="font-size: 13px; color: #94a3b8;">প্যানেল আপডেট ও প্রুফ চ্যানেল</div>
+          </div>
+        </a>
       </div>
-
-      <!-- Box 2: Full Body Location Panel (550 BDT) -->
-      <div class="video-box">
-        <div class="panel-info">
-          <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
-          <div class="price">350 BDT</div>
-          <p>ভিআরসিএস (VRCS) প্রযুক্তি সহ নিখুঁত ফুল বডি লোকেশন  প্যানেল।</p>
-        </div>
-        <div class="video-wrapper">
-          <video controls autoplay loop playsinline>
-            <source src="lv_0_20261029123331.mp4" type="video/mp4">
-            আপনার ব্রাউজার ভিডিও সমর্থন করে না।
-          </video>
-        </div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Full Body Location Panel (550 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
-      <!-- Box 3: 100 BDT -->
-      <div class="panel-card">
-        <div class="panel-info">
-          <h4>Normal Panel</h4>
-          <div class="price">100 BDT</div>
-          <p>বেসিক ফিচার এবং অ্যান্টি-ব্যান প্রোটেকশন সহ নরমাল প্যানেল।</p>
-        </div>
-        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Normal Panel (100 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
-      <!-- Box 4: 200 BDT -->
-      <div class="panel-card">
-        <div class="panel-info">
-          <h4>Standard FF Panel</h4>
-          <div class="price">200 BDT</div>
-          <p>ফাস্ট স্পিড এবং স্মুথ হেডশট সুবিধা সম্বলিত স্ট্যান্ডার্ড প্যানেল।</p>
-        </div>
-        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Standard Panel (200 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
-      <!-- Box 5: 300 BDT -->
-      <div class="panel-card">
-        <div class="panel-info">
-          <h4>Pro Aimbot Panel</h4>
-          <div class="price">300 BDT</div>
-          <p>হাই-কোয়ালিটি এইমবট এবং অটো হেডশট প্যানেল অ্যাক্সেস।</p>
-        </div>
-        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Pro Aimbot Panel (300 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
-      <!-- Box 6: 400 BDT -->
-      <div class="panel-card">
-        <div class="panel-info">
-          <h4>VIP Location Tool</h4>
-          <div class="price">400 BDT</div>
-          <p>এনিমি লোকেশন ট্র্যাক করার জন্য স্পেশাল ম্যাক্স লোকেশন টুল।</p>
-        </div>
-        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'VIP Location Tool (400 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
-      <!-- Box 7: 500 BDT -->
-      <div class="panel-card">
-        <div class="panel-info">
-          <h4>Ultra Magic Panel</h4>
-          <div class="price">500 BDT</div>
-          <p>ম্যাজিক বুলেট এবং ফুল কন্ট্রোল সেফ প্যানেল প্যাকেজ।</p>
-        </div>
-        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultra Magic Panel (500 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
-      <!-- Box 8: 600 BDT -->
-      <div class="panel-card">
-        <div class="panel-info">
-          <h4>Extreme Hacker Tool</h4>
-          <div class="price">600 BDT</div>
-          <p>উন্নত প্রযুক্তির এক্সক্লুসিভ হ্যাকার ও ড্রাইভ লেভেল প্যানেল।</p>
-        </div>
-        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Extreme Hacker Tool (600 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
-      <!-- Box 9: 700 BDT -->
-      <div class="panel-card">
-        <div class="panel-info">
-          <h4>Royal VIP Panel</h4>
-          <div class="price">700 BDT</div>
-          <p>রয়্যাল লেভেলের সমস্ত ভিআইপি ফিচার এবং ডেডিকেটেড সাপোর্ট।</p>
-        </div>
-        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Royal VIP Panel (700 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
-      <!-- Box 10: 800 BDT -->
-      <div class="panel-card">
-        <div class="panel-info">
-          <h4>Elite Legend Panel</h4>
-          <div class="price">800 BDT</div>
-          <p>প্রো গেমারদের জন্য লেজেন্ডারি আনলিমিটেড প্যানেল অ্যাক্সেস।</p>
-        </div>
-        <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Elite Legend Panel (800 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
-      </div>
-
     </div>
+
+    <!-- TAB 3: ORDERS SECTION (Full Screen) -->
+    <div id="tabOrders" class="full-page-section view-hidden">
+      <div class="page-title-box">MY ORDERS & CHECKOUT</div>
+      <div id="orderContentArea" class="account-card-box">
+        <h4 style="color: #facc15; font-family: 'Orbitron', sans-serif; margin-bottom: 10px;">🛒 অর্ডার স্ট্যাটাস</h4>
+        <p style="color: #cbd5e1; font-family: 'Hind Siliguri', sans-serif; margin-bottom: 15px;">আপনার কোনো প্যানেল সিলেক্ট করা হয়নি। হোম পেজ থেকে যেকোনো প্যানেলের **"কিনুন"** বাটনে ক্লিক করুন।</p>
+      </div>
+    </div>
+
+    <!-- TAB 4: ACCOUNT SECTION (Full Screen with Gmail & Verified Status) -->
+    <div id="tabAccount" class="full-page-section view-hidden">
+      <div class="page-title-box">MY ACCOUNT PROFILE</div>
+      
+      <div class="account-card-box">
+        <div class="account-info-row">
+          <span style="color: #94a3b8;">লগইনকৃত জিমেইল:</span>
+          <span id="accEmailDisplay" style="color: #facc15; font-weight: 700;">Loading...</span>
+        </div>
+        <div class="account-info-row">
+          <span style="color: #94a3b8;">অ্যাকাউন্ট স্ট্যাটাস:</span>
+          <span id="accStatusDisplay" style="font-weight: 700;">যাচাই করা হচ্ছে...</span>
+        </div>
+        <div class="account-info-row">
+          <span style="color: #94a3b8;">রোল (Role):</span>
+          <span style="color: #10b981; font-weight: 700;">VIP Member</span>
+        </div>
+      </div>
+
+      <button class="logout-big-btn" onclick="executeLogout()">লগআউট করুন (Log Out)</button>
+    </div>
+
   </div>
 
   <!-- BOTTOM 4-ICONS NAVIGATION BAR (লগইন ছাড়া হাইড থাকবে) -->
   <div class="bottom-nav view-hidden" id="bottomNav">
     <!-- ১. হোম স্ক্রিন -->
-    <button class="nav-item active" onclick="showTab('home')">
+    <button class="nav-item active" id="navHome" onclick="switchTab('home')">
       <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
       Home
     </button>
-    <!-- ২. ২৪/৭ কাস্টমার সাপোর্ট (গোল লোগোসহ) -->
-    <button class="nav-item" onclick="openSupportModal()">
+    <!-- ২. সাপোর্ট -->
+    <button class="nav-item" id="navSupport" onclick="switchTab('support')">
       <img src="file_000000007dac82118992c526a33fae9b.png" alt="Support" class="support-nav-icon">
       Support
     </button>
-    <!-- ৩. মাই অ্যাকাউন্ট / অর্ডারস -->
-    <button class="nav-item" onclick="showModal('অর্ডার হিস্ট্রি', 'আপনার কোনো পেন্ডিং অর্ডার নেই।')">
+    <!-- ৩. অর্ডারস -->
+    <button class="nav-item" id="navOrders" onclick="switchTab('orders')">
       <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
       Orders
     </button>
-    <!-- ৪. একাউন্ট (লগআউট অপশনসহ) -->
-    <button class="nav-item" onclick="confirmLogoutModal()">
+    <!-- ৪. একাউন্ট -->
+    <button class="nav-item" id="navAccount" onclick="switchTab('account')">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
       Account
     </button>
@@ -947,78 +956,63 @@
     })();
 
     let generatedOTP = "";
-    let modalCallback = null;
 
-    function showModal(title, message, callback = null, customHTML = null) {
-      document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalMessage').innerText = message;
-      
-      const actionContainer = document.getElementById('modalActionContainer');
-      if (customHTML) {
-        actionContainer.innerHTML = customHTML;
-      } else {
-        actionContainer.innerHTML = `<button class="modal-btn" id="modalActionBtn" onclick="closeModal()">ঠিক আছে</button>`;
+    // Full Screen Tab Switching Logic
+    function switchTab(tabName) {
+      const tabHome = document.getElementById('tabHome');
+      const tabSupport = document.getElementById('tabSupport');
+      const tabOrders = document.getElementById('tabOrders');
+      const tabAccount = document.getElementById('tabAccount');
+
+      const navHome = document.getElementById('navHome');
+      const navSupport = document.getElementById('navSupport');
+      const navOrders = document.getElementById('navOrders');
+      const navAccount = document.getElementById('navAccount');
+
+      // Hide all tabs
+      tabHome.className = 'full-page-section view-hidden';
+      tabSupport.className = 'full-page-section view-hidden';
+      tabOrders.className = 'full-page-section view-hidden';
+      tabAccount.className = 'full-page-section view-hidden';
+
+      // Remove active class from nav items
+      navHome.classList.remove('active');
+      navSupport.classList.remove('active');
+      navOrders.classList.remove('active');
+      navAccount.classList.remove('active');
+
+      // Show selected tab
+      if (tabName === 'home') {
+        tabHome.className = 'full-page-section view-block';
+        navHome.classList.add('active');
+      } else if (tabName === 'support') {
+        tabSupport.className = 'full-page-section view-block';
+        navSupport.classList.add('active');
+      } else if (tabName === 'orders') {
+        tabOrders.className = 'full-page-section view-block';
+        navOrders.classList.add('active');
+      } else if (tabName === 'account') {
+        tabAccount.className = 'full-page-section view-block';
+        navAccount.classList.add('active');
       }
-
-      document.getElementById('customModal').classList.add('active');
-      modalCallback = callback;
+      window.scrollTo(0, 0);
     }
 
-    function closeModal() {
-      document.getElementById('customModal').classList.remove('active');
-      if (modalCallback) {
-        modalCallback();
-        modalCallback = null;
-      }
-    }
-
-    function openSupportModal() {
-      document.getElementById('modalTitle').innerText = '24/7 CUSTOMER SUPPORT';
-      document.getElementById('modalMessage').innerText = 'আমাদের সাথে যোগাযোগের মাধ্যমসমূহ:';
-      
-      const actionContainer = document.getElementById('modalActionContainer');
-      actionContainer.innerHTML = `
-        <div class="support-list">
-          <a href="https://wa.me/your-number" target="_blank" class="support-item">
-            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="WA"></div>
-            <span>WhatsApp পার্সোনাল</span>
-          </a>
-          <a href="https://wa.me/channel/your-channel" target="_blank" class="support-item">
-            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="WAC"></div>
-            <span>WhatsApp পেজ / চ্যানেল</span>
-          </a>
-          <a href="https://t.me/your-username" target="_blank" class="support-item">
-            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TG"></div>
-            <span>Telegram পার্সোনাল</span>
-          </a>
-          <a href="https://t.me/your-group" target="_blank" class="support-item">
-            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TGG"></div>
-            <span>Telegram গ্রুপ</span>
-          </a>
-          <a href="https://t.me/your-channel" target="_blank" class="support-item">
-            <div class="support-icon-circle"><img src="file_000000007dac82118992c526a33fae9b.png" alt="TGC"></div>
-            <span>Telegram চ্যানেল</span>
-          </a>
-        </div>
+    // Open Order Page with selected item
+    function openOrderPage(panelName, price) {
+      const orderContentArea = document.getElementById('orderContentArea');
+      orderContentArea.innerHTML = `
+        <h4 style="color: #facc15; font-family: 'Orbitron', sans-serif; margin-bottom: 10px;">📦 নির্বাচিত প্যানেল: ${panelName}</h4>
+        <p style="color: #cbd5e1; font-family: 'Hind Siliguri', sans-serif; margin-bottom: 8px;">মূল্য: <strong style="color: #10b981;">${price}</strong></p>
+        <p style="color: #94a3b8; font-family: 'Hind Siliguri', sans-serif; margin-bottom: 20px; font-size: 14px;">অর্ডার কনফার্ম করতে নিচের WhatsApp বাটনে ক্লিক করে সরাসরি যোগাযোগ করুন।</p>
+        <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(panelName)}%20for%20${price}" target="_blank" style="display: block; background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); color: #fff; text-align: center; padding: 12px; border-radius: 12px; font-weight: 800; text-decoration: none; font-family: 'Hind Siliguri', sans-serif; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);">
+          💬 WhatsApp এ অর্ডার কনফার্ম করুন
+        </a>
       `;
-
-      document.getElementById('customModal').classList.add('active');
-      modalCallback = null;
-    }
-
-    function confirmLogoutModal() {
-      document.getElementById('modalTitle').innerText = 'লগআউট';
-      document.getElementById('modalMessage').innerText = 'আপনি কি নিশ্চিত যে আপনি লগআউট করতে চান?';
-      
-      const actionContainer = document.getElementById('modalActionContainer');
-      actionContainer.innerHTML = `<button class="modal-btn" id="modalActionBtn" onclick="executeLogout()">ঠিক আছে</button>`;
-
-      document.getElementById('customModal').classList.add('active');
-      modalCallback = null;
+      switchTab('orders');
     }
 
     async function executeLogout() {
-      closeModal();
       try {
         await window.signOutUser(window.firebaseAuth);
       } catch (e) {
@@ -1030,7 +1024,7 @@
       const signinBox = document.getElementById('signinBox');
       const signupBox = document.getElementById('signupBox');
       const forgotBox = document.getElementById('forgotBox');
-      val btnTabSignin = document.getElementById('btnTabSignin');
+      const btnTabSignin = document.getElementById('btnTabSignin');
       const btnTabSignup = document.getElementById('btnTabSignup');
       const tabsBar = document.getElementById('tabsBar');
 
@@ -1068,18 +1062,11 @@
       const email = document.getElementById('signin-email-input').value;
       const password = document.getElementById('signin-pass-input').value;
 
-      showModal('লগইন হচ্ছে', 'অনুগ্রহ করে অপেক্ষা করুন...');
-
       try {
         await window.signInWithEmailAndPassword(window.firebaseAuth, email, password);
-        showModal('লগইন সফল', 'আপনাকে ড্যাশবোর্ডে স্বাগতম!', function() {
-          document.getElementById('authContainer').className = 'view-hidden';
-          document.getElementById('dashboardSection').className = 'view-block';
-          document.getElementById('bottomNav').className = 'bottom-nav view-block';
-        });
       } catch (error) {
         console.error(error);
-        showModal('লগইন ব্যর্থ', 'ভুল ইমেল বা পাসওয়ার্ড! আবার চেষ্টা করুন।');
+        alert('লগইন ব্যর্থ: ভুল ইমেল বা পাসওয়ার্ড!');
       }
     }
 
@@ -1088,41 +1075,26 @@
       const email = document.getElementById('signup-email-input').value;
       const password = document.getElementById('signup-pass-input').value;
 
-      showModal('অ্যাকাউন্ট তৈরি হচ্ছে', 'অনুগ্রহ করে অপেক্ষা করুন...');
-
       try {
         await window.createUserWithEmailAndPassword(window.firebaseAuth, email, password);
-        showModal('সাইন আপ সফল', 'আপনার অ্যাকাউন্টটি সফলভাবে তৈরি হয়েছে!', function() {
-          document.getElementById('authContainer').className = 'view-hidden';
-          document.getElementById('dashboardSection').className = 'view-block';
-          document.getElementById('bottomNav').className = 'bottom-nav view-block';
-        });
+        alert('সাইন আপ সফল!');
       } catch (error) {
         console.error(error);
-        if (error.code === 'auth/email-already-in-use') {
-          showModal('ব্যর্থ হয়েছে', 'এই ইমেলটি ইতিমধ্যে ব্যবহার করা হয়েছে!');
-        } else if (error.code === 'auth/weak-password') {
-          showModal('ব্যর্থ হয়েছে', 'পাসওয়ার্ড অন্তত ৬ অক্ষরের হতে হবে!');
-        } else {
-          showModal('ত্রুটি', error.message);
-        }
+        alert('ত্রুটি: ' + error.message);
       }
     }
 
     async function sendOTPCode() {
       const emailField = document.getElementById('reset-email-input').value;
       if (!emailField) {
-        showModal('সতর্কতা', 'দয়া করে প্রথমে আপনার জিমেইল লিখুন!');
+        alert('দয়া করে প্রথমে আপনার জিমেইল লিখুন!');
         return;
       }
 
-      showModal('যাচাই করা হচ্ছে', 'অনুগ্রহ করে অপেক্ষা করুন...');
-
       try {
         const signInMethods = await window.fetchSignInMethodsForEmail(window.firebaseAuth, emailField);
-        
         if (!signInMethods || signInMethods.length === 0) {
-          showModal('অ্যাকাউন্ট পাওয়া যায়নি', 'এই জিমেইল দিয়ে কোনো অ্যাকাউন্ট রেজিস্টার্ড করা নেই!');
+          alert('এই জিমেইল দিয়ে কোনো অ্যাকাউন্ট রেজিস্টার্ড করা নেই!');
           return;
         }
 
@@ -1135,19 +1107,17 @@
           otp: generatedOTP
         };
 
-        showModal('ওটিপি পাঠানো হচ্ছে', 'অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন...');
-
         emailjs.send("service_u36uj8r", "template_aimy5cj", templateParams)
           .then(function(response) {
-              showModal('সফলতা', 'ওটিপি কোডটি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
+              alert('ওটিপি কোডটি সফলভাবে আপনার জিমেইলে পাঠানো হয়েছে!');
           }, function(error) {
               console.error('FAILED...', error);
-              showModal('ব্যর্থ হয়েছে', 'ইমেল পাঠানো সম্ভব হয়নি: ' + (error.text || 'সার্ভার এরর'));
+              alert('ইমেল পাঠানো সম্ভব হয়নি!');
           });
 
       } catch (error) {
         console.error(error);
-        showModal('ত্রুটি', 'ইমেল যাচাই করতে সমস্যা হয়েছে।');
+        alert('ইমেল যাচাই করতে সমস্যা হয়েছে।');
       }
     }
 
@@ -1157,27 +1127,18 @@
       const enteredOTP = document.getElementById('otp-input').value;
 
       if (enteredOTP !== generatedOTP) {
-        showModal('ভুল ওটিপি', 'আপনার দেওয়া ওটিপি কোডটি সঠিক নয়। পুনরায় চেষ্টা করুন।');
+        alert('আপনার দেওয়া ওটিপি কোডটি সঠিক নয়।');
         return;
       }
 
-      showModal('প্রক্রিয়াদীন', 'অনুগ্রহ করে অপেক্ষা করুন...');
-
       try {
         await window.sendPasswordResetEmail(window.firebaseAuth, resetEmail);
-
-        const gmailBtnHTML = `<a href="https://mail.google.com" target="_blank" class="gmail-direct-btn" onclick="closeModal(); showForm('signin');">✉️ সরাসরি জিমেইল ওপেন করুন</a>`;
-        
-        showModal('সফলতা', 'আপনার ওটিপি সঠিক হয়েছে! ' + resetEmail + ' জিমেইলে ফায়ারবেস পাসওয়ার্ড রিসেটের লিংক পাঠানো হয়েছে।', null, gmailBtnHTML);
-
+        alert('ওটিপি সঠিক হয়েছে! পাসওয়ার্ড রিসেটের লিংক আপনার জিমেইলে পাঠানো হয়েছে।');
+        showForm('signin');
       } catch (error) {
         console.error(error);
-        showModal('ত্রুটি', 'পাসওয়ার্ড রিসেট লিংক পাঠাতে সমস্যা হয়েছে: ' + error.message);
+        alert('ত্রুটি: ' + error.message);
       }
-    }
-
-    function showTab(tabName) {
-      // ভবিষ্যতের ট্যাব ন্যাভিগেশনের জন্য
     }
   </script>
 
