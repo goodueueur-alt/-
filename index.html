@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -10,12 +11,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Firebase Authentication -->
+  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import {
-      getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged,
-      signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut
+      getAuth,
+      setPersistence,
+      browserLocalPersistence,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      signOut
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -30,6 +36,7 @@
     try {
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
+
       setPersistence(auth, browserLocalPersistence).catch(console.error);
 
       window.firebaseAuth = auth;
@@ -88,223 +95,748 @@
   </script>
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     :root {
-      --primary: #7c3aed; --primary-dark: #6d28d9; --text: #1e293b;
-      --muted: #64748b; --border: #e2e8f0; --page-bg: #f8fafc;
+      --primary: #7c3aed;
+      --primary-dark: #6d28d9;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --page-bg: #f8fafc;
     }
+
     body {
-      background: var(--page-bg); color: var(--text); min-height: 100vh;
-      padding: 0 0 90px; font-family: "Poppins", "Hind Siliguri", sans-serif;
+      background: var(--page-bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 90px;
+      font-family: "Poppins", "Hind Siliguri", sans-serif;
     }
-    body.sidebar-open, body.modal-open { overflow: hidden; }
-    button, input { font: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
 
-    /* AUTH - kept as in the original */
+    body.sidebar-open {
+      overflow: hidden;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* AUTH */
     .app-card {
-      background: #fff; border: 1px solid var(--border); border-radius: 24px;
-      padding: 30px 24px; width: 90%; max-width: 420px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.08); margin: 40px auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px 24px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+      margin: 40px auto;
     }
+
     .brand-logo-container {
-      width: 75px; height: 75px; margin: 0 auto 10px; border-radius: 20px;
-      overflow: hidden; border: 2px solid var(--primary); background: #fff;
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 10px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid var(--primary);
+      background: #fff;
     }
-    .brand-logo-container img { width: 100%; height: 100%; object-fit: cover; }
+
+    .brand-logo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .brand-title {
-      font-family: "Orbitron", sans-serif; font-size: 18px; font-weight: 900;
-      color: var(--primary-dark); text-align: center; margin-bottom: 15px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      text-align: center;
+      margin-bottom: 15px;
     }
-    .auth-tabs { display: flex; background: #f1f5f9; border-radius: 12px; padding: 4px; margin-bottom: 20px; }
-    .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: var(--muted); font-weight: 700; cursor: pointer; border-radius: 8px; }
-    .tab-btn.active { background: var(--primary); color: #fff; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; font-size: 13px; color: #475569; margin-bottom: 5px; font-weight: 600; }
+
+    .auth-tabs {
+      display: flex;
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
     input {
-      width: 100%; padding: 12px 14px; background: #fff; color: #0f172a;
-      border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 14px; outline: none;
+      width: 100%;
+      padding: 12px 14px;
+      background: #fff;
+      color: #0f172a;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
     }
-    input:focus { border-color: var(--primary); }
+
+    input:focus {
+      border-color: var(--primary);
+    }
+
     .submit-btn {
-      width: 100%; padding: 14px; background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
     }
 
-    .main-container { width: 100%; max-width: 480px; margin: 0 auto; padding-bottom: 80px; background: var(--page-bg); min-height: 100vh; }
+    /* MAIN */
+    .main-container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+      background: var(--page-bg);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
     .top-user-area {
-      display: none; justify-content: space-between; align-items: center; gap: 8px;
-      background: #fff; padding: 12px 14px; border-bottom: 1px solid #f1f5f9;
-      position: sticky; top: 0; z-index: 1000;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      padding: 12px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .brand-logo-text { display: flex; align-items: center; gap: 8px; text-decoration: none; min-width: 0; }
+
+    .brand-logo-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      min-width: 0;
+    }
+
     .brand-icon-box {
-      width: 36px; height: 36px; flex-shrink: 0; background: linear-gradient(135deg,#7c3aed,#6d28d9);
-      border-radius: 10px; display: flex; align-items: center; justify-content: center;
-      color: #fff; font-family: "Orbitron",sans-serif; font-weight: 900; font-size: 18px;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: "Orbitron", sans-serif;
+      font-weight: 900;
+      font-size: 18px;
     }
-    .brand-text-wrapper { display: flex; flex-direction: column; line-height: 1.2; }
-    .brand-text-main { font-family: "Orbitron",sans-serif; font-size: 13px; font-weight: 900; color: #0f172a; letter-spacing: -.5px; }
-    .brand-text-sub { font-family: "Orbitron",sans-serif; font-size: 8px; font-weight: 800; color: var(--primary); background: #f3e8ff; padding: 2px 4px; border-radius: 4px; margin-top: 2px; }
-    .wallet-avatar-group { display: flex; align-items: center; gap: 9px; }
-    .wallet-pill { background: var(--primary); border-radius: 20px; padding: 7px 10px; font-size: 12px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap; border:0; }
-    .user-avatar-circle { width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; background: #a855f7; color: #fff; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
 
-    /* SIDEBAR */
-    .sidebar-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.48); z-index: 10001; opacity: 0; visibility: hidden; transition: opacity .28s ease, visibility .28s ease; }
-    .sidebar-overlay.active { opacity: 1; visibility: visible; }
+    .brand-text-wrapper {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .brand-text-main {
+      font-family: "Orbitron", sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -.5px;
+    }
+
+    .brand-text-sub {
+      font-family: "Orbitron", sans-serif;
+      font-size: 8px;
+      font-weight: 800;
+      color: var(--primary);
+      background: #f3e8ff;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+
+    .wallet-avatar-group {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .wallet-pill {
+      background: var(--primary);
+      border-radius: 20px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .user-avatar-circle {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #a855f7;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* SIDEBAR OVERLAY */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .48);
+      z-index: 10001;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .28s ease, visibility .28s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* SLIDE-OUT SIDEBAR */
     .profile-dropdown-menu {
-      position: fixed; top: 0; right: 0; width: min(360px,86vw); height: 100vh; height: 100dvh;
-      background: #fff; box-shadow: -8px 0 30px rgba(0,0,0,.12); display: flex; flex-direction: column;
-      z-index: 10002; overflow-y: auto; border: none; border-radius: 0; transform: translateX(105%);
-      visibility: hidden; transition: transform .28s ease, visibility .28s ease; overscroll-behavior: contain;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(360px, 86vw);
+      height: 100vh;
+      height: 100dvh;
+      background: #fff;
+      box-shadow: -8px 0 30px rgba(0,0,0,.12);
+      display: flex;
+      flex-direction: column;
+      z-index: 10002;
+      overflow-y: auto;
+      border: none;
+      border-radius: 0;
+      transform: translateX(105%);
+      visibility: hidden;
+      transition: transform .28s ease, visibility .28s ease;
+      overscroll-behavior: contain;
     }
-    .profile-dropdown-menu.active { transform: translateX(0); visibility: visible; }
-    .sidebar-close-row { display: flex; justify-content: flex-end; padding: 8px 12px 0; }
-    .sidebar-close-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f1f5f9; color: #475569; font-size: 22px; cursor: pointer; }
-    .dropdown-user-header { display: flex; align-items: center; gap: 14px; padding: 12px 20px 22px; min-height: 115px; background: #fff; color: #1e293b; border-bottom: 1px solid #e5e7eb; }
-    .dropdown-user-avatar { flex-shrink: 0; width: 64px; height: 64px; border-radius: 0; background: #a946bd; color: #fff; font-size: 30px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-    .dropdown-user-info { min-width: 0; }
-    .dropdown-user-info h5 { font-size: 16px; font-weight: 800; color: #374151; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-    .dropdown-user-info p { margin-top: 5px; font-size: 13px; color: #64748b; overflow-wrap: anywhere; }
-    .dropdown-menu-list { display: flex; flex-direction: column; padding: 8px 0; }
-    .dropdown-item { display: flex; align-items: center; gap: 15px; padding: 17px 22px; color: #202938; font-size: 15px; font-weight: 700; background: #fff; border: none; width: 100%; text-align: left; cursor: pointer; transition: background .2s,color .2s; }
-    .dropdown-item:hover,.dropdown-item:active { background: #f5f0ff; color: var(--primary-dark); }
-    .menu-icon { width: 29px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; color: #374151; font-size: 22px; }
-    .dropdown-support-box { padding: 22px 20px; border-top: 1px solid #e5e7eb; margin-top: 0; }
-    .dropdown-support-btn { display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 230px; margin: 0 auto; background: #673ab7; color: #fff; padding: 14px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 16px; }
 
-    /* NOTICE AND PRODUCT CARDS */
-    .notice-bar-container { margin: 12px; background: #fff; border: 1.5px solid var(--primary); border-radius: 12px; display: flex; align-items: center; overflow: hidden; box-shadow: 0 2px 8px rgba(124,58,237,.1); }
-    .notice-tag { background: var(--primary); color: #fff; padding: 9px 12px; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-    .notice-tag-dot { width: 8px; height: 8px; background: #fff; border-radius: 50%; }
-    .notice-marquee { flex: 1; padding: 8px 10px; font-size: 12px; color: #334155; font-weight: 600; line-height: 1.6; }
-    .notice-close-btn { padding: 8px 10px; color: var(--primary); cursor: pointer; font-weight: 800; border:0; background:transparent; }
-    .panels-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; padding: 0 12px; }
-    .video-box-full { grid-column: 1 / -1; background: #fff; border: 1.5px solid var(--primary); border-radius: 18px; padding: 14px; min-width: 0; }
-    .panel-info h4 { font-size: 14px; color: #0f172a; font-weight: 700; line-height: 1.7; }
-    .panel-info .price { font-size: 14px; color: var(--primary); font-weight: 800; margin: 4px 0; }
-    .panel-info p { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.7; }
-    .video-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 12px; overflow: hidden; margin: 10px 0; }
-    .video-wrapper video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-    .buy-btn { width: 100%; background: var(--primary); color: #fff; border: none; padding: 11px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .profile-dropdown-menu.active {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .sidebar-close-row {
+      display: flex;
+      justify-content: flex-end;
+      padding: 8px 12px 0;
+    }
+
+    .sidebar-close-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .dropdown-user-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 20px 22px;
+      min-height: 115px;
+      background: #fff;
+      color: #1e293b;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .dropdown-user-avatar {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      border-radius: 0;
+      background: #a946bd;
+      color: #fff;
+      font-size: 30px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dropdown-user-info {
+      min-width: 0;
+    }
+
+    .dropdown-user-info h5 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #374151;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .dropdown-user-info p {
+      margin-top: 5px;
+      font-size: 13px;
+      color: #64748b;
+      overflow-wrap: anywhere;
+    }
+
+    .dropdown-menu-list {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 17px 22px;
+      color: #202938;
+      font-size: 15px;
+      font-weight: 700;
+      background: #fff;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+
+    .dropdown-item:hover,
+    .dropdown-item:active {
+      background: #f5f0ff;
+      color: var(--primary-dark);
+    }
+
+    .menu-icon {
+      width: 29px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #374151;
+      font-size: 22px;
+    }
+
+    .dropdown-support-box {
+      padding: 22px 20px;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 0;
+    }
+
+    .dropdown-support-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      max-width: 230px;
+      margin: 0 auto;
+      background: #673ab7;
+      color: #fff;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    /* NOTICE */
+    .notice-bar-container {
+      margin: 12px;
+      background: #fff;
+      border: 1.5px solid var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(124,58,237,.1);
+    }
+
+    .notice-tag {
+      background: var(--primary);
+      color: #fff;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .notice-tag-dot {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .notice-marquee {
+      flex: 1;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #334155;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .notice-close-btn {
+      padding: 8px 10px;
+      color: var(--primary);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    /* PANELS */
+    .panels-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 0 12px;
+    }
+
+    .video-box-full {
+      grid-column: 1 / -1;
+      background: #fff;
+      border: 1.5px solid var(--primary);
+      border-radius: 18px;
+      padding: 14px;
+      min-width: 0;
+    }
+
+    .panel-info h4 {
+      font-size: 14px;
+      color: #0f172a;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+
+    .panel-info .price {
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 800;
+      margin: 4px 0;
+    }
+
+    .panel-info p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .video-wrapper video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .buy-btn {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 11px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
     /* PAGE SECTIONS */
-    .full-page-section { min-height: 55vh; }
-    .page-card { margin-top: 14px; padding: 18px; background: #fff; border: 1px solid var(--border); border-radius: 12px; line-height: 1.8; }
-    .page-title { color: var(--primary); font-family: "Orbitron",sans-serif; font-size: 19px; overflow-wrap: anywhere; }
-    .view-block { display: block; }
-    .view-hidden { display: none !important; }
-
-    /* ADD MONEY FLOW */
-    .payment-page { padding: 18px 14px 28px; min-height: 75vh; background: #f4f6fc; }
-    .payment-hero {
-      position: relative; overflow: hidden; border-radius: 28px; padding: 28px 24px 24px;
-      min-height: 270px; color: #fff;
-      background: radial-gradient(circle at 85% 80%,rgba(113,78,207,.8),transparent 42%),
-                  linear-gradient(120deg,#174d50 0%,#293f69 52%,#443080 100%);
-      box-shadow: 0 14px 28px rgba(67,56,125,.18); margin-bottom: 18px;
+    .full-page-section {
+      min-height: 55vh;
     }
-    .payment-hero:before,.payment-hero:after { content:""; position:absolute; border-radius:50%; border:70px solid rgba(255,255,255,.055); width:240px;height:240px;right:-70px;bottom:-170px; }
-    .payment-hero:after { width:190px;height:190px;right:-40px;bottom:-110px;border-width:38px; }
-    .secure-pill { display:inline-flex; align-items:center; gap:9px; background:#6246b5; border:1px solid rgba(255,255,255,.28); border-radius:30px; padding:11px 15px; font-weight:700; font-size:12px; letter-spacing:1px; position:relative;z-index:1; }
-    .payment-hero h2 { font-size:29px; line-height:1.25; margin-top:30px; font-weight:800; letter-spacing:-1px; position:relative;z-index:1; }
-    .payment-hero h2 span { display:block; color:#91b7e6; }
-    .payment-hero p { margin-top:16px; max-width:250px; color:#d2dce9; line-height:1.7; font-size:13px; position:relative;z-index:1; }
-    .hero-wallet-art { position:absolute; right:24px; bottom:40px; width:110px;height:96px;border-radius:24px;transform:rotate(7deg);background:linear-gradient(140deg,#7778ce,#4c45a2);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 25px rgba(0,0,0,.18);z-index:1; }
-    .hero-wallet-art strong { font-size:35px; }
-    .hero-plus { position:absolute;right:14px;bottom:17px;z-index:2;width:49px;height:49px;border-radius:50%;background:#20c878;border:4px solid #b9ffda;color:#075e38;font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center; }
-    .amount-card { background:#fff;border-radius:28px;padding:24px 20px;box-shadow:0 8px 25px rgba(15,23,42,.04); }
-    .amount-heading { display:flex;align-items:center;gap:15px;margin-bottom:34px; }
-    .amount-icon { width:66px;height:66px;flex-shrink:0;border-radius:23px;background:#6654b8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:27px;box-shadow:0 10px 20px rgba(102,84,184,.2); }
-    .amount-heading h3 { font-size:21px;color:#171923;letter-spacing:-.7px; }
-    .amount-heading p { color:#858995;font-size:12px;margin-top:3px; }
-    .amount-label { font-size:12px;letter-spacing:.6px;color:#555b66;margin-bottom:8px; }
-    .amount-input-wrap { display:flex;align-items:center;gap:12px;border:2px solid #dfe2e9;background:#fafbff;border-radius:22px;padding:5px 16px; }
-    .amount-input-wrap .currency { font-size:29px;font-weight:700;color:#222333; }
-    .amount-input-wrap input { border:0;background:transparent;padding:17px 0;font-size:19px;min-width:0; }
-    .amount-input-wrap input:focus { border:0; }
-    .amount-note { display:flex;align-items:flex-start;gap:8px;color:#777d88;font-size:12px;margin:12px 3px 25px;line-height:1.6; }
-    .secure-add-btn { width:100%;border:0;border-radius:22px;background:linear-gradient(110deg,#7654c7,#a9a1d9);color:#fff;padding:19px 12px;font-weight:800;font-size:16px;cursor:pointer; }
-    .secure-add-btn:active { transform:scale(.99); }
-    .payment-topbar { background:rgba(255,255,255,.92);border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;color:#718096;margin-bottom:30px;box-shadow:0 3px 14px rgba(15,23,42,.03); }
-    .icon-button { border:0;background:transparent;color:#718096;font-size:29px;line-height:1;cursor:pointer;padding:2px 5px; }
-    .wallet-brand { width:130px;height:130px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:50px;color:#7c3aed;box-shadow:0 6px 20px rgba(60,80,120,.06); }
-    .wallet-page-title { text-align:center;color:#718096;font-size:30px;font-weight:800;margin-bottom:34px; }
-    .mobile-banking-title { background:#0753b7;color:#fff;text-align:center;padding:15px;border-radius:10px;margin-bottom:24px;font-size:18px;font-weight:700; }
-    .payment-method-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px; }
-    .payment-method { min-height:105px;border:1px solid #e5e7eb;border-radius:13px;background:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:pointer;box-shadow:0 3px 10px rgba(15,23,42,.025); }
-    .payment-method img { max-width:85%;width:135px;height:55px;object-fit:contain; }
-    .method-fallback { font-size:22px;font-weight:800; }
-    .method-bkash { color:#cf2374; }.method-nagad { color:#df3b2f; }
-    .pay-bottom-bar { position:sticky;bottom:0;margin:28px -14px -28px;padding:22px 12px max(20px,env(safe-area-inset-bottom));background:#d8e8ff;color:#0753b7;text-align:center;border-radius:24px 24px 0 0;font-size:20px;font-weight:800; }
-    .transaction-brand-card,.transaction-amount-card { background:#fff;border-radius:16px;padding:18px 20px;margin-bottom:14px;display:flex;align-items:center;gap:18px;color:#718096;font-size:23px;font-weight:800; }
-    .transaction-brand-card .brand-logo { width:80px;height:58px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:8px; }
-    .transaction-brand-card .brand-logo img { width:100%;height:100%;object-fit:contain; }
-    .transaction-amount-card { font-size:29px; }
-    .transaction-instructions { background:#c92370;color:#fff;border-radius:14px;padding:22px 20px 18px;line-height:1.85; }
-    .transaction-instructions h3 { text-align:center;font-size:20px;margin-bottom:16px; }
-    .transaction-instructions ol { padding-left:24px; }
-    .transaction-instructions li { padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:14px; }
-    .transaction-instructions li:last-child { border-bottom:0; }
-    .phone-number { color:#ffe77c;font-weight:800;letter-spacing:.3px;white-space:nowrap; }
-    .copy-number-btn { border:0;background:#9f1855;color:#fff;padding:5px 10px;border-radius:8px;font-weight:800;cursor:pointer;margin-left:8px; }
-    .transaction-input { width:100%;padding:13px;border:2px solid #f4b6d1;border-radius:12px;font-size:15px;margin:8px 0 12px; }
-    .submit-transaction-btn { width:100%;background:#fff;color:#c92370;border:0;border-radius:10px;padding:13px;font-weight:800;font-size:15px;margin-top:14px;cursor:pointer; }
-    .payment-message { font-size:13px;margin-top:10px;line-height:1.6; }
-    .payment-back-btn { display:inline-flex;align-items:center;gap:8px;border:0;background:#fff;color:#475569;border-radius:10px;padding:10px 13px;margin-bottom:14px;font-weight:700;cursor:pointer; }
 
-    /* SUPPORT AND BOTTOM NAV */
-    .floating-support-container { position:fixed;bottom:86px;right:max(18px,calc((100vw - 480px)/2 + 18px));z-index:9999;display:none; }
-    .floating-main-btn { width:54px;height:54px;background:var(--primary);border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:23px;cursor:pointer;box-shadow:0 4px 15px rgba(124,58,237,.4); }
-    .floating-options-list { position:absolute;bottom:64px;right:4px;display:flex;flex-direction:column;gap:10px;opacity:0;pointer-events:none;transform:translateY(10px);transition:all .3s ease; }
-    .floating-support-container.active .floating-options-list { opacity:1;pointer-events:auto;transform:translateY(0); }
-    .floating-social-icon { width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.15);background:#fff;text-decoration:none; }
-    .floating-social-icon img { width:28px;height:28px;object-fit:contain; }
-    .bottom-nav { position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e5e7eb;display:none;justify-content:space-around;align-items:center;padding:8px 0 max(12px,env(safe-area-inset-bottom));z-index:1000; }
-    .nav-item { min-width:0;flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;color:#64748b;font-size:10px;font-weight:600;cursor:pointer; }
-    .nav-item.active { color:var(--primary); }
-    .nav-item svg { width:23px;height:23px;fill:currentColor; }
-    .nav-add-btn { width:62px;height:62px;flex:0 0 62px;background:var(--primary);border:5px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:33px;font-weight:500;cursor:pointer;box-shadow:0 4px 12px rgba(124,58,237,.3);margin-top:-25px; }
-    @media (min-width:700px) { .main-container { max-width:480px;box-shadow:0 0 20px rgba(15,23,42,.04); } }
-    @media (max-width:350px) { .brand-text-main{font-size:11px}.brand-text-sub{font-size:7px}.wallet-pill{padding:6px 7px;font-size:10px}.dropdown-item{padding:15px 18px}.payment-hero h2{font-size:25px}.hero-wallet-art{opacity:.75;right:12px} }
+    .page-card {
+      margin-top: 14px;
+      padding: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      line-height: 1.8;
+    }
+
+    .page-title {
+      color: var(--primary);
+      font-family: "Orbitron", sans-serif;
+      font-size: 19px;
+      overflow-wrap: anywhere;
+    }
+
+    .view-block {
+      display: block;
+    }
+
+    .view-hidden {
+      display: none !important;
+    }
+
+    /* SUPPORT */
+    .floating-support-container {
+      position: fixed;
+      bottom: 86px;
+      right: max(18px, calc((100vw - 480px)/2 + 18px));
+      z-index: 9999;
+      display: none;
+    }
+
+    .floating-main-btn {
+      width: 54px;
+      height: 54px;
+      background: var(--primary);
+      border: 3px solid #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 23px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(124,58,237,.4);
+    }
+
+    .floating-options-list {
+      position: absolute;
+      bottom: 64px;
+      right: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all .3s ease;
+    }
+
+    .floating-support-container.active .floating-options-list {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .floating-social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+      background: #fff;
+      text-decoration: none;
+    }
+
+    .floating-social-icon img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-top: 1px solid #e5e7eb;
+      display: none;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0 max(12px, env(safe-area-inset-bottom));
+      z-index: 1000;
+    }
+
+    .nav-item {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item svg {
+      width: 23px;
+      height: 23px;
+      fill: currentColor;
+    }
+
+    .nav-add-btn {
+      width: 62px;
+      height: 62px;
+      flex: 0 0 62px;
+      background: var(--primary);
+      border: 5px solid #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 33px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(124,58,237,.3);
+      margin-top: -25px;
+    }
+
+    @media (min-width: 700px) {
+      .main-container {
+        max-width: 480px;
+        box-shadow: 0 0 20px rgba(15,23,42,.04);
+      }
+    }
+
+    @media (max-width: 350px) {
+      .brand-text-main {
+        font-size: 11px;
+      }
+
+      .brand-text-sub {
+        font-size: 7px;
+      }
+
+      .wallet-pill {
+        padding: 6px 7px;
+        font-size: 10px;
+      }
+
+      .dropdown-item {
+        padding: 15px 18px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- LOGIN / SIGNUP: original login screen retained -->
+  <!-- LOGIN / SIGNUP -->
   <div class="app-card" id="authContainer">
     <div class="brand-logo-container">
       <img src="file_000000007dac82118992c526a33fae9b.png" alt="Rifat Panel Seller Logo">
     </div>
+
     <h1 class="brand-title">Rifat Panel Seller</h1>
+
     <div class="auth-tabs">
       <button class="tab-btn active" id="btnTabSignin" onclick="showForm('signin')">সাইন ইন</button>
       <button class="tab-btn" id="btnTabSignup" onclick="showForm('signup')">সাইন আপ</button>
     </div>
+
     <div id="signinBox" class="view-block">
       <form onsubmit="onLoginSubmit(event)">
         <div class="form-group">
           <label for="signin-email-input">ইমেল বা জিমেইল</label>
           <input type="email" id="signin-email-input" placeholder="আপনার জিমেইল লিখুন" autocomplete="email" required>
         </div>
+
         <div class="form-group">
           <label for="signin-pass-input">পাসওয়ার্ড</label>
           <input type="password" id="signin-pass-input" placeholder="পাসওয়ার্ড দিন" autocomplete="current-password" required>
         </div>
+
         <button type="submit" class="submit-btn">সাইন ইন</button>
       </form>
     </div>
+
     <div id="signupBox" class="view-hidden">
       <form onsubmit="onRegisterSubmit(event)">
         <div class="form-group">
           <label for="signup-email-input">ইমেল বা জিমেইল</label>
           <input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" autocomplete="email" required>
         </div>
+
         <div class="form-group">
           <label for="signup-pass-input">পাসওয়ার্ড</label>
           <input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" autocomplete="new-password" minlength="6" required>
         </div>
+
         <button type="submit" class="submit-btn">সাইন আপ</button>
       </form>
     </div>
@@ -312,403 +844,540 @@
 
   <!-- MAIN APP -->
   <div class="main-container" id="mainAppContainer" style="display:none;">
+
+    <!-- HEADER -->
     <header class="top-user-area" id="topHeaderUserArea">
       <a href="#" class="brand-logo-text" onclick="switchTab('home'); return false;">
         <div class="brand-icon-box">R</div>
-        <div class="brand-text-wrapper"><span class="brand-text-main">RIFAT FF</span><span class="brand-text-sub">PANEL SELLER</span></div>
+        <div class="brand-text-wrapper">
+          <span class="brand-text-main">RIFAT FF</span>
+          <span class="brand-text-sub">PANEL SELLER</span>
+        </div>
       </a>
+
       <div class="wallet-avatar-group">
-        <button class="wallet-pill" onclick="switchTab('addmoney')" aria-label="Add Money"><span>💳</span><span id="userBalanceDisplay">0৳</span></button>
-        <button class="user-avatar-circle" id="userAvatarLetter" onclick="toggleDropdownMenu(event)" aria-label="Open account menu" aria-controls="profileDropdown" aria-expanded="false">F</button>
+        <button class="wallet-pill" onclick="switchTab('addmoney')" aria-label="Add Money">
+          <span>💳</span>
+          <span id="userBalanceDisplay">0৳</span>
+        </button>
+
+        <button class="user-avatar-circle" id="userAvatarLetter"
+                onclick="toggleDropdownMenu(event)"
+                aria-label="Open account menu"
+                aria-controls="profileDropdown"
+                aria-expanded="false">
+          F
+        </button>
       </div>
     </header>
 
+    <!-- SIDEBAR OVERLAY -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-    <aside class="profile-dropdown-menu" id="profileDropdown" aria-label="Account navigation" aria-hidden="true">
-      <div class="sidebar-close-row"><button class="sidebar-close-btn" onclick="closeSidebar()" aria-label="Close menu">×</button></div>
+
+    <!-- SLIDE-OUT SIDEBAR -->
+    <aside class="profile-dropdown-menu" id="profileDropdown"
+           aria-label="Account navigation"
+           aria-hidden="true">
+
+      <div class="sidebar-close-row">
+        <button class="sidebar-close-btn" onclick="closeSidebar()" aria-label="Close menu">×</button>
+      </div>
+
       <div class="dropdown-user-header">
         <div class="dropdown-user-avatar" id="menuAvatarLetter">F</div>
-        <div class="dropdown-user-info"><h5 id="menuUserName">Hi, User</h5><p id="menuUserEmail">email@gmail.com</p></div>
+        <div class="dropdown-user-info">
+          <h5 id="menuUserName">Hi, User</h5>
+          <p id="menuUserEmail">email@gmail.com</p>
+        </div>
       </div>
+
       <nav class="dropdown-menu-list">
-        <button class="dropdown-item" onclick="switchTab('account')"><span class="menu-icon">⌂</span><span>My Account</span></button>
-        <button class="dropdown-item" onclick="switchTab('orders')"><span class="menu-icon">♧</span><span>My Orders</span></button>
-        <button class="dropdown-item" onclick="switchTab('codes')"><span class="menu-icon">▦</span><span>My Codes</span></button>
-        <button class="dropdown-item" onclick="switchTab('transaction')"><span class="menu-icon">☷</span><span>My Transaction</span></button>
-        <button class="dropdown-item" onclick="switchTab('addmoney')"><span class="menu-icon">▣</span><span>Add Money</span></button>
-        <button class="dropdown-item" onclick="switchTab('contact')"><span class="menu-icon">ⓘ</span><span>Contact Us</span></button>
+        <button class="dropdown-item" onclick="switchTab('account')">
+          <span class="menu-icon">⌂</span>
+          <span>My Account</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('orders')">
+          <span class="menu-icon">♧</span>
+          <span>My Orders</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('codes')">
+          <span class="menu-icon">▦</span>
+          <span>My Codes</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('transaction')">
+          <span class="menu-icon">☷</span>
+          <span>My Transaction</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('addmoney')">
+          <span class="menu-icon">▣</span>
+          <span>Add Money</span>
+        </button>
+
+        <button class="dropdown-item" onclick="switchTab('contact')">
+          <span class="menu-icon">ⓘ</span>
+          <span>Contact Us</span>
+        </button>
       </nav>
-      <div class="dropdown-support-box"><a href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer" class="dropdown-support-btn">🎧 Support</a></div>
+
+      <div class="dropdown-support-box">
+        <a href="https://wa.me/8801845907321"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="dropdown-support-btn">
+          🎧 Support
+        </a>
+      </div>
     </aside>
 
-    <!-- HOME: retained -->
+    <!-- HOME -->
     <section id="tabHome" class="full-page-section view-block">
       <div class="notice-bar-container" id="noticeBar">
-        <div class="notice-tag"><span class="notice-tag-dot"></span>NOTICE</div>
-        <div class="notice-marquee">১৮ বছরের নিচে কেউ অর্ডার করবেন না! বাবা-মা বা পরিবারের টাকা চুরি করে অর্ডার করবেন না।</div>
-        <button class="notice-close-btn" onclick="document.getElementById('noticeBar').style.display='none'" aria-label="Close notice">✕</button>
+        <div class="notice-tag">
+          <span class="notice-tag-dot"></span>
+          NOTICE
+        </div>
+
+        <div class="notice-marquee">
+          ১৮ বছরের নিচে কেউ অর্ডার করবেন না! বাবা-মা বা পরিবারের টাকা চুরি করে অর্ডার করবেন না।
+        </div>
+
+        <button class="notice-close-btn"
+                onclick="document.getElementById('noticeBar').style.display='none'"
+                aria-label="Close notice">✕</button>
       </div>
+
       <div class="panels-grid">
-        <div class="video-box-full">
-          <div class="panel-info"><h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4><div class="price">450 BDT</div><p>টুর্নামেন্ট প্লেয়ারদের জন্য প্যানেলের বিস্তারিত তথ্য।</p></div>
-          <div class="video-wrapper"><video controls playsinline preload="metadata"><source src="VID_20261028_112023_896.mp4" type="video/mp4">আপনার ব্রাউজার ভিডিও চালাতে পারছে না।</video></div>
-          <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">কিনুন</button>
-        </div>
-        <div class="video-box-full">
-          <div class="panel-info"><h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4><div class="price">550 BDT</div><p>প্যানেলের বিস্তারিত জানতে এবং অর্ডার করতে যোগাযোগ করুন।</p></div>
-          <div class="video-wrapper"><video controls playsinline preload="metadata"><source src="lv_0_20261029123331.mp4" type="video/mp4">আপনার ব্রাউজার ভিডিও চালাতে পারছে না।</video></div>
-          <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">কিনুন</button>
-        </div>
-      </div>
-    </section>
 
-    <section id="tabOrders" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">MY ORDERS</h3><div id="orderContentArea" class="page-card">কোনো প্যানেল সিলেক্ট করা হয়নি।</div>
-    </section>
-
-    <!-- ADD MONEY: screen 1 -->
-    <section id="tabAddMoney" class="full-page-section view-hidden payment-page">
-      <div id="addMoneyAmountScreen">
-        <div class="payment-hero">
-          <div class="secure-pill">⚡ INSTANT &amp; SECURE</div>
-          <h2>Add Money to <span>Rifat FF Panel</span></h2>
-          <p>Fast, secure wallet recharge for your panel balance.</p>
-          <div class="hero-wallet-art"><strong>৳</strong></div><div class="hero-plus">+</div>
-        </div>
-        <div class="amount-card">
-          <div class="amount-heading">
-            <div class="amount-icon">▣</div>
-            <div><h3>Enter Amount</h3><p>Type the amount you want to add.</p></div>
+        <div class="video-box-full">
+          <div class="panel-info">
+            <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
+            <div class="price">450 BDT</div>
+            <p>টুর্নামেন্ট প্লেয়ারদের জন্য প্যানেলের বিস্তারিত তথ্য।</p>
           </div>
-          <label class="amount-label" for="rechargeAmount">AMOUNT (BDT)</label>
-          <div class="amount-input-wrap"><span class="currency">৳</span><input id="rechargeAmount" type="number" min="1" step="1" inputmode="numeric" placeholder="Enter amount"></div>
-          <div class="amount-note"><span>🟢</span><span>Amount will be added to your Rifat FF Panel wallet after payment is verified.</span></div>
-          <button class="secure-add-btn" onclick="continueToPaymentMethods()">▣ &nbsp; Add Money Securely &nbsp; →</button>
-          <p id="amountError" class="payment-message" style="color:#dc2626;" aria-live="polite"></p>
-        </div>
-      </div>
 
-      <!-- screen 2: payment methods -->
-      <div id="paymentMethodScreen" class="view-hidden">
-        <div class="payment-topbar"><button class="icon-button" onclick="switchPaymentScreen('amount')" aria-label="Back to amount">⌂</button><strong>Wallet</strong><button class="icon-button" onclick="switchTab('home')" aria-label="Close">×</button></div>
-        <div class="wallet-brand">▣</div>
-        <h2 class="wallet-page-title">Wallet</h2>
-        <div class="mobile-banking-title">মোবাইল ব্যাংকিং</div>
-        <div class="payment-method-grid">
-          <button type="button" class="payment-method" onclick="choosePaymentMethod('bkash')" aria-label="Choose bKash">
-            <span class="method-fallback method-bkash">bKash</span>
-          </button>
-          <button type="button" class="payment-method" onclick="choosePaymentMethod('nagad')" aria-label="Choose Nagad">
-            <span class="method-fallback method-nagad">নগদ</span>
+          <div class="video-wrapper">
+            <video controls playsinline preload="metadata">
+              <source src="VID_20261028_112023_896.mp4" type="video/mp4">
+              আপনার ব্রাউজার ভিডিও চালাতে পারছে না।
+            </video>
+          </div>
+
+          <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">
+            কিনুন
           </button>
         </div>
-        <div class="pay-bottom-bar" id="paymentMethodPayAmount">পে করুন ৳ 0.00</div>
-      </div>
 
-      <!-- screen 3: manual payment instructions and transaction ID -->
-      <div id="transactionInstructionScreen" class="view-hidden">
-        <button class="payment-back-btn" onclick="switchPaymentScreen('methods')">← পেমেন্ট অপশনে ফিরে যান</button>
-        <div class="transaction-brand-card">
-          <div class="brand-logo" id="selectedMethodLogo"><span class="method-fallback method-bkash">bKash</span></div>
-          <span>Wallet</span>
+        <div class="video-box-full">
+          <div class="panel-info">
+            <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
+            <div class="price">550 BDT</div>
+            <p>প্যানেলের বিস্তারিত জানতে এবং অর্ডার করতে যোগাযোগ করুন।</p>
+          </div>
+
+          <div class="video-wrapper">
+            <video controls playsinline preload="metadata">
+              <source src="lv_0_20261029123331.mp4" type="video/mp4">
+              আপনার ব্রাউজার ভিডিও চালাতে পারছে না।
+            </video>
+          </div>
+
+          <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">
+            কিনুন
+          </button>
         </div>
-        <div class="transaction-amount-card" id="transactionAmountDisplay">৳ 0</div>
-        <div class="transaction-instructions">
-          <h3>ট্রানজেকশন আইডি দিন</h3>
-          <form id="transactionForm" onsubmit="submitTransaction(event)">
-            <label for="transactionIdInput" style="color:#fff;font-size:14px;">ট্রানজেকশন আইডি দিন</label>
-            <input class="transaction-input" id="transactionIdInput" type="text" placeholder="ট্রানজেকশন আইডি দিন" autocomplete="off" required maxlength="100">
-            <ol>
-              <li><strong>*247#</strong> ডায়াল করে আপনার bKash (মোবাইল মেনুতে যান অথবা bKash অ্যাপ খুলুন। Nagad হলে Nagad অ্যাপ/মেনু ব্যবহার করুন।</li>
-              <li><strong>Send Money</strong>-এ ক্লিক করুন।</li>
-              <li>এই নম্বরে টাকা পাঠান: <span class="phone-number" id="paymentReceiverNumber">01845907321</span><button class="copy-number-btn" type="button" onclick="copyPaymentNumber()">▣ কপি</button></li>
-              <li>টাকার পরিমাণ: <strong class="phone-number" id="instructionAmount">0</strong> টাকা।</li>
-              <li>পেমেন্ট অ্যাপের মধ্যে PIN দিয়ে লেনদেন সম্পন্ন করুন। PIN বা OTP এই ওয়েবসাইটে লিখবেন না।</li>
-              <li>টাকা পাঠানোর পর SMS/অ্যাপে পাওয়া Transaction ID কপি করুন।</li>
-              <li>উপরের ঘরে Transaction ID লিখে জমা দিন।</li>
-            </ol>
-            <button type="submit" class="submit-transaction-btn">ট্রানজেকশন আইডি জমা দিন</button>
-            <p id="transactionSubmitMessage" class="payment-message" aria-live="polite"></p>
-          </form>
-        </div>
+
       </div>
     </section>
 
+    <!-- MY ORDERS -->
+    <section id="tabOrders" class="full-page-section view-hidden" style="padding:15px;">
+      <h3 class="page-title">MY ORDERS</h3>
+
+      <div id="orderContentArea" class="page-card">
+        কোনো প্যানেল সিলেক্ট করা হয়নি।
+      </div>
+    </section>
+
+    <!-- ADD MONEY -->
+    <section id="tabAddMoney" class="full-page-section view-hidden" style="padding:15px;">
+      <h3 class="page-title">ADD MONEY</h3>
+
+      <div class="page-card">
+        <p>ব্যালেন্স রিচার্জ করতে আমাদের সঙ্গে WhatsApp-এ যোগাযোগ করুন।</p>
+
+        <a href="https://wa.me/8801845907321"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="display:block;margin-top:14px;background:#25d366;color:#fff;padding:12px 18px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
+          WhatsApp রিচার্জ
+        </a>
+      </div>
+    </section>
+
+    <!-- MY CODES -->
     <section id="tabCodes" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">MY CODES</h3><div class="page-card"><p>আপনার প্যানেল কী (Key) এখানে দেখা যাবে।</p><p style="margin-top:8px;color:#64748b;font-size:13px;">বর্তমানে কোনো কোড সংরক্ষণের ব্যবস্থা যুক্ত নেই।</p></div>
+      <h3 class="page-title">MY CODES</h3>
+
+      <div class="page-card">
+        <p>আপনার প্যানেল কী (Key) এখানে দেখা যাবে।</p>
+        <p style="margin-top:8px;color:#64748b;font-size:13px;">
+          বর্তমানে কোনো কোড সংরক্ষণের ব্যবস্থা যুক্ত নেই।
+        </p>
+      </div>
     </section>
+
+    <!-- MY ACCOUNT -->
     <section id="tabAccount" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">MY ACCOUNT</h3><div class="page-card"><p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p><p style="margin-top:8px;">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p><button onclick="executeLogout()" style="margin-top:20px;background:#ef4444;color:#fff;border:none;padding:11px 20px;border-radius:8px;font-weight:700;cursor:pointer;">Log Out</button></div>
+      <h3 class="page-title">MY ACCOUNT</h3>
+
+      <div class="page-card">
+        <p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p>
+        <p style="margin-top:8px;">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p>
+
+        <button onclick="executeLogout()"
+                style="margin-top:20px;background:#ef4444;color:#fff;border:none;padding:11px 20px;border-radius:8px;font-weight:700;cursor:pointer;">
+          Log Out
+        </button>
+      </div>
     </section>
+
+    <!-- MY TRANSACTION -->
     <section id="tabTransaction" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">MY TRANSACTION</h3><div class="page-card"><p>আপনার লেনদেনের ইতিহাস এখানে দেখা যাবে।</p><p style="margin-top:8px;color:#64748b;font-size:13px;">এখনো কোনো লেনদেনের রেকর্ড সংযুক্ত করা হয়নি।</p></div>
+      <h3 class="page-title">MY TRANSACTION</h3>
+
+      <div class="page-card">
+        <p>আপনার লেনদেনের ইতিহাস এখানে দেখা যাবে।</p>
+        <p style="margin-top:8px;color:#64748b;font-size:13px;">
+          এখনো কোনো লেনদেনের রেকর্ড সংযুক্ত করা হয়নি।
+        </p>
+      </div>
     </section>
+
+    <!-- CONTACT US -->
     <section id="tabContact" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">CONTACT US</h3><div class="page-card"><p>সাহায্য বা তথ্যের জন্য আমাদের সঙ্গে যোগাযোগ করুন।</p><a href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer" style="display:block;margin-top:15px;background:#25d366;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">WhatsApp Support</a><a href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer" style="display:block;margin-top:10px;background:#229ed9;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">Telegram Support</a></div>
+      <h3 class="page-title">CONTACT US</h3>
+
+      <div class="page-card">
+        <p>সাহায্য বা তথ্যের জন্য আমাদের সঙ্গে যোগাযোগ করুন।</p>
+
+        <a href="https://wa.me/8801845907321"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="display:block;margin-top:15px;background:#25d366;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
+          WhatsApp Support
+        </a>
+
+        <a href="https://t.me/rifatffpanelseller6"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="display:block;margin-top:10px;background:#229ed9;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
+          Telegram Support
+        </a>
+      </div>
     </section>
+
   </div>
 
   <!-- FLOATING SUPPORT -->
   <div class="floating-support-container" id="floatingSupportContainer">
     <div class="floating-options-list">
-      <a href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer" class="floating-social-icon" title="WhatsApp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></a>
-      <a href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer" class="floating-social-icon" title="Telegram"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
+      <a href="https://wa.me/8801845907321"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="floating-social-icon"
+         title="WhatsApp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+      </a>
+
+      <a href="https://t.me/rifatffpanelseller6"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="floating-social-icon"
+         title="Telegram">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+      </a>
     </div>
-    <button class="floating-main-btn" onclick="toggleFloatingSupport()" aria-label="Open support options">🎧</button>
+
+    <button class="floating-main-btn"
+            onclick="toggleFloatingSupport()"
+            aria-label="Open support options">🎧</button>
   </div>
 
   <!-- BOTTOM NAVIGATION -->
   <nav class="bottom-nav" id="bottomNav" aria-label="Bottom navigation">
-    <button class="nav-item active" id="navHome" onclick="switchTab('home')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Home</span></button>
-    <button class="nav-item" id="navOrders" onclick="switchTab('orders')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>My Orders</span></button>
+
+    <button class="nav-item active" id="navHome" onclick="switchTab('home')">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+      <span>Home</span>
+    </button>
+
+    <button class="nav-item" id="navOrders" onclick="switchTab('orders')">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+      <span>My Orders</span>
+    </button>
+
     <button class="nav-add-btn" onclick="switchTab('addmoney')" aria-label="Add Money">+</button>
-    <button class="nav-item" id="navCodes" onclick="switchTab('codes')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg><span>My Codes</span></button>
-    <button class="nav-item" id="navAccount" onclick="switchTab('account')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg><span>My Account</span></button>
+
+    <button class="nav-item" id="navCodes" onclick="switchTab('codes')">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
+      </svg>
+      <span>My Codes</span>
+    </button>
+
+    <button class="nav-item" id="navAccount" onclick="switchTab('account')">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+      </svg>
+      <span>My Account</span>
+    </button>
+
   </nav>
 
   <script>
     /* TAB NAVIGATION */
     function switchTab(tabName) {
-      const tabs = ["Home","Orders","AddMoney","Codes","Account","Transaction","Contact"];
+      const tabs = [
+        "Home",
+        "Orders",
+        "AddMoney",
+        "Codes",
+        "Account",
+        "Transaction",
+        "Contact"
+      ];
+
       tabs.forEach(name => {
         const section = document.getElementById("tab" + name);
-        if (section) { section.classList.add("view-hidden"); section.classList.remove("view-block"); }
+        if (section) {
+          section.classList.add("view-hidden");
+          section.classList.remove("view-block");
+        }
       });
-      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
-      const formattedName = tabName.charAt(0).toUpperCase() + tabName.slice(1);
+
+      document.querySelectorAll(".nav-item").forEach(item => {
+        item.classList.remove("active");
+      });
+
+      const formattedName =
+        tabName.charAt(0).toUpperCase() + tabName.slice(1);
+
       const targetTab = document.getElementById("tab" + formattedName);
       const targetNav = document.getElementById("nav" + formattedName);
-      if (targetTab) { targetTab.classList.remove("view-hidden"); targetTab.classList.add("view-block"); }
+
+      if (targetTab) {
+        targetTab.classList.remove("view-hidden");
+        targetTab.classList.add("view-block");
+      }
+
       if (targetNav) targetNav.classList.add("active");
-      if (tabName === "addmoney") switchPaymentScreen("amount");
+
       closeSidebar();
-      window.scrollTo({top:0,behavior:"auto"});
-    }
 
-    /* PAYMENT FLOW */
-    let selectedPaymentMethod = "bkash";
-    let pendingPaymentAmount = 0;
-
-    function switchPaymentScreen(screen) {
-      const screens = {
-        amount: document.getElementById("addMoneyAmountScreen"),
-        methods: document.getElementById("paymentMethodScreen"),
-        instructions: document.getElementById("transactionInstructionScreen")
-      };
-      Object.values(screens).forEach(el => { if (el) el.classList.add("view-hidden"); });
-      if (screens[screen]) screens[screen].classList.remove("view-hidden");
-      if (screen === "methods") updatePaymentAmountLabels();
-      if (screen === "instructions") updateTransactionScreen();
-      window.scrollTo({top:0,behavior:"auto"});
-    }
-
-    function continueToPaymentMethods() {
-      const input = document.getElementById("rechargeAmount");
-      const error = document.getElementById("amountError");
-      const amount = Number(input.value);
-      if (!input.value.trim() || !Number.isFinite(amount) || amount < 1 || !Number.isInteger(amount)) {
-        error.textContent = "দয়া করে ১ টাকা বা তার বেশি পূর্ণসংখ্যার সঠিক পরিমাণ লিখুন।";
-        input.focus();
-        return;
-      }
-      error.textContent = "";
-      pendingPaymentAmount = amount;
-      switchPaymentScreen("methods");
-    }
-
-    function updatePaymentAmountLabels() {
-      const formatted = pendingPaymentAmount.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-      const label = document.getElementById("paymentMethodPayAmount");
-      if (label) label.textContent = "পে করুন ৳ " + formatted;
-    }
-
-    function choosePaymentMethod(method) {
-      selectedPaymentMethod = method;
-      switchPaymentScreen("instructions");
-    }
-
-    function updateTransactionScreen() {
-      const amount = document.getElementById("transactionAmountDisplay");
-      const instructionAmount = document.getElementById("instructionAmount");
-      const receiver = document.getElementById("paymentReceiverNumber");
-      const logo = document.getElementById("selectedMethodLogo");
-      const title = document.querySelector("#transactionInstructionScreen .transaction-instructions h3");
-      const form = document.getElementById("transactionForm");
-      const message = document.getElementById("transactionSubmitMessage");
-      const transactionInput = document.getElementById("transactionIdInput");
-      const isBkash = selectedPaymentMethod === "bkash";
-      const formatted = pendingPaymentAmount.toLocaleString("en-US",{maximumFractionDigits:0});
-      if (amount) amount.textContent = "৳ " + formatted;
-      if (instructionAmount) instructionAmount.textContent = formatted;
-      if (receiver) receiver.textContent = "01845907321";
-      if (logo) {
-        logo.innerHTML = "";
-        const name = document.createElement("span");
-        name.className = "method-fallback " + (isBkash ? "method-bkash" : "method-nagad");
-        name.textContent = isBkash ? "bKash" : "নগদ";
-        logo.appendChild(name);
-      }
-      if (title) title.textContent = "ট্রানজেকশন আইডি দিন";
-      if (form) form.dataset.method = isBkash ? "bKash Personal" : "Nagad Personal";
-      if (message) message.textContent = "";
-      if (transactionInput) transactionInput.value = "";
-      const list = document.querySelector("#transactionForm ol");
-      if (list) {
-        list.innerHTML = "";
-        const instructions = isBkash ? [
-          "bKash অ্যাপ খুলুন অথবা *247# ডায়াল করুন।",
-          "Send Money অপশন নির্বাচন করুন।",
-          'এই নম্বরে টাকা পাঠান: <span class="phone-number">01845907321</span><button class="copy-number-btn" type="button" onclick="copyPaymentNumber()">▣ কপি</button>',
-          'টাকার পরিমাণ: <strong class="phone-number">' + formatted + '</strong> টাকা।',
-          "bKash অ্যাপে নিজের PIN দিয়ে পেমেন্ট সম্পন্ন করুন। PIN বা OTP এই ওয়েবসাইটে কখনো লিখবেন না।",
-          "পেমেন্টের SMS থেকে Transaction ID কপি করুন।",
-          "উপরের ঘরে Transaction ID লিখে জমা দিন।"
-        ] : [
-          "Nagad অ্যাপ খুলুন অথবা আপনার মোবাইলের Nagad মেনু ব্যবহার করুন।",
-          "Send Money অপশন নির্বাচন করুন।",
-          'এই নম্বরে টাকা পাঠান: <span class="phone-number">01845907321</span><button class="copy-number-btn" type="button" onclick="copyPaymentNumber()">▣ কপি</button>',
-          'টাকার পরিমাণ: <strong class="phone-number">' + formatted + '</strong> টাকা।',
-          "Nagad অ্যাপে নিজের PIN দিয়ে পেমেন্ট সম্পন্ন করুন। PIN বা OTP এই ওয়েবসাইটে কখনো লিখবেন না।",
-          "পেমেন্টের SMS থেকে Transaction ID কপি করুন।",
-          "উপরের ঘরে Transaction ID লিখে জমা দিন।"
-        ];
-        instructions.forEach(text => { const li = document.createElement("li"); li.innerHTML = text; list.appendChild(li); });
-      }
-    }
-
-    function copyPaymentNumber() {
-      const number = "01845907321";
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(number).then(() => alert("পেমেন্ট নম্বর কপি হয়েছে: " + number)).catch(() => fallbackCopy(number));
-      } else fallbackCopy(number);
-    }
-    function fallbackCopy(text) {
-      const temp = document.createElement("textarea");
-      temp.value = text; temp.style.position = "fixed"; temp.style.opacity = "0";
-      document.body.appendChild(temp); temp.select();
-      try { document.execCommand("copy"); alert("পেমেন্ট নম্বর কপি হয়েছে: " + text); }
-      catch(e) { alert("এই নম্বরটি কপি করুন: " + text); }
-      temp.remove();
-    }
-
-    function submitTransaction(event) {
-      event.preventDefault();
-      const input = document.getElementById("transactionIdInput");
-      const message = document.getElementById("transactionSubmitMessage");
-      const transactionId = input.value.trim();
-      if (transactionId.length < 4) {
-        message.style.color = "#ffe4e6";
-        message.textContent = "সঠিক Transaction ID লিখুন।";
-        return;
-      }
-      const method = selectedPaymentMethod === "bkash" ? "bKash Personal" : "Nagad Personal";
-      const email = window.firebaseAuth && window.firebaseAuth.currentUser ? window.firebaseAuth.currentUser.email : "Unknown user";
-      const order = {
-        email, method, amount: pendingPaymentAmount, transactionId,
-        submittedAt: new Date().toISOString(), status: "Pending verification"
-      };
-
-      /* This is a front-end demo only. It does not verify payment or credit balance.
-         Connect a trusted backend/Firebase Firestore + server-side verification before production. */
-      try {
-        const key = "rifatPendingPaymentSubmissions";
-        const existing = JSON.parse(localStorage.getItem(key) || "[]");
-        existing.push(order);
-        localStorage.setItem(key, JSON.stringify(existing));
-      } catch (e) { console.warn("Could not store local demo submission", e); }
-
-      message.style.color = "#fff";
-      message.textContent = "আপনার Transaction ID জমা দেওয়া হয়েছে (ডেমো)। পেমেন্ট যাচাই না হওয়া পর্যন্ত ব্যালেন্স যোগ হবে না।";
-      input.value = "";
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      });
     }
 
     /* SIDEBAR */
     function toggleDropdownMenu(event) {
       if (event) event.stopPropagation();
+
       const sidebar = document.getElementById("profileDropdown");
-      if (sidebar && sidebar.classList.contains("active")) closeSidebar(); else openSidebar();
+
+      if (sidebar && sidebar.classList.contains("active")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
     }
+
     function openSidebar() {
       const sidebar = document.getElementById("profileDropdown");
       const overlay = document.getElementById("sidebarOverlay");
       const avatarButton = document.getElementById("userAvatarLetter");
-      if (sidebar) { sidebar.classList.add("active"); sidebar.setAttribute("aria-hidden","false"); }
+
+      if (sidebar) {
+        sidebar.classList.add("active");
+        sidebar.setAttribute("aria-hidden", "false");
+      }
+
       if (overlay) overlay.classList.add("active");
-      if (avatarButton) avatarButton.setAttribute("aria-expanded","true");
+      if (avatarButton) avatarButton.setAttribute("aria-expanded", "true");
+
       document.body.classList.add("sidebar-open");
     }
+
     function closeSidebar() {
       const sidebar = document.getElementById("profileDropdown");
       const overlay = document.getElementById("sidebarOverlay");
       const avatarButton = document.getElementById("userAvatarLetter");
-      if (sidebar) { sidebar.classList.remove("active"); sidebar.setAttribute("aria-hidden","true"); }
+
+      if (sidebar) {
+        sidebar.classList.remove("active");
+        sidebar.setAttribute("aria-hidden", "true");
+      }
+
       if (overlay) overlay.classList.remove("active");
-      if (avatarButton) avatarButton.setAttribute("aria-expanded","false");
+      if (avatarButton) avatarButton.setAttribute("aria-expanded", "false");
+
       document.body.classList.remove("sidebar-open");
     }
-    document.addEventListener("keydown", event => { if (event.key === "Escape") closeSidebar(); });
 
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeSidebar();
+      }
+    });
+
+    /* FLOATING SUPPORT */
     function toggleFloatingSupport() {
       const container = document.getElementById("floatingSupportContainer");
       if (container) container.classList.toggle("active");
     }
 
+    /* ORDER PAGE */
     function openOrderPage(panelName, price) {
       const orderArea = document.getElementById("orderContentArea");
+
       if (orderArea) {
         const heading = document.createElement("h4");
-        heading.style.color = "#7c3aed"; heading.style.fontWeight = "700";
+        heading.style.color = "#7c3aed";
+        heading.style.fontWeight = "700";
         heading.textContent = "📦 প্যানেল: " + panelName;
+
         const priceText = document.createElement("p");
-        priceText.style.margin = "8px 0"; priceText.textContent = "দাম: " + price;
+        priceText.style.margin = "8px 0";
+        priceText.textContent = "দাম: " + price;
+
         const orderLink = document.createElement("a");
-        orderLink.href = "https://wa.me/8801845907321?text=" + encodeURIComponent("Hello, I want to buy " + panelName + " for " + price);
-        orderLink.target = "_blank"; orderLink.rel = "noopener noreferrer";
+        orderLink.href =
+          "https://wa.me/8801845907321?text=" +
+          encodeURIComponent(
+            "Hello, I want to buy " + panelName + " for " + price
+          );
+        orderLink.target = "_blank";
+        orderLink.rel = "noopener noreferrer";
         orderLink.textContent = "💬 WhatsApp এ অর্ডার কনফার্ম করুন";
-        Object.assign(orderLink.style,{display:"inline-block",background:"#25d366",color:"#fff",padding:"11px 15px",borderRadius:"8px",fontWeight:"700",textDecoration:"none",marginTop:"8px"});
-        orderArea.replaceChildren(heading,priceText,orderLink);
+
+        Object.assign(orderLink.style, {
+          display: "inline-block",
+          background: "#25d366",
+          color: "#fff",
+          padding: "11px 15px",
+          borderRadius: "8px",
+          fontWeight: "700",
+          textDecoration: "none",
+          marginTop: "8px"
+        });
+
+        orderArea.replaceChildren(heading, priceText, orderLink);
       }
+
       switchTab("orders");
     }
 
+    /* LOG OUT */
     async function executeLogout() {
       try {
-        if (window.signOutUser && window.firebaseAuth) { await window.signOutUser(window.firebaseAuth); closeSidebar(); }
-        else alert("Firebase সংযোগ প্রস্তুত হয়নি। আবার চেষ্টা করুন।");
-      } catch (error) { console.error(error); alert("লগআউট করা যায়নি: " + error.message); }
+        if (window.signOutUser && window.firebaseAuth) {
+          await window.signOutUser(window.firebaseAuth);
+          closeSidebar();
+        } else {
+          alert("Firebase সংযোগ প্রস্তুত হয়নি। আবার চেষ্টা করুন।");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("লগআউট করা যায়নি: " + error.message);
+      }
     }
 
+    /* LOGIN / SIGNUP TABS */
     function showForm(formType) {
-      const signinBox = document.getElementById("signinBox"), signupBox = document.getElementById("signupBox");
-      const btnSignin = document.getElementById("btnTabSignin"), btnSignup = document.getElementById("btnTabSignup");
-      if (signinBox) signinBox.className = formType === "signin" ? "view-block" : "view-hidden";
-      if (signupBox) signupBox.className = formType === "signup" ? "view-block" : "view-hidden";
-      if (btnSignin) btnSignin.className = formType === "signin" ? "tab-btn active" : "tab-btn";
-      if (btnSignup) btnSignup.className = formType === "signup" ? "tab-btn active" : "tab-btn";
+      const signinBox = document.getElementById("signinBox");
+      const signupBox = document.getElementById("signupBox");
+      const btnSignin = document.getElementById("btnTabSignin");
+      const btnSignup = document.getElementById("btnTabSignup");
+
+      if (signinBox) {
+        signinBox.className =
+          formType === "signin" ? "view-block" : "view-hidden";
+      }
+
+      if (signupBox) {
+        signupBox.className =
+          formType === "signup" ? "view-block" : "view-hidden";
+      }
+
+      if (btnSignin) {
+        btnSignin.className =
+          formType === "signin" ? "tab-btn active" : "tab-btn";
+      }
+
+      if (btnSignup) {
+        btnSignup.className =
+          formType === "signup" ? "tab-btn active" : "tab-btn";
+      }
     }
 
+    /* LOGIN */
     async function onLoginSubmit(event) {
       event.preventDefault();
+
       try {
-        if (!window.firebaseAuth || !window.signInWithEmailAndPassword) throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
+        if (!window.firebaseAuth || !window.signInWithEmailAndPassword) {
+          throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
+        }
+
         const email = document.getElementById("signin-email-input").value.trim();
         const password = document.getElementById("signin-pass-input").value;
-        await window.signInWithEmailAndPassword(window.firebaseAuth,email,password);
-      } catch (error) { console.error(error); alert("লগইন ব্যর্থ: " + error.message); }
+
+        await window.signInWithEmailAndPassword(
+          window.firebaseAuth,
+          email,
+          password
+        );
+      } catch (error) {
+        console.error(error);
+        alert("লগইন ব্যর্থ: " + error.message);
+      }
     }
 
+    /* SIGNUP */
     async function onRegisterSubmit(event) {
       event.preventDefault();
+
       try {
-        if (!window.firebaseAuth || !window.createUserWithEmailAndPassword) throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
+        if (!window.firebaseAuth || !window.createUserWithEmailAndPassword) {
+          throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
+        }
+
         const email = document.getElementById("signup-email-input").value.trim();
         const password = document.getElementById("signup-pass-input").value;
-        await window.createUserWithEmailAndPassword(window.firebaseAuth,email,password);
+
+        await window.createUserWithEmailAndPassword(
+          window.firebaseAuth,
+          email,
+          password
+        );
+
         alert("সাইন আপ সফল!");
-      } catch (error) { console.error(error); alert("সাইন আপ ব্যর্থ: " + error.message); }
+      } catch (error) {
+        console.error(error);
+        alert("সাইন আপ ব্যর্থ: " + error.message);
+      }
     }
 
-    /* Inline handler exports */
+    /* Make inline HTML handlers accessible */
     window.switchTab = switchTab;
     window.toggleDropdownMenu = toggleDropdownMenu;
     window.openSidebar = openSidebar;
@@ -719,11 +1388,7 @@
     window.showForm = showForm;
     window.onLoginSubmit = onLoginSubmit;
     window.onRegisterSubmit = onRegisterSubmit;
-    window.continueToPaymentMethods = continueToPaymentMethods;
-    window.switchPaymentScreen = switchPaymentScreen;
-    window.choosePaymentMethod = choosePaymentMethod;
-    window.copyPaymentNumber = copyPaymentNumber;
-    window.submitTransaction = submitTransaction;
   </script>
+
 </body>
 </html>
