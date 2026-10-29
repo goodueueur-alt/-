@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rifat FF Panel Seller - Portal</title>
+  <title>Rifat FF Panel Seller - Professional Portal</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,18 +55,31 @@
       const authContainer = document.getElementById('authContainer');
       const mainAppContainer = document.getElementById('mainAppContainer');
       const bottomNav = document.getElementById('bottomNav');
+      const topHeaderUserArea = document.getElementById('topHeaderUserArea');
+      const floatingSupport = document.getElementById('floatingSupportContainer');
 
       if (user) {
         if (authContainer) authContainer.className = 'view-hidden';
         if (mainAppContainer) mainAppContainer.className = 'view-block';
         if (bottomNav) bottomNav.className = 'bottom-nav view-block';
+        if (topHeaderUserArea) topHeaderUserArea.className = 'top-user-area view-flex';
+        if (floatingSupport) floatingSupport.className = 'floating-support-container view-block';
         
-        // Set Gmail First Letter Avatar & Email
         const email = user.email || 'user@gmail.com';
         const firstLetter = email.charAt(0).toUpperCase();
+        const username = email.split('@')[0];
         
         const userAvatarEl = document.getElementById('userAvatarLetter');
         if(userAvatarEl) userAvatarEl.innerText = firstLetter;
+
+        const menuAvatarEl = document.getElementById('menuAvatarLetter');
+        if(menuAvatarEl) menuAvatarEl.innerText = firstLetter;
+
+        const menuNameEl = document.getElementById('menuUserName');
+        if(menuNameEl) menuNameEl.innerText = username;
+
+        const menuEmailEl = document.getElementById('menuUserEmail');
+        if(menuEmailEl) menuEmailEl.innerText = email;
 
         const accEmailEl = document.getElementById('accEmailDisplay');
         if(accEmailEl) accEmailEl.innerText = email;
@@ -83,6 +96,8 @@
         if (authContainer) authContainer.className = 'view-block app-card';
         if (mainAppContainer) mainAppContainer.className = 'view-hidden';
         if (bottomNav) bottomNav.className = 'bottom-nav view-hidden';
+        if (topHeaderUserArea) topHeaderUserArea.className = 'top-user-area view-hidden';
+        if (floatingSupport) floatingSupport.className = 'floating-support-container view-hidden';
       }
     });
   </script>
@@ -270,6 +285,7 @@
 
     .view-block { display: block; }
     .view-hidden { display: none !important; }
+    .view-flex { display: flex; }
 
     /* MAIN APP CONTAINER */
     .main-container {
@@ -279,10 +295,10 @@
       padding-bottom: 80px;
     }
 
-    /* TOP HEADER USER AREA (Always Visible inside Main App) */
+    /* TOP HEADER USER AREA (Left side cleared, Wallet & Avatar pushed to extreme right) */
     .top-user-area {
-      display: flex;
-      justify-content: space-between;
+      display: none;
+      justify-content: flex-end;
       align-items: center;
       background: rgba(18, 12, 36, 0.98);
       border: 1px solid rgba(139, 92, 246, 0.3);
@@ -290,30 +306,13 @@
       padding: 10px 16px;
       margin: 12px 12px 10px 12px;
       backdrop-filter: blur(12px);
-    }
-
-    .top-brand-mini {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
-      font-weight: 800;
-      color: #facc15;
-    }
-
-    .top-brand-mini img {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1px solid #eab308;
-      object-fit: cover;
+      position: relative;
     }
 
     .wallet-avatar-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .wallet-pill {
@@ -333,8 +332,8 @@
     }
 
     .user-avatar-circle {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
       border: 2px solid #facc15;
@@ -347,6 +346,179 @@
       justify-content: center;
       box-shadow: 0 0 15px rgba(234, 179, 8, 0.5);
       cursor: pointer;
+    }
+
+    /* GMAIL DROPDOWN MENU */
+    .profile-dropdown-menu {
+      position: absolute;
+      top: 65px;
+      right: 12px;
+      width: 280px;
+      background: #120c24;
+      border: 1.5px solid #7c3aed;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      display: none;
+      z-index: 99999;
+      overflow: hidden;
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+
+    .profile-dropdown-menu.active {
+      display: block;
+    }
+
+    .dropdown-user-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(124, 58, 237, 0.15);
+      border-bottom: 1px solid #332554;
+    }
+
+    .dropdown-user-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
+      border: 2px solid #facc15;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dropdown-user-info h5 {
+      font-size: 14px;
+      color: #facc15;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .dropdown-user-info p {
+      font-size: 11px;
+      color: #94a3b8;
+      word-break: break-all;
+    }
+
+    .dropdown-menu-list {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.2s;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(124, 58, 237, 0.2);
+      color: #facc15;
+    }
+
+    .dropdown-support-box {
+      padding: 12px 16px;
+      border-top: 1px solid #332554;
+      text-align: center;
+    }
+
+    .dropdown-support-btn {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    }
+
+    /* FLOATING HEADPHONE SUPPORT BUTTON */
+    .floating-support-container {
+      position: fixed;
+      bottom: 85px;
+      right: 18px;
+      z-index: 9999;
+    }
+
+    .floating-main-btn {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      border: 2px solid #facc15;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(124, 58, 237, 0.6);
+      transition: 0.3s;
+    }
+
+    .floating-options-list {
+      position: absolute;
+      bottom: 65px;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+    }
+
+    .floating-support-container.active .floating-options-list {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .floating-support-container.active .floating-main-btn {
+      background: #ef4444;
+      border-color: #fff;
+      transform: rotate(90deg);
+    }
+
+    .floating-option-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #120c24;
+      border: 1.5px solid #7c3aed;
+      padding: 8px 14px;
+      border-radius: 25px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      white-space: nowrap;
+      transition: 0.2s;
+    }
+
+    .floating-option-item:hover {
+      background: #7c3aed;
+      border-color: #facc15;
     }
 
     .notice-bar {
@@ -377,12 +549,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: 0.2s;
-    }
-
-    .panel-card:hover {
-      border-color: #eab308;
-      transform: translateY(-2px);
     }
 
     .video-box-full {
@@ -462,9 +628,7 @@
     }
 
     /* FULL SCREEN TABS */
-    .full-page-section {
-      width: 100%;
-    }
+    .full-page-section { width: 100%; }
 
     .page-title-box {
       font-family: 'Orbitron', sans-serif;
@@ -506,7 +670,7 @@
       font-family: 'Hind Siliguri', sans-serif;
     }
 
-    /* 5-ICONS BOTTOM NAVIGATION BAR */
+    /* BOTTOM 5-ICONS NAVIGATION BAR */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -537,9 +701,7 @@
       transition: 0.2s;
     }
 
-    .nav-item.active {
-      color: #facc15;
-    }
+    .nav-item.active { color: #facc15; }
 
     .nav-item svg {
       width: 20px;
@@ -568,7 +730,7 @@
 </head>
 <body>
 
-  <!-- AUTHENTICATION SECTION (Login/Signup) -->
+  <!-- AUTHENTICATION SECTION -->
   <div class="app-card" id="authContainer">
     <div class="header-area">
       <div class="brand-logo-container">
@@ -582,7 +744,6 @@
       <button class="tab-btn" id="btnTabSignup" onclick="showForm('signup')">সাইন আপ</button>
     </div>
 
-    <!-- Sign In Form -->
     <div id="signinBox" class="view-block">
       <form onsubmit="onLoginSubmit(event)">
         <div class="form-group">
@@ -591,7 +752,6 @@
             <input type="email" id="signin-email-input" placeholder="আপনার ইমেল টাইপ করুন" required />
           </div>
         </div>
-
         <div class="form-group">
           <label>পাসওয়ার্ড</label>
           <div class="input-wrapper">
@@ -599,60 +759,42 @@
             <span class="toggle-password" onclick="togglePassField('signin-pass-input')">👁️</span>
           </div>
         </div>
-
         <div class="forgot-pass">
           <a href="#" class="link" onclick="showForm('forgot')">পাসওয়ার্ড ভুলে গেছেন?</a>
         </div>
-
         <button type="submit" class="submit-btn">সাইন ইন</button>
       </form>
     </div>
 
-    <!-- Sign Up Form -->
     <div id="signupBox" class="view-hidden">
       <form onsubmit="onRegisterSubmit(event)">
         <div class="form-group">
           <label>সম্পূর্ণ নাম</label>
-          <div class="input-wrapper">
-            <input type="text" placeholder="আপনার পূর্ণ নাম" required />
-          </div>
+          <div class="input-wrapper"><input type="text" placeholder="আপনার পূর্ণ নাম" required /></div>
         </div>
-
         <div class="form-group">
           <label>ইমেল বা জিমেইল</label>
-          <div class="input-wrapper">
-            <input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" required />
-          </div>
+          <div class="input-wrapper"><input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" required /></div>
         </div>
-
         <div class="form-group">
           <label>পাসওয়ার্ড</label>
-          <div class="input-wrapper">
-            <input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" required />
-            <span class="toggle-password" onclick="togglePassField('signup-pass-input')">👁️</span>
-          </div>
+          <div class="input-wrapper"><input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" required /></div>
         </div>
-
         <button type="submit" class="submit-btn">সাইন আপ</button>
       </form>
     </div>
 
-    <!-- Forgot Password Form -->
     <div id="forgotBox" class="view-hidden">
       <form onsubmit="onResetPasswordSubmit(event)">
         <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px; text-align: center;">আপনার জিমেইল দিয়ে ওটিপি পাঠান</p>
         <div class="form-group">
           <label>জিমেইল অ্যাড্রেস</label>
-          <div class="input-wrapper">
-            <input type="email" id="reset-email-input" placeholder="আপনার জিমেইল লিখুন" required />
-          </div>
+          <div class="input-wrapper"><input type="email" id="reset-email-input" placeholder="আপনার জিমেইল লিখুন" required /></div>
           <button type="button" class="otp-btn" onclick="sendOTPCode()">ওটিপি কোড পাঠান</button>
         </div>
         <div class="form-group">
           <label>ওটিপি (OTP কোড)</label>
-          <div class="input-wrapper">
-            <input type="text" id="otp-input" placeholder="৬ ডিজিটের ওটিপি লিখুন" required />
-          </div>
+          <div class="input-wrapper"><input type="text" id="otp-input" placeholder="৬ ডিজিটের ওটিপি লিখুন" required /></div>
         </div>
         <button type="submit" class="submit-btn">পাসওয়ার্ড রিসেট লিংক পাঠান</button>
         <div style="text-align: center; margin-top: 10px;">
@@ -665,20 +807,34 @@
   <!-- MAIN APP CONTAINER -->
   <div class="main-container view-hidden" id="mainAppContainer">
 
-    <!-- TOP HEADER USER AREA ( Wallet & Gmail Avatar Inside Container) -->
+    <!-- TOP HEADER USER AREA (Left cleared, Wallet & Avatar pushed to extreme right with Dropdown Menu) -->
     <div class="top-user-area" id="topHeaderUserArea">
-      <div class="top-brand-mini">
-        <img src="file_000000007dac82118992c526a33fae9b.png" alt="Logo">
-        <span>Rifat FF</span>
-      </div>
       <div class="wallet-avatar-group">
-        <!-- Wallet Balance Button -->
         <div class="wallet-pill" onclick="switchTab('addmoney')">
           <span>💳</span> <span id="userBalanceDisplay">0৳</span>
         </div>
-        <!-- Gmail Avatar (First Letter) -->
-        <div class="user-avatar-circle" id="userAvatarLetter" onclick="switchTab('account')" title="Account">
+        <div class="user-avatar-circle" id="userAvatarLetter" onclick="toggleDropdownMenu(event)" title="Account">
           F
+        </div>
+      </div>
+
+      <!-- Gmail Dropdown Menu -->
+      <div class="profile-dropdown-menu" id="profileDropdown">
+        <div class="dropdown-user-header">
+          <div class="dropdown-user-avatar" id="menuAvatarLetter">F</div>
+          <div class="dropdown-user-info">
+            <h5 id="menuUserName">User</h5>
+            <p id="menuUserEmail">email@gmail.com</p>
+          </div>
+        </div>
+        <div class="dropdown-menu-list">
+          <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">🏠 My Account</button>
+          <button class="dropdown-item" onclick="switchTab('orders'); toggleDropdownMenu();">📦 My Orders</button>
+          <button class="dropdown-item" onclick="switchTab('codes'); toggleDropdownMenu();">🔑 My Codes</button>
+          <button class="dropdown-item" onclick="switchTab('addmoney'); toggleDropdownMenu();">💳 Add Money</button>
+        </div>
+        <div class="dropdown-support-box">
+          <a href="https://wa.me/8801845907321" target="_blank" class="dropdown-support-btn">🎧 Support</a>
         </div>
       </div>
     </div>
@@ -691,7 +847,6 @@
       </div>
 
       <div class="panels-grid">
-        <!-- Box 1: Tournament Panel -->
         <div class="video-box-full">
           <div class="panel-info">
             <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
@@ -706,7 +861,6 @@
           <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">কিনুন</button>
         </div>
 
-        <!-- Box 2: Full Body Location Panel -->
         <div class="video-box-full">
           <div class="panel-info">
             <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
@@ -721,7 +875,6 @@
           <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">কিনুন</button>
         </div>
 
-        <!-- Box 3 -->
         <div class="panel-card">
           <div class="panel-info">
             <h4>Normal Panel</h4>
@@ -732,7 +885,6 @@
           <button class="buy-btn" onclick="openOrderPage('Normal Panel', '100 BDT')">কিনুন</button>
         </div>
 
-        <!-- Box 4 -->
         <div class="panel-card">
           <div class="panel-info">
             <h4>Standard FF</h4>
@@ -797,6 +949,21 @@
 
   </div>
 
+  <!-- FLOATING HEADPHONE SUPPORT BUTTON (WhatsApp & Telegram options) -->
+  <div class="floating-support-container view-hidden" id="floatingSupportContainer">
+    <div class="floating-options-list">
+      <a href="https://wa.me/8801845907321" target="_blank" class="floating-option-item">
+        <span>💬 WhatsApp Support</span>
+      </a>
+      <a href="https://t.me/rifatffpanelseller6" target="_blank" class="floating-option-item">
+        <span>✈️ Telegram Support</span>
+      </a>
+    </div>
+    <div class="floating-main-btn" onclick="toggleFloatingSupport()" title="Support">
+      🎧
+    </div>
+  </div>
+
   <!-- BOTTOM 5-ICONS NAVIGATION BAR -->
   <div class="bottom-nav view-hidden" id="bottomNav">
     <button class="nav-item active" id="navHome" onclick="switchTab('home')">
@@ -838,8 +1005,28 @@
       
       if(targetTab) targetTab.className = 'full-page-section view-block';
       if(targetNav) targetNav.classList.add('active');
+      
+      // Close dropdown if open
+      document.getElementById('profileDropdown').classList.remove('active');
       window.scrollTo(0, 0);
     }
+
+    function toggleDropdownMenu(e) {
+      if(e) e.stopPropagation();
+      const dropdown = document.getElementById('profileDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    function toggleFloatingSupport() {
+      const container = document.getElementById('floatingSupportContainer');
+      container.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    window.addEventListener('click', function() {
+      const dropdown = document.getElementById('profileDropdown');
+      if(dropdown) dropdown.classList.remove('active');
+    });
 
     function openOrderPage(panelName, price) {
       document.getElementById('orderContentArea').innerHTML = `
