@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rifat Panel Seller - Portal</title>
   
-  <!-- eSports & Professional Font Imports -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&family=Hind+Siliguri:wght@500;600&display=swap" rel="stylesheet">
@@ -18,10 +18,14 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { 
       getAuth, 
+      setPersistence,
+      browserLocalPersistence,
+      onAuthStateChanged,
       fetchSignInMethodsForEmail, 
       signInWithEmailAndPassword, 
       createUserWithEmailAndPassword,
-      sendPasswordResetEmail 
+      sendPasswordResetEmail,
+      signOut
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -36,11 +40,31 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    // সেশন পার্সিস্টেন্স সেট করা (যাতে রিফ্রেশ করলেও লগআউট না হয়)
+    setPersistence(auth, browserLocalPersistence).catch((error) => {
+      console.error("Persistence Error:", error);
+    });
+
     window.firebaseAuth = auth;
     window.fetchSignInMethodsForEmail = fetchSignInMethodsForEmail;
     window.signInWithEmailAndPassword = signInWithEmailAndPassword;
     window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
     window.sendPasswordResetEmail = sendPasswordResetEmail;
+    window.signOutUser = signOut;
+
+    // রিফ্রেশ করলেও ইউজার আগের সেশনে থাকবে
+    onAuthStateChanged(auth, (user) => {
+      const authContainer = document.getElementById('authContainer');
+      const dashboardSection = document.getElementById('dashboardSection');
+
+      if (user) {
+        if (authContainer) authContainer.className = 'view-hidden';
+        if (dashboardSection) dashboardSection.className = 'view-block';
+      } else {
+        if (authContainer) authContainer.className = 'view-block app-card';
+        if (dashboardSection) dashboardSection.className = 'view-hidden';
+      }
+    });
   </script>
 
   <style>
@@ -267,7 +291,7 @@
       display: none !important;
     }
 
-    /* CUSTOM MODAL POPUP STYLES */
+    /* CUSTOM MODAL POPUP WITH TOP-RIGHT CROSS (❌) BUTTON */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -294,33 +318,62 @@
       background: #110b27;
       border: 2px solid #eab308;
       border-radius: 20px;
-      padding: 24px 20px;
+      padding: 26px 22px;
       width: 90%;
-      max-width: 350px;
+      max-width: 360px;
       text-align: center;
-      box-shadow: 0 0 30px rgba(234, 179, 8, 0.3);
+      box-shadow: 0 0 35px rgba(234, 179, 8, 0.35);
       transform: scale(0.8);
       transition: transform 0.3s ease;
+      position: relative;
     }
 
     .modal-overlay.active .modal-box {
       transform: scale(1);
     }
 
-    .modal-title {
-      font-family: 'Orbitron', sans-serif;
+    /* মডালের ওপরের ডান পাশের ক্রস (❌) চিহ্ন */
+    .modal-close-cross {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      border-radius: 50%;
       color: #facc15;
       font-size: 16px;
       font-weight: 800;
-      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-cross:hover {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #ffffff;
+      transform: scale(1.1);
+    }
+
+    .modal-title {
+      font-family: 'Orbitron', sans-serif;
+      color: #facc15;
+      font-size: 18px;
+      font-weight: 800;
+      margin-top: 5px;
+      margin-bottom: 12px;
     }
 
     .modal-message {
       font-family: 'Hind Siliguri', sans-serif;
       color: #cbd5e1;
-      font-size: 14px;
+      font-size: 15px;
       line-height: 1.5;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .modal-btn {
@@ -331,7 +384,7 @@
       border-radius: 10px;
       font-family: 'Hind Siliguri', sans-serif;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 15px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
       transition: 0.2s;
@@ -347,7 +400,7 @@
       border-radius: 10px;
       font-family: 'Hind Siliguri', sans-serif;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 15px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
       text-decoration: none;
@@ -384,21 +437,33 @@
       color: #94a3b8;
     }
 
-    .logout-btn {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid #ef4444;
+    /* ওপরের ডান কোণায় ছোট লকআউট সিম্বল বাটন */
+    .logout-icon-btn {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
       color: #fca5a5;
-      padding: 8px 16px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
     }
 
-    .logout-btn:hover {
+    .logout-icon-btn:hover {
       background: #ef4444;
       color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .logout-icon-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
     }
 
     .section-title {
@@ -464,7 +529,6 @@
       object-fit: cover;
     }
 
-    /* নতুন খালি বা কালচে ইমেজ বক্স স্টাইল (সব কার্ডের জন্য) */
     .image-placeholder-box {
       width: 100%;
       height: 130px;
@@ -488,11 +552,13 @@
       font-family: 'Orbitron', sans-serif;
     }
 
+    /* ইংরেজি দাম ফন্ট */
     .panel-info .price {
       font-size: 16px;
       color: #facc15;
       font-weight: 800;
       margin-bottom: 8px;
+      font-family: 'Orbitron', sans-serif;
     }
 
     .panel-info p {
@@ -523,9 +589,12 @@
 </head>
 <body>
 
-  <!-- CUSTOM MODAL POPUP -->
+  <!-- CUSTOM MODAL POPUP WITH TOP-RIGHT CROSS (❌) BUTTON -->
   <div class="modal-overlay" id="customModal">
     <div class="modal-box">
+      <!-- ক্রস বাটন -->
+      <button class="modal-close-cross" onclick="closeModal()" title="বন্ধ করুন">✕</button>
+      
       <div class="modal-title" id="modalTitle">RIFAT PANEL SELLER</div>
       <div class="modal-message" id="modalMessage">এখানে বার্তার তথ্য থাকবে</div>
       <div id="modalActionContainer">
@@ -661,19 +730,22 @@
         <h3>RIFAT PANEL SELLER</h3>
         <p>স্বাগতম, <span style="color: #10b981;">VIP Member</span></p>
       </div>
-      <button class="logout-btn" onclick="logoutUser()">লগআউট</button>
+      <!-- ওপরের ডানপাশে ছোট লকআউট সিম্বল বাটন -->
+      <button class="logout-icon-btn" onclick="logoutUser()" title="লগআউট">
+        <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+      </button>
     </div>
 
     <div class="section-title">আমাদের প্রিমিয়াম প্যানেল ও টুর্নামেন্ট কালেকশন</div>
 
-    <!-- 10 Boxes Grid -->
+    <!-- 10 Boxes Grid (সব দাম ইংরেজিতে) -->
     <div class="panels-grid">
 
-      <!-- Box 1: Tournament Panel (Video Box + 450 BDT + Buy Button) -->
+      <!-- Box 1: Tournament Panel (450 BDT) -->
       <div class="video-box">
         <div class="panel-info">
           <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
-          <div class="price">৳ ৪৫০ BDT</div>
+          <div class="price">450 BDT</div>
           <p>অফিশিয়াল টুর্নামেন্ট প্লেয়ারদের জন্য বিশেষ অ্যান্টি-ব্যান সুরক্ষিত প্যানেল।</p>
         </div>
         <div class="video-wrapper">
@@ -682,107 +754,106 @@
             আপনার ব্রাউজার ভিডিও সমর্থন করে না।
           </video>
         </div>
-        <!-- টুর্নামেন্ট বক্সেও অতিরিক্ত খালি বাক্স চাইলে এখানে রাখা যায়, তবে উপরে ভিডিওর পাশাপাশি নিচের বাটন সেট করা আছে -->
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Tournament Panel (৪৫০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Tournament Panel (450 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 2: 100 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>Normal Panel</h4>
-          <div class="price">৳ ১০০ BDT</div>
+          <div class="price">100 BDT</div>
           <p>বেসিক ফিচার এবং অ্যান্টি-ব্যান প্রোটেকশন সহ নরমাল প্যানেল।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Normal Panel (১০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Normal Panel (100 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 3: 200 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>Standard FF Panel</h4>
-          <div class="price">৳ ২০০ BDT</div>
+          <div class="price">200 BDT</div>
           <p>ফাস্ট স্পিড এবং স্মুথ হেডশট সুবিধা সম্বলিত স্ট্যান্ডার্ড প্যানেল।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Standard Panel (২০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Standard Panel (200 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 4: 300 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>Pro Aimbot Panel</h4>
-          <div class="price">৳ ৩০০ BDT</div>
+          <div class="price">300 BDT</div>
           <p>হাই-কোয়ালিটি এইমবট এবং অটো হেডশট প্যানেল অ্যাক্সেস।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Pro Aimbot Panel (৩০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Pro Aimbot Panel (300 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 5: 400 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>VIP Location Tool</h4>
-          <div class="price">৳ ৪০০ BDT</div>
+          <div class="price">400 BDT</div>
           <p>এনিমি লোকেশন ট্র্যাক করার জন্য স্পেশাল ম্যাক্স লোকেশন টুল।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'VIP Location Tool (৪০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'VIP Location Tool (400 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 6: 500 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>Ultra Magic Panel</h4>
-          <div class="price">৳ ৫০০ BDT</div>
+          <div class="price">500 BDT</div>
           <p>ম্যাজিক বুলেট এবং ফুল কন্ট্রোল সেফ প্যানেল প্যাকেজ।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultra Magic Panel (৫০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultra Magic Panel (500 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 7: 600 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>Extreme Hacker Tool</h4>
-          <div class="price">৳ ৬০০ BDT</div>
+          <div class="price">600 BDT</div>
           <p>উন্নত প্রযুক্তির এক্সক্লুসিভ হ্যাকার ও ড্রাইভ লেভেল প্যানেল।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Extreme Hacker Tool (৬০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Extreme Hacker Tool (600 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 8: 700 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>Royal VIP Panel</h4>
-          <div class="price">৳ ৭০০ BDT</div>
+          <div class="price">700 BDT</div>
           <p>রয়্যাল লেভেলের সমস্ত ভিআইপি ফিচার এবং ডেডিকেটেড সাপোর্ট।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Royal VIP Panel (৭০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Royal VIP Panel (700 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 9: 800 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>Elite Legend Panel</h4>
-          <div class="price">৳ ৮০০ BDT</div>
+          <div class="price">800 BDT</div>
           <p>প্রো গেমারদের জন্য লেজেন্ডারি আনলিমিটেড প্যানেল অ্যাক্সেস।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Elite Legend Panel (৮০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Elite Legend Panel (800 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
       <!-- Box 10: 900 BDT -->
       <div class="panel-card">
         <div class="panel-info">
           <h4>Ultimate Lifetime Panel</h4>
-          <div class="price">৳ ৯০০ BDT</div>
+          <div class="price">900 BDT</div>
           <p>আজীবন মেম্বারশিপ সহ আল্টিমেট সমস্ত প্যানেল ও টুলস আনলক।</p>
         </div>
         <div class="image-placeholder-box">🖼️ খালি বাক্স (ছবি বসানোর জায়গা)</div>
-        <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultimate Lifetime Panel (৯০০ টাকা) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
+        <button class="buy-btn" onclick="showModal('অর্ডার', 'Ultimate Lifetime Panel (900 BDT) অর্ডার করতে WhatsApp এ যোগাযোগ করুন!')">কিনুন</button>
       </div>
 
     </div>
@@ -967,11 +1038,14 @@
       }
     }
 
-    function logoutUser() {
-      showModal('লগআউট', 'আপনি সফলভাবে লগআউট করেছেন।', function() {
-        document.getElementById('dashboardSection').className = 'view-hidden';
-        document.getElementById('authContainer').className = 'view-block app-card';
-        showForm('signin');
+    // রিয়েল ফায়ারবেস সাইন-আউট
+    async function logoutUser() {
+      showModal('লগআউট', 'আপনি কি নিশ্চিত যে আপনি লগআউট করতে চান?', async function() {
+        try {
+          await window.signOutUser(window.firebaseAuth);
+        } catch (e) {
+          console.error(e);
+        }
       });
     }
   </script>
