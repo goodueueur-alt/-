@@ -956,7 +956,7 @@
       generatedResetCode = Math.floor(1000 + Math.random() * 9000);
 
       const templateParams = {
-        to_email: email,
+        to_email: {{email}},
         pass_code: generatedResetCode,
         message: "আপনার পাসওয়ার্ড রিসেট কোড হলো: " + generatedResetCode
       };
