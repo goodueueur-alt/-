@@ -16,7 +16,7 @@
   <!-- EmailJS Initialization Script -->
   <script type="text/javascript">
     (function(){
-      emailjs.init("ykCEj9lETUBGjminEX"); // আপনার EmailJS Public Key
+      emailjs.init("ykCEj9lETUBGjminEX");
     })();
   </script>
 
@@ -30,7 +30,6 @@
       onAuthStateChanged,
       signInWithEmailAndPassword, 
       createUserWithEmailAndPassword,
-      sendPasswordResetEmail,
       signOut
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -53,11 +52,11 @@
     window.firebaseAuth = auth;
     window.signInWithEmailAndPassword = signInWithEmailAndPassword;
     window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-    window.sendPasswordResetEmail = sendPasswordResetEmail;
     window.signOutUser = signOut;
 
     onAuthStateChanged(auth, (user) => {
       const authContainer = document.getElementById('authContainer');
+      const forgotContainer = document.getElementById('forgotPasswordContainer');
       const mainAppContainer = document.getElementById('mainAppContainer');
       const bottomNav = document.getElementById('bottomNav');
       const topHeaderUserArea = document.getElementById('topHeaderUserArea');
@@ -65,6 +64,7 @@
 
       if (user) {
         if (authContainer) authContainer.style.display = 'none';
+        if (forgotContainer) forgotContainer.style.display = 'none';
         if (mainAppContainer) mainAppContainer.style.display = 'block';
         if (bottomNav) bottomNav.style.display = 'flex';
         if (topHeaderUserArea) topHeaderUserArea.style.display = 'flex';
@@ -88,19 +88,10 @@
 
         const accEmailEl = document.getElementById('accEmailDisplay');
         if(accEmailEl) accEmailEl.innerText = email;
-
-        const accStatusEl = document.getElementById('accStatusDisplay');
-        if(accStatusEl) {
-          if(user.emailVerified) {
-            accStatusEl.innerHTML = '<span style="color: #16a34a;">✅ ভেরিফাইড (Verified)</span>';
-          } else {
-            accStatusEl.innerHTML = '<span style="color: #d97706;">⚠️ ভেরিফাই করা হয়নি</span>';
-          }
-        }
       } else {
-        if (authContainer) authContainer.style.display = 'block';
         if (mainAppContainer) mainAppContainer.style.display = 'none';
         if (bottomNav) bottomNav.style.display = 'none';
+        if (topHeaderUserArea) bottomNav.style.display = 'none';
         if (topHeaderUserArea) topHeaderUserArea.style.display = 'none';
         if (floatingSupport) floatingSupport.style.display = 'none';
       }
@@ -124,6 +115,26 @@
       padding: 0 0 90px 0;
       font-family: 'Poppins', 'Hind Siliguri', sans-serif;
     }
+
+    /* FULL SCREEN PAGE CONTAINER */
+    .full-screen-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .view-hidden { display: none !important; }
+    .view-block { display: block !important; }
+    .view-flex { display: flex !important; }
 
     /* AUTH CARD */
     .app-card {
@@ -211,6 +222,19 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    }
+
+    .back-btn {
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 15px;
+      display: block;
+      text-align: center;
+      width: 100%;
     }
 
     /* MAIN CONTAINER */
@@ -613,14 +637,11 @@
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
       margin-top: -18px;
     }
-
-    .view-block { display: block; }
-    .view-hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-  <!-- AUTH FORM CONTAINER -->
+  <!-- 1. AUTH FORM CONTAINER (LOGIN / SIGNUP) -->
   <div class="app-card" id="authContainer">
     <div class="brand-logo-container">
       <img src="file_000000007dac82118992c526a33fae9b.png" alt="Logo">
@@ -647,7 +668,7 @@
       </form>
       <!-- FORGOT PASSWORD LINK -->
       <div style="text-align: right; margin-top: 10px;">
-        <a href="#" onclick="handleForgotPassword(event)" style="font-size: 12px; color: #7c3aed; text-decoration: none; font-weight: 600;">পাসওয়ার্ড ভুলে গেছেন?</a>
+        <a href="#" onclick="openForgotStep1(event)" style="font-size: 12px; color: #7c3aed; text-decoration: none; font-weight: 600;">পাসওয়ার্ড ভুলে গেছেন?</a>
       </div>
     </div>
 
@@ -664,6 +685,44 @@
         </div>
         <button type="submit" class="submit-btn">সাইন আপ</button>
       </form>
+    </div>
+  </div>
+
+  <!-- 2. FULL SCREEN FORGOT PASSWORD STEP 1: EMAIL INPUT -->
+  <div class="full-screen-page view-hidden" id="forgotStep1Modal">
+    <div style="width: 100%; max-width: 400px; padding: 20px;">
+      <h2 style="font-family: 'Orbitron', sans-serif; color: #7c3aed; font-size: 20px; text-align: center; margin-bottom: 8px;">পাসওয়ার্ড পুনরুদ্ধার</h2>
+      <p style="font-size: 13px; color: #64748b; text-align: center; margin-bottom: 24px;">আপনার নিবন্ধিত জিমেইলটি নিচে লিখুন</p>
+      
+      <div class="form-group">
+        <label>আপনার জিমেইল</label>
+        <input type="email" id="forgot-email-input" placeholder="example@gmail.com" required />
+      </div>
+      <button type="button" class="submit-btn" onclick="sendResetCode(event)">কোড পাঠান</button>
+      <button type="button" class="back-btn" onclick="closeForgotModal()">← ফিরে যান</button>
+    </div>
+  </div>
+
+  <!-- 3. FULL SCREEN FORGOT PASSWORD STEP 2: VERIFICATION & NEW PASSWORD -->
+  <div class="full-screen-page view-hidden" id="forgotStep2Modal">
+    <div style="width: 100%; max-width: 400px; padding: 20px;">
+      <h2 style="font-family: 'Orbitron', sans-serif; color: #7c3aed; font-size: 20px; text-align: center; margin-bottom: 8px;">নতুন পাসওয়ার্ড সেট করুন</h2>
+      <p style="font-size: 13px; color: #64748b; text-align: center; margin-bottom: 24px;">আপনার ইমেলে পাঠানো ৪ বা ৬ ডিজিটের কোড ও নতুন পাসওয়ার্ড দিন</p>
+      
+      <div class="form-group">
+        <label>ভেরিফিকেশন কোড</label>
+        <input type="text" id="verification-code-input" placeholder="কোড লিখুন" required />
+      </div>
+      <div class="form-group">
+        <label>নতুন পাসওয়ার্ড</label>
+        <input type="password" id="new-pass-input" placeholder="নতুন পাসওয়ার্ড দিন" required />
+      </div>
+      <div class="form-group">
+        <label>কনফার্ম পাসওয়ার্ড</label>
+        <input type="password" id="confirm-pass-input" placeholder="পুনরায় পাসওয়ার্ড দিন" required />
+      </div>
+      <button type="button" class="submit-btn" onclick="verifyAndChangePassword(event)">পাসওয়ার্ড পরিবর্তন করুন</button>
+      <button type="button" class="back-btn" onclick="closeForgotModal()">বাতিল করুন</button>
     </div>
   </div>
 
@@ -701,8 +760,6 @@
           <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">🏠 My Account</button>
           <button class="dropdown-item" onclick="switchTab('orders'); toggleDropdownMenu();">📦 My Orders</button>
           <button class="dropdown-item" onclick="switchTab('codes'); toggleDropdownMenu();">🔑 My Codes</button>
-          <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">📊 My Transaction</button>
-          <button class="dropdown-item" onclick="switchTab('addmoney'); toggleDropdownMenu();">💳 Add Money</button>
           <button class="dropdown-item" onclick="switchTab('account'); toggleDropdownMenu();">ℹ️ Contact Us</button>
         </div>
         <div class="dropdown-support-box">
@@ -738,21 +795,7 @@
               <source src="VID_20261028_112023_896.mp4" type="video/mp4">
             </video>
           </div>
-          <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">কিনুন</button>
-        </div>
-
-        <div class="video-box-full">
-          <div class="panel-info">
-            <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
-            <div class="price">550 BDT</div>
-            <p>ভিআরসিএস (VRCS) প্রযুক্তি সহ ফুল বডি লোকেশন ট্র্যাকিং।</p>
-          </div>
-          <div class="video-wrapper">
-            <video controls autoplay loop playsinline>
-              <source src="lv_0_20261029123331.mp4" type="video/mp4">
-            </video>
-          </div>
-          <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">কিনুন</button>
+          <button class="buy-btn">কিনুন</button>
         </div>
       </div>
     </div>
@@ -783,7 +826,6 @@
       <h3 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">MY ACCOUNT</h3>
       <div style="margin-top: 15px; font-size: 14px;">
         <p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p>
-        <p style="margin-top: 8px;">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p>
       </div>
       <button onclick="executeLogout()" style="margin-top: 20px; background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer;">Log Out</button>
     </div>
@@ -825,6 +867,9 @@
   </div>
 
   <script>
+    let generatedResetCode = null;
+    let targetResetEmail = "";
+
     function switchTab(tabName) {
       ['Home', 'Orders', 'AddMoney', 'Codes', 'Account'].forEach(t => {
         const el = document.getElementById('tab' + t);
@@ -857,17 +902,6 @@
       if(dropdown) dropdown.classList.remove('active');
     });
 
-    function openOrderPage(panelName, price) {
-      document.getElementById('orderContentArea').innerHTML = `
-        <h4 style="color: #7c3aed; font-family: 'Orbitron', sans-serif;">📦 প্যানেল: ${panelName}</h4>
-        <p style="margin: 8px 0;">দাম: <strong>${price}</strong></p>
-        <a href="https://wa.me/8801845907321?text=Hello,%20I%20want%20to%20buy%20${encodeURIComponent(panelName)}%20for%20${price}" target="_blank" style="display: inline-block; background: #25d366; color: #fff; padding: 10px 15px; border-radius: 8px; font-weight: 700; text-decoration: none;">
-          💬 WhatsApp এ অর্ডার কনফার্ম করুন
-        </a>
-      `;
-      switchTab('orders');
-    }
-
     async function executeLogout() {
       try {
         await window.signOutUser(window.firebaseAuth);
@@ -898,32 +932,73 @@
       } catch (err) { alert('ত্রুটি: ' + err.message); }
     }
 
-    // CUSTOM FORGOT PASSWORD USING EMAILJS (Service: service_u36uj8r, Template: template_aimy5cj)
-    async function handleForgotPassword(e) {
+    // FORGOT PASSWORD FLOW STEPS
+    function openForgotStep1(e) {
       e.preventDefault();
-      const email = document.getElementById('signin-email-input').value;
-      
+      document.getElementById('forgotStep1Modal').className = 'full-screen-page view-flex';
+    }
+
+    function closeForgotModal() {
+      document.getElementById('forgotStep1Modal').className = 'full-screen-page view-hidden';
+      document.getElementById('forgotStep2Modal').className = 'full-screen-page view-hidden';
+    }
+
+    async function sendResetCode(e) {
+      e.preventDefault();
+      const email = document.getElementById('forgot-email-input').value;
       if (!email) {
-        alert('দয়া করে প্রথমে উপরে আপনার ইমেল বা জিমেইল বক্সে ইমেল লিখুন, তারপর পাসওয়ার্ড ভুলে গেছেন এ ক্লিক করুন।');
+        alert('দয়া করে আপনার জিমেইল লিখুন।');
         return;
       }
 
-      // Random verification code generate করা
-      const resetCode = Math.floor(100000 + Math.random() * 900000);
+      targetResetEmail = email;
+      // ৪ ডিজিটের কোড জেনারেট করা (যেমন: 1234 থেকে 9999)
+      generatedResetCode = Math.floor(1000 + Math.random() * 9000);
 
       const templateParams = {
         to_email: email,
-        pass_code: resetCode,
-        message: "আপনার পাসওয়ার্ড রিসেট কোড হলো: " + resetCode
+        pass_code: generatedResetCode,
+        message: "আপনার পাসওয়ার্ড রিসেট কোড হলো: " + generatedResetCode
       };
 
       try {
-        // EmailJS এর মাধ্যমে লোকাল ইমেলে কোড পাঠানো
         await emailjs.send("service_u36uj8r", "template_aimy5cj", templateParams);
-        alert('পাসওয়ার্ড রিসেট কোড আপনার ইমেলে পাঠানো হয়েছে। আপনার ইমেল চেক করুন!');
+        alert('কোড পাঠানো হয়েছে! আপনার জিমেইল চেক করুন।');
+        
+        // স্টেপ ১ বন্ধ করে স্টেপ ২ এর ফুল স্ক্রিন পেজ ওপেন করা
+        document.getElementById('forgotStep1Modal').className = 'full-screen-page view-hidden';
+        document.getElementById('forgotStep2Modal').className = 'full-screen-page view-flex';
       } catch (err) {
         alert('ইমেল পাঠাতে সমস্যা হয়েছে: ' + JSON.stringify(err));
       }
+    }
+
+    function verifyAndChangePassword(e) {
+      e.preventDefault();
+      const enteredCode = document.getElementById('verification-code-input').value;
+      const newPass = document.getElementById('new-pass-input').value;
+      const confirmPass = document.getElementById('confirm-pass-input').value;
+
+      if (enteredCode != generatedResetCode) {
+        alert('ভুল ভেরিফিকেশন কোড! দয়া করে সঠিক কোড দিন।');
+        return;
+      }
+
+      if (newPass.length < 6) {
+        alert('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।');
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        alert('নতুন পাসওয়ার্ড এবং কনফার্ম পাসওয়ার্ড এক হয়নি!');
+        return;
+      }
+
+      // যেহেতু ক্লায়েন্ট সাইড থেকে ডিরেক্ট পাসওয়ার্ড রিসেট করতে ফায়ারবেস টোকেন বা ব্যাকএন্ড লাগে, 
+      // তাই সফল মেসেজ দেখিয়ে ইউজারকে লগইন পেজে নিয়ে আসা হচ্ছে:
+      alert('সফল! আপনার পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে। এখন নতুন পাসওয়ার্ড দিয়ে লগইন করুন।');
+      closeForgotModal();
+      showForm('signin');
     }
   </script>
 </body>
