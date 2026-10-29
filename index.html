@@ -1,27 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#7c3aed" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7c3aed">
   <title>Rifat FF Panel Seller - Official Portal</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Firebase -->
+  <!-- Firebase Authentication. Keep your Firebase project's authorized domains configured. -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import {
-      getAuth,
-      setPersistence,
-      browserLocalPersistence,
-      onAuthStateChanged,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      signOut
+      getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged,
+      signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -36,7 +29,6 @@
     try {
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
-
       setPersistence(auth, browserLocalPersistence).catch(console.error);
 
       window.firebaseAuth = auth;
@@ -44,1340 +36,487 @@
       window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
       window.signOutUser = signOut;
 
-      onAuthStateChanged(auth, (user) => {
-        const authContainer = document.getElementById("authContainer");
-        const mainContainer = document.getElementById("mainAppContainer");
-        const bottomNav = document.getElementById("bottomNav");
-        const topHeader = document.getElementById("topHeaderUserArea");
-        const floatingSupport = document.getElementById("floatingSupportContainer");
-
+      onAuthStateChanged(auth, user => {
+        const ids = ["authContainer", "mainAppContainer", "bottomNav", "topHeaderUserArea", "floatingSupportContainer"];
+        const [authBox, mainBox, nav, header, support] = ids.map(id => document.getElementById(id));
         if (user) {
-          if (authContainer) authContainer.style.display = "none";
-          if (mainContainer) mainContainer.style.display = "block";
-          if (bottomNav) bottomNav.style.display = "flex";
-          if (topHeader) topHeader.style.display = "flex";
-          if (floatingSupport) floatingSupport.style.display = "block";
+          if (authBox) authBox.style.display = "none";
+          if (mainBox) mainBox.style.display = "block";
+          if (nav) nav.style.display = "flex";
+          if (header) header.style.display = "flex";
+          if (support) support.style.display = "block";
 
-          const email = user.email || "user@gmail.com";
-          const username = email.split("@")[0];
-          const firstLetter = email.charAt(0).toUpperCase();
-
-          const avatar = document.getElementById("userAvatarLetter");
-          const menuAvatar = document.getElementById("menuAvatarLetter");
-          const menuName = document.getElementById("menuUserName");
-          const menuEmail = document.getElementById("menuUserEmail");
-          const accountEmail = document.getElementById("accEmailDisplay");
-          const accountStatus = document.getElementById("accStatusDisplay");
-
-          if (avatar) avatar.textContent = firstLetter;
-          if (menuAvatar) menuAvatar.textContent = firstLetter;
-          if (menuName) menuName.textContent = "Hi, " + username;
-          if (menuEmail) menuEmail.textContent = email;
-          if (accountEmail) accountEmail.textContent = email;
-
-          if (accountStatus) {
-            accountStatus.innerHTML = user.emailVerified
-              ? '<span style="color:#16a34a">✓ ভেরিফাইড (Verified)</span>'
-              : '<span style="color:#d97706">⚠ ভেরিফাই করা হয়নি</span>';
-          }
+          const email = user.email || "";
+          const username = email.split("@")[0] || "User";
+          const first = (email.charAt(0) || "U").toUpperCase();
+          const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+          setText("userAvatarLetter", first);
+          setText("menuAvatarLetter", first);
+          setText("menuUserName", "Hi, " + username);
+          setText("menuUserEmail", email);
+          setText("accEmailDisplay", email);
+          const status = document.getElementById("accStatusDisplay");
+          if (status) status.innerHTML = user.emailVerified
+            ? '<span class="verified">✓ ভেরিফাইড (Verified)</span>'
+            : '<span class="unverified">⚠ ভেরিফাই করা হয়নি</span>';
         } else {
-          if (authContainer) authContainer.style.display = "block";
-          if (mainContainer) mainContainer.style.display = "none";
-          if (bottomNav) bottomNav.style.display = "none";
-          if (topHeader) topHeader.style.display = "none";
-          if (floatingSupport) floatingSupport.style.display = "none";
-          closeSidebar();
+          if (authBox) authBox.style.display = "block";
+          if (mainBox) mainBox.style.display = "none";
+          if (nav) nav.style.display = "none";
+          if (header) header.style.display = "none";
+          if (support) support.style.display = "none";
+          if (typeof window.closeSidebar === "function") window.closeSidebar();
         }
       });
     } catch (error) {
       console.error("Firebase Init Error:", error);
+      window.firebaseInitError = error;
     }
   </script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --primary: #7c3aed;
-      --primary-dark: #6d28d9;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --page-bg: #f8fafc;
-    }
-
-    body {
-      background: var(--page-bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 0 0 90px;
-      font-family: "Poppins", "Hind Siliguri", sans-serif;
-    }
-
-    body.sidebar-open {
-      overflow: hidden;
-    }
-
-    button, input {
-      font: inherit;
-    }
-
-    button, a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    /* AUTH */
-    .app-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 30px 24px;
-      width: 90%;
-      max-width: 420px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.08);
-      margin: 40px auto;
-    }
-
-    .brand-logo-container {
-      width: 75px;
-      height: 75px;
-      margin: 0 auto 10px;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 2px solid var(--primary);
-      background: #fff;
-    }
-
-    .brand-logo-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .brand-title {
-      font-family: "Orbitron", sans-serif;
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--primary-dark);
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .auth-tabs {
-      display: flex;
-      background: #f1f5f9;
-      border-radius: 12px;
-      padding: 4px;
-      margin-bottom: 20px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      font-weight: 700;
-      cursor: pointer;
-      border-radius: 8px;
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      color: #475569;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px 14px;
-      background: #fff;
-      color: #0f172a;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 12px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    input:focus {
-      border-color: var(--primary);
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    /* MAIN */
-    .main-container {
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-      padding-bottom: 80px;
-      background: var(--page-bg);
-      min-height: 100vh;
-    }
-
-    /* HEADER */
-    .top-user-area {
-      display: none;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      background: #fff;
-      padding: 12px 14px;
-      border-bottom: 1px solid #f1f5f9;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .brand-logo-text {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      min-width: 0;
-    }
-
-    .brand-icon-box {
-      width: 36px;
-      height: 36px;
-      flex-shrink: 0;
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-family: "Orbitron", sans-serif;
-      font-weight: 900;
-      font-size: 18px;
-    }
-
-    .brand-text-wrapper {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .brand-text-main {
-      font-family: "Orbitron", sans-serif;
-      font-size: 13px;
-      font-weight: 900;
-      color: #0f172a;
-      letter-spacing: -.5px;
-    }
-
-    .brand-text-sub {
-      font-family: "Orbitron", sans-serif;
-      font-size: 8px;
-      font-weight: 800;
-      color: var(--primary);
-      background: #f3e8ff;
-      padding: 2px 4px;
-      border-radius: 4px;
-      margin-top: 2px;
-    }
-
-    .wallet-avatar-group {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .wallet-pill {
-      background: var(--primary);
-      border-radius: 20px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .user-avatar-circle {
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background: #a855f7;
-      color: #fff;
-      font-size: 17px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: none;
-    }
-
-    /* SIDEBAR OVERLAY */
-    .sidebar-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, .48);
-      z-index: 10001;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity .28s ease, visibility .28s ease;
-    }
-
-    .sidebar-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* SLIDE-OUT SIDEBAR */
-    .profile-dropdown-menu {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: min(360px, 86vw);
-      height: 100vh;
-      height: 100dvh;
-      background: #fff;
-      box-shadow: -8px 0 30px rgba(0,0,0,.12);
-      display: flex;
-      flex-direction: column;
-      z-index: 10002;
-      overflow-y: auto;
-      border: none;
-      border-radius: 0;
-      transform: translateX(105%);
-      visibility: hidden;
-      transition: transform .28s ease, visibility .28s ease;
-      overscroll-behavior: contain;
-    }
-
-    .profile-dropdown-menu.active {
-      transform: translateX(0);
-      visibility: visible;
-    }
-
-    .sidebar-close-row {
-      display: flex;
-      justify-content: flex-end;
-      padding: 8px 12px 0;
-    }
-
-    .sidebar-close-btn {
-      width: 36px;
-      height: 36px;
-      border: none;
-      border-radius: 50%;
-      background: #f1f5f9;
-      color: #475569;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .dropdown-user-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 20px 22px;
-      min-height: 115px;
-      background: #fff;
-      color: #1e293b;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .dropdown-user-avatar {
-      flex-shrink: 0;
-      width: 64px;
-      height: 64px;
-      border-radius: 0;
-      background: #a946bd;
-      color: #fff;
-      font-size: 30px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .dropdown-user-info {
-      min-width: 0;
-    }
-
-    .dropdown-user-info h5 {
-      font-size: 16px;
-      font-weight: 800;
-      color: #374151;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .dropdown-user-info p {
-      margin-top: 5px;
-      font-size: 13px;
-      color: #64748b;
-      overflow-wrap: anywhere;
-    }
-
-    .dropdown-menu-list {
-      display: flex;
-      flex-direction: column;
-      padding: 8px 0;
-    }
-
-    .dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 17px 22px;
-      color: #202938;
-      font-size: 15px;
-      font-weight: 700;
-      background: #fff;
-      border: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      transition: background .2s, color .2s;
-    }
-
-    .dropdown-item:hover,
-    .dropdown-item:active {
-      background: #f5f0ff;
-      color: var(--primary-dark);
-    }
-
-    .menu-icon {
-      width: 29px;
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #374151;
-      font-size: 22px;
-    }
-
-    .dropdown-support-box {
-      padding: 22px 20px;
-      border-top: 1px solid #e5e7eb;
-      margin-top: 0;
-    }
-
-    .dropdown-support-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      max-width: 230px;
-      margin: 0 auto;
-      background: #673ab7;
-      color: #fff;
-      padding: 14px;
-      border-radius: 12px;
-      font-weight: 700;
-      text-decoration: none;
-      font-size: 16px;
-    }
-
-    /* NOTICE */
-    .notice-bar-container {
-      margin: 12px;
-      background: #fff;
-      border: 1.5px solid var(--primary);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(124,58,237,.1);
-    }
-
-    .notice-tag {
-      background: var(--primary);
-      color: #fff;
-      padding: 9px 12px;
-      font-size: 12px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .notice-tag-dot {
-      width: 8px;
-      height: 8px;
-      background: #fff;
-      border-radius: 50%;
-    }
-
-    .notice-marquee {
-      flex: 1;
-      padding: 8px 10px;
-      font-size: 12px;
-      color: #334155;
-      font-weight: 600;
-      line-height: 1.6;
-    }
-
-    .notice-close-btn {
-      padding: 8px 10px;
-      color: var(--primary);
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    /* PANELS */
-    .panels-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      padding: 0 12px;
-    }
-
-    .video-box-full {
-      grid-column: 1 / -1;
-      background: #fff;
-      border: 1.5px solid var(--primary);
-      border-radius: 18px;
-      padding: 14px;
-      min-width: 0;
-    }
-
-    .panel-info h4 {
-      font-size: 14px;
-      color: #0f172a;
-      font-weight: 700;
-      line-height: 1.7;
-    }
-
-    .panel-info .price {
-      font-size: 14px;
-      color: var(--primary);
-      font-weight: 800;
-      margin: 4px 0;
-    }
-
-    .panel-info p {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 10px;
-      line-height: 1.7;
-    }
-
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%;
-      background: #000;
-      border-radius: 12px;
-      overflow: hidden;
-      margin: 10px 0;
-    }
-
-    .video-wrapper video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .buy-btn {
-      width: 100%;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 11px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* PAGE SECTIONS */
-    .full-page-section {
-      min-height: 55vh;
-    }
-
-    .page-card {
-      margin-top: 14px;
-      padding: 18px;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      line-height: 1.8;
-    }
-
-    .page-title {
-      color: var(--primary);
-      font-family: "Orbitron", sans-serif;
-      font-size: 19px;
-      overflow-wrap: anywhere;
-    }
-
-    .view-block {
-      display: block;
-    }
-
-    .view-hidden {
-      display: none !important;
-    }
-
-    /* SUPPORT */
-    .floating-support-container {
-      position: fixed;
-      bottom: 86px;
-      right: max(18px, calc((100vw - 480px)/2 + 18px));
-      z-index: 9999;
-      display: none;
-    }
-
-    .floating-main-btn {
-      width: 54px;
-      height: 54px;
-      background: var(--primary);
-      border: 3px solid #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 23px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(124,58,237,.4);
-    }
-
-    .floating-options-list {
-      position: absolute;
-      bottom: 64px;
-      right: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px);
-      transition: all .3s ease;
-    }
-
-    .floating-support-container.active .floating-options-list {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .floating-social-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,.15);
-      background: #fff;
-      text-decoration: none;
-    }
-
-    .floating-social-icon img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-    }
-
-    /* BOTTOM NAV */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      border-top: 1px solid #e5e7eb;
-      display: none;
-      justify-content: space-around;
-      align-items: center;
-      padding: 8px 0 max(12px, env(safe-area-inset-bottom));
-      z-index: 1000;
-    }
-
-    .nav-item {
-      min-width: 0;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      background: transparent;
-      border: none;
-      color: #64748b;
-      font-size: 10px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .nav-item.active {
-      color: var(--primary);
-    }
-
-    .nav-item svg {
-      width: 23px;
-      height: 23px;
-      fill: currentColor;
-    }
-
-    .nav-add-btn {
-      width: 62px;
-      height: 62px;
-      flex: 0 0 62px;
-      background: var(--primary);
-      border: 5px solid #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 33px;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(124,58,237,.3);
-      margin-top: -25px;
-    }
-
-    @media (min-width: 700px) {
-      .main-container {
-        max-width: 480px;
-        box-shadow: 0 0 20px rgba(15,23,42,.04);
-      }
-    }
-
-    @media (max-width: 350px) {
-      .brand-text-main {
-        font-size: 11px;
-      }
-
-      .brand-text-sub {
-        font-size: 7px;
-      }
-
-      .wallet-pill {
-        padding: 6px 7px;
-        font-size: 10px;
-      }
-
-      .dropdown-item {
-        padding: 15px 18px;
-      }
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --primary:#7c3aed; --primary-dark:#6d28d9; --text:#1e293b; --muted:#64748b; --border:#e2e8f0; --page-bg:#f8fafc; }
+    body { background:var(--page-bg); color:var(--text); min-height:100vh; padding:0 0 90px; font-family:"Poppins","Hind Siliguri",sans-serif; }
+    body.sidebar-open, body.modal-open { overflow:hidden; }
+    button, input { font:inherit; }
+    button, a { -webkit-tap-highlight-color:transparent; }
+    button { cursor:pointer; }
+    .app-card { background:#fff; border:1px solid var(--border); border-radius:24px; padding:30px 24px; width:90%; max-width:420px; box-shadow:0 10px 25px rgba(0,0,0,.08); margin:40px auto; }
+    .brand-logo-container { width:75px; height:75px; margin:0 auto 10px; border-radius:20px; overflow:hidden; border:2px solid var(--primary); background:#fff; }
+    .brand-logo-container img { width:100%; height:100%; object-fit:cover; }
+    .brand-title { font-family:"Orbitron",sans-serif; font-size:18px; font-weight:900; color:var(--primary-dark); text-align:center; margin-bottom:15px; }
+    .auth-tabs { display:flex; background:#f1f5f9; border-radius:12px; padding:4px; margin-bottom:20px; }
+    .tab-btn { flex:1; padding:10px; border:0; background:transparent; color:var(--muted); font-weight:700; border-radius:8px; }
+    .tab-btn.active { background:var(--primary); color:#fff; }
+    .form-group { margin-bottom:15px; }
+    label { display:block; font-size:13px; color:#475569; margin-bottom:5px; font-weight:600; }
+    input { width:100%; padding:12px 14px; background:#fff; color:#0f172a; border:1.5px solid #cbd5e1; border-radius:12px; font-size:14px; outline:none; }
+    input:focus { border-color:var(--primary); }
+    .submit-btn { width:100%; padding:14px; background:linear-gradient(135deg,#7c3aed,#6d28d9); border:0; border-radius:12px; color:#fff; font-size:16px; font-weight:800; }
+    .main-container { width:100%; max-width:480px; margin:0 auto; padding-bottom:80px; background:var(--page-bg); min-height:100vh; }
+    .top-user-area { display:none; justify-content:space-between; align-items:center; gap:8px; background:#fff; padding:12px 14px; border-bottom:1px solid #f1f5f9; position:sticky; top:0; z-index:1000; }
+    .brand-logo-text { display:flex; align-items:center; gap:8px; text-decoration:none; min-width:0; }
+    .brand-icon-box { width:36px; height:36px; flex-shrink:0; background:linear-gradient(135deg,#7c3aed,#6d28d9); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#fff; font-family:"Orbitron",sans-serif; font-weight:900; font-size:18px; }
+    .brand-text-wrapper { display:flex; flex-direction:column; line-height:1.2; }
+    .brand-text-main { font-family:"Orbitron",sans-serif; font-size:13px; font-weight:900; color:#0f172a; letter-spacing:-.5px; }
+    .brand-text-sub { font-family:"Orbitron",sans-serif; font-size:8px; font-weight:800; color:var(--primary); background:#f3e8ff; padding:2px 4px; border-radius:4px; margin-top:2px; }
+    .wallet-avatar-group { display:flex; align-items:center; gap:9px; }
+    .wallet-pill { background:var(--primary); border-radius:20px; padding:7px 10px; font-size:12px; font-weight:700; color:#fff; display:flex; align-items:center; gap:5px; white-space:nowrap; border:0; }
+    .user-avatar-circle { width:40px; height:40px; flex-shrink:0; border-radius:50%; background:#a855f7; color:#fff; font-size:17px; font-weight:800; display:flex; align-items:center; justify-content:center; border:0; }
+    .sidebar-overlay { position:fixed; inset:0; background:rgba(15,23,42,.48); z-index:10001; opacity:0; visibility:hidden; transition:opacity .28s,visibility .28s; }
+    .sidebar-overlay.active { opacity:1; visibility:visible; }
+    .profile-dropdown-menu { position:fixed; top:0; right:0; width:min(360px,86vw); height:100vh; height:100dvh; background:#fff; box-shadow:-8px 0 30px rgba(0,0,0,.12); display:flex; flex-direction:column; z-index:10002; overflow-y:auto; transform:translateX(105%); visibility:hidden; transition:transform .28s,visibility .28s; overscroll-behavior:contain; }
+    .profile-dropdown-menu.active { transform:translateX(0); visibility:visible; }
+    .sidebar-close-row { display:flex; justify-content:flex-end; padding:8px 12px 0; }
+    .sidebar-close-btn { width:36px; height:36px; border:0; border-radius:50%; background:#f1f5f9; color:#475569; font-size:22px; }
+    .dropdown-user-header { display:flex; align-items:center; gap:14px; padding:12px 20px 22px; min-height:115px; border-bottom:1px solid #e5e7eb; }
+    .dropdown-user-avatar { width:64px; height:64px; flex-shrink:0; background:#a946bd; color:#fff; font-size:30px; display:flex; align-items:center; justify-content:center; }
+    .dropdown-user-info { min-width:0; }
+    .dropdown-user-info h5 { font-size:16px; font-weight:800; color:#374151; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+    .dropdown-user-info p { margin-top:5px; font-size:13px; color:#64748b; overflow-wrap:anywhere; }
+    .dropdown-menu-list { display:flex; flex-direction:column; padding:8px 0; }
+    .dropdown-item { display:flex; align-items:center; gap:15px; padding:17px 22px; color:#202938; font-size:15px; font-weight:700; background:#fff; border:0; width:100%; text-align:left; }
+    .dropdown-item:hover,.dropdown-item:active { background:#f5f0ff; color:var(--primary-dark); }
+    .menu-icon { width:29px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; font-size:22px; }
+    .dropdown-support-box { padding:22px 20px; border-top:1px solid #e5e7eb; }
+    .dropdown-support-btn { display:flex; align-items:center; justify-content:center; gap:10px; max-width:230px; margin:0 auto; background:#673ab7; color:#fff; padding:14px; border-radius:12px; font-weight:700; text-decoration:none; font-size:16px; }
+    .notice-bar-container { margin:12px; background:#fff; border:1.5px solid var(--primary); border-radius:12px; display:flex; align-items:center; overflow:hidden; box-shadow:0 2px 8px rgba(124,58,237,.1); }
+    .notice-tag { background:var(--primary); color:#fff; padding:9px 12px; font-size:12px; font-weight:800; display:flex; align-items:center; gap:6px; white-space:nowrap; }
+    .notice-tag-dot { width:8px; height:8px; background:#fff; border-radius:50%; }
+    .notice-marquee { flex:1; padding:8px 10px; font-size:12px; color:#334155; font-weight:600; line-height:1.6; }
+    .notice-close-btn { padding:8px 10px; color:var(--primary); background:#fff; border:0; font-weight:800; }
+    .panels-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; padding:0 12px; }
+    .video-box-full { grid-column:1/-1; background:#fff; border:1.5px solid var(--primary); border-radius:18px; padding:14px; min-width:0; }
+    .panel-info h4 { font-size:14px; color:#0f172a; font-weight:700; line-height:1.7; }
+    .panel-info .price { font-size:14px; color:var(--primary); font-weight:800; margin:4px 0; }
+    .panel-info p { font-size:12px; color:var(--muted); margin-bottom:10px; line-height:1.7; }
+    .video-wrapper { position:relative; width:100%; padding-top:56.25%; background:#000; border-radius:12px; overflow:hidden; margin:10px 0; }
+    .video-wrapper video { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
+    .buy-btn { width:100%; background:var(--primary); color:#fff; border:0; padding:11px; border-radius:10px; font-size:13px; font-weight:700; }
+    .full-page-section { min-height:55vh; }
+    .page-card { margin-top:14px; padding:18px; background:#fff; border:1px solid var(--border); border-radius:12px; line-height:1.8; }
+    .page-title { color:var(--primary); font-family:"Orbitron",sans-serif; font-size:19px; overflow-wrap:anywhere; }
+    .view-block { display:block; }
+    .view-hidden { display:none !important; }
+    .floating-support-container { position:fixed; bottom:86px; right:max(18px,calc((100vw - 480px)/2 + 18px)); z-index:9999; display:none; }
+    .floating-main-btn { width:54px; height:54px; background:var(--primary); border:3px solid #fff; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:23px; box-shadow:0 4px 15px rgba(124,58,237,.4); }
+    .floating-options-list { position:absolute; bottom:64px; right:4px; display:flex; flex-direction:column; gap:10px; opacity:0; pointer-events:none; transform:translateY(10px); transition:all .3s; }
+    .floating-support-container.active .floating-options-list { opacity:1; pointer-events:auto; transform:translateY(0); }
+    .floating-social-icon { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.15); background:#fff; text-decoration:none; }
+    .floating-social-icon img { width:28px; height:28px; object-fit:contain; }
+    .bottom-nav { position:fixed; bottom:0; left:0; width:100%; background:#fff; border-top:1px solid #e5e7eb; display:none; justify-content:space-around; align-items:center; padding:8px 0 max(12px,env(safe-area-inset-bottom)); z-index:1000; }
+    .nav-item { min-width:0; flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; background:transparent; border:0; color:#64748b; font-size:10px; font-weight:600; }
+    .nav-item.active { color:var(--primary); }
+    .nav-item svg { width:23px; height:23px; fill:currentColor; }
+    .nav-add-btn { width:62px; height:62px; flex:0 0 62px; background:var(--primary); border:5px solid #fff; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:33px; font-weight:500; box-shadow:0 4px 12px rgba(124,58,237,.3); margin-top:-25px; }
+    /* Add Money flow */
+    .money-page { padding:16px 12px 28px; }
+    .money-hero { position:relative; overflow:hidden; min-height:270px; border-radius:28px; padding:28px 24px; color:#fff; background:linear-gradient(120deg,#214f53 0%,#344b76 55%,#48358e 100%); box-shadow:0 16px 35px rgba(69,57,139,.18); }
+    .money-hero:before { content:""; position:absolute; width:360px; height:360px; border-radius:50%; right:-120px; bottom:-230px; border:75px solid rgba(255,255,255,.08); }
+    .secure-pill { display:inline-flex; align-items:center; gap:9px; background:rgba(105,69,184,.88); border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:12px 16px; font-size:12px; letter-spacing:1px; font-weight:800; position:relative; }
+    .money-hero h2 { font-size:29px; line-height:1.2; margin-top:30px; position:relative; letter-spacing:-.8px; }
+    .money-hero h2 span { color:#91b6df; display:block; }
+    .money-hero p { margin-top:18px; max-width:270px; color:#d2dbe8; font-size:14px; line-height:1.8; position:relative; }
+    .hero-wallet { position:absolute; right:24px; bottom:38px; width:105px; height:94px; border:1px solid rgba(255,255,255,.4); border-radius:25px; background:linear-gradient(145deg,rgba(155,165,255,.75),rgba(104,80,193,.8)); transform:rotate(6deg); display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 10px 22px rgba(0,0,0,.12); }
+    .hero-wallet strong { font-size:29px; }
+    .hero-plus { position:absolute; right:16px; bottom:22px; width:49px; height:49px; border-radius:50%; background:#20c879; border:4px solid #a4f4c7; color:#123f2b; display:flex; align-items:center; justify-content:center; font-size:29px; font-weight:800; }
+    .amount-card { background:#fff; border-radius:28px; padding:25px 20px; margin-top:22px; box-shadow:0 8px 30px rgba(31,41,55,.05); }
+    .amount-heading { display:flex; align-items:center; gap:15px; margin-bottom:30px; }
+    .amount-icon { width:72px; height:72px; flex-shrink:0; border-radius:24px; background:#6553b7; color:#fff; display:flex; align-items:center; justify-content:center; font-size:28px; box-shadow:0 10px 22px rgba(101,83,183,.2); }
+    .amount-heading h3 { font-size:22px; color:#171923; letter-spacing:-.6px; }
+    .amount-heading p { font-size:12px; color:#858995; margin-top:5px; }
+    .amount-label { margin:20px 4px 8px; font-size:12px; color:#555b66; font-weight:700; letter-spacing:.7px; }
+    .amount-input-wrap { display:flex; align-items:center; gap:14px; padding:0 20px; border:2px solid #e0e2e8; border-radius:24px; background:#fafbff; }
+    .amount-input-wrap span { font-size:28px; font-weight:800; }
+    .amount-input-wrap input { border:0; background:transparent; height:80px; padding:0; font-size:20px; }
+    .amount-input-wrap input:focus { border:0; }
+    .helper-line { display:flex; gap:9px; align-items:center; color:#777d88; font-size:12px; margin:14px 4px 24px; }
+    .secure-pay-btn { width:100%; border:0; border-radius:24px; padding:20px 12px; color:#fff; background:linear-gradient(110deg,#7c3aed,#6d28d9); font-size:16px; font-weight:800; box-shadow:0 8px 18px rgba(124,58,237,.2); }
+    .secure-pay-btn:disabled { opacity:.45; cursor:not-allowed; }
+    .payment-page { padding:18px 16px 34px; min-height:75vh; background-color:#f2f7ff; background-image:radial-gradient(#e1eaf7 1px,transparent 1px); background-size:18px 18px; }
+    .payment-topbar { display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,.88); padding:14px 18px; border-radius:14px; color:#71839a; }
+    .payment-topbar button { border:0; background:transparent; font-size:28px; color:#71839a; }
+    .wallet-brand { text-align:center; padding:28px 0 20px; }
+    .wallet-brand-icon { width:110px; height:110px; margin:0 auto 12px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; color:#7c3aed; font-size:42px; box-shadow:0 4px 18px rgba(80,100,130,.08); }
+    .wallet-brand h2 { color:#71839a; font-size:24px; }
+    .mobile-banking-title { background:#0753b8; color:#fff; text-align:center; border-radius:12px; padding:18px 10px; margin:18px 0 24px; font-size:18px; }
+    .payment-methods { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .method-card { border:1px solid #e5e7eb; background:#fff; border-radius:14px; min-height:105px; padding:16px 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; font-weight:800; color:#273449; }
+    .method-card:active { transform:scale(.98); }
+    .bkash-word { color:#c21870; font-size:24px; font-weight:500; }
+    .nagad-word { color:#d92727; font-size:24px; font-weight:800; }
+    .pay-bottom { position:sticky; bottom:0; margin:24px -16px -34px; padding:20px 12px; text-align:center; color:#0753b8; background:#d5e7ff; border-radius:24px 24px 0 0; font-size:21px; font-weight:800; }
+    .instruction-page { padding:18px 12px 30px; min-height:75vh; background-color:#f2f7ff; background-image:radial-gradient(#e1eaf7 1px,transparent 1px); background-size:18px 18px; }
+    .gateway-brand-card,.gateway-amount-card { background:#fff; border-radius:16px; padding:20px; margin-bottom:14px; color:#71839a; font-size:21px; font-weight:800; }
+    .gateway-brand-card { display:flex; align-items:center; gap:16px; }
+    .gateway-logo { width:64px; height:64px; border:2px solid #eef2f7; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:25px; font-weight:900; }
+    .gateway-instructions { border-radius:14px; background:#c92375; color:#fff; padding:22px 20px; line-height:1.8; }
+    .gateway-instructions h3 { text-align:center; font-size:21px; margin:0 0 18px; }
+    .gateway-instructions input { margin-bottom:18px; border:3px solid #f5a7c9; font-size:16px; height:58px; }
+    .instruction-list { list-style:none; padding:0; }
+    .instruction-list li { padding:12px 0; border-bottom:1px solid rgba(255,255,255,.12); font-size:14px; }
+    .instruction-list li:last-child { border-bottom:0; }
+    .copy-number-btn { background:#9f1456; color:#fff; border:0; padding:7px 12px; border-radius:8px; font-weight:800; margin:4px 0 0 10px; }
+    .submit-transaction-btn { width:100%; margin-top:16px; padding:14px; border:0; border-radius:10px; background:#fff; color:#b51b65; font-weight:800; font-size:15px; }
+    .notice-small { color:#fff4c5; font-size:12px; margin-top:12px; line-height:1.7; }
+    .status-message { margin-top:12px; padding:12px; border-radius:10px; background:#fff; color:#374151; font-size:13px; }
+    .verified { color:#16a34a; } .unverified { color:#d97706; }
+    @media (min-width:700px) { .main-container { max-width:480px; box-shadow:0 0 20px rgba(15,23,42,.04); } }
+    @media (max-width:350px) { .brand-text-main{font-size:11px}.brand-text-sub{font-size:7px}.wallet-pill{padding:6px 7px;font-size:10px}.dropdown-item{padding:15px 18px}.money-hero{padding:24px 18px}.money-hero h2{font-size:25px}.hero-wallet{right:14px;width:80px;height:78px}.amount-card{padding:20px 15px}.amount-heading h3{font-size:19px} }
   </style>
 </head>
-
 <body>
-
   <!-- LOGIN / SIGNUP -->
   <div class="app-card" id="authContainer">
-    <div class="brand-logo-container">
-      <img src="file_000000007dac82118992c526a33fae9b.png" alt="Rifat Panel Seller Logo">
-    </div>
-
+    <div class="brand-logo-container"><img src="file_000000007dac82118992c526a33fae9b.png" alt="Rifat Panel Seller Logo"></div>
     <h1 class="brand-title">Rifat Panel Seller</h1>
-
     <div class="auth-tabs">
       <button class="tab-btn active" id="btnTabSignin" onclick="showForm('signin')">সাইন ইন</button>
       <button class="tab-btn" id="btnTabSignup" onclick="showForm('signup')">সাইন আপ</button>
     </div>
-
     <div id="signinBox" class="view-block">
       <form onsubmit="onLoginSubmit(event)">
-        <div class="form-group">
-          <label for="signin-email-input">ইমেল বা জিমেইল</label>
-          <input type="email" id="signin-email-input" placeholder="আপনার জিমেইল লিখুন" autocomplete="email" required>
-        </div>
-
-        <div class="form-group">
-          <label for="signin-pass-input">পাসওয়ার্ড</label>
-          <input type="password" id="signin-pass-input" placeholder="পাসওয়ার্ড দিন" autocomplete="current-password" required>
-        </div>
-
+        <div class="form-group"><label for="signin-email-input">ইমেল বা জিমেইল</label><input type="email" id="signin-email-input" placeholder="আপনার জিমেইল লিখুন" autocomplete="email" required></div>
+        <div class="form-group"><label for="signin-pass-input">পাসওয়ার্ড</label><input type="password" id="signin-pass-input" placeholder="পাসওয়ার্ড দিন" autocomplete="current-password" required></div>
         <button type="submit" class="submit-btn">সাইন ইন</button>
       </form>
     </div>
-
     <div id="signupBox" class="view-hidden">
       <form onsubmit="onRegisterSubmit(event)">
-        <div class="form-group">
-          <label for="signup-email-input">ইমেল বা জিমেইল</label>
-          <input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" autocomplete="email" required>
-        </div>
-
-        <div class="form-group">
-          <label for="signup-pass-input">পাসওয়ার্ড</label>
-          <input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" autocomplete="new-password" minlength="6" required>
-        </div>
-
+        <div class="form-group"><label for="signup-email-input">ইমেল বা জিমেইল</label><input type="email" id="signup-email-input" placeholder="আপনার জিমেইল দিন" autocomplete="email" required></div>
+        <div class="form-group"><label for="signup-pass-input">পাসওয়ার্ড</label><input type="password" id="signup-pass-input" placeholder="পাসওয়ার্ড দিন" autocomplete="new-password" minlength="6" required></div>
         <button type="submit" class="submit-btn">সাইন আপ</button>
       </form>
     </div>
   </div>
 
   <!-- MAIN APP -->
-  <div class="main-container" id="mainAppContainer" style="display:none;">
-
-    <!-- HEADER -->
+  <div class="main-container" id="mainAppContainer" style="display:none">
     <header class="top-user-area" id="topHeaderUserArea">
-      <a href="#" class="brand-logo-text" onclick="switchTab('home'); return false;">
-        <div class="brand-icon-box">R</div>
-        <div class="brand-text-wrapper">
-          <span class="brand-text-main">RIFAT FF</span>
-          <span class="brand-text-sub">PANEL SELLER</span>
-        </div>
+      <a href="#" class="brand-logo-text" onclick="switchTab('home');return false">
+        <div class="brand-icon-box">R</div><div class="brand-text-wrapper"><span class="brand-text-main">RIFAT FF</span><span class="brand-text-sub">PANEL SELLER</span></div>
       </a>
-
       <div class="wallet-avatar-group">
-        <button class="wallet-pill" onclick="switchTab('addmoney')" aria-label="Add Money">
-          <span>💳</span>
-          <span id="userBalanceDisplay">0৳</span>
-        </button>
-
-        <button class="user-avatar-circle" id="userAvatarLetter"
-                onclick="toggleDropdownMenu(event)"
-                aria-label="Open account menu"
-                aria-controls="profileDropdown"
-                aria-expanded="false">
-          F
-        </button>
+        <button class="wallet-pill" onclick="switchTab('addmoney')" aria-label="Add Money">💳 <span id="userBalanceDisplay">0৳</span></button>
+        <button class="user-avatar-circle" id="userAvatarLetter" onclick="toggleDropdownMenu(event)" aria-label="Open account menu" aria-controls="profileDropdown" aria-expanded="false">F</button>
       </div>
     </header>
 
-    <!-- SIDEBAR OVERLAY -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-    <!-- SLIDE-OUT SIDEBAR -->
-    <aside class="profile-dropdown-menu" id="profileDropdown"
-           aria-label="Account navigation"
-           aria-hidden="true">
-
-      <div class="sidebar-close-row">
-        <button class="sidebar-close-btn" onclick="closeSidebar()" aria-label="Close menu">×</button>
-      </div>
-
-      <div class="dropdown-user-header">
-        <div class="dropdown-user-avatar" id="menuAvatarLetter">F</div>
-        <div class="dropdown-user-info">
-          <h5 id="menuUserName">Hi, User</h5>
-          <p id="menuUserEmail">email@gmail.com</p>
-        </div>
-      </div>
-
+    <aside class="profile-dropdown-menu" id="profileDropdown" aria-label="Account navigation" aria-hidden="true">
+      <div class="sidebar-close-row"><button class="sidebar-close-btn" onclick="closeSidebar()" aria-label="Close menu">×</button></div>
+      <div class="dropdown-user-header"><div class="dropdown-user-avatar" id="menuAvatarLetter">F</div><div class="dropdown-user-info"><h5 id="menuUserName">Hi, User</h5><p id="menuUserEmail">email@gmail.com</p></div></div>
       <nav class="dropdown-menu-list">
-        <button class="dropdown-item" onclick="switchTab('account')">
-          <span class="menu-icon">⌂</span>
-          <span>My Account</span>
-        </button>
-
-        <button class="dropdown-item" onclick="switchTab('orders')">
-          <span class="menu-icon">♧</span>
-          <span>My Orders</span>
-        </button>
-
-        <button class="dropdown-item" onclick="switchTab('codes')">
-          <span class="menu-icon">▦</span>
-          <span>My Codes</span>
-        </button>
-
-        <button class="dropdown-item" onclick="switchTab('transaction')">
-          <span class="menu-icon">☷</span>
-          <span>My Transaction</span>
-        </button>
-
-        <button class="dropdown-item" onclick="switchTab('addmoney')">
-          <span class="menu-icon">▣</span>
-          <span>Add Money</span>
-        </button>
-
-        <button class="dropdown-item" onclick="switchTab('contact')">
-          <span class="menu-icon">ⓘ</span>
-          <span>Contact Us</span>
-        </button>
+        <button class="dropdown-item" onclick="switchTab('account')"><span class="menu-icon">⌂</span>My Account</button>
+        <button class="dropdown-item" onclick="switchTab('orders')"><span class="menu-icon">♧</span>My Orders</button>
+        <button class="dropdown-item" onclick="switchTab('codes')"><span class="menu-icon">▦</span>My Codes</button>
+        <button class="dropdown-item" onclick="switchTab('transaction')"><span class="menu-icon">☷</span>My Transaction</button>
+        <button class="dropdown-item" onclick="switchTab('addmoney')"><span class="menu-icon">▣</span>Add Money</button>
+        <button class="dropdown-item" onclick="switchTab('contact')"><span class="menu-icon">ⓘ</span>Contact Us</button>
       </nav>
-
-      <div class="dropdown-support-box">
-        <a href="https://wa.me/8801845907321"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="dropdown-support-btn">
-          🎧 Support
-        </a>
-      </div>
+      <div class="dropdown-support-box"><a href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer" class="dropdown-support-btn">🎧 Support</a></div>
     </aside>
 
-    <!-- HOME -->
     <section id="tabHome" class="full-page-section view-block">
       <div class="notice-bar-container" id="noticeBar">
-        <div class="notice-tag">
-          <span class="notice-tag-dot"></span>
-          NOTICE
-        </div>
-
-        <div class="notice-marquee">
-          18 বছরের নিচে কেউ অর্ডার করবেন না! বাবা-মা বা পরিবারের টাকা চুরি করে অর্ডার করবেন না।
-        </div>
-
-        <button class="notice-close-btn"
-                onclick="document.getElementById('noticeBar').style.display='none'"
-                aria-label="Close notice">✕</button>
+        <div class="notice-tag"><span class="notice-tag-dot"></span>NOTICE</div>
+        <div class="notice-marquee">১৮ বছরের নিচে কেউ অর্ডার করবেন না! বাবা-মা বা পরিবারের টাকা চুরি করে অর্ডার করবেন না।</div>
+        <button class="notice-close-btn" onclick="document.getElementById('noticeBar').style.display='none'" aria-label="Close notice">✕</button>
       </div>
-
       <div class="panels-grid">
-
-        <div class="video-box-full">
-          <div class="panel-info">
-            <h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4>
-            <div class="price">450 BDT</div>
-            <p>টুর্নামেন্ট প্লেয়ারদের জন্য প্যানেলের বিস্তারিত তথ্য।</p>
-          </div>
-
-          <div class="video-wrapper">
-            <video controls playsinline preload="metadata">
-              <source src="VID_20261028_112023_896.mp4" type="video/mp4">
-              আপনার ব্রাউজার ভিডিও চালাতে পারছে না।
-            </video>
-          </div>
-
-          <button class="buy-btn" onclick="openOrderPage('Tournament Panel', '450 BDT')">
-            কিনুন
-          </button>
+        <div class="video-box-full"><div class="panel-info"><h4>🔥 টুর্নামেন্ট প্যানেল (Tournament Panel)</h4><div class="price">450 BDT</div><p>টুর্নামেন্ট প্লেয়ারদের জন্য প্যানেলের বিস্তারিত তথ্য।</p></div>
+          <div class="video-wrapper"><video controls playsinline preload="metadata"><source src="VID_20261028_112023_896.mp4" type="video/mp4">আপনার ব্রাউজার ভিডিও চালাতে পারছে না।</video></div>
+          <button class="buy-btn" onclick="openOrderPage('Tournament Panel','450 BDT')">কিনুন</button>
         </div>
-
-        <div class="video-box-full">
-          <div class="panel-info">
-            <h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4>
-            <div class="price">550 BDT</div>
-            <p>প্যানেলের বিস্তারিত জানতে এবং অর্ডার করতে যোগাযোগ করুন।</p>
-          </div>
-
-          <div class="video-wrapper">
-            <video controls playsinline preload="metadata">
-              <source src="lv_0_20261029123331.mp4" type="video/mp4">
-              আপনার ব্রাউজার ভিডিও চালাতে পারছে না।
-            </video>
-          </div>
-
-          <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel', '550 BDT')">
-            কিনুন
-          </button>
+        <div class="video-box-full"><div class="panel-info"><h4>📍 ফুল বডি লোকেশন প্যানেল (Full Body Location Panel)</h4><div class="price">550 BDT</div><p>প্যানেলের বিস্তারিত জানতে এবং অর্ডার করতে যোগাযোগ করুন।</p></div>
+          <div class="video-wrapper"><video controls playsinline preload="metadata"><source src="lv_0_20261029123331.mp4" type="video/mp4">আপনার ব্রাউজার ভিডিও চালাতে পারছে না।</video></div>
+          <button class="buy-btn" onclick="openOrderPage('Full Body Location Panel','550 BDT')">কিনুন</button>
         </div>
-
       </div>
     </section>
 
-    <!-- MY ORDERS -->
-    <section id="tabOrders" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">MY ORDERS</h3>
+    <section id="tabOrders" class="full-page-section view-hidden" style="padding:15px"><h3 class="page-title">MY ORDERS</h3><div id="orderContentArea" class="page-card">কোনো প্যানেল সিলেক্ট করা হয়নি।</div></section>
 
-      <div id="orderContentArea" class="page-card">
-        কোনো প্যানেল সিলেক্ট করা হয়নি।
+    <!-- ADD MONEY: step 1 amount -->
+    <section id="tabAddMoney" class="full-page-section view-hidden money-page">
+      <div id="amountStep">
+        <div class="money-hero">
+          <div class="secure-pill">⚡ INSTANT &amp; SECURE</div>
+          <h2>Add Money to <span>Rifat FF Panel</span></h2>
+          <p>Fast, secure wallet recharge for your panel balance.</p>
+          <div class="hero-wallet"><strong>৳</strong><span>WALLET</span></div><div class="hero-plus">+</div>
+        </div>
+        <div class="amount-card">
+          <div class="amount-heading"><div class="amount-icon">▣</div><div><h3>Enter Amount</h3><p>Type the amount you want to add.</p></div></div>
+          <label class="amount-label" for="rechargeAmount">AMOUNT (BDT)</label>
+          <div class="amount-input-wrap"><span>৳</span><input id="rechargeAmount" type="number" min="1" step="1" inputmode="numeric" placeholder="Enter amount" autocomplete="off"></div>
+          <div class="helper-line">🟢 Amount will be added to your Rifat FF Panel wallet after payment verification.</div>
+          <button class="secure-pay-btn" onclick="continueToPayment()">▣ &nbsp; Add Money Securely &nbsp; →</button>
+          <p style="font-size:11px;color:#8b92a0;margin-top:12px;line-height:1.6">পেমেন্ট যাচাই না হওয়া পর্যন্ত ব্যালেন্সে টাকা যোগ হবে না।</p>
+        </div>
+      </div>
+
+      <!-- step 2 choose method -->
+      <div id="methodStep" class="view-hidden">
+        <div class="payment-page">
+          <div class="payment-topbar"><span>⌂</span><button onclick="backToAmount()" aria-label="Close payment method">×</button></div>
+          <div class="wallet-brand"><div class="wallet-brand-icon">▣</div><h2>Wallet</h2></div>
+          <div class="mobile-banking-title">মোবাইল ব্যাংকিং</div>
+          <div class="payment-methods">
+            <button class="method-card" onclick="selectPaymentMethod('bkash')"><span class="bkash-word">bKash</span><span>বিকাশ পার্সোনাল</span></button>
+            <button class="method-card" onclick="selectPaymentMethod('nagad')"><span class="nagad-word">নগদ</span><span>Nagad Personal</span></button>
+          </div>
+          <div class="pay-bottom" id="selectedPayAmount">পে করুন ৳ 0.00</div>
+        </div>
+      </div>
+
+      <!-- step 3 manual payment instructions -->
+      <div id="instructionStep" class="view-hidden">
+        <div class="instruction-page">
+          <div class="payment-topbar"><button onclick="backToMethods()" aria-label="Back">‹</button><span>Payment Details</span><button onclick="backToMethods()" aria-label="Close">×</button></div>
+          <div class="gateway-brand-card"><div class="gateway-logo" id="gatewayLogo">bK</div><div id="gatewayName">Wallet</div></div>
+          <div class="gateway-amount-card" id="gatewayAmount">৳ 0</div>
+          <div class="gateway-instructions">
+            <h3>ট্রানজেকশন আইডি দিন</h3>
+            <label for="transactionId" style="color:#fff">Transaction ID</label>
+            <input id="transactionId" type="text" placeholder="ট্রানজেকশন আইডি দিন" maxlength="100" autocomplete="off">
+            <ul class="instruction-list">
+              <li>• আপনার <span id="instructionProvider">bKash</span> অ্যাপ খুলুন অথবা প্রযোজ্য USSD মেনু ব্যবহার করুন।</li>
+              <li>• Send Money নির্বাচন করুন।</li>
+              <li>• এই নম্বরে টাকা পাঠান: <strong id="recipientNumber">01845907321</strong><br><button type="button" class="copy-number-btn" onclick="copyRecipientNumber()">▣ কপি</button></li>
+              <li>• টাকার পরিমাণ: <strong id="instructionAmount">৳ 0</strong></li>
+              <li>• পেমেন্ট সফল হলে অ্যাপের রসিদ থেকে Transaction ID লিখুন।</li>
+              <li>• Transaction ID জমা দিয়ে যাচাইয়ের জন্য অপেক্ষা করুন।</li>
+            </ul>
+            <button class="submit-transaction-btn" onclick="submitTransaction()">ট্রানজেকশন আইডি জমা দিন</button>
+            <div id="transactionStatus" class="status-message view-hidden" role="status"></div>
+            <p class="notice-small">সতর্কতা: এখানে কখনো আপনার PIN বা OTP লিখবেন না। Transaction ID জমা দিলেই ব্যালেন্স স্বয়ংক্রিয়ভাবে যোগ হয় না; পেমেন্ট যাচাই করতে হবে।</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ADD MONEY -->
-    <section id="tabAddMoney" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">ADD MONEY</h3>
-
-      <div class="page-card">
-        <p>ব্যালেন্স রিচার্জ করতে আমাদের সঙ্গে WhatsApp-এ যোগাযোগ করুন।</p>
-
-        <a href="https://wa.me/8801845907321"
-           target="_blank"
-           rel="noopener noreferrer"
-           style="display:block;margin-top:14px;background:#25d366;color:#fff;padding:12px 18px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
-          WhatsApp রিচার্জ
-        </a>
-      </div>
-    </section>
-
-    <!-- MY CODES -->
-    <section id="tabCodes" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">MY CODES</h3>
-
-      <div class="page-card">
-        <p>আপনার প্যানেল কী (Key) এখানে দেখা যাবে।</p>
-        <p style="margin-top:8px;color:#64748b;font-size:13px;">
-          বর্তমানে কোনো কোড সংরক্ষণের ব্যবস্থা যুক্ত নেই।
-        </p>
-      </div>
-    </section>
-
-    <!-- MY ACCOUNT -->
-    <section id="tabAccount" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">MY ACCOUNT</h3>
-
-      <div class="page-card">
-        <p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p>
-        <p style="margin-top:8px;">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p>
-
-        <button onclick="executeLogout()"
-                style="margin-top:20px;background:#ef4444;color:#fff;border:none;padding:11px 20px;border-radius:8px;font-weight:700;cursor:pointer;">
-          Log Out
-        </button>
-      </div>
-    </section>
-
-    <!-- MY TRANSACTION -->
-    <section id="tabTransaction" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">MY TRANSACTION</h3>
-
-      <div class="page-card">
-        <p>আপনার লেনদেনের ইতিহাস এখানে দেখা যাবে।</p>
-        <p style="margin-top:8px;color:#64748b;font-size:13px;">
-          এখনো কোনো লেনদেনের রেকর্ড সংযুক্ত করা হয়নি।
-        </p>
-      </div>
-    </section>
-
-    <!-- CONTACT US -->
-    <section id="tabContact" class="full-page-section view-hidden" style="padding:15px;">
-      <h3 class="page-title">CONTACT US</h3>
-
-      <div class="page-card">
-        <p>সাহায্য বা তথ্যের জন্য আমাদের সঙ্গে যোগাযোগ করুন।</p>
-
-        <a href="https://wa.me/8801845907321"
-           target="_blank"
-           rel="noopener noreferrer"
-           style="display:block;margin-top:15px;background:#25d366;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
-          WhatsApp Support
-        </a>
-
-        <a href="https://t.me/rifatffpanelseller6"
-           target="_blank"
-           rel="noopener noreferrer"
-           style="display:block;margin-top:10px;background:#229ed9;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700;">
-          Telegram Support
-        </a>
-      </div>
-    </section>
-
+    <section id="tabCodes" class="full-page-section view-hidden" style="padding:15px"><h3 class="page-title">MY CODES</h3><div class="page-card"><p>আপনার প্যানেল কী (Key) এখানে দেখা যাবে।</p><p style="margin-top:8px;color:#64748b;font-size:13px">বর্তমানে কোনো কোড সংরক্ষণের ব্যবস্থা যুক্ত নেই।</p></div></section>
+    <section id="tabAccount" class="full-page-section view-hidden" style="padding:15px"><h3 class="page-title">MY ACCOUNT</h3><div class="page-card"><p>ইমেল: <strong id="accEmailDisplay">Loading...</strong></p><p style="margin-top:8px">স্ট্যাটাস: <span id="accStatusDisplay">Verifying...</span></p><button onclick="executeLogout()" style="margin-top:20px;background:#ef4444;color:#fff;border:0;padding:11px 20px;border-radius:8px;font-weight:700">Log Out</button></div></section>
+    <section id="tabTransaction" class="full-page-section view-hidden" style="padding:15px"><h3 class="page-title">MY TRANSACTION</h3><div class="page-card"><p>আপনার লেনদেনের ইতিহাস এখানে দেখা যাবে।</p><p style="margin-top:8px;color:#64748b;font-size:13px">এখনো কোনো লেনদেনের রেকর্ড সংযুক্ত করা হয়নি।</p></div></section>
+    <section id="tabContact" class="full-page-section view-hidden" style="padding:15px"><h3 class="page-title">CONTACT US</h3><div class="page-card"><p>সাহায্য বা তথ্যের জন্য আমাদের সঙ্গে যোগাযোগ করুন।</p><a href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer" style="display:block;margin-top:15px;background:#25d366;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700">WhatsApp Support</a><a href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer" style="display:block;margin-top:10px;background:#229ed9;color:#fff;padding:12px;border-radius:9px;text-align:center;text-decoration:none;font-weight:700">Telegram Support</a></div></section>
   </div>
 
-  <!-- FLOATING SUPPORT -->
   <div class="floating-support-container" id="floatingSupportContainer">
     <div class="floating-options-list">
-      <a href="https://wa.me/8801845907321"
-         target="_blank"
-         rel="noopener noreferrer"
-         class="floating-social-icon"
-         title="WhatsApp">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-      </a>
-
-      <a href="https://t.me/rifatffpanelseller6"
-         target="_blank"
-         rel="noopener noreferrer"
-         class="floating-social-icon"
-         title="Telegram">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-      </a>
+      <a href="https://wa.me/8801845907321" target="_blank" rel="noopener noreferrer" class="floating-social-icon" title="WhatsApp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></a>
+      <a href="https://t.me/rifatffpanelseller6" target="_blank" rel="noopener noreferrer" class="floating-social-icon" title="Telegram"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
     </div>
-
-    <button class="floating-main-btn"
-            onclick="toggleFloatingSupport()"
-            aria-label="Open support options">🎧</button>
+    <button class="floating-main-btn" onclick="toggleFloatingSupport()" aria-label="Open support options">🎧</button>
   </div>
 
-  <!-- BOTTOM NAVIGATION -->
   <nav class="bottom-nav" id="bottomNav" aria-label="Bottom navigation">
-
-    <button class="nav-item active" id="navHome" onclick="switchTab('home')">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-      </svg>
-      <span>Home</span>
-    </button>
-
-    <button class="nav-item" id="navOrders" onclick="switchTab('orders')">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-      </svg>
-      <span>My Orders</span>
-    </button>
-
+    <button class="nav-item active" id="navHome" onclick="switchTab('home')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Home</span></button>
+    <button class="nav-item" id="navOrders" onclick="switchTab('orders')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>My Orders</span></button>
     <button class="nav-add-btn" onclick="switchTab('addmoney')" aria-label="Add Money">+</button>
-
-    <button class="nav-item" id="navCodes" onclick="switchTab('codes')">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
-      </svg>
-      <span>My Codes</span>
-    </button>
-
-    <button class="nav-item" id="navAccount" onclick="switchTab('account')">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-      </svg>
-      <span>My Account</span>
-    </button>
-
+    <button class="nav-item" id="navCodes" onclick="switchTab('codes')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg><span>My Codes</span></button>
+    <button class="nav-item" id="navAccount" onclick="switchTab('account')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg><span>My Account</span></button>
   </nav>
 
   <script>
-    /* TAB NAVIGATION */
-    function switchTab(tabName) {
-      const tabs = [
-        "Home",
-        "Orders",
-        "AddMoney",
-        "Codes",
-        "Account",
-        "Transaction",
-        "Contact"
-      ];
+    const PAYMENT_NUMBER = "01845907321"; // User-provided number for both bKash Personal and Nagad Personal.
+    let currentRechargeAmount = 0;
+    let currentPaymentMethod = "bkash";
 
+    function switchTab(tabName) {
+      const tabs = ["Home","Orders","AddMoney","Codes","Account","Transaction","Contact"];
       tabs.forEach(name => {
         const section = document.getElementById("tab" + name);
-        if (section) {
-          section.classList.add("view-hidden");
-          section.classList.remove("view-block");
-        }
+        if (section) { section.classList.add("view-hidden"); section.classList.remove("view-block"); }
       });
-
-      document.querySelectorAll(".nav-item").forEach(item => {
-        item.classList.remove("active");
-      });
-
-      const formattedName =
-        tabName.charAt(0).toUpperCase() + tabName.slice(1);
-
-      const targetTab = document.getElementById("tab" + formattedName);
-      const targetNav = document.getElementById("nav" + formattedName);
-
-      if (targetTab) {
-        targetTab.classList.remove("view-hidden");
-        targetTab.classList.add("view-block");
-      }
-
-      if (targetNav) targetNav.classList.add("active");
-
+      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+      const formatted = tabName.charAt(0).toUpperCase() + tabName.slice(1);
+      const target = document.getElementById("tab" + formatted);
+      const nav = document.getElementById("nav" + formatted);
+      if (target) { target.classList.remove("view-hidden"); target.classList.add("view-block"); }
+      if (nav) nav.classList.add("active");
       closeSidebar();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "auto"
-      });
+      if (tabName === "addmoney") showAmountStep();
+      window.scrollTo({top:0,behavior:"auto"});
     }
 
-    /* SIDEBAR */
+    function showAmountStep() {
+      ["amountStep","methodStep","instructionStep"].forEach(id => document.getElementById(id)?.classList.add("view-hidden"));
+      document.getElementById("amountStep")?.classList.remove("view-hidden");
+    }
+    function continueToPayment() {
+      const input = document.getElementById("rechargeAmount");
+      const amount = Number(input.value);
+      if (!Number.isFinite(amount) || amount < 1 || !Number.isInteger(amount)) {
+        alert("অনুগ্রহ করে ১ টাকা বা তার বেশি পূর্ণ সংখ্যার সঠিক পরিমাণ লিখুন।");
+        input.focus();
+        return;
+      }
+      currentRechargeAmount = amount;
+      document.getElementById("selectedPayAmount").textContent = "পে করুন " + amount.toFixed(2);
+      document.getElementById("amountStep").classList.add("view-hidden");
+      document.getElementById("instructionStep").classList.add("view-hidden");
+      document.getElementById("methodStep").classList.remove("view-hidden");
+      window.scrollTo({top:0,behavior:"auto"});
+    }
+    function backToAmount() { showAmountStep(); window.scrollTo({top:0,behavior:"auto"}); }
+    function backToMethods() {
+      document.getElementById("instructionStep").classList.add("view-hidden");
+      document.getElementById("methodStep").classList.remove("view-hidden");
+      window.scrollTo({top:0,behavior:"auto"});
+    }
+    function selectPaymentMethod(method) {
+      currentPaymentMethod = method;
+      const isBkash = method === "bkash";
+      document.getElementById("gatewayLogo").textContent = isBkash ? "bK" : "ন";
+      document.getElementById("gatewayName").textContent = isBkash ? "bKash Personal" : "Nagad Personal";
+      document.getElementById("instructionProvider").textContent = isBkash ? "bKash" : "Nagad";
+      document.getElementById("recipientNumber").textContent = PAYMENT_NUMBER;
+      document.getElementById("gatewayAmount").textContent = "৳ " + currentRechargeAmount.toLocaleString("en-BD");
+      document.getElementById("instructionAmount").textContent = "৳ " + currentRechargeAmount.toLocaleString("en-BD");
+      document.getElementById("transactionId").value = "";
+      const status = document.getElementById("transactionStatus");
+      status.classList.add("view-hidden");
+      status.textContent = "";
+      document.getElementById("methodStep").classList.add("view-hidden");
+      document.getElementById("instructionStep").classList.remove("view-hidden");
+      window.scrollTo({top:0,behavior:"auto"});
+    }
+    async function copyRecipientNumber() {
+      try {
+        await navigator.clipboard.writeText(PAYMENT_NUMBER);
+        alert("পেমেন্ট নম্বর কপি হয়েছে: " + PAYMENT_NUMBER);
+      } catch (e) {
+        const temp = document.createElement("textarea");
+        temp.value = PAYMENT_NUMBER;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        temp.remove();
+        alert("পেমেন্ট নম্বর কপি হয়েছে: " + PAYMENT_NUMBER);
+      }
+    }
+    function submitTransaction() {
+      const txInput = document.getElementById("transactionId");
+      const transactionId = txInput.value.trim();
+      const status = document.getElementById("transactionStatus");
+      if (transactionId.length < 5) {
+        alert("সঠিক Transaction ID লিখুন।");
+        txInput.focus();
+        return;
+      }
+      status.classList.remove("view-hidden");
+      status.textContent = "আপনার Transaction ID (" + transactionId + ") এই পেজে গ্রহণ করা হয়েছে। তবে এটি সার্ভারে জমা বা যাচাই করা হয়নি। ব্যালেন্স যোগ করতে Firebase/সার্ভার-সাইড পেমেন্ট যাচাই ব্যবস্থা সংযুক্ত করতে হবে।";
+    }
+
     function toggleDropdownMenu(event) {
       if (event) event.stopPropagation();
-
       const sidebar = document.getElementById("profileDropdown");
-
-      if (sidebar && sidebar.classList.contains("active")) {
-        closeSidebar();
-      } else {
-        openSidebar();
-      }
+      sidebar && sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
     }
-
     function openSidebar() {
-      const sidebar = document.getElementById("profileDropdown");
-      const overlay = document.getElementById("sidebarOverlay");
-      const avatarButton = document.getElementById("userAvatarLetter");
-
-      if (sidebar) {
-        sidebar.classList.add("active");
-        sidebar.setAttribute("aria-hidden", "false");
-      }
-
-      if (overlay) overlay.classList.add("active");
-      if (avatarButton) avatarButton.setAttribute("aria-expanded", "true");
-
+      document.getElementById("profileDropdown")?.classList.add("active");
+      document.getElementById("profileDropdown")?.setAttribute("aria-hidden","false");
+      document.getElementById("sidebarOverlay")?.classList.add("active");
+      document.getElementById("userAvatarLetter")?.setAttribute("aria-expanded","true");
       document.body.classList.add("sidebar-open");
     }
-
     function closeSidebar() {
-      const sidebar = document.getElementById("profileDropdown");
-      const overlay = document.getElementById("sidebarOverlay");
-      const avatarButton = document.getElementById("userAvatarLetter");
-
-      if (sidebar) {
-        sidebar.classList.remove("active");
-        sidebar.setAttribute("aria-hidden", "true");
-      }
-
-      if (overlay) overlay.classList.remove("active");
-      if (avatarButton) avatarButton.setAttribute("aria-expanded", "false");
-
+      document.getElementById("profileDropdown")?.classList.remove("active");
+      document.getElementById("profileDropdown")?.setAttribute("aria-hidden","true");
+      document.getElementById("sidebarOverlay")?.classList.remove("active");
+      document.getElementById("userAvatarLetter")?.setAttribute("aria-expanded","false");
       document.body.classList.remove("sidebar-open");
     }
-
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape") {
-        closeSidebar();
-      }
-    });
-
-    /* FLOATING SUPPORT */
-    function toggleFloatingSupport() {
-      const container = document.getElementById("floatingSupportContainer");
-      if (container) container.classList.toggle("active");
-    }
-
-    /* ORDER PAGE */
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeSidebar(); });
+    function toggleFloatingSupport() { document.getElementById("floatingSupportContainer")?.classList.toggle("active"); }
     function openOrderPage(panelName, price) {
-      const orderArea = document.getElementById("orderContentArea");
-
-      if (orderArea) {
-        const heading = document.createElement("h4");
-        heading.style.color = "#7c3aed";
-        heading.style.fontWeight = "700";
-        heading.textContent = "📦 প্যানেল: " + panelName;
-
-        const priceText = document.createElement("p");
-        priceText.style.margin = "8px 0";
-        priceText.textContent = "দাম: " + price;
-
-        const orderLink = document.createElement("a");
-        orderLink.href =
-          "https://wa.me/8801845907321?text=" +
-          encodeURIComponent(
-            "Hello, I want to buy " + panelName + " for " + price
-          );
-        orderLink.target = "_blank";
-        orderLink.rel = "noopener noreferrer";
-        orderLink.textContent = "💬 WhatsApp এ অর্ডার কনফার্ম করুন";
-
-        Object.assign(orderLink.style, {
-          display: "inline-block",
-          background: "#25d366",
-          color: "#fff",
-          padding: "11px 15px",
-          borderRadius: "8px",
-          fontWeight: "700",
-          textDecoration: "none",
-          marginTop: "8px"
-        });
-
-        orderArea.replaceChildren(heading, priceText, orderLink);
-      }
-
+      const area = document.getElementById("orderContentArea");
+      const heading = document.createElement("h4");
+      heading.style.color = "#7c3aed"; heading.style.fontWeight = "700";
+      heading.textContent = "📦 প্যানেল: " + panelName;
+      const priceText = document.createElement("p");
+      priceText.style.margin = "8px 0"; priceText.textContent = "দাম: " + price;
+      const link = document.createElement("a");
+      link.href = "https://wa.me/8801845907321?text=" + encodeURIComponent("Hello, I want to buy " + panelName + " for " + price);
+      link.target = "_blank"; link.rel = "noopener noreferrer";
+      link.textContent = "💬 WhatsApp এ অর্ডার কনফার্ম করুন";
+      Object.assign(link.style,{display:"inline-block",background:"#25d366",color:"#fff",padding:"11px 15px",borderRadius:"8px",fontWeight:"700",textDecoration:"none",marginTop:"8px"});
+      area.replaceChildren(heading,priceText,link);
       switchTab("orders");
     }
-
-    /* LOG OUT */
     async function executeLogout() {
       try {
-        if (window.signOutUser && window.firebaseAuth) {
-          await window.signOutUser(window.firebaseAuth);
-          closeSidebar();
-        } else {
-          alert("Firebase সংযোগ প্রস্তুত হয়নি। আবার চেষ্টা করুন।");
-        }
-      } catch (error) {
-        console.error(error);
-        alert("লগআউট করা যায়নি: " + error.message);
-      }
+        if (window.signOutUser && window.firebaseAuth) await window.signOutUser(window.firebaseAuth);
+        else alert("Firebase সংযোগ প্রস্তুত হয়নি। আবার চেষ্টা করুন।");
+      } catch (error) { console.error(error); alert("লগআউট করা যায়নি: " + error.message); }
     }
-
-    /* LOGIN / SIGNUP TABS */
-    function showForm(formType) {
-      const signinBox = document.getElementById("signinBox");
-      const signupBox = document.getElementById("signupBox");
-      const btnSignin = document.getElementById("btnTabSignin");
-      const btnSignup = document.getElementById("btnTabSignup");
-
-      if (signinBox) {
-        signinBox.className =
-          formType === "signin" ? "view-block" : "view-hidden";
-      }
-
-      if (signupBox) {
-        signupBox.className =
-          formType === "signup" ? "view-block" : "view-hidden";
-      }
-
-      if (btnSignin) {
-        btnSignin.className =
-          formType === "signin" ? "tab-btn active" : "tab-btn";
-      }
-
-      if (btnSignup) {
-        btnSignup.className =
-          formType === "signup" ? "tab-btn active" : "tab-btn";
-      }
+    function showForm(type) {
+      document.getElementById("signinBox").className = type === "signin" ? "view-block" : "view-hidden";
+      document.getElementById("signupBox").className = type === "signup" ? "view-block" : "view-hidden";
+      document.getElementById("btnTabSignin").className = type === "signin" ? "tab-btn active" : "tab-btn";
+      document.getElementById("btnTabSignup").className = type === "signup" ? "tab-btn active" : "tab-btn";
     }
-
-    /* LOGIN */
     async function onLoginSubmit(event) {
       event.preventDefault();
-
       try {
-        if (!window.firebaseAuth || !window.signInWithEmailAndPassword) {
-          throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
-        }
-
+        if (!window.firebaseAuth || !window.signInWithEmailAndPassword) throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
         const email = document.getElementById("signin-email-input").value.trim();
         const password = document.getElementById("signin-pass-input").value;
-
-        await window.signInWithEmailAndPassword(
-          window.firebaseAuth,
-          email,
-          password
-        );
-      } catch (error) {
-        console.error(error);
-        alert("লগইন ব্যর্থ: " + error.message);
-      }
+        await window.signInWithEmailAndPassword(window.firebaseAuth,email,password);
+      } catch (error) { console.error(error); alert("লগইন ব্যর্থ: " + error.message); }
     }
-
-    /* SIGNUP */
     async function onRegisterSubmit(event) {
       event.preventDefault();
-
       try {
-        if (!window.firebaseAuth || !window.createUserWithEmailAndPassword) {
-          throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
-        }
-
+        if (!window.firebaseAuth || !window.createUserWithEmailAndPassword) throw new Error("Firebase সংযোগ প্রস্তুত হয়নি। পেজটি রিফ্রেশ করুন।");
         const email = document.getElementById("signup-email-input").value.trim();
         const password = document.getElementById("signup-pass-input").value;
-
-        await window.createUserWithEmailAndPassword(
-          window.firebaseAuth,
-          email,
-          password
-        );
-
+        await window.createUserWithEmailAndPassword(window.firebaseAuth,email,password);
         alert("সাইন আপ সফল!");
-      } catch (error) {
-        console.error(error);
-        alert("সাইন আপ ব্যর্থ: " + error.message);
-      }
+      } catch (error) { console.error(error); alert("সাইন আপ ব্যর্থ: " + error.message); }
     }
-
-    /* Make inline HTML handlers accessible */
     window.switchTab = switchTab;
     window.toggleDropdownMenu = toggleDropdownMenu;
     window.openSidebar = openSidebar;
@@ -1388,7 +527,12 @@
     window.showForm = showForm;
     window.onLoginSubmit = onLoginSubmit;
     window.onRegisterSubmit = onRegisterSubmit;
+    window.continueToPayment = continueToPayment;
+    window.backToAmount = backToAmount;
+    window.backToMethods = backToMethods;
+    window.selectPaymentMethod = selectPaymentMethod;
+    window.copyRecipientNumber = copyRecipientNumber;
+    window.submitTransaction = submitTransaction;
   </script>
-
 </body>
-</html>
+                                      </html>
