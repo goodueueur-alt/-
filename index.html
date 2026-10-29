@@ -727,7 +727,7 @@
       }
     }
 
-    // ৪. ওটিপি ভেরিফাই করে ফায়ারবেসের রিয়েল পাসওয়ার্ড রিসেট লিংক পাঠানোর লজিক
+    // ৪. ওটিপি ভেরিফাই করে ফায়ারবেসের পাসওয়ার্ড রিসেট লিংক পাঠানো এবং 'ঠিক আছে' বাটনে ক্লিক করলে জিমেইল ওপেন করার লজিক
     async function onResetPasswordSubmit(e) {
       e.preventDefault();
       const resetEmail = document.getElementById('reset-email-input').value;
@@ -744,8 +744,9 @@
         // ফায়ারবেসের মাধ্যমে জিমেইলে পাসওয়ার্ড রিসেট করার অফিশিয়াল লিংক পাঠানো
         await window.sendPasswordResetEmail(window.firebaseAuth, resetEmail);
 
-        showModal('সফলতা', 'আপনার ওটিপি সঠিক হয়েছে! এবং ' + resetEmail + ' জিমেইলে ফায়ারবেস পাসওয়ার্ড রিসেটের লিংক পাঠানো হয়েছে। লিংক থেকে নতুন পাসওয়ার্ড সেট করে নিন।', function() {
-          showForm('signin');
+        // সফল পপ-আপের 'ঠিক আছে' বাটনে ক্লিক করলে সরাসরি জিমেইল ইনবক্স ওপেন হবে
+        showModal('সফলতা', 'আপনার ওটিপি সঠিক হয়েছে! ' + resetEmail + ' জিমেইলে ফায়ারবেস পাসওয়ার্ড রিসেটের লিংক পাঠানো হয়েছে। লিংক থেকে নতুন পাসওয়ার্ড সেট করে নিন।', function() {
+          window.location.href = "https://mail.google.com";
         });
       } catch (error) {
         console.error(error);
