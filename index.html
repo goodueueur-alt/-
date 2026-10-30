@@ -1,126 +1,390 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#111827">
-  <title>Rifat FF Panel Seller — Admin</title>
-  <style>
-    *{box-sizing:border-box}body{margin:0;background:#0b1020;color:#e5e7eb;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
-    .wrap{max-width:1100px;margin:auto;padding:20px}.brand{font-size:22px;font-weight:800;color:#a78bfa}
-    .card{background:#151d32;border:1px solid #29344f;border-radius:14px;padding:18px;margin:14px 0}
-    input,select,textarea,button{font:inherit;border-radius:9px;padding:11px;border:1px solid #374151;background:#0e172a;color:#fff;width:100%;margin:6px 0}
-    button{background:#7c3aed;border:0;font-weight:700;cursor:pointer}button.secondary{background:#334155}button.danger{background:#b91c1c}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}nav button{width:auto}
-    .hidden{display:none!important}.muted{color:#9ca3af;font-size:14px}.row{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px;border-bottom:1px solid #29344f;vertical-align:top}
-    .tablewrap{overflow:auto}.pill{display:inline-block;background:#312e81;padding:3px 8px;border-radius:20px;font-size:12px}
-    label{display:block;margin-top:8px;font-size:14px;color:#cbd5e1}h2{margin:4px 0 12px}
-    @media(max-width:600px){.wrap{padding:12px}.card{padding:14px}table{min-width:650px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>Rifat FF Panel Seller - Official Store</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#0b1020;
+  color:#f8fafc;
+  font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;
+}
+.container{max-width:1100px;margin:auto;padding:16px}
+header{
+  background:#151d32;
+  border-bottom:1px solid #29344f;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.logo{font-size:20px;font-weight:900;color:#a78bfa}
+button,a.btn{
+  display:inline-block;
+  background:#7c3aed;
+  color:white;
+  border:0;
+  padding:11px 16px;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:700;
+  cursor:pointer;
+}
+.secondary{background:#334155}
+.hero{
+  margin-top:20px;
+  padding:35px 22px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#312e81,#111827 75%);
+  border:1px solid #4c4385;
+}
+.hero h1{font-size:clamp(27px,5vw,42px);margin:0 0 12px}
+.hero p{color:#ddd6fe;line-height:1.7}
+.section-title{margin:30px 0 14px}
+.tools{display:flex;gap:10px;flex-wrap:wrap}
+.tools input,.tools select{
+  flex:1;
+  min-width:160px;
+}
+input,select{
+  background:#151d32;
+  color:white;
+  border:1px solid #374151;
+  border-radius:9px;
+  padding:12px;
+  font:inherit;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+.product{
+  background:#151d32;
+  border:1px solid #29344f;
+  border-radius:14px;
+  padding:14px;
+  overflow:hidden;
+}
+.product img{
+  width:100%;
+  height:165px;
+  object-fit:cover;
+  border-radius:9px;
+  background:#0e172a;
+}
+.no-image{
+  height:130px;
+  display:grid;
+  place-items:center;
+  background:#202b43;
+  border-radius:9px;
+  color:#a78bfa;
+  font-size:35px;
+}
+.product h3{margin:12px 0 7px}
+.price{color:#c4b5fd;font-size:21px;font-weight:800}
+.muted{color:#9ca3af;font-size:13px;line-height:1.6}
+.status{
+  padding:12px;
+  border-radius:9px;
+  background:#151d32;
+  color:#cbd5e1;
+  margin:15px 0;
+}
+footer{
+  margin-top:40px;
+  padding:25px 15px;
+  text-align:center;
+  background:#151d32;
+  color:#9ca3af;
+}
+footer a{color:#c4b5fd;margin:0 8px}
+.hidden{display:none!important}
+#config{
+  background:#151d32;
+  border:1px solid #374151;
+  border-radius:14px;
+  padding:16px;
+  margin-top:18px;
+}
+#config input{width:100%;margin:7px 0}
+@media(max-width:500px){
+  .header-inner{justify-content:center}
+  .hero{padding:25px 16px}
+}
+</style>
 </head>
+
 <body>
-<div class="wrap">
-  <div class="row"><div class="brand">Rifat FF Panel Seller · Admin</div><button id="logoutBtn" class="secondary hidden" style="width:auto">লগআউট</button></div>
-  <section id="config" class="card">
-    <h2>Supabase সংযোগ</h2>
-    <p class="muted">প্রথমবার Supabase Project URL এবং Publishable Key বসাও। এগুলো ব্রাউজারে ব্যবহারযোগ্য key; Secret Key কখনো এখানে দেবে না।</p>
-    <label>Supabase Project URL</label><input id="url" placeholder="https://xxxx.supabase.co">
-    <label>Supabase Publishable Key</label><input id="key" placeholder="sb_publishable_...">
-    <button id="saveConfig">সংযোগ সংরক্ষণ</button>
-    <p id="configMsg" class="muted"></p>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">🔥 Rifat FF Panel Seller</div>
+    <a class="btn" href="manage.html">Member Login</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>Welcome to Rifat FF Panel Seller</h1>
+    <p>
+      Free Fire Panel এবং Free Fire ID কেনার বিশ্বস্ত অনলাইন স্টোর।
+      আপনার পছন্দের প্রোডাক্ট দেখুন এবং অর্ডার করতে Member Panel-এ লগইন করুন।
+    </p>
+    <a class="btn" href="#products">প্রোডাক্ট দেখুন</a>
+    <a class="btn secondary" href="manage.html">Member Account</a>
   </section>
 
-  <section id="login" class="card hidden">
-    <h2>Admin Login</h2>
-    <label>ইমেইল</label><input id="email" type="email" autocomplete="username">
-    <label>পাসওয়ার্ড</label><input id="password" type="password" autocomplete="current-password">
-    <button id="loginBtn">লগইন</button><p id="loginMsg" class="muted"></p>
+  <section id="config">
+    <h3>Supabase Connection</h3>
+    <p class="muted">
+      প্রথমবার Project URL এবং Publishable Key দিতে হবে।
+      Secret Key এখানে কখনো দেবেন না।
+    </p>
+
+    <label>Supabase Project URL</label>
+    <input id="projectUrl" placeholder="https://xxxx.supabase.co">
+
+    <label>Supabase Publishable Key</label>
+    <input id="publishableKey" placeholder="sb_publishable_...">
+
+    <button id="connectBtn">সংযোগ করুন</button>
+    <p id="configMessage" class="muted"></p>
   </section>
 
-  <section id="app" class="hidden">
-    <div class="card row"><div><strong id="welcome">Admin Dashboard</strong><div class="muted">শুধু অনুমোদিত admin role-ই ডেটা পরিচালনা করতে পারবে।</div></div><span class="pill">Admin</span></div>
-    <nav>
-      <button data-tab="dashboard">ড্যাশবোর্ড</button><button data-tab="products">প্রোডাক্ট</button>
-      <button data-tab="orders">অর্ডার</button><button data-tab="payments">পেমেন্ট</button><button data-tab="people">মেম্বার / সেলার</button>
-    </nav>
-    <section id="dashboard" class="tab card"><h2>ড্যাশবোর্ড</h2><div class="grid" id="stats"></div><p class="muted">সারাংশ দেখতে Refresh চাপো।</p><button id="refresh">Refresh</button></section>
-    <section id="products" class="tab card hidden">
-      <h2>প্যানেল ও Free Fire ID</h2>
-      <div class="grid">
-        <div><label>নাম</label><input id="pname" placeholder="Product name"><label>ধরন</label><select id="ptype"><option value="panel">Panel</option><option value="ff_id">Free Fire ID</option></select><label>দাম (৳)</label><input id="pprice" type="number" min="0"><label>স্টক</label><input id="pstock" type="number" min="0" value="1"></div>
-        <div><label>বিবরণ</label><textarea id="pdesc" rows="5"></textarea><label>ছবির URL (ঐচ্ছিক)</label><input id="pimage" placeholder="https://..."><button id="addProduct">প্রোডাক্ট যোগ করো</button></div>
-      </div><div class="tablewrap"><table><thead><tr><th>নাম</th><th>ধরন</th><th>দাম</th><th>স্টক</th><th>অ্যাকশন</th></tr></thead><tbody id="productRows"></tbody></table></div>
-    </section>
-    <section id="orders" class="tab card hidden"><h2>অর্ডার</h2><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>মেম্বার</th><th>প্রোডাক্ট</th><th>মোট</th><th>স্ট্যাটাস</th><th>অ্যাকশন</th></tr></thead><tbody id="orderRows"></tbody></table></div></section>
-    <section id="payments" class="tab card hidden"><h2>ম্যানুয়াল পেমেন্ট</h2><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>অর্ডার</th><th>মাধ্যম</th><th>TrxID</th><th>পরিমাণ</th><th>স্ট্যাটাস</th><th>অ্যাকশন</th></tr></thead><tbody id="paymentRows"></tbody></table></div></section>
-    <section id="people" class="tab card hidden"><h2>মেম্বার ও সেলার</h2><p class="muted">কাউকে Seller করতে Role পরিবর্তন করো। Admin role শুধু বিশ্বস্ত অ্যাকাউন্টে দেবে।</p><div class="tablewrap"><table><thead><tr><th>ইমেইল</th><th>নাম</th><th>Role</th><th>পরিবর্তন</th></tr></thead><tbody id="peopleRows"></tbody></table></div></section>
+  <h2 class="section-title" id="products">আমাদের প্রোডাক্ট</h2>
+
+  <div class="tools">
+    <input id="search" placeholder="প্রোডাক্ট খুঁজুন...">
+
+    <select id="category">
+      <option value="all">সব প্রোডাক্ট</option>
+      <option value="panel">Free Fire Panel</option>
+      <option value="ff_id">Free Fire ID</option>
+    </select>
+  </div>
+
+  <div id="status" class="status">
+    Supabase সংযোগের অপেক্ষায়...
+  </div>
+
+  <div id="productList" class="grid"></div>
+
+  <section class="hero">
+    <h2>অর্ডার করতে চান?</h2>
+    <p>আপনার Member Account দিয়ে লগইন করুন। তারপর পছন্দের প্রোডাক্ট অর্ডার করতে পারবেন।</p>
+    <a class="btn" href="manage.html">Member Panel-এ যান</a>
   </section>
-  <p class="muted">নিরাপত্তা: Supabase SQL schema এবং RLS policy আগে চালু না করলে অ্যাপের ডেটা কাজ করবে না।</p>
-</div>
+
+</main>
+
+<footer>
+  <h3>Rifat FF Panel Seller</h3>
+  <p>Free Fire Panel & Free Fire ID Store</p>
+  <a href="manage.html">Member Panel</a>
+  <a href="admin.html">Admin Panel</a>
+  <p class="muted">© 2026 Rifat FF Panel Seller. All Rights Reserved.</p>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-let supabaseClient=null, currentUser=null;
-const $=id=>document.getElementById(id);
-const saved=JSON.parse(localStorage.getItem("rifat_admin_supabase")||"{}");
-$("url").value=saved.url||""; $("key").value=saved.key||"";
-function msg(id,s){$(id).textContent=s}
-function connect(){
-  const url=$("url").value.trim(), key=$("key").value.trim();
-  if(!url||!key) throw Error("Project URL এবং Publishable Key দুটোই দিতে হবে।");
-  localStorage.setItem("rifat_admin_supabase",JSON.stringify({url,key}));
-  supabaseClient=window.supabase.createClient(url,key);
-  $("login").classList.remove("hidden"); msg("configMsg","সংযোগের তথ্য সংরক্ষিত হয়েছে।");
+let db = null;
+let allProducts = [];
+
+const $ = id => document.getElementById(id);
+
+function setStatus(text){
+  $("status").textContent = text;
 }
-$("saveConfig").onclick=()=>{try{connect()}catch(e){msg("configMsg",e.message)}};
-if(saved.url&&saved.key){try{connect()}catch(e){}}
-$("loginBtn").onclick=async()=>{
-  msg("loginMsg","লগইন হচ্ছে...");
-  const {data,error}=await supabaseClient.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});
-  if(error){msg("loginMsg",error.message);return}
-  currentUser=data.user;
-  const {data:profile,error:pe}=await supabaseClient.from("profiles").select("role,full_name").eq("id",currentUser.id).single();
-  if(pe||!profile||profile.role!=="admin"){await supabaseClient.auth.signOut();msg("loginMsg","এই অ্যাকাউন্টে Admin অনুমতি নেই। Supabase profiles-এ role admin করে দিতে হবে।");return}
-  $("login").classList.add("hidden");$("config").classList.add("hidden");$("app").classList.remove("hidden");$("logoutBtn").classList.remove("hidden");
-  $("welcome").textContent="স্বাগতম, "+(profile.full_name||currentUser.email); loadAll();
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
+}
+
+// SUPABASE CONNECTION
+function connectSupabase(url,key){
+
+  if(!url || !key){
+    throw new Error("Project URL এবং Publishable Key দিতে হবে।");
+  }
+
+  db = window.supabase.createClient(url,key);
+
+  localStorage.setItem("rifat_member_url",url);
+  localStorage.setItem("rifat_member_key",key);
+
+  $("config").classList.add("hidden");
+
+  loadProducts();
+}
+
+$("connectBtn").onclick = () => {
+
+  try{
+
+    const url = $("projectUrl").value.trim();
+    const key = $("publishableKey").value.trim();
+
+    connectSupabase(url,key);
+
+    $("configMessage").textContent = "সংযোগের তথ্য সংরক্ষিত হয়েছে।";
+
+  }catch(error){
+
+    $("configMessage").textContent = error.message;
+
+  }
+
 };
-$("logoutBtn").onclick=async()=>{await supabaseClient.auth.signOut();location.reload()};
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));$(b.dataset.tab).classList.remove("hidden")});
-$("refresh").onclick=loadAll;
-async function loadAll(){await Promise.all([loadStats(),loadProducts(),loadOrders(),loadPayments(),loadPeople()])}
-async function loadStats(){
- const names=["products","orders","profiles","payment_submissions"], vals=[];
- for(const t of names){const {count,error}=await supabaseClient.from(t).select("*",{count:"exact",head:true});vals.push(error?"—":count)}
- $("stats").innerHTML=names.map((n,i)=>`<div class="card"><div class="muted">${n}</div><h2>${vals[i]}</h2></div>`).join("");
+
+// PREVIOUSLY SAVED CONNECTION
+const savedUrl = localStorage.getItem("rifat_member_url");
+const savedKey = localStorage.getItem("rifat_member_key");
+
+if(savedUrl && savedKey){
+
+  $("projectUrl").value = savedUrl;
+  $("publishableKey").value = savedKey;
+
+  try{
+    connectSupabase(savedUrl,savedKey);
+  }catch(error){
+    setStatus(error.message);
+    $("config").classList.remove("hidden");
+  }
+
+}else{
+
+  setStatus("Supabase সংযোগ করতে উপরের তথ্য দিন।");
+
 }
+
+// LOAD PRODUCTS
 async function loadProducts(){
- const {data,error}=await supabaseClient.from("products").select("*").order("created_at",{ascending:false});
- $("productRows").innerHTML=error?`<tr><td colspan="5">${error.message}</td></tr>`:(data||[]).map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.type)}</td><td>৳${p.price}</td><td>${p.stock}</td><td><button class="danger" onclick="deleteProduct('${p.id}')">Delete</button></td></tr>`).join("");
+
+  if(!db){
+    setStatus("Supabase সংযোগ করা হয়নি।");
+    return;
+  }
+
+  setStatus("প্রোডাক্ট লোড হচ্ছে...");
+  $("productList").innerHTML = "";
+
+  const {data,error} = await db
+    .from("products")
+    .select("id,name,type,description,price,stock,image_url,active")
+    .eq("active",true)
+    .order("created_at",{ascending:false});
+
+  if(error){
+    setStatus("প্রোডাক্ট লোড হয়নি: " + error.message);
+    return;
+  }
+
+  allProducts = data || [];
+
+  renderProducts();
+
+  if(allProducts.length === 0){
+    setStatus("এখনো কোনো প্রোডাক্ট যোগ করা হয়নি।");
+  }else{
+    setStatus("মোট " + allProducts.length + "টি প্রোডাক্ট পাওয়া গেছে।");
+  }
+
 }
-$("addProduct").onclick=async()=>{
- const item={name:$("pname").value.trim(),type:$("ptype").value,price:Number($("pprice").value),stock:Number($("pstock").value),description:$("pdesc").value.trim(),image_url:$("pimage").value.trim()||null};
- if(!item.name||item.price<0){alert("নাম ও সঠিক দাম দাও।");return}
- const {error}=await supabaseClient.from("products").insert(item);if(error)alert(error.message);else{["pname","pprice","pdesc","pimage"].forEach(x=>$(x).value="");loadProducts();loadStats()}
-};
-window.deleteProduct=async id=>{if(!confirm("প্রোডাক্টটি মুছবে?"))return;const {error}=await supabaseClient.from("products").delete().eq("id",id);if(error)alert(error.message);else loadProducts()};
-async function loadOrders(){
- const {data,error}=await supabaseClient.from("orders").select("id,created_at,total_amount,status,profiles(email),products(name)").order("created_at",{ascending:false});
- $("orderRows").innerHTML=error?`<tr><td colspan="6">${error.message}</td></tr>`:(data||[]).map(o=>`<tr><td>${date(o.created_at)}</td><td>${esc(o.profiles?.email||"—")}</td><td>${esc(o.products?.name||"—")}</td><td>৳${o.total_amount}</td><td>${esc(o.status)}</td><td><select id="os-${o.id}"><option>pending</option><option>approved</option><option>rejected</option><option>completed</option></select><button onclick="setOrder('${o.id}')">Save</button></td></tr>`).join("");
+
+// SHOW PRODUCTS
+function renderProducts(){
+
+  const search = $("search").value.toLowerCase().trim();
+  const category = $("category").value;
+
+  const filtered = allProducts.filter(p => {
+
+    const matchName = String(p.name || "")
+      .toLowerCase().includes(search);
+
+    const matchCategory =
+      category === "all" || p.type === category;
+
+    return matchName && matchCategory;
+
+  });
+
+  if(filtered.length === 0){
+
+    $("productList").innerHTML =
+      '<div class="status">কোনো প্রোডাক্ট পাওয়া যায়নি।</div>';
+
+    return;
+
+  }
+
+  $("productList").innerHTML = filtered.map(p => {
+
+    const image = p.image_url
+      ? `<img src="${escapeHTML(p.image_url)}" alt="Product image" loading="lazy">`
+      : `<div class="no-image">🎮</div>`;
+
+    const type = p.type === "panel"
+      ? "Free Fire Panel"
+      : "Free Fire ID";
+
+    return `
+      <article class="product">
+        ${image}
+
+        <h3>${escapeHTML(p.name)}</h3>
+
+        <p class="muted">${escapeHTML(type)}</p>
+
+        <p>${escapeHTML(p.description || "বিস্তারিত জানতে Member Panel-এ যান।")}</p>
+
+        <div class="price">৳${Number(p.price).toLocaleString("en-US")}</div>
+
+        <p class="muted">
+          স্টক: ${Number(p.stock)}
+        </p>
+
+        <a class="btn" href="manage.html">
+          অর্ডার করুন
+        </a>
+      </article>
+    `;
+
+  }).join("");
+
 }
-window.setOrder=async id=>{const status=$("os-"+id).value;const {error}=await supabaseClient.from("orders").update({status}).eq("id",id);if(error)alert(error.message);else loadOrders()};
-async function loadPayments(){
- const {data,error}=await supabaseClient.from("payment_submissions").select("*").order("created_at",{ascending:false});
- $("paymentRows").innerHTML=error?`<tr><td colspan="7">${error.message}</td></tr>`:(data||[]).map(p=>`<tr><td>${date(p.created_at)}</td><td>${esc(p.order_id)}</td><td>${esc(p.method)}</td><td>${esc(p.transaction_id)}</td><td>৳${p.amount}</td><td>${esc(p.status)}</td><td><button onclick="setPayment('${p.id}','verified')">Verify</button><button class="danger" onclick="setPayment('${p.id}','rejected')">Reject</button></td></tr>`).join("");
-}
-window.setPayment=async(id,status)=>{const {error}=await supabaseClient.from("payment_submissions").update({status}).eq("id",id);if(error)alert(error.message);else loadPayments()};
-async function loadPeople(){
- const {data,error}=await supabaseClient.from("profiles").select("id,email,full_name,role").order("created_at",{ascending:false});
- $("peopleRows").innerHTML=error?`<tr><td colspan="4">${error.message}</td></tr>`:(data||[]).map(p=>`<tr><td>${esc(p.email||"")}</td><td>${esc(p.full_name||"")}</td><td>${esc(p.role)}</td><td><select id="r-${p.id}"><option value="member">member</option><option value="seller">seller</option><option value="admin">admin</option></select><button onclick="setRole('${p.id}')">Save</button></td></tr>`).join("");
- (data||[]).forEach(p=>{const el=$("r-"+p.id);if(el)el.value=p.role});
-}
-window.setRole=async id=>{const role=$("r-"+id).value;if(role==="admin"&&!confirm("এই ব্যবহারকারীকে Admin করলে সে প্রশাসনিক ক্ষমতা পাবে। নিশ্চিত?"))return;const {error}=await supabaseClient.from("profiles").update({role}).eq("id",id);if(error)alert(error.message);else loadPeople()};
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function date(s){return s?new Date(s).toLocaleString("bn-BD"):"—"}
+
+// SEARCH AND FILTER
+$("search").addEventListener("input",renderProducts);
+$("category").addEventListener("change",renderProducts);
+
 </script>
-</body></html>
+
+</body>
+</html>
