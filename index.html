@@ -10,124 +10,33 @@
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  background:#0b1020;
-  color:#f8fafc;
+  margin:0;background:#0b1020;color:#f8fafc;
   font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;
 }
 .container{max-width:1100px;margin:auto;padding:16px}
-header{
-  background:#151d32;
-  border-bottom:1px solid #29344f;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.header-inner{
-  max-width:1100px;
-  margin:auto;
-  padding:14px 16px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
+header{background:#151d32;border-bottom:1px solid #29344f;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:auto;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .logo{font-size:20px;font-weight:900;color:#a78bfa}
-button,a.btn{
-  display:inline-block;
-  background:#7c3aed;
-  color:white;
-  border:0;
-  padding:11px 16px;
-  border-radius:9px;
-  text-decoration:none;
-  font-weight:700;
-  cursor:pointer;
-}
+button,a.btn{display:inline-block;background:#7c3aed;color:white;border:0;padding:11px 16px;border-radius:9px;text-decoration:none;font-weight:700;cursor:pointer}
 .secondary{background:#334155}
-.hero{
-  margin-top:20px;
-  padding:35px 22px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#312e81,#111827 75%);
-  border:1px solid #4c4385;
-}
+.hero{margin-top:20px;padding:35px 22px;border-radius:18px;background:linear-gradient(135deg,#312e81,#111827 75%);border:1px solid #4c4385}
 .hero h1{font-size:clamp(27px,5vw,42px);margin:0 0 12px}
 .hero p{color:#ddd6fe;line-height:1.7}
 .section-title{margin:30px 0 14px}
 .tools{display:flex;gap:10px;flex-wrap:wrap}
-.tools input,.tools select{
-  flex:1;
-  min-width:160px;
-}
-input,select{
-  background:#151d32;
-  color:white;
-  border:1px solid #374151;
-  border-radius:9px;
-  padding:12px;
-  font:inherit;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-}
-.product{
-  background:#151d32;
-  border:1px solid #29344f;
-  border-radius:14px;
-  padding:14px;
-  overflow:hidden;
-}
-.product img{
-  width:100%;
-  height:165px;
-  object-fit:cover;
-  border-radius:9px;
-  background:#0e172a;
-}
-.no-image{
-  height:130px;
-  display:grid;
-  place-items:center;
-  background:#202b43;
-  border-radius:9px;
-  color:#a78bfa;
-  font-size:35px;
-}
+.tools input,.tools select{flex:1;min-width:160px}
+input,select{background:#151d32;color:white;border:1px solid #374151;border-radius:9px;padding:12px;font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.product{background:#151d32;border:1px solid #29344f;border-radius:14px;padding:14px;overflow:hidden}
+.product img{width:100%;height:165px;object-fit:cover;border-radius:9px;background:#0e172a}
+.no-image{height:130px;display:grid;place-items:center;background:#202b43;border-radius:9px;color:#a78bfa;font-size:35px}
 .product h3{margin:12px 0 7px}
 .price{color:#c4b5fd;font-size:21px;font-weight:800}
 .muted{color:#9ca3af;font-size:13px;line-height:1.6}
-.status{
-  padding:12px;
-  border-radius:9px;
-  background:#151d32;
-  color:#cbd5e1;
-  margin:15px 0;
-}
-footer{
-  margin-top:40px;
-  padding:25px 15px;
-  text-align:center;
-  background:#151d32;
-  color:#9ca3af;
-}
+.status{padding:12px;border-radius:9px;background:#151d32;color:#cbd5e1;margin:15px 0}
+footer{margin-top:40px;padding:25px 15px;text-align:center;background:#151d32;color:#9ca3af}
 footer a{color:#c4b5fd;margin:0 8px}
-.hidden{display:none!important}
-#config{
-  background:#151d32;
-  border:1px solid #374151;
-  border-radius:14px;
-  padding:16px;
-  margin-top:18px;
-}
-#config input{width:100%;margin:7px 0}
-@media(max-width:500px){
-  .header-inner{justify-content:center}
-  .hero{padding:25px 16px}
-}
+@media(max-width:500px){.header-inner{justify-content:center}.hero{padding:25px 16px}}
 </style>
 </head>
 
@@ -145,35 +54,17 @@ footer a{color:#c4b5fd;margin:0 8px}
   <section class="hero">
     <h1>Welcome to Rifat FF Panel Seller</h1>
     <p>
-      Free Fire Panel এবং Free Fire ID কেনার বিশ্বস্ত অনলাইন স্টোর।
+      Free Fire Panel এবং Free Fire ID কেনার অনলাইন স্টোর।
       আপনার পছন্দের প্রোডাক্ট দেখুন এবং অর্ডার করতে Member Panel-এ লগইন করুন।
     </p>
     <a class="btn" href="#products">প্রোডাক্ট দেখুন</a>
     <a class="btn secondary" href="manage.html">Member Account</a>
   </section>
 
-  <section id="config">
-    <h3>Supabase Connection</h3>
-    <p class="muted">
-      প্রথমবার Project URL এবং Publishable Key দিতে হবে।
-      Secret Key এখানে কখনো দেবেন না।
-    </p>
-
-    <label>Supabase Project URL</label>
-    <input id="projectUrl" placeholder="https://xxxx.supabase.co">
-
-    <label>Supabase Publishable Key</label>
-    <input id="publishableKey" placeholder="sb_publishable_...">
-
-    <button id="connectBtn">সংযোগ করুন</button>
-    <p id="configMessage" class="muted"></p>
-  </section>
-
   <h2 class="section-title" id="products">আমাদের প্রোডাক্ট</h2>
 
   <div class="tools">
     <input id="search" placeholder="প্রোডাক্ট খুঁজুন...">
-
     <select id="category">
       <option value="all">সব প্রোডাক্ট</option>
       <option value="panel">Free Fire Panel</option>
@@ -181,10 +72,7 @@ footer a{color:#c4b5fd;margin:0 8px}
     </select>
   </div>
 
-  <div id="status" class="status">
-    Supabase সংযোগের অপেক্ষায়...
-  </div>
-
+  <div id="status" class="status">প্রোডাক্ট লোড হচ্ছে...</div>
   <div id="productList" class="grid"></div>
 
   <section class="hero">
@@ -206,92 +94,37 @@ footer a{color:#c4b5fd;margin:0 8px}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-let db = null;
+// SUPABASE CONNECTION
+const SUPABASE_URL = "https://veuoatqdcnnffgqdbmky.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_PI2g4dcY6bLMj6bPtg8C9A_rCIwsN2W";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
 let allProducts = [];
 
 const $ = id => document.getElementById(id);
 
-function setStatus(text){
-  $("status").textContent = text;
-}
-
 function escapeHTML(value){
   return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 }
 
-// SUPABASE CONNECTION
-function connectSupabase(url,key){
-
-  if(!url || !key){
-    throw new Error("Project URL এবং Publishable Key দিতে হবে।");
-  }
-
-  db = window.supabase.createClient(url,key);
-
-  localStorage.setItem("rifat_member_url",url);
-  localStorage.setItem("rifat_member_key",key);
-
-  $("config").classList.add("hidden");
-
-  loadProducts();
-}
-
-$("connectBtn").onclick = () => {
-
+function safeImageURL(value){
   try{
-
-    const url = $("projectUrl").value.trim();
-    const key = $("publishableKey").value.trim();
-
-    connectSupabase(url,key);
-
-    $("configMessage").textContent = "সংযোগের তথ্য সংরক্ষিত হয়েছে।";
-
-  }catch(error){
-
-    $("configMessage").textContent = error.message;
-
+    const url = new URL(value);
+    return ["https:","http:"].includes(url.protocol) ? url.href : "";
+  }catch{
+    return "";
   }
-
-};
-
-// PREVIOUSLY SAVED CONNECTION
-const savedUrl = localStorage.getItem("rifat_member_url");
-const savedKey = localStorage.getItem("rifat_member_key");
-
-if(savedUrl && savedKey){
-
-  $("projectUrl").value = savedUrl;
-  $("publishableKey").value = savedKey;
-
-  try{
-    connectSupabase(savedUrl,savedKey);
-  }catch(error){
-    setStatus(error.message);
-    $("config").classList.remove("hidden");
-  }
-
-}else{
-
-  setStatus("Supabase সংযোগ করতে উপরের তথ্য দিন।");
-
 }
 
 // LOAD PRODUCTS
 async function loadProducts(){
-
-  if(!db){
-    setStatus("Supabase সংযোগ করা হয়নি।");
-    return;
-  }
-
-  setStatus("প্রোডাক্ট লোড হচ্ছে...");
+  $("status").textContent = "প্রোডাক্ট লোড হচ্ছে...";
   $("productList").innerHTML = "";
 
   const {data,error} = await db
@@ -301,89 +134,60 @@ async function loadProducts(){
     .order("created_at",{ascending:false});
 
   if(error){
-    setStatus("প্রোডাক্ট লোড হয়নি: " + error.message);
+    $("status").textContent = "প্রোডাক্ট লোড হয়নি: " + error.message;
     return;
   }
 
   allProducts = data || [];
-
   renderProducts();
 
-  if(allProducts.length === 0){
-    setStatus("এখনো কোনো প্রোডাক্ট যোগ করা হয়নি।");
-  }else{
-    setStatus("মোট " + allProducts.length + "টি প্রোডাক্ট পাওয়া গেছে।");
-  }
-
+  $("status").textContent = allProducts.length
+    ? "মোট " + allProducts.length + "টি প্রোডাক্ট পাওয়া গেছে।"
+    : "এখনো কোনো প্রোডাক্ট যোগ করা হয়নি।";
 }
 
 // SHOW PRODUCTS
 function renderProducts(){
-
   const search = $("search").value.toLowerCase().trim();
   const category = $("category").value;
 
-  const filtered = allProducts.filter(p => {
+  const filtered = allProducts.filter(p =>
+    String(p.name || "").toLowerCase().includes(search) &&
+    (category === "all" || p.type === category)
+  );
 
-    const matchName = String(p.name || "")
-      .toLowerCase().includes(search);
-
-    const matchCategory =
-      category === "all" || p.type === category;
-
-    return matchName && matchCategory;
-
-  });
-
-  if(filtered.length === 0){
-
+  if(!filtered.length){
     $("productList").innerHTML =
       '<div class="status">কোনো প্রোডাক্ট পাওয়া যায়নি।</div>';
-
     return;
-
   }
 
   $("productList").innerHTML = filtered.map(p => {
-
-    const image = p.image_url
-      ? `<img src="${escapeHTML(p.image_url)}" alt="Product image" loading="lazy">`
+    const imageURL = safeImageURL(p.image_url);
+    const image = imageURL
+      ? `<img src="${escapeHTML(imageURL)}" alt="Product image" loading="lazy">`
       : `<div class="no-image">🎮</div>`;
 
-    const type = p.type === "panel"
-      ? "Free Fire Panel"
-      : "Free Fire ID";
+    const type = p.type === "panel" ? "Free Fire Panel" : "Free Fire ID";
 
     return `
       <article class="product">
         ${image}
-
         <h3>${escapeHTML(p.name)}</h3>
-
         <p class="muted">${escapeHTML(type)}</p>
-
         <p>${escapeHTML(p.description || "বিস্তারিত জানতে Member Panel-এ যান।")}</p>
-
         <div class="price">৳${Number(p.price).toLocaleString("en-US")}</div>
-
-        <p class="muted">
-          স্টক: ${Number(p.stock)}
-        </p>
-
-        <a class="btn" href="manage.html">
-          অর্ডার করুন
-        </a>
+        <p class="muted">স্টক: ${Number(p.stock)}</p>
+        <a class="btn" href="manage.html">অর্ডার করুন</a>
       </article>
     `;
-
   }).join("");
-
 }
 
-// SEARCH AND FILTER
 $("search").addEventListener("input",renderProducts);
 $("category").addEventListener("change",renderProducts);
 
+loadProducts();
 </script>
 
 </body>
