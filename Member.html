@@ -1,14 +1,886 @@
-# Member App
+ <!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111827">
 
-এখানে Member Website-এর frontend থাকবে। পরে একই frontend Capacitor দিয়ে Member APK হিসেবে প্যাকেজ করা হবে।
+<title>Rifat FF Panel Seller - Member</title>
 
-প্রস্তাবিত পেজ:
-- Login / Sign up
-- Home / Products
-- Product details
-- Checkout / Manual payment
-- My orders
-- Payment history
-- Profile
+<style>
+* {
+  box-sizing: border-box;
+}
 
-সেলার অ্যাকাউন্ট অ্যাডমিন তৈরি/অনুমোদন করবে—পাবলিক sign-up থেকে কাউকে নিজে নিজে admin বা seller role দেওয়া যাবে না।
+body {
+  margin: 0;
+  background: #0b1020;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 15px;
+}
+
+header {
+  background: #151d32;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.logo {
+  color: #a78bfa;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card {
+  background: #151d32;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 15px;
+  border: 1px solid #29344f;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  border-radius: 8px;
+  border: 1px solid #374151;
+  background: #0e172a;
+  color: white;
+}
+
+button {
+  background: #7c3aed;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button.secondary {
+  background: #334155;
+}
+
+button.danger {
+  background: #b91c1c;
+}
+
+nav {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+nav button {
+  width: auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.product {
+  background: #202b43;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.product img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.price {
+  color: #a78bfa;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.muted {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 550px;
+}
+
+td, th {
+  padding: 10px;
+  border-bottom: 1px solid #374151;
+  text-align: left;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+label {
+  display: block;
+  margin-top: 8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <div class="logo">Rifat FF Panel Seller</div>
+  <button id="logoutBtn" class="secondary hidden"
+  style="width:auto">Logout</button>
+</header>
+
+<!-- SUPABASE CONFIG -->
+
+<section id="config" class="card">
+
+<h2>Supabase Connection</h2>
+
+<p class="muted">
+Supabase Project URL এবং Publishable Key বসাও।
+Secret Key কখনো এখানে দেবে না।
+</p>
+
+<label>Project URL</label>
+<input id="supabaseUrl"
+placeholder="https://xxxx.supabase.co">
+
+<label>Publishable Key</label>
+<input id="supabaseKey"
+placeholder="sb_publishable_...">
+
+<button id="connectBtn">Connect</button>
+
+<p id="configMsg" class="muted"></p>
+
+</section>
+
+<!-- AUTH -->
+
+<section id="auth" class="card hidden">
+
+<h2 id="authTitle">Member Login</h2>
+
+<label>Email</label>
+<input id="email" type="email"
+placeholder="Your Email">
+
+<label>Password</label>
+<input id="password" type="password"
+placeholder="Password">
+
+<button id="authBtn">Login</button>
+
+<button id="switchAuth" class="secondary">
+নতুন অ্যাকাউন্ট তৈরি করুন
+</button>
+
+<p id="authMsg" class="muted"></p>
+
+</section>
+
+<!-- MEMBER APP -->
+
+<section id="app" class="hidden">
+
+<div class="card">
+
+<h2 id="welcome">Welcome Member</h2>
+
+<p class="muted">
+Rifat FF Panel Seller Member Dashboard
+</p>
+
+</div>
+
+<nav>
+
+<button data-page="home">Home</button>
+<button data-page="orders">My Orders</button>
+<button data-page="payments">Payment History</button>
+<button data-page="profile">Profile</button>
+
+</nav>
+
+<!-- HOME -->
+
+<section id="home" class="card page">
+
+<h2>Available Products</h2>
+
+<div id="products" class="grid">
+লোড হচ্ছে...
+</div>
+
+</section>
+
+<!-- PRODUCT DETAILS -->
+
+<section id="details" class="card page hidden">
+
+<h2>Product Details</h2>
+
+<div id="productDetails"></div>
+
+<button id="buyBtn">Buy Now</button>
+
+<button class="secondary"
+onclick="showPage('home')">
+Back
+</button>
+
+</section>
+
+<!-- CHECKOUT -->
+
+<section id="checkout" class="card page hidden">
+
+<h2>Checkout</h2>
+
+<div id="checkoutInfo"></div>
+
+<label>Payment Method</label>
+
+<select id="paymentMethod">
+<option value="bkash">bKash Personal</option>
+<option value="nagad">Nagad Personal</option>
+</select>
+
+<div class="card">
+
+<p>Payment Number:</p>
+
+<h2 id="paymentNumber">01845907321</h2>
+
+<p class="muted">
+উপরের নম্বরে টাকা পাঠানোর পর Transaction ID দাও।
+</p>
+
+</div>
+
+<label>Transaction ID</label>
+
+<input id="trxId"
+placeholder="Transaction ID">
+
+<label>Amount</label>
+
+<input id="paymentAmount" type="number"
+placeholder="Amount">
+
+<button id="submitPayment">
+Submit Payment
+</button>
+
+<p id="paymentMsg" class="muted"></p>
+
+</section>
+
+<!-- ORDERS -->
+
+<section id="orders" class="card page hidden">
+
+<h2>My Orders</h2>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Amount</th>
+<th>Status</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody id="orderRows"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- PAYMENTS -->
+
+<section id="payments" class="card page hidden">
+
+<h2>Payment History</h2>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Method</th>
+<th>Transaction ID</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="paymentRows"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- PROFILE -->
+
+<section id="profile" class="card page hidden">
+
+<h2>My Profile</h2>
+
+<p>Email:</p>
+<p id="profileEmail"></p>
+
+<p>Account Role:</p>
+<p id="profileRole"></p>
+
+</section>
+
+</section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+let db = null;
+let currentUser = null;
+let selectedProduct = null;
+let selectedOrder = null;
+let isSignup = false;
+
+const $ = id => document.getElementById(id);
+
+function message(id, text) {
+  $(id).textContent = text;
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[c]);
+}
+
+function showPage(page) {
+
+  document.querySelectorAll(".page").forEach(section => {
+    section.classList.add("hidden");
+  });
+
+  $(page).classList.remove("hidden");
+
+  if (page === "orders") loadOrders();
+  if (page === "payments") loadPayments();
+}
+
+document.querySelectorAll("nav button").forEach(button => {
+  button.onclick = () => showPage(button.dataset.page);
+});
+
+// SUPABASE CONNECTION
+
+$("connectBtn").onclick = () => {
+
+  const url = $("supabaseUrl").value.trim();
+  const key = $("supabaseKey").value.trim();
+
+  if (!url || !key) {
+    message("configMsg", "URL এবং Key দুটোই দিতে হবে।");
+    return;
+  }
+
+  try {
+
+    db = window.supabase.createClient(url, key);
+
+    localStorage.setItem("rifat_member_url", url);
+    localStorage.setItem("rifat_member_key", key);
+
+    $("config").classList.add("hidden");
+    $("auth").classList.remove("hidden");
+
+    message("configMsg", "Connected");
+
+  } catch (error) {
+
+    message("configMsg", error.message);
+
+  }
+
+};
+
+// SAVED CONNECTION
+
+const savedURL = localStorage.getItem("rifat_member_url");
+const savedKey = localStorage.getItem("rifat_member_key");
+
+if (savedURL && savedKey) {
+
+  $("supabaseUrl").value = savedURL;
+  $("supabaseKey").value = savedKey;
+
+  try {
+
+    db = window.supabase.createClient(savedURL, savedKey);
+
+    $("config").classList.add("hidden");
+    $("auth").classList.remove("hidden");
+
+  } catch (error) {}
+
+}
+
+// LOGIN / SIGNUP SWITCH
+
+$("switchAuth").onclick = () => {
+
+  isSignup = !isSignup;
+
+  $("authTitle").textContent =
+    isSignup ? "Member Sign Up" : "Member Login";
+
+  $("authBtn").textContent =
+    isSignup ? "Create Account" : "Login";
+
+  $("switchAuth").textContent =
+    isSignup ? "আগে অ্যাকাউন্ট আছে? Login" :
+    "নতুন অ্যাকাউন্ট তৈরি করুন";
+
+  message("authMsg", "");
+
+};
+
+// AUTH
+
+$("authBtn").onclick = async () => {
+
+  if (!db) {
+    message("authMsg", "আগে Supabase Connect করো।");
+    return;
+  }
+
+  const email = $("email").value.trim();
+  const password = $("password").value;
+
+  if (!email || !password) {
+    message("authMsg", "Email এবং Password দাও।");
+    return;
+  }
+
+  message("authMsg", "অপেক্ষা করো...");
+
+  try {
+
+    if (isSignup) {
+
+      const { data, error } = await db.auth.signUp({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      if (!data.session) {
+        message(
+          "authMsg",
+          "অ্যাকাউন্ট তৈরি হয়েছে। ইমেইল Confirm করে তারপর Login করো।"
+        );
+        return;
+      }
+
+      currentUser = data.user;
+
+      await loadMember();
+
+    } else {
+
+      const { data, error } = await db.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      currentUser = data.user;
+
+      await loadMember();
+
+    }
+
+  } catch (error) {
+
+    message("authMsg", error.message);
+
+  }
+
+};
+
+// LOAD MEMBER
+
+async function loadMember() {
+
+  const { data: profile, error } = await db
+    .from("profiles")
+    .select("id,email,full_name,role")
+    .eq("id", currentUser.id)
+    .single();
+
+  if (error || !profile) {
+
+    await db.auth.signOut();
+
+    message(
+      "authMsg",
+      "Profile পাওয়া যায়নি। Supabase profiles এবং RLS পরীক্ষা করো।"
+    );
+
+    return;
+
+  }
+
+  if (!["member", "seller"].includes(profile.role)) {
+
+    await db.auth.signOut();
+
+    message("authMsg", "এই অ্যাকাউন্ট দিয়ে Member Panel ব্যবহার করা যাবে না।");
+
+    return;
+
+  }
+
+  $("auth").classList.add("hidden");
+  $("config").classList.add("hidden");
+  $("app").classList.remove("hidden");
+  $("logoutBtn").classList.remove("hidden");
+
+  $("welcome").textContent =
+    "স্বাগতম, " + (profile.full_name || profile.email);
+
+  $("profileEmail").textContent = profile.email || "";
+  $("profileRole").textContent = profile.role || "member";
+
+  loadProducts();
+
+}
+
+// PRODUCTS
+
+async function loadProducts() {
+
+  $("products").innerHTML = "লোড হচ্ছে...";
+
+  const { data, error } = await db
+    .from("products")
+    .select("*")
+    .eq("active", true)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+
+    $("products").textContent = error.message;
+    return;
+
+  }
+
+  if (!data || data.length === 0) {
+
+    $("products").textContent = "এখনো কোনো Product নেই।";
+    return;
+
+  }
+
+  $("products").innerHTML = data.map(product => `
+
+    <div class="product">
+
+      ${
+        product.image_url
+        ? `<img src="${escapeHTML(product.image_url)}" alt="Product">`
+        : ""
+      }
+
+      <h3>${escapeHTML(product.name)}</h3>
+
+      <p>${escapeHTML(product.description || "")}</p>
+
+      <p class="price">৳${Number(product.price).toFixed(2)}</p>
+
+      <p class="muted">
+        Type: ${escapeHTML(product.type)}
+      </p>
+
+      <button onclick="viewProduct('${product.id}')">
+        View Details
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+// PRODUCT DETAILS
+
+window.viewProduct = async id => {
+
+  const { data, error } = await db
+    .from("products")
+    .select("*")
+    .eq("id", id)
+    .eq("active", true)
+    .single();
+
+  if (error || !data) {
+
+    alert("Product পাওয়া যায়নি।");
+    return;
+
+  }
+
+  selectedProduct = data;
+
+  $("productDetails").innerHTML = `
+
+    <h3>${escapeHTML(data.name)}</h3>
+
+    <p>${escapeHTML(data.description || "")}</p>
+
+    <p class="price">৳${Number(data.price).toFixed(2)}</p>
+
+    <p>স্টক: ${Number(data.stock)}</p>
+
+  `;
+
+  showPage("details");
+
+};
+
+// BUY NOW
+
+$("buyBtn").onclick = async () => {
+
+  if (!selectedProduct) return;
+
+  if (Number(selectedProduct.stock) <= 0) {
+    alert("এই Product-এর স্টক শেষ।");
+    return;
+  }
+
+  const { data, error } = await db
+    .from("orders")
+    .insert({
+      user_id: currentUser.id,
+      product_id: selectedProduct.id,
+      total_amount: selectedProduct.price,
+      status: "pending"
+    })
+    .select()
+    .single();
+
+  if (error) {
+
+    alert("Order তৈরি হয়নি: " + error.message);
+    return;
+
+  }
+
+  selectedOrder = data;
+
+  $("checkoutInfo").innerHTML = `
+    <h3>${escapeHTML(selectedProduct.name)}</h3>
+    <p>Order ID: ${escapeHTML(data.id)}</p>
+    <p class="price">৳${Number(data.total_amount).toFixed(2)}</p>
+  `;
+
+  $("paymentAmount").value = data.total_amount;
+
+  showPage("checkout");
+
+};
+
+// PAYMENT NUMBER
+
+$("paymentMethod").onchange = () => {
+
+  $("paymentNumber").textContent = "01845907321";
+
+};
+
+// SUBMIT PAYMENT
+
+$("submitPayment").onclick = async () => {
+
+  if (!selectedOrder) {
+    message("paymentMsg", "Order পাওয়া যায়নি।");
+    return;
+  }
+
+  const method = $("paymentMethod").value;
+  const transactionId = $("trxId").value.trim();
+  const amount = Number($("paymentAmount").value);
+
+  if (!transactionId || !amount || amount <= 0) {
+
+    message("paymentMsg", "Transaction ID এবং সঠিক Amount দাও।");
+    return;
+
+  }
+
+  if (amount !== Number(selectedOrder.total_amount)) {
+
+    message("paymentMsg", "Payment Amount অর্ডারের টাকার সঙ্গে মিলতে হবে।");
+    return;
+
+  }
+
+  message("paymentMsg", "Payment জমা হচ্ছে...");
+
+  const { error } = await db
+    .from("payment_submissions")
+    .insert({
+      order_id: selectedOrder.id,
+      user_id: currentUser.id,
+      method,
+      transaction_id: transactionId,
+      amount,
+      status: "pending"
+    });
+
+  if (error) {
+
+    message("paymentMsg", error.message);
+    return;
+
+  }
+
+  message(
+    "paymentMsg",
+    "Payment জমা হয়েছে। Admin যাচাই করার পর Status পরিবর্তন হবে।"
+  );
+
+  $("trxId").value = "";
+
+  selectedOrder = null;
+
+};
+
+// MY ORDERS
+
+async function loadOrders() {
+
+  const { data, error } = await db
+    .from("orders")
+    .select("*")
+    .eq("user_id", currentUser.id)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+
+    $("orderRows").innerHTML =
+      `<tr><td colspan="4">${escapeHTML(error.message)}</td></tr>`;
+
+    return;
+
+  }
+
+  $("orderRows").innerHTML = (data || []).map(order => `
+
+    <tr>
+      <td>${escapeHTML(order.id)}</td>
+      <td>৳${Number(order.total_amount).toFixed(2)}</td>
+      <td>${escapeHTML(order.status)}</td>
+      <td>${order.created_at
+        ? new Date(order.created_at).toLocaleDateString("bn-BD")
+        : "—"}
+      </td>
+    </tr>
+
+  `).join("");
+
+}
+
+// PAYMENT HISTORY
+
+async function loadPayments() {
+
+  const { data, error } = await db
+    .from("payment_submissions")
+    .select("*")
+    .eq("user_id", currentUser.id)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+
+    $("paymentRows").innerHTML =
+      `<tr><td colspan="5">${escapeHTML(error.message)}</td></tr>`;
+
+    return;
+
+  }
+
+  $("paymentRows").innerHTML = (data || []).map(payment => `
+
+    <tr>
+      <td>${escapeHTML(payment.order_id)}</td>
+      <td>${escapeHTML(payment.method)}</td>
+      <td>${escapeHTML(payment.transaction_id)}</td>
+      <td>৳${Number(payment.amount).toFixed(2)}</td>
+      <td>${escapeHTML(payment.status)}</td>
+    </tr>
+
+  `).join("");
+
+}
+
+// LOGOUT
+
+$("logoutBtn").onclick = async () => {
+
+  await db.auth.signOut();
+
+  location.reload();
+
+};
+
+</script>
+
+</body>
+</html>
