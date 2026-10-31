@@ -4,190 +4,663 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1020">
-<title>Rifat FF Panel Seller - Official Store</title>
+<title>Rifat FF Panel Seller</title>
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;background:#0b1020;color:#f8fafc;
-  font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.container{max-width:1100px;margin:auto;padding:16px}
-header{background:#151d32;border-bottom:1px solid #29344f;position:sticky;top:0;z-index:10}
-.header-inner{max-width:1100px;margin:auto;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font-size:20px;font-weight:900;color:#a78bfa}
-button,a.btn{display:inline-block;background:#7c3aed;color:white;border:0;padding:11px 16px;border-radius:9px;text-decoration:none;font-weight:700;cursor:pointer}
-.secondary{background:#334155}
-.hero{margin-top:20px;padding:35px 22px;border-radius:18px;background:linear-gradient(135deg,#312e81,#111827 75%);border:1px solid #4c4385}
-.hero h1{font-size:clamp(27px,5vw,42px);margin:0 0 12px}
-.hero p{color:#ddd6fe;line-height:1.7}
-.section-title{margin:30px 0 14px}
-.tools{display:flex;gap:10px;flex-wrap:wrap}
-.tools input,.tools select{flex:1;min-width:160px}
-input,select{background:#151d32;color:white;border:1px solid #374151;border-radius:9px;padding:12px;font:inherit}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.product{background:#151d32;border:1px solid #29344f;border-radius:14px;padding:14px;overflow:hidden}
-.product img{width:100%;height:165px;object-fit:cover;border-radius:9px;background:#0e172a}
-.no-image{height:130px;display:grid;place-items:center;background:#202b43;border-radius:9px;color:#a78bfa;font-size:35px}
-.product h3{margin:12px 0 7px}
-.price{color:#c4b5fd;font-size:21px;font-weight:800}
-.muted{color:#9ca3af;font-size:13px;line-height:1.6}
-.status{padding:12px;border-radius:9px;background:#151d32;color:#cbd5e1;margin:15px 0}
-footer{margin-top:40px;padding:25px 15px;text-align:center;background:#151d32;color:#9ca3af}
-footer a{color:#c4b5fd;margin:0 8px}
-@media(max-width:500px){.header-inner{justify-content:center}.hero{padding:25px 16px}}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  color: #171717;
+  padding-bottom: 85px;
+}
+
+header {
+  padding: 20px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.login-btn {
+  background: #111111;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.hero {
+  text-align: center;
+  padding: 30px 15px 20px;
+}
+
+.hero h1 {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #777;
+  font-size: 14px;
+}
+
+.section-title {
+  margin: 25px 15px 15px;
+  font-size: 21px;
+}
+
+.packages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  padding: 0 13px;
+}
+
+.card {
+  border: 1px solid #e8e8e8;
+  border-radius: 13px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 9px rgba(0,0,0,0.04);
+}
+
+.media {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.media img,
+.media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  color: #999;
+  font-size: 13px;
+}
+
+.card-info {
+  padding: 11px;
+}
+
+.card h3 {
+  font-size: 15px;
+  min-height: 36px;
+}
+
+.price {
+  font-size: 17px;
+  color: #159447;
+  font-weight: bold;
+  margin: 9px 0;
+}
+
+.buy-btn {
+  width: 100%;
+  padding: 10px 5px;
+  background: #159447;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buy-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.customer-btn {
+  position: fixed;
+  right: 15px;
+  bottom: 88px;
+  background: #111;
+  color: white;
+  border: none;
+  padding: 13px 17px;
+  border-radius: 30px;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 15px #0002;
+}
+
+.customer-menu {
+  position: fixed;
+  right: 15px;
+  bottom: 145px;
+  width: 230px;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 5px 20px #0002;
+  border-radius: 13px;
+  padding: 14px;
+  display: none;
+  z-index: 20;
+}
+
+.customer-menu h3 {
+  margin-bottom: 12px;
+}
+
+.customer-menu a {
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+  color: #222;
+  border-radius: 8px;
+  margin-top: 7px;
+  background: #f5f5f5;
+}
+
+.customer-menu a:hover {
+  background: #eaeaea;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 66px;
+  background: white;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 9;
+}
+
+.bottom-nav a {
+  color: #333;
+  text-decoration: none;
+  font-size: 12px;
+  text-align: center;
+}
+
+.bottom-nav span {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 3px;
+}
+
+.login-page {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 50;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 360px;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 20px #0001;
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.login-box p {
+  text-align: center;
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.login-submit {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  background: #111;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.close-login {
+  margin-top: 15px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+}
+
+#message {
+  color: #d33;
+  font-size: 13px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 10px;
+  color: #888;
+  font-size: 12px;
+}
+
+@media (min-width: 700px) {
+  .packages {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 950px;
+    margin: auto;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="logo">🔥 Rifat FF Panel Seller</div>
-    <a class="btn" href="manage.html">Member Login</a>
-  </div>
+<header id="home">
+  <div class="logo">RIFAT FF PANEL</div>
+  <button class="login-btn" onclick="openLogin()">
+    Login
+  </button>
 </header>
 
-<main class="container">
+<section class="hero">
+  <h1>Welcome To Our Store</h1>
+  <p>আপনার পছন্দের প্যাকেজটি বেছে নিন</p>
+</section>
 
-  <section class="hero">
-    <h1>Welcome to Rifat FF Panel Seller</h1>
-    <p>
-      Free Fire Panel এবং Free Fire ID কেনার অনলাইন স্টোর।
-      আপনার পছন্দের প্রোডাক্ট দেখুন এবং অর্ডার করতে Member Panel-এ লগইন করুন।
-    </p>
-    <a class="btn" href="#products">প্রোডাক্ট দেখুন</a>
-    <a class="btn secondary" href="manage.html">Member Account</a>
-  </section>
+<h2 class="section-title" id="packages">Our Packages</h2>
 
-  <h2 class="section-title" id="products">আমাদের প্রোডাক্ট</h2>
+<div class="packages">
 
-  <div class="tools">
-    <input id="search" placeholder="প্রোডাক্ট খুঁজুন...">
-    <select id="category">
-      <option value="all">সব প্রোডাক্ট</option>
-      <option value="panel">Free Fire Panel</option>
-      <option value="ff_id">Free Fire ID</option>
-    </select>
+  <!-- PACKAGE 1 -->
+  <div class="card">
+    <div class="media">
+      <video controls muted playsinline preload="metadata">
+        <source src="VID_20261031_134530_497.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="card-info">
+      <h3>Tournament Panel</h3>
+      <div class="price">৳৩৫০</div>
+      <button class="buy-btn"
+        onclick="buyPackage(1)">
+        BUY NOW
+      </button>
+    </div>
   </div>
 
-  <div id="status" class="status">প্রোডাক্ট লোড হচ্ছে...</div>
-  <div id="productList" class="grid"></div>
+  <!-- PACKAGE 2 -->
+  <div class="card">
+    <div class="media">
+      <video controls muted playsinline preload="metadata">
+        <source src="lv_0_20261031135231.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="card-info">
+      <h3>BRCS All Body Panel</h3>
+      <div class="price">৳৩৫০</div>
+      <button class="buy-btn"
+        onclick="buyPackage(2)">
+        BUY NOW
+      </button>
+    </div>
+  </div>
 
-  <section class="hero">
-    <h2>অর্ডার করতে চান?</h2>
-    <p>আপনার Member Account দিয়ে লগইন করুন। তারপর পছন্দের প্রোডাক্ট অর্ডার করতে পারবেন।</p>
-    <a class="btn" href="manage.html">Member Panel-এ যান</a>
-  </section>
+  <!-- PACKAGE 3 -->
+  <div class="card">
+    <div class="media">
+      <img src="package3.jpg" alt="Package 3"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="placeholder" style="display:none">ছবি যোগ করুন</span>
+    </div>
+    <div class="card-info">
+      <h3>Package 03</h3>
+      <div class="price">দাম যোগ করুন</div>
+      <button class="buy-btn" disabled>BUY NOW</button>
+    </div>
+  </div>
 
-</main>
+  <!-- PACKAGE 4 -->
+  <div class="card">
+    <div class="media">
+      <img src="package4.jpg" alt="Package 4"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="placeholder" style="display:none">ছবি যোগ করুন</span>
+    </div>
+    <div class="card-info">
+      <h3>Package 04</h3>
+      <div class="price">দাম যোগ করুন</div>
+      <button class="buy-btn" disabled>BUY NOW</button>
+    </div>
+  </div>
+
+  <!-- PACKAGE 5 -->
+  <div class="card">
+    <div class="media">
+      <img src="package5.jpg" alt="Package 5"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="placeholder" style="display:none">ছবি যোগ করুন</span>
+    </div>
+    <div class="card-info">
+      <h3>Package 05</h3>
+      <div class="price">দাম যোগ করুন</div>
+      <button class="buy-btn" disabled>BUY NOW</button>
+    </div>
+  </div>
+
+  <!-- PACKAGE 6 -->
+  <div class="card">
+    <div class="media">
+      <img src="package6.jpg" alt="Package 6"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="placeholder" style="display:none">ছবি যোগ করুন</span>
+    </div>
+    <div class="card-info">
+      <h3>Package 06</h3>
+      <div class="price">দাম যোগ করুন</div>
+      <button class="buy-btn" disabled>BUY NOW</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- CUSTOMER CARE BUTTON -->
+<button class="customer-btn" onclick="toggleCustomer()">
+  🎧 Customer Care
+</button>
+
+<div class="customer-menu" id="customerMenu">
+  <h3>Customer Care</h3>
+
+  <a href="https://t.me/rifatffpanelSellerBot1"
+     target="_blank">
+    ✈ Telegram Group
+  </a>
+
+  <a href="https://t.me/rifatffpanelseller6"
+     target="_blank">
+    👤 Telegram Personal
+  </a>
+
+  <a href="https://wa.me/8801845907321?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE"
+     target="_blank">
+    💬 WhatsApp
+  </a>
+</div>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+  <a href="#home">
+    <span>⌂</span>Home
+  </a>
+
+  <a href="#packages">
+    <span>▦</span>Packages
+  </a>
+
+  <a href="#" onclick="openLogin(); return false;">
+    <span>♙</span>Login
+  </a>
+
+  <a href="#" onclick="toggleCustomer(); return false;">
+    <span>🎧</span>Support
+  </a>
+</nav>
+
+<!-- LOGIN PAGE -->
+<div class="login-page" id="loginPage">
+  <div class="login-box">
+
+    <h2 id="loginTitle">Welcome Back</h2>
+    <p>আপনার অ্যাকাউন্টে লগইন করুন</p>
+
+    <input type="email" id="email"
+      placeholder="ইমেইল ঠিকানা">
+
+    <input type="password" id="password"
+      placeholder="পাসওয়ার্ড">
+
+    <button class="login-submit"
+      onclick="loginUser()">
+      Login
+    </button>
+
+    <button class="register-btn"
+      onclick="registerUser()">
+      নতুন অ্যাকাউন্ট তৈরি করুন
+    </button>
+
+    <button class="close-login"
+      onclick="closeLogin()">
+      বন্ধ করুন
+    </button>
+
+    <div id="message"></div>
+
+  </div>
+</div>
 
 <footer>
-  <h3>Rifat FF Panel Seller</h3>
-  <p>Free Fire Panel & Free Fire ID Store</p>
-  <a href="manage.html">Member Panel</a>
-  <a href="admin.html">Admin Panel</a>
-  <p class="muted">© 2026 Rifat FF Panel Seller. All Rights Reserved.</p>
+  © 2026 Rifat FF Panel Seller. All Rights Reserved.
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module">
 
-<script>
-// SUPABASE CONNECTION
-const SUPABASE_URL = "https://veuoatqdcnnffgqdbmky.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_PI2g4dcY6bLMj6bPtg8C9A_rCIwsN2W";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-let allProducts = [];
+/* FIREBASE CONFIGURATION
+   এখানে নিজের Firebase তথ্য বসাতে হবে।
+*/
 
-const $ = id => document.getElementById(id);
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[c]);
+let auth = null;
+
+if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+  const app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
 }
 
-function safeImageURL(value){
-  try{
-    const url = new URL(value);
-    return ["https:","http:"].includes(url.protocol) ? url.href : "";
-  }catch{
-    return "";
+let selectedPackage = null;
+
+const packages = {
+  1: {
+    name: "Tournament Panel",
+    price: "৩৫০ টাকা",
+    message:
+      "আসসালামু আলাইকুম।\n\nআমি আপনাদের Tournament Panel প্যাকেজটি কিনতে আগ্রহী।\n\nপ্যাকেজের নাম: Tournament Panel\nপ্যাকেজের মূল্য: ৩৫০ টাকা।\n\nঅনুগ্রহ করে পেমেন্ট করার নিয়ম এবং পরবর্তী কার্যক্রম সম্পর্কে বিস্তারিত জানাবেন।\n\nধন্যবাদ।"
+  },
+
+  2: {
+    name: "BRCS All Body Panel",
+    price: "৩৫০ টাকা",
+    message:
+      "আসসালামু আলাইকুম।\n\nআমি আপনাদের BRCS All Body Panel প্যাকেজটি কিনতে আগ্রহী।\n\nপ্যাকেজের নাম: BRCS All Body Panel\nপ্যাকেজের মূল্য: ৩৫০ টাকা।\n\nঅনুগ্রহ করে পেমেন্ট করার নিয়ম এবং পরবর্তী কার্যক্রম সম্পর্কে বিস্তারিত জানাবেন।\n\nধন্যবাদ।"
   }
-}
+};
 
-// LOAD PRODUCTS
-async function loadProducts(){
-  $("status").textContent = "প্রোডাক্ট লোড হচ্ছে...";
-  $("productList").innerHTML = "";
+window.openLogin = function() {
+  document.getElementById("loginPage").style.display = "flex";
+};
 
-  const {data,error} = await db
-    .from("products")
-    .select("id,name,type,description,price,stock,image_url,active")
-    .eq("active",true)
-    .order("created_at",{ascending:false});
+window.closeLogin = function() {
+  document.getElementById("loginPage").style.display = "none";
+};
 
-  if(error){
-    $("status").textContent = "প্রোডাক্ট লোড হয়নি: " + error.message;
+window.toggleCustomer = function() {
+  const menu = document.getElementById("customerMenu");
+
+  menu.style.display =
+    menu.style.display === "block" ? "none" : "block";
+};
+
+window.buyPackage = function(number) {
+  selectedPackage = number;
+
+  if (!auth || !auth.currentUser) {
+    openLogin();
+    document.getElementById("message").textContent =
+      "প্যাকেজ কিনতে প্রথমে লগইন করুন।";
     return;
   }
 
-  allProducts = data || [];
-  renderProducts();
+  sendWhatsApp();
+};
 
-  $("status").textContent = allProducts.length
-    ? "মোট " + allProducts.length + "টি প্রোডাক্ট পাওয়া গেছে।"
-    : "এখনো কোনো প্রোডাক্ট যোগ করা হয়নি।";
+function sendWhatsApp() {
+  if (!selectedPackage) return;
+
+  const item = packages[selectedPackage];
+
+  const url =
+    "https://wa.me/8801845907321?text=" +
+    encodeURIComponent(item.message);
+
+  window.location.href = url;
 }
 
-// SHOW PRODUCTS
-function renderProducts(){
-  const search = $("search").value.toLowerCase().trim();
-  const category = $("category").value;
+window.loginUser = async function() {
 
-  const filtered = allProducts.filter(p =>
-    String(p.name || "").toLowerCase().includes(search) &&
-    (category === "all" || p.type === category)
-  );
+  const email =
+    document.getElementById("email").value.trim();
 
-  if(!filtered.length){
-    $("productList").innerHTML =
-      '<div class="status">কোনো প্রোডাক্ট পাওয়া যায়নি।</div>';
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("message");
+
+  if (!auth) {
+    message.textContent =
+      "Firebase এখনো সংযুক্ত করা হয়নি।";
     return;
   }
 
-  $("productList").innerHTML = filtered.map(p => {
-    const imageURL = safeImageURL(p.image_url);
-    const image = imageURL
-      ? `<img src="${escapeHTML(imageURL)}" alt="Product image" loading="lazy">`
-      : `<div class="no-image">🎮</div>`;
+  try {
+    await signInWithEmailAndPassword(
+      auth, email, password
+    );
 
-    const type = p.type === "panel" ? "Free Fire Panel" : "Free Fire ID";
+    message.style.color = "green";
+    message.textContent = "লগইন সফল হয়েছে!";
 
-    return `
-      <article class="product">
-        ${image}
-        <h3>${escapeHTML(p.name)}</h3>
-        <p class="muted">${escapeHTML(type)}</p>
-        <p>${escapeHTML(p.description || "বিস্তারিত জানতে Member Panel-এ যান।")}</p>
-        <div class="price">৳${Number(p.price).toLocaleString("en-US")}</div>
-        <p class="muted">স্টক: ${Number(p.stock)}</p>
-        <a class="btn" href="manage.html">অর্ডার করুন</a>
-      </article>
-    `;
-  }).join("");
-}
+    if (selectedPackage) {
+      sendWhatsApp();
+    } else {
+      setTimeout(closeLogin, 800);
+    }
 
-$("search").addEventListener("input",renderProducts);
-$("category").addEventListener("change",renderProducts);
+  } catch(error) {
+    message.style.color = "red";
+    message.textContent =
+      "লগইন হয়নি। ইমেইল ও পাসওয়ার্ড পরীক্ষা করুন।";
+  }
+};
 
-loadProducts();
+window.registerUser = async function() {
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("message");
+
+  if (!auth) {
+    message.textContent =
+      "আগে Firebase সংযুক্ত করতে হবে।";
+    return;
+  }
+
+  try {
+    await createUserWithEmailAndPassword(
+      auth, email, password
+    );
+
+    message.style.color = "green";
+    message.textContent =
+      "অ্যাকাউন্ট তৈরি হয়েছে!";
+
+    if (selectedPackage) {
+      sendWhatsApp();
+    } else {
+      setTimeout(closeLogin, 800);
+    }
+
+  } catch(error) {
+    message.style.color = "red";
+    message.textContent =
+      "অ্যাকাউন্ট তৈরি হয়নি। তথ্য পরীক্ষা করুন।";
+  }
+};
+
 </script>
 
 </body>
