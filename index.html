@@ -15,40 +15,71 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #ffffff;
+  background: #fff;
   color: #171717;
   padding-bottom: 85px;
 }
 
+/* LOGO */
 header {
-  padding: 20px 16px;
+  padding: 16px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eeeeee;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .logo {
-  font-size: 20px;
-  font-weight: bold;
+  width: 43px;
+  height: 43px;
+  background: linear-gradient(135deg,#171717,#414141);
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
+  border: 2px solid #d4af37;
+  box-shadow: 0 3px 10px #0002;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.brand-sub {
+  font-size: 10px;
+  color: #999;
+  margin-top: 3px;
+  letter-spacing: 1px;
 }
 
 .login-btn {
-  background: #111111;
+  background: #171717;
   color: white;
   border: none;
-  padding: 10px 18px;
-  border-radius: 9px;
+  padding: 11px 19px;
+  border-radius: 10px;
+  font-weight: bold;
   cursor: pointer;
 }
 
+/* HOME */
 .hero {
   text-align: center;
-  padding: 30px 15px 20px;
+  padding: 32px 15px 22px;
 }
 
 .hero h1 {
-  font-size: 27px;
+  font-size: 26px;
   margin-bottom: 10px;
 }
 
@@ -58,32 +89,32 @@ header {
 }
 
 .section-title {
-  margin: 25px 15px 15px;
+  margin: 24px 15px 15px;
   font-size: 21px;
 }
 
 .packages {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2,minmax(0,1fr));
   gap: 13px;
   padding: 0 13px;
 }
 
 .card {
   border: 1px solid #e8e8e8;
-  border-radius: 13px;
+  border-radius: 14px;
   overflow: hidden;
   background: white;
-  box-shadow: 0 2px 9px rgba(0,0,0,0.04);
+  box-shadow: 0 3px 12px #00000008;
 }
 
 .media {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
   background: #f3f3f3;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
@@ -104,7 +135,7 @@ header {
 }
 
 .card h3 {
-  font-size: 15px;
+  font-size: 14px;
   min-height: 36px;
 }
 
@@ -117,12 +148,11 @@ header {
 
 .buy-btn {
   width: 100%;
-  padding: 10px 5px;
+  padding: 11px 5px;
   background: #159447;
+  color: white;
   border: none;
   border-radius: 8px;
-  color: white;
-  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -132,11 +162,12 @@ header {
   cursor: not-allowed;
 }
 
+/* CUSTOMER CARE */
 .customer-btn {
   position: fixed;
   right: 15px;
   bottom: 88px;
-  background: #111;
+  background: #171717;
   color: white;
   border: none;
   padding: 13px 17px;
@@ -154,7 +185,7 @@ header {
   position: fixed;
   right: 15px;
   bottom: 145px;
-  width: 230px;
+  width: 235px;
   background: white;
   border: 1px solid #ddd;
   box-shadow: 0 5px 20px #0002;
@@ -178,10 +209,7 @@ header {
   background: #f5f5f5;
 }
 
-.customer-menu a:hover {
-  background: #eaeaea;
-}
-
+/* BOTTOM NAV */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -209,82 +237,186 @@ header {
   margin-bottom: 3px;
 }
 
+/* PREMIUM LOGIN SCREEN */
 .login-page {
   position: fixed;
   inset: 0;
-  background: white;
+  background: #f7f8fa;
   z-index: 50;
   display: none;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 18px;
+  overflow-y: auto;
 }
 
 .login-box {
   width: 100%;
-  max-width: 360px;
+  max-width: 390px;
+  background: white;
   border: 1px solid #eee;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 5px 20px #0001;
+  border-radius: 22px;
+  padding: 27px 23px;
+  box-shadow: 0 12px 40px #00000012;
+  margin: auto;
+}
+
+/* LOGIN LOGO */
+.login-logo {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 17px;
+  border-radius: 21px;
+  background: linear-gradient(135deg,#171717,#414141);
+  border: 2px solid #d4af37;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+  font-weight: 900;
+  box-shadow: 0 5px 15px #0002;
 }
 
 .login-box h2 {
   text-align: center;
-  margin-bottom: 10px;
+  font-size: 23px;
+  margin-bottom: 8px;
 }
 
-.login-box p {
+.login-subtitle {
   text-align: center;
-  color: #777;
+  color: #888;
   font-size: 13px;
-  margin-bottom: 20px;
+  margin-bottom: 23px;
 }
 
-.login-box input {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  font-size: 15px;
+/* LOGIN TABS */
+.auth-tabs {
+  display: flex;
+  padding: 5px;
+  background: #f2f3f5;
+  border-radius: 11px;
+  gap: 5px;
+  margin-bottom: 22px;
 }
 
-.login-submit {
-  width: 100%;
-  padding: 13px;
+.auth-tabs button {
+  flex: 1;
+  padding: 11px;
   border: none;
-  background: #111;
-  color: white;
+  background: transparent;
+  color: #777;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.register-btn {
+.auth-tabs button.active {
+  background: white;
+  color: #171717;
+  box-shadow: 0 2px 7px #00000010;
+}
+
+/* INPUTS */
+.input-label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.login-box input {
   width: 100%;
-  margin-top: 12px;
-  padding: 11px;
-  background: #f2f2f2;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  outline: none;
+}
+
+.login-box input:focus {
+  border-color: #171717;
+  box-shadow: 0 0 0 3px #1717170d;
+}
+
+/* LOGIN BUTTON */
+.login-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg,#171717,#383838);
+  color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
 }
 
+.login-submit:disabled,
+.google-btn:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+/* GOOGLE BUTTON */
+.google-btn {
+  width: 100%;
+  padding: 13px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+}
+
+.google-icon {
+  font-size: 19px;
+  font-weight: 900;
+  color: #4285F4;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #aaa;
+  font-size: 12px;
+  margin: 19px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
 .close-login {
-  margin-top: 15px;
+  margin-top: 17px;
   width: 100%;
   border: none;
   background: transparent;
-  color: #666;
+  color: #777;
   cursor: pointer;
+  padding: 9px;
 }
 
 #message {
   color: #d33;
   font-size: 13px;
-  margin-top: 12px;
+  margin-top: 13px;
   text-align: center;
+  line-height: 1.5;
 }
 
 footer {
@@ -294,9 +426,9 @@ footer {
   font-size: 12px;
 }
 
-@media (min-width: 700px) {
+@media (min-width:700px) {
   .packages {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
     max-width: 950px;
     margin: auto;
   }
@@ -306,19 +438,33 @@ footer {
 
 <body>
 
+<!-- HEADER -->
 <header id="home">
-  <div class="logo">RIFAT FF PANEL</div>
-  <button class="login-btn" onclick="openLogin()">
+
+  <div class="brand">
+    <div class="logo">RF</div>
+
+    <div>
+      <div class="brand-name">RIFAT FF PANEL</div>
+      <div class="brand-sub">PANEL SELLER</div>
+    </div>
+  </div>
+
+  <button class="login-btn" onclick="openLogin('login')">
     Login
   </button>
+
 </header>
 
+<!-- HOME -->
 <section class="hero">
   <h1>Welcome To Our Store</h1>
   <p>আপনার পছন্দের প্যাকেজটি বেছে নিন</p>
 </section>
 
-<h2 class="section-title" id="packages">Our Packages</h2>
+<h2 class="section-title" id="packages">
+  Our Packages
+</h2>
 
 <div class="packages">
 
@@ -329,11 +475,12 @@ footer {
         <source src="VID_20261031_134530_497.mp4" type="video/mp4">
       </video>
     </div>
+
     <div class="card-info">
       <h3>Tournament Panel</h3>
       <div class="price">৳৩৫০</div>
-      <button class="buy-btn"
-        onclick="buyPackage(1)">
+
+      <button class="buy-btn" onclick="buyPackage(1)">
         BUY NOW
       </button>
     </div>
@@ -346,11 +493,12 @@ footer {
         <source src="lv_0_20261031145929.mp4" type="video/mp4">
       </video>
     </div>
+
     <div class="card-info">
       <h3>BRCS All Body Panel</h3>
       <div class="price">৳৩৫০</div>
-      <button class="buy-btn"
-        onclick="buyPackage(2)">
+
+      <button class="buy-btn" onclick="buyPackage(2)">
         BUY NOW
       </button>
     </div>
@@ -360,9 +508,10 @@ footer {
   <div class="card">
     <div class="media">
       <img src="package3.jpg" alt="Package 3"
-      onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <span class="placeholder" style="display:none">ছবি যোগ করুন</span>
     </div>
+
     <div class="card-info">
       <h3>Package 03</h3>
       <div class="price">দাম যোগ করুন</div>
@@ -374,9 +523,10 @@ footer {
   <div class="card">
     <div class="media">
       <img src="package4.jpg" alt="Package 4"
-      onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <span class="placeholder" style="display:none">ছবি যোগ করুন</span>
     </div>
+
     <div class="card-info">
       <h3>Package 04</h3>
       <div class="price">দাম যোগ করুন</div>
@@ -388,9 +538,10 @@ footer {
   <div class="card">
     <div class="media">
       <img src="package5.jpg" alt="Package 5"
-      onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <span class="placeholder" style="display:none">ছবি যোগ করুন</span>
     </div>
+
     <div class="card-info">
       <h3>Package 05</h3>
       <div class="price">দাম যোগ করুন</div>
@@ -402,9 +553,10 @@ footer {
   <div class="card">
     <div class="media">
       <img src="package6.jpg" alt="Package 6"
-      onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <span class="placeholder" style="display:none">ছবি যোগ করুন</span>
     </div>
+
     <div class="card-info">
       <h3>Package 06</h3>
       <div class="price">দাম যোগ করুন</div>
@@ -414,7 +566,7 @@ footer {
 
 </div>
 
-<!-- CUSTOMER CARE BUTTON -->
+<!-- CUSTOMER CARE -->
 <button class="customer-btn" onclick="toggleCustomer()">
   🎧 Customer Care
 </button>
@@ -422,17 +574,15 @@ footer {
 <div class="customer-menu" id="customerMenu">
   <h3>Customer Care</h3>
 
-  <a href="https://t.me/rifatffpanelSellerBot1"
-     target="_blank">
+  <a href="https://t.me/rifatffpanelSellerBot1" target="_blank">
     ✈ Telegram Group
   </a>
 
-  <a href="https://t.me/rifatffpanelseller6"
-     target="_blank">
+  <a href="https://t.me/rifatffpanelseller6" target="_blank">
     👤 Telegram Personal
   </a>
 
-  <a href="https://wa.me/8801845907321?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE"
+  <a href="https://wa.me/8801845907321?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81"
      target="_blank">
     💬 WhatsApp
   </a>
@@ -440,6 +590,7 @@ footer {
 
 <!-- BOTTOM NAVIGATION -->
 <nav class="bottom-nav">
+
   <a href="#home">
     <span>⌂</span>Home
   </a>
@@ -448,46 +599,89 @@ footer {
     <span>▦</span>Packages
   </a>
 
-  <a href="#" onclick="openLogin(); return false;">
+  <a href="#" onclick="openLogin('login');return false;">
     <span>♙</span>Login
   </a>
 
-  <a href="#" onclick="toggleCustomer(); return false;">
+  <a href="#" onclick="toggleCustomer();return false;">
     <span>🎧</span>Support
   </a>
+
 </nav>
 
-<!-- LOGIN PAGE -->
+<!-- PREMIUM LOGIN / SIGN UP -->
 <div class="login-page" id="loginPage">
+
   <div class="login-box">
 
-    <h2 id="loginTitle">Welcome Back</h2>
-    <p>আপনার অ্যাকাউন্টে লগইন করুন</p>
+    <div class="login-logo">RF</div>
 
-    <input type="email" id="email"
-      placeholder="ইমেইল ঠিকানা">
+    <h2 id="authHeading">Welcome Back!</h2>
 
-    <input type="password" id="password"
-      placeholder="পাসওয়ার্ড">
+    <p class="login-subtitle" id="authSubtitle">
+      আপনার অ্যাকাউন্টে লগইন করুন
+    </p>
+
+    <!-- TWO BUTTONS -->
+    <div class="auth-tabs">
+
+      <button id="loginTab"
+        class="active"
+        onclick="switchAuth('login')">
+        Login
+      </button>
+
+      <button id="signupTab"
+        onclick="switchAuth('signup')">
+        Sign Up
+      </button>
+
+    </div>
+
+    <label class="input-label" for="email">
+      Email Address
+    </label>
+
+    <input type="email"
+      id="email"
+      placeholder="আপনার ইমেইল লিখুন"
+      autocomplete="email">
+
+    <label class="input-label" for="password">
+      Password
+    </label>
+
+    <input type="password"
+      id="password"
+      placeholder="পাসওয়ার্ড লিখুন"
+      autocomplete="current-password">
 
     <button class="login-submit"
-      onclick="loginUser()">
+      id="emailAction"
+      onclick="emailAuth()">
       Login
     </button>
 
-    <button class="register-btn"
-      onclick="registerUser()">
-      নতুন অ্যাকাউন্ট তৈরি করুন
-    </button>
+    <div class="divider">OR CONTINUE WITH</div>
 
-    <button class="close-login"
-      onclick="closeLogin()">
-      বন্ধ করুন
+    <!-- GOOGLE LOGIN -->
+    <button class="google-btn"
+      id="googleAction"
+      onclick="googleLogin()">
+
+      <span class="google-icon">G</span>
+      Continue with Google
+
     </button>
 
     <div id="message"></div>
 
+    <button class="close-login" onclick="closeLogin()">
+      ✕ বন্ধ করুন
+    </button>
+
   </div>
+
 </div>
 
 <footer>
@@ -502,89 +696,166 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getAuth,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-/* FIREBASE CONFIGURATION
-   এখানে নিজের Firebase তথ্য বসাতে হবে।
-*/
+/* FIREBASE CONFIGURATION */
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
+  authDomain: "rifat-ffpanel-seller.firebaseapp.com",
+  projectId: "rifat-ffpanel-seller",
+  storageBucket: "rifat-ffpanel-seller.firebasestorage.app",
+  messagingSenderId: "270050253341",
+  appId: "1:270050253341:web:ca5db10f52d746751444f4"
 };
 
-let auth = null;
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
-  const app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-}
+const googleProvider = new GoogleAuthProvider();
+
+googleProvider.setCustomParameters({
+  prompt: "select_account"
+});
 
 let selectedPackage = null;
+let authMode = "login";
 
 const packages = {
+
   1: {
     name: "Tournament Panel",
-    price: "৩৫০ টাকা",
     message:
       "আসসালামু আলাইকুম।\n\nআমি আপনাদের Tournament Panel প্যাকেজটি কিনতে আগ্রহী।\n\nপ্যাকেজের নাম: Tournament Panel\nপ্যাকেজের মূল্য: ৩৫০ টাকা।\n\nঅনুগ্রহ করে পেমেন্ট করার নিয়ম এবং পরবর্তী কার্যক্রম সম্পর্কে বিস্তারিত জানাবেন।\n\nধন্যবাদ।"
   },
 
   2: {
     name: "BRCS All Body Panel",
-    price: "৩৫০ টাকা",
     message:
       "আসসালামু আলাইকুম।\n\nআমি আপনাদের BRCS All Body Panel প্যাকেজটি কিনতে আগ্রহী।\n\nপ্যাকেজের নাম: BRCS All Body Panel\nপ্যাকেজের মূল্য: ৩৫০ টাকা।\n\nঅনুগ্রহ করে পেমেন্ট করার নিয়ম এবং পরবর্তী কার্যক্রম সম্পর্কে বিস্তারিত জানাবেন।\n\nধন্যবাদ।"
   }
+
 };
 
-window.openLogin = function() {
+/* OPEN LOGIN */
+
+window.openLogin = function(mode = "login") {
+
   document.getElementById("loginPage").style.display = "flex";
+
+  switchAuth(mode);
+
 };
+
+/* CLOSE LOGIN */
 
 window.closeLogin = function() {
+
   document.getElementById("loginPage").style.display = "none";
+
 };
 
+/* SWITCH LOGIN AND SIGNUP */
+
+window.switchAuth = function(mode) {
+
+  authMode = mode;
+
+  const loginTab = document.getElementById("loginTab");
+  const signupTab = document.getElementById("signupTab");
+
+  const heading = document.getElementById("authHeading");
+  const subtitle = document.getElementById("authSubtitle");
+  const action = document.getElementById("emailAction");
+
+  const password = document.getElementById("password");
+
+  document.getElementById("message").textContent = "";
+
+  if (mode === "login") {
+
+    loginTab.classList.add("active");
+    signupTab.classList.remove("active");
+
+    heading.textContent = "Welcome Back!";
+    subtitle.textContent = "আপনার অ্যাকাউন্টে লগইন করুন";
+
+    action.textContent = "Login";
+    password.autocomplete = "current-password";
+
+  } else {
+
+    signupTab.classList.add("active");
+    loginTab.classList.remove("active");
+
+    heading.textContent = "Create Account";
+    subtitle.textContent = "নতুন অ্যাকাউন্ট তৈরি করুন";
+
+    action.textContent = "Sign Up";
+    password.autocomplete = "new-password";
+
+  }
+
+};
+
+/* CUSTOMER CARE */
+
 window.toggleCustomer = function() {
+
   const menu = document.getElementById("customerMenu");
 
   menu.style.display =
     menu.style.display === "block" ? "none" : "block";
+
 };
 
+/* BUY PACKAGE */
+
 window.buyPackage = function(number) {
+
   selectedPackage = number;
 
-  if (!auth || !auth.currentUser) {
-    openLogin();
+  if (!auth.currentUser) {
+
+    openLogin("login");
+
     document.getElementById("message").textContent =
       "প্যাকেজ কিনতে প্রথমে লগইন করুন।";
+
     return;
+
   }
 
   sendWhatsApp();
+
 };
 
+/* WHATSAPP */
+
 function sendWhatsApp() {
+
   if (!selectedPackage) return;
 
   const item = packages[selectedPackage];
+
+  if (!item) return;
 
   const url =
     "https://wa.me/8801845907321?text=" +
     encodeURIComponent(item.message);
 
   window.location.href = url;
+
 }
 
-window.loginUser = async function() {
+/* EMAIL LOGIN / SIGNUP */
+
+window.emailAuth = async function() {
 
   const email =
     document.getElementById("email").value.trim();
@@ -595,71 +866,169 @@ window.loginUser = async function() {
   const message =
     document.getElementById("message");
 
-  if (!auth) {
+  const button =
+    document.getElementById("emailAction");
+
+  if (!email || !password) {
+
     message.textContent =
-      "Firebase এখনো সংযুক্ত করা হয়নি।";
+      "ইমেইল এবং পাসওয়ার্ড লিখুন।";
+
     return;
+
   }
 
+  if (password.length < 6) {
+
+    message.textContent =
+      "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।";
+
+    return;
+
+  }
+
+  button.disabled = true;
+  message.textContent = "অপেক্ষা করুন...";
+
   try {
-    await signInWithEmailAndPassword(
-      auth, email, password
-    );
+
+    if (authMode === "login") {
+
+      await signInWithEmailAndPassword(
+        auth, email, password
+      );
+
+    } else {
+
+      await createUserWithEmailAndPassword(
+        auth, email, password
+      );
+
+    }
 
     message.style.color = "green";
-    message.textContent = "লগইন সফল হয়েছে!";
+    message.textContent =
+      "সফল হয়েছে!";
 
     if (selectedPackage) {
+
       sendWhatsApp();
+
     } else {
+
       setTimeout(closeLogin, 800);
+
     }
 
   } catch(error) {
+
     message.style.color = "red";
+
+    const errors = {
+      "auth/invalid-credential":
+        "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।",
+
+      "auth/email-already-in-use":
+        "এই ইমেইল দিয়ে আগে থেকেই অ্যাকাউন্ট আছে।",
+
+      "auth/invalid-email":
+        "সঠিক ইমেইল ঠিকানা লিখুন।",
+
+      "auth/weak-password":
+        "আরও শক্তিশালী পাসওয়ার্ড দিন।",
+
+      "auth/network-request-failed":
+        "ইন্টারনেট সংযোগ পরীক্ষা করুন।"
+    };
+
     message.textContent =
-      "লগইন হয়নি। ইমেইল ও পাসওয়ার্ড পরীক্ষা করুন।";
+      errors[error.code] ||
+      "সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+
+  } finally {
+
+    button.disabled = false;
+
   }
+
 };
 
-window.registerUser = async function() {
+/* GOOGLE LOGIN */
 
-  const email =
-    document.getElementById("email").value.trim();
+window.googleLogin = async function() {
 
-  const password =
-    document.getElementById("password").value;
+  const button =
+    document.getElementById("googleAction");
 
   const message =
     document.getElementById("message");
 
-  if (!auth) {
-    message.textContent =
-      "আগে Firebase সংযুক্ত করতে হবে।";
-    return;
-  }
+  button.disabled = true;
+
+  message.style.color = "#555";
+  message.textContent =
+    "Google Login চালু হচ্ছে...";
 
   try {
-    await createUserWithEmailAndPassword(
-      auth, email, password
-    );
-
-    message.style.color = "green";
-    message.textContent =
-      "অ্যাকাউন্ট তৈরি হয়েছে!";
 
     if (selectedPackage) {
-      sendWhatsApp();
-    } else {
-      setTimeout(closeLogin, 800);
+      sessionStorage.setItem(
+        "pendingPackage",
+        String(selectedPackage)
+      );
     }
 
+    await signInWithRedirect(auth, googleProvider);
+
   } catch(error) {
+
+    button.disabled = false;
+
+    sessionStorage.removeItem("pendingPackage");
+
     message.style.color = "red";
     message.textContent =
-      "অ্যাকাউন্ট তৈরি হয়নি। তথ্য পরীক্ষা করুন।";
+      "Google Login শুরু করা যায়নি। আবার চেষ্টা করুন।";
+
   }
+
 };
+
+/* GOOGLE REDIRECT RESULT */
+
+try {
+
+  const result = await getRedirectResult(auth);
+
+  if (result && result.user) {
+
+    const savedPackage =
+      sessionStorage.getItem("pendingPackage");
+
+    sessionStorage.removeItem("pendingPackage");
+
+    if (savedPackage) {
+
+      selectedPackage = Number(savedPackage);
+
+      if (packages[selectedPackage]) {
+        sendWhatsApp();
+      }
+
+    }
+
+  }
+
+} catch(error) {
+
+  sessionStorage.removeItem("pendingPackage");
+
+  console.error("Google Login Error:", error);
+
+  document.getElementById("message").textContent =
+    "Google Login সম্পন্ন হয়নি। আবার চেষ্টা করুন।";
+
+}
 
 </script>
 
