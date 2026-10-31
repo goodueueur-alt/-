@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -26,9 +27,7 @@
       text-align: center;
     }
 
-    header h1 {
-      font-size: 22px;
-    }
+    header h1 { font-size: 22px; }
 
     header p {
       font-size: 12px;
@@ -43,6 +42,13 @@
       margin-top: 13px;
     }
 
+    .top-actions button {
+      background: #facc15;
+      color: #111;
+    }
+
+    .top-actions button.active { background: white; }
+
     button {
       border: none;
       cursor: pointer;
@@ -52,28 +58,14 @@
       font-weight: bold;
     }
 
-    .top-actions button {
-      background: #facc15;
-      color: #111;
-    }
-
-    .top-actions button.active {
-      background: white;
-    }
-
     main {
       max-width: 850px;
       margin: auto;
       padding: 15px;
     }
 
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
+    .page { display: none; }
+    .page.active { display: block; }
 
     .welcome {
       background: white;
@@ -106,10 +98,7 @@
       box-shadow: 0 3px 12px #00000012;
     }
 
-    /* প্রথম দুটি ভিডিও পুরো প্রস্থে থাকবে */
-    .video-card {
-      width: 100%;
-    }
+    .video-card { width: 100%; }
 
     .video-card video {
       width: 100%;
@@ -118,9 +107,7 @@
       max-height: 520px;
     }
 
-    .package-info {
-      padding: 14px;
-    }
+    .package-info { padding: 14px; }
 
     .package-info h3 {
       font-size: 18px;
@@ -146,16 +133,13 @@
       cursor: not-allowed;
     }
 
-    /* ছবি প্যাকেজ ৩-৬ */
     .image-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
 
-    .package-card {
-      margin-bottom: 0;
-    }
+    .package-card { margin-bottom: 0; }
 
     .package-card img {
       width: 100%;
@@ -165,17 +149,9 @@
       background: #e5e7eb;
     }
 
-    .package-card .package-info {
-      padding: 11px;
-    }
-
-    .package-card .package-info h3 {
-      font-size: 15px;
-    }
-
-    .package-card .price {
-      font-size: 14px;
-    }
+    .package-card .package-info { padding: 11px; }
+    .package-card .package-info h3 { font-size: 15px; }
+    .package-card .price { font-size: 14px; }
 
     .auth-card,
     .account-card {
@@ -201,9 +177,7 @@
       outline: none;
     }
 
-    .auth-card input:focus {
-      border-color: #2563eb;
-    }
+    .auth-card input:focus { border-color: #2563eb; }
 
     .auth-submit {
       width: 100%;
@@ -257,9 +231,7 @@
       color: white;
     }
 
-    .logout-btn {
-      background: #dc2626;
-    }
+    .logout-btn { background: #dc2626; }
 
     .support-content {
       background: white;
@@ -278,7 +250,6 @@
       margin-top: 12px;
     }
 
-    /* নিচের নেভিগেশন */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -303,15 +274,10 @@
       gap: 4px;
     }
 
-    .bottom-nav button.active {
-      color: #2563eb;
-    }
+    .bottom-nav button.active { color: #2563eb; }
+    .bottom-nav span { font-size: 19px; }
 
-    .bottom-nav span {
-      font-size: 19px;
-    }
-
-    /* গোল Customer Care বাটন */
+    /* Customer Care */
     .chat-area {
       position: fixed;
       right: 17px;
@@ -343,26 +309,29 @@
       bottom: 65px;
       right: 0;
       background: white;
-      padding: 9px;
-      border-radius: 12px;
+      padding: 10px;
+      border-radius: 14px;
       box-shadow: 0 3px 15px #00000025;
-      gap: 8px;
+      gap: 10px;
+      align-items: center;
     }
 
-    .chat-menu.show {
-      display: flex;
-    }
+    .chat-menu.show { display: flex; }
 
     .chat-menu a {
-      width: 43px;
-      height: 43px;
+      width: 46px;
+      height: 46px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
       background: #f3f4f6;
       text-decoration: none;
-      font-size: 22px;
+    }
+
+    .chat-menu svg {
+      width: 27px;
+      height: 27px;
     }
 
     .message {
@@ -374,17 +343,9 @@
     }
 
     @media (max-width: 400px) {
-      .image-grid {
-        gap: 9px;
-      }
-
-      .package-card img {
-        height: 125px;
-      }
-
-      .package-card .package-info {
-        padding: 9px;
-      }
+      .image-grid { gap: 9px; }
+      .package-card img { height: 125px; }
+      .package-card .package-info { padding: 9px; }
     }
   </style>
 </head>
@@ -395,7 +356,8 @@
   <h1>Rifat FF Panel Seller</h1>
   <p>Welcome to our official website</p>
 
-  <div class="top-actions">
+  <!-- লগইন করা থাকলে এই অপশন দুটি লুকানো থাকবে -->
+  <div class="top-actions" id="topActions">
     <button id="loginTab" class="active" onclick="showAuth('login')">
       Login
     </button>
@@ -419,7 +381,7 @@
     <!-- প্রথম ভিডিও প্যাকেজ -->
     <div class="video-card">
       <video controls playsinline preload="metadata">
-        <!-- এখানে প্রথম ভিডিওর ফাইলের নাম পরিবর্তন করতে পারেন -->
+        <!-- এখানে প্রথম ভিডিওর ফাইলের নাম পরিবর্তন করবেন -->
         <source src="VID_20261031_134530_497.mp4" type="video/mp4">
         Your browser does not support video.
       </video>
@@ -434,7 +396,7 @@
     <!-- দ্বিতীয় ভিডিও প্যাকেজ -->
     <div class="video-card">
       <video controls playsinline preload="metadata">
-        <!-- এখানে দ্বিতীয় ভিডিওর ফাইলের নাম পরিবর্তন করতে পারেন -->
+        <!-- এখানে দ্বিতীয় ভিডিওর ফাইলের নাম পরিবর্তন করবেন -->
         <source src="lv_0_20261031135231.mp4" type="video/mp4">
         Your browser does not support video.
       </video>
@@ -451,7 +413,7 @@
     <div class="image-grid">
 
       <div class="package-card">
-        <!-- এখানে আপনার প্যাকেজের ছবির কোড বসান: package3.jpg -->
+        <!-- এখানে আপনার ছবির ফাইলের নাম বসান -->
         <img src="package3.jpg" alt="Package 03">
         <div class="package-info">
           <h3>Package 03</h3>
@@ -461,7 +423,7 @@
       </div>
 
       <div class="package-card">
-        <!-- এখানে আপনার প্যাকেজের ছবির কোড বসান: package4.jpg -->
+        <!-- এখানে আপনার ছবির ফাইলের নাম বসান -->
         <img src="package4.jpg" alt="Package 04">
         <div class="package-info">
           <h3>Package 04</h3>
@@ -471,7 +433,7 @@
       </div>
 
       <div class="package-card">
-        <!-- এখানে আপনার প্যাকেজের ছবির কোড বসান: package5.jpg -->
+        <!-- এখানে আপনার ছবির ফাইলের নাম বসান -->
         <img src="package5.jpg" alt="Package 05">
         <div class="package-info">
           <h3>Package 05</h3>
@@ -481,7 +443,7 @@
       </div>
 
       <div class="package-card">
-        <!-- এখানে আপনার প্যাকেজের ছবির কোড বসান: package6.jpg -->
+        <!-- এখানে আপনার ছবির ফাইলের নাম বসান -->
         <img src="package6.jpg" alt="Package 06">
         <div class="package-info">
           <h3>Package 06</h3>
@@ -510,7 +472,6 @@
       <h2 id="authTitle">Login to Your Account</h2>
 
       <form id="authForm">
-
         <input
           type="email"
           id="email"
@@ -527,7 +488,7 @@
             autocomplete="tel"
           >
           <p class="small-note">
-            Phone number is saved in your Firebase profile.
+            Phone number is shown in your account profile.
           </p>
         </div>
 
@@ -551,7 +512,6 @@
         <button type="submit" class="auth-submit" id="authSubmit">
           Login
         </button>
-
       </form>
 
       <button class="google-btn" onclick="googleLogin()">
@@ -650,18 +610,41 @@
   </button>
 </nav>
 
-<!-- ROUND CUSTOMER CARE CHAT BUTTON -->
+<!-- CUSTOMER CARE HEADPHONE BUTTON -->
 <div class="chat-area">
 
   <div class="chat-menu" id="chatMenu">
+
+    <!-- Telegram Group: Telegram logo -->
     <a href="https://t.me/rifatffpanelSellerBot1"
-       target="_blank" title="Telegram Group">✈️</a>
+       target="_blank" title="Telegram Group">
+      <svg viewBox="0 0 24 24" aria-label="Telegram">
+        <circle cx="12" cy="12" r="12" fill="#229ED9"/>
+        <path d="M18.8 6.8 16.6 17c-.16.72-.59.9-1.2.56l-3.32-2.45-1.6 1.54c-.18.18-.33.33-.68.33l.24-3.38 6.15-5.56c.27-.24-.06-.37-.42-.13l-7.6 4.79-3.28-1.03c-.71-.22-.73-.71.15-1.06l12.82-4.94c.59-.22 1.1.14.91 1.13Z"
+          fill="white"/>
+      </svg>
+    </a>
 
+    <!-- Telegram Personal: Telegram logo -->
     <a href="https://t.me/rifatffpanelseller6"
-       target="_blank" title="Telegram Personal">👤</a>
+       target="_blank" title="Telegram Personal">
+      <svg viewBox="0 0 24 24" aria-label="Telegram">
+        <circle cx="12" cy="12" r="12" fill="#229ED9"/>
+        <path d="M18.8 6.8 16.6 17c-.16.72-.59.9-1.2.56l-3.32-2.45-1.6 1.54c-.18.18-.33.33-.68.33l.24-3.38 6.15-5.56c.27-.24-.06-.37-.42-.13l-7.6 4.79-3.28-1.03c-.71-.22-.73-.71.15-1.06l12.82-4.94c.59-.22 1.1.14.91 1.13Z"
+          fill="white"/>
+      </svg>
+    </a>
 
+    <!-- WhatsApp: WhatsApp logo -->
     <a href="https://wa.me/8801845907321"
-       target="_blank" title="WhatsApp">💬</a>
+       target="_blank" title="WhatsApp">
+      <svg viewBox="0 0 24 24" aria-label="WhatsApp">
+        <circle cx="12" cy="12" r="12" fill="#25D366"/>
+        <path d="M12 4.2a7.55 7.55 0 0 0-6.48 11.43L4.5 19.5l3.98-1.04A7.55 7.55 0 1 0 12 4.2Zm0 13.7a6.1 6.1 0 0 1-3.1-.85l-.22-.13-2.36.62.63-2.3-.15-.24A6.12 6.12 0 1 1 12 17.9Zm3.36-4.58c-.18-.09-1.08-.53-1.25-.59-.17-.06-.29-.09-.41.09-.12.18-.47.59-.58.71-.11.12-.21.14-.39.05-.18-.09-.77-.28-1.46-.9-.54-.48-.9-1.08-1.01-1.26-.1-.18-.01-.27.08-.36.08-.08.18-.21.27-.31.09-.1.12-.18.18-.3.06-.12.03-.23-.02-.32-.05-.09-.41-.99-.57-1.35-.15-.36-.3-.31-.41-.32h-.35c-.12 0-.32.05-.49.23-.17.18-.64.62-.64 1.52s.66 1.76.75 1.88c.09.12 1.3 1.99 3.15 2.79.44.19.78.31 1.05.39.44.14.84.12 1.16.07.35-.05 1.08-.44 1.23-.87.15-.43.15-.8.11-.87-.05-.08-.17-.12-.35-.21Z"
+          fill="white"/>
+      </svg>
+    </a>
+
   </div>
 
   <button class="chat-button" onclick="toggleChat()" title="Customer Care">
@@ -674,7 +657,6 @@
       <path d="M17 19c-1 2-3 2-5 2"/>
     </svg>
   </button>
-
 </div>
 
 <script type="module">
@@ -687,6 +669,7 @@
     signInWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithRedirect,
+    getRedirectResult,
     sendEmailVerification,
     signOut,
     onAuthStateChanged,
@@ -694,7 +677,7 @@
   } from
     "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  // আপনার Firebase configuration
+  // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyBDeo6Z7Xl2qqR-PbNFVp-wTbSiNFScBT8",
     authDomain: "rifat-ffpanel-seller.firebaseapp.com",
@@ -710,7 +693,6 @@
 
   let authMode = "login";
   let selectedPackage = null;
-  let currentUser = null;
 
   const packages = [
     { name: "Tournament Panel", price: "৳350" },
@@ -721,6 +703,13 @@
     { name: "Package 06", price: "দাম যোগ করুন" }
   ];
 
+  // Login/Signup button visibility
+  function updateHeader(user) {
+    document.getElementById("topActions").style.display =
+      user ? "none" : "flex";
+  }
+
+  // Page navigation
   window.showPage = function(page) {
     document.querySelectorAll(".page").forEach(p => {
       p.classList.remove("active");
@@ -733,17 +722,22 @@
     const pageElement = document.getElementById(page + "Page");
     if (pageElement) pageElement.classList.add("active");
 
-    const nav = document.getElementById("nav" +
-      page.charAt(0).toUpperCase() + page.slice(1));
+    const nav = document.getElementById(
+      "nav" + page.charAt(0).toUpperCase() + page.slice(1)
+    );
 
     if (nav) nav.classList.add("active");
 
-    if (page === "account") {
-      updateAccount();
-    }
+    if (page === "account") updateAccount();
   };
 
+  // Login / Signup view
   window.showAuth = function(mode) {
+    if (auth.currentUser) {
+      showPage("account");
+      return;
+    }
+
     authMode = mode;
 
     document.querySelectorAll(".page").forEach(p => {
@@ -782,17 +776,9 @@
 
     document.getElementById("authMessage").textContent = "";
 
-    document.getElementById("loginTab").classList.toggle(
-      "active", mode === "login"
-    );
-    document.getElementById("signupTab").classList.toggle(
-      "active", mode === "signup"
-    );
-
-    document.getElementById("navHome").classList.remove("active");
-    document.getElementById("navPackages").classList.remove("active");
-    document.getElementById("navAccount").classList.remove("active");
-    document.getElementById("navSupport").classList.remove("active");
+    document.querySelectorAll(".bottom-nav button").forEach(b => {
+      b.classList.remove("active");
+    });
   };
 
   document.getElementById("switchText").addEventListener("click", e => {
@@ -800,6 +786,7 @@
     if (e.target.id === "switchLogin") showAuth("login");
   });
 
+  // Login and Signup form
   document.getElementById("authForm").addEventListener("submit", async e => {
     e.preventDefault();
 
@@ -839,24 +826,28 @@
 
         message.style.color = "green";
         message.textContent =
-          "Account created. Please check your email for verification.";
+          "Account created. Verification email sent.";
 
         if (selectedPackage !== null) {
-          setTimeout(() => openWhatsApp(selectedPackage), 1200);
+          const packageIndex = selectedPackage;
+          selectedPackage = null;
+          setTimeout(() => openWhatsApp(packageIndex), 1000);
+        } else {
+          setTimeout(() => showPage("home"), 1000);
         }
 
       } else {
-        const result = await signInWithEmailAndPassword(
-          auth, email, password
-        );
+        await signInWithEmailAndPassword(auth, email, password);
 
         message.style.color = "green";
         message.textContent = "Login successful.";
 
         if (selectedPackage !== null) {
-          setTimeout(() => openWhatsApp(selectedPackage), 700);
+          const packageIndex = selectedPackage;
+          selectedPackage = null;
+          setTimeout(() => openWhatsApp(packageIndex), 700);
         } else {
-          setTimeout(() => showPage("account"), 700);
+          setTimeout(() => showPage("home"), 700);
         }
       }
 
@@ -868,6 +859,7 @@
     }
   });
 
+  // Google login
   window.googleLogin = async function() {
     try {
       await signInWithRedirect(auth, googleProvider);
@@ -877,6 +869,15 @@
     }
   };
 
+  // Check Google redirect result
+  try {
+    await getRedirectResult(auth);
+  } catch (error) {
+    document.getElementById("authMessage").textContent =
+      error.message;
+  }
+
+  // Buy package
   window.buyPackage = function(index) {
     if (index > 1) return;
 
@@ -889,9 +890,11 @@
       return;
     }
 
+    selectedPackage = null;
     openWhatsApp(index);
   };
 
+  // WhatsApp order message
   function openWhatsApp(index) {
     const item = packages[index];
 
@@ -916,10 +919,9 @@ Customer Support`;
       encodeURIComponent(message);
 
     window.open(url, "_blank");
-
-    selectedPackage = null;
   }
 
+  // Email verification
   window.sendVerification = async function() {
     const message = document.getElementById("accountMessage");
 
@@ -938,6 +940,7 @@ Customer Support`;
     }
   };
 
+  // Logout
   window.logout = async function() {
     try {
       await signOut(auth);
@@ -948,6 +951,7 @@ Customer Support`;
     }
   };
 
+  // Account details
   function updateAccount() {
     const user = auth.currentUser;
 
@@ -977,14 +981,24 @@ Customer Support`;
       user.metadata.creationTime || "-";
   }
 
+  // Firebase login state
+  // Firebase browser session-এ login অবস্থা ধরে রাখে
   onAuthStateChanged(auth, user => {
-    currentUser = user;
+    updateHeader(user);
 
     if (user) {
       updateAccount();
+
+      // Login থাকলে Home page দেখাবে
+      if (document.getElementById("authPage").classList.contains("active")) {
+        showPage("home");
+      }
+    } else {
+      document.getElementById("topActions").style.display = "flex";
     }
   });
 
+  // Customer care menu
   window.toggleChat = function() {
     document.getElementById("chatMenu").classList.toggle("show");
   };
